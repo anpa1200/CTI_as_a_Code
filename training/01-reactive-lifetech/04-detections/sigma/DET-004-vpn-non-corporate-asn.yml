@@ -1,0 +1,42 @@
+title: VPN Authentication from Non-Corporate ASN
+id: d6e24f50-7182-9012-defa-123456789012
+status: experimental
+description: |
+  Detects VPN authentication from an IP address whose ASN does not match the
+  organization's known corporate office ASNs. Requires ASN enrichment field
+  populated via MaxMind GeoIP in Elastic ingest pipeline.
+  Based on AiTM credential theft pattern (LifeTech Pharma incident, Nov 2024).
+  Covers T1133 (External Remote Services) and T1557 (AiTM).
+author: LifeTech Pharma CTI
+date: 2024-11-20
+tags:
+  - attack.initial_access
+  - attack.t1133
+  - attack.credential_access
+  - attack.t1557
+logsource:
+  category: firewall
+  product: palo_alto_globalprotect
+detection:
+  selection:
+    event_type: globalprotect
+    status: success
+  filter_known_asn:
+    source_asn:
+      - 'AS[corporate_office_ASN_1]'    # Replace with org ASN list
+      - 'AS[corporate_office_ASN_2]'
+  condition: selection and not filter_known_asn
+falsepositives:
+  - Employees working from hotels, ISPs, or mobile data — high FP without additional context
+  - Tuning: combine with off-hours time condition to reduce FP significantly
+level: medium
+fields:
+  - user
+  - source_ip
+  - source_asn
+  - source_country
+  - timestamp
+# EMULATION NOTE:
+# Test: VPN auth from documentation IP range (198.51.100.0/24) simulating foreign source
+# Expected result: PARTIAL — rule logic correct; requires MaxMind enrichment pipeline setup
+# Known issues: High FP rate without off-hours + country filter combination

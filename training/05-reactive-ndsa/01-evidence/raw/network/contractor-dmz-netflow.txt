@@ -1,0 +1,33 @@
+# NDSA Contractor DMZ — NetFlow Summary (2025-03-12 to 2025-03-15)
+# Format: start_time | src_ip | src_port | dst_ip | dst_port | protocol | bytes | packets | flags | rule_note
+# 10.200.2.0/24 = Contractor DMZ
+# 10.100.0.0/16 = GOVNET Operational Segment
+# 10.50.0.0/16  = GOVNET Classified Segment (data diode boundary at 10.50.254.1)
+# Boundary: 10.200.2.0/24 -> 10.100.0.0/16 requires explicit ACL permit; any new flow is anomalous
+
+# --- 2025-03-12 (First off-hours session from NL) ---
+2025-03-12T01:51:08Z | 10.200.2.50 | 49012 | 10.100.5.22 | 22 | TCP | 4840 | 12 | SYN,ACK | ANOMALOUS: DMZ->GOVNET OPS SSH; GOV-DET-002_CANDIDATE
+2025-03-12T01:51:22Z | 10.200.2.50 | 49014 | 10.100.5.22 | 22 | TCP | 1240 | 8 | RST | failed_auth_root
+2025-03-12T01:51:44Z | 10.200.2.50 | 49018 | 10.100.5.22 | 22 | TCP | 1240 | 8 | RST | failed_auth_admin
+2025-03-12T01:52:11Z | 10.200.2.50 | 49022 | 10.100.5.22 | 22 | TCP | 284800 | 312 | ESTABLISHED | svc-govid-deploy_ssh_session_41min
+2025-03-12T02:00:14Z | 10.200.2.50 | 49040 | 10.100.5.24 | 5432 | TCP | 18240 | 48 | ESTABLISHED | postgresql_govid_db; normal_maintenance_queries
+2025-03-12T02:38:01Z | 10.200.2.50 | 49022 | 10.100.5.22 | 22 | TCP | 284800 | 312 | FIN | session_end
+
+# --- 2025-03-13 (Daytime session — normal) ---
+2025-03-13T09:02:11Z | 10.200.2.50 | 50100 | 10.100.5.22 | 22 | TCP | 204800 | 244 | ESTABLISHED | normal_daytime_session
+2025-03-13T09:14:01Z | 10.200.2.50 | 50110 | 10.100.5.24 | 5432 | TCP | 24480 | 56 | ESTABLISHED | postgresql_query_normal
+
+# --- 2025-03-14 (Third anomalous session + active exfiltration) ---
+2025-03-14T22:04:18Z | 10.200.2.50 | 51200 | 10.100.5.22 | 22 | TCP | 12800 | 28 | ESTABLISHED | ANOMALOUS: off-hours NL-source
+2025-03-14T22:05:12Z | 10.200.2.50 | 51212 | 198.51.100.77 | 443 | TCP | 2048 | 18 | ESTABLISHED | EXTERNAL: GOVNET->external via NAT; wget download from C2
+2025-03-14T22:11:03Z | 10.200.2.50 | 51220 | 10.100.5.25 | 5432 | TCP | 48000000 | 52480 | ESTABLISHED | GOV-DET-005_FIRED: VRID-SRV-01 full-table query; 9.5M rows; 48MB transfer
+2025-03-14T22:12:44Z | 10.200.2.50 | 51230 | 198.51.100.77 | 443 | TCP | 51200000 | 54280 | ESTABLISHED | EXFILTRATION: 48.8MB to C2 IP; BITS/HTTPS exfil pattern
+2025-03-14T22:14:01Z | 10.200.2.50 | 51232 | 10.50.254.1 | 443 | TCP | 1024 | 4 | RST | BLOCKED: attempt to reach classified segment boundary; ACL deny
+2025-03-14T22:47:03Z | 10.200.2.50 | 51200 | 10.100.5.22 | 22 | TCP | 0 | 0 | FIN | session_terminated_by_NDSA_SOC_at_22:47
+
+# --- SUMMARY ---
+# Total bytes to 198.51.100.77 (external C2): ~51.2 MB (2025-03-14 session only)
+# Confirmed exfiltration: biometric query results (~9.5M citizen records, CSV format)
+# Estimated record count: 9,500,000 (full citizens table + biometric enrollment join)
+# Classified segment access attempt: BLOCKED at data diode boundary (10.50.254.1)
+# Session terminated by SOC at 2025-03-14T22:47:03Z (35 minutes after first alert)

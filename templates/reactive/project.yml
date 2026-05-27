@@ -1,0 +1,48 @@
+---
+# CTI as Code — Reactive Investigation Project Metadata
+# Fill in all fields before starting. Keep updated as investigation progresses.
+
+project:
+  id: ""                          # e.g. PROJ-2026-001
+  name: ""                        # Human-readable short title
+  type: reactive                  # reactive | proactive | full-cycle | emulation
+  classification: TLP:AMBER       # TLP:WHITE | TLP:GREEN | TLP:AMBER | TLP:RED
+  status: in-progress             # scoping | in-progress | review | closed
+
+analyst:
+  name: ""
+  role: ""                        # e.g. Senior CTI Analyst
+  contact: ""
+
+timeline:
+  incident_date: ""               # YYYY-MM-DD or range
+  detection_date: ""
+  investigation_start: ""
+  report_due: ""
+
+pirs:
+  # Priority Intelligence Requirements — what must this investigation answer?
+  - id: PIR-001
+    question: ""
+    priority: high                # high | medium | low
+    status: open                  # open | answered | deferred
+  - id: PIR-002
+    question: ""
+    priority: high
+    status: open
+
+scope:
+  systems: []                     # Affected hosts, networks, services
+  threat_actor: unknown           # or assessed cluster name
+  attck_techniques: []            # e.g. [T1566.001, T1059.001]
+
+deliverables:
+  - type: executive-brief
+    status: pending
+  - type: soc-handoff
+    status: pending
+  - type: sigma-rules
+    count: 0
+    status: pending
+
+notes: ""

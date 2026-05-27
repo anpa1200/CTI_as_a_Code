@@ -1,0 +1,41 @@
+title: Lateral Movement from Contractor DMZ to GOVNET Operational Segment
+id: gov-det-002-lateral-movement-dmz
+status: production
+description: |
+  Detects network connections from the Contractor DMZ (10.200.2.0/24) to the GOVNET
+  Operational Segment (10.100.0.0/16). Any such connection is anomalous — contractors
+  should only connect to designated services via the jump host, not directly to GOVNET OPS.
+  Known issue: 30-minute correlation delay due to NetFlow collection interval.
+author: NDSA Detection Engineering
+date: 2024-09-01
+tags:
+  - attack.lateral_movement
+  - attack.t1021.001
+  - attack.t1021.022
+logsource:
+  category: network_flow
+  product: ndsa_netflow
+detection:
+  selection:
+    source.ip|cidr: '10.200.2.0/24'
+    destination.ip|cidr: '10.100.0.0/16'
+  filter_authorized_services:
+    # Only JUMPHOST jump path via PAM is authorized
+    destination.port: [22]
+    destination.ip: '10.100.5.22'  # JUMPHOST target in GOVNET OPS
+  condition: selection and not filter_authorized_services
+falsepositives:
+  - Emergency maintenance if change request approved
+  - New service deployments before ACL is updated (open ticket required)
+level: high
+fields:
+  - source.ip
+  - source.port
+  - destination.ip
+  - destination.port
+  - network.bytes
+# KNOWN ISSUE: 30-minute correlation delay in NetFlow collection
+# The delay means an adversary with a 4-hour dwell time in the DMZ will have moved
+# laterally for 30 minutes before this alert fires.
+# REMEDIATION: Reduce NetFlow collection interval to 5 minutes for DMZ->GOVNET flows
+# EMULATION TARGET: Test SSH from simulated DMZ host to simulated GOVNET OPS host

@@ -1,0 +1,37 @@
+title: [Detection Name — what behavior this detects]
+id: [generate UUID or use project-specific ID format, e.g. proj-det-001]
+status: draft          # draft | test | production
+description: |
+  [Describe what this rule detects, why it matters in context of this incident,
+  and which ATT&CK technique it covers.]
+  Covers [T1XXX.XXX] ([Technique Name]).
+author: [Analyst name]
+date: YYYY-MM-DD
+tags:
+  - attack.[tactic]           # e.g. attack.initial_access
+  - attack.tXXXX.XXX          # e.g. attack.t1059.001
+logsource:
+  category: [process_creation | network_connection | registry_set | file_event | etc.]
+  product: [windows | linux | web | etc.]
+  service: [optional — sysmon | security | etc.]
+detection:
+  selection:
+    [field]: [value]
+    [field|contains]: [value]
+    [field|endswith]: [value]
+  filter_legitimate:
+    [field|contains]:
+      - [known-legitimate-value]
+  condition: selection and not filter_legitimate
+falsepositives:
+  - [Known benign activity that could trigger this rule]
+  - [Legitimate admin tool usage]
+level: [informational | low | medium | high | critical]
+fields:
+  - [field1]
+  - [field2]
+  - [field3]
+# EMULATION NOTE:
+# Test command: [Atomic Red Team test or manual command]
+# Expected result: PASS | PARTIAL | FAIL
+# Known issues: [Any gaps or caveats discovered during emulation]

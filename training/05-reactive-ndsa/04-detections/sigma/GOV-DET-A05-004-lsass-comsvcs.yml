@@ -1,0 +1,40 @@
+title: LSASS Memory Dump via comsvcs.dll — Government Hosts
+id: a05-gov-det-004-lsass-comsvcs-gov
+status: production
+description: |
+  Detects LSASS memory dump via rundll32 + comsvcs.dll MiniDump method.
+  Confirmed in March 2025 NDSA breach: attacker attempted LSASS dump on VRID-SRV-01
+  (dump corrupted by process protection — confirming the technique was attempted).
+  Deploy on all government Windows hosts. Note Veeam FP filter requirement.
+  Covers T1003.001 (OS Credential Dumping: LSASS Memory).
+author: NDSA Detection Engineering
+date: 2025-03-21
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains|all:
+      - 'comsvcs.dll'
+      - 'MiniDump'
+  filter_veeam:
+    User: 'svc-veeam'     # Veeam backup generates this pattern — filter until proper fix
+  condition: selection and not filter_veeam
+falsepositives:
+  - Veeam backup (see filter above — proper fix: configure Veeam to use separate process)
+  - Legitimate crash dump collection — rare; suppress by known crash reporter ParentImage
+level: critical
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - host.name
+# EMULATION NOTE:
+# Test: rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump 648 C:\temp\lsass_test.dmp full
+# Expected result: PASS — fires within 20s; confirmed in A08 emulation on GOVNET-WS-01
+# Known issue: Veeam FP until backup job reconfigured (GOV-DET-010 issue carries forward)

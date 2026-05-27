@@ -1,0 +1,44 @@
+title: Contractor VPN — Off-Hours Logon
+id: gov-det-001-contractor-vpn-offhours
+status: production
+description: |
+  Detects contractor VPN authentication outside normal working hours (Sunday–Thursday 07:00–19:00 IST).
+  Known issue: high false positive rate on evening shifts and contractors in different
+  time zones. Active suppression was applied 2025-02-01 which caused the March 2025 incident
+  alert to be missed for 4 days. Rule needs refinement.
+author: NDSA Detection Engineering
+date: 2024-09-01
+modified: 2025-02-01
+tags:
+  - attack.initial_access
+  - attack.t1133
+logsource:
+  category: authentication
+  product: pam_vpn
+  service: ndsa-pam-gateway
+detection:
+  selection:
+    event.category: session
+    event.outcome: success
+    service.name: NDSA-PAM-VPN
+    labels.contractor: '*'
+  filter_business_hours:
+    # Business hours: Sun-Thu 07:00-19:00 IST (UTC+3 = 04:00-16:00 UTC)
+    '@timestamp'|timeframe: '04:00-16:00'
+    'event.day_of_week': [0, 1, 2, 3, 4]  # Sunday=0 (Israeli work week)
+  condition: selection and not filter_business_hours
+falsepositives:
+  - Contractors working evening shifts or from different time zones
+  - Emergency maintenance windows approved by NDSA change manager
+  - Israeli holiday schedules (holidays are "off-hours" for business but legitimate)
+level: medium
+fields:
+  - user.name
+  - source.ip
+  - source.geo.country_iso_code
+  - labels.contractor
+# KNOWN ISSUE: High FP rate led to suppression of alerts 2025-02-01
+# This suppression caused the March 2025 breach detection to be missed for 4 days
+# REMEDIATION REQUIRED: Add source country anomaly condition (alert when country != baseline)
+# EMULATION TARGET: Test with off-hours VPN connection from lab
+# EXPECTED: Should fire; verify 30-minute alert suppression window not still active

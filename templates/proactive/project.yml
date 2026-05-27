@@ -1,0 +1,62 @@
+---
+# CTI as Code — Proactive Intelligence Project Metadata
+
+project:
+  id: ""
+  name: ""
+  type: proactive
+  classification: TLP:AMBER
+  status: in-progress             # scoping | in-progress | review | closed
+
+analyst:
+  name: ""
+  role: ""
+  contact: ""
+
+timeline:
+  trigger_received: ""            # Date trigger intelligence was received
+  analysis_start: ""
+  report_due: ""
+  72h_plan_deadline: ""           # Immediate actions due date
+
+triggers:
+  - id: TRG-001
+    source: ""
+    type: ""                      # advisory | incident-report | osint | peer-intel | internal
+    classification: ""
+    admiralty_source: ""          # A-F
+    admiralty_info: ""            # 1-6
+    summary: ""
+
+pirs:
+  - id: PIR-001
+    question: ""
+    priority: high
+    status: open
+  - id: PIR-002
+    question: ""
+    priority: high
+    status: open
+
+scope:
+  organization: ""
+  threat_actor: ""                # Assessed actor or "unknown"
+  targeting_rationale: ""         # Why this org / sector is targeted
+  attck_techniques: []
+
+crown_jewels:
+  - asset: ""
+    owner: ""
+    criticality: critical         # critical | high | medium
+
+deliverables:
+  - type: technical-brief
+    status: pending
+  - type: executive-brief
+    status: pending
+  - type: 72h-action-plan
+    status: pending
+  - type: detection-backlog
+    status: pending
+
+notes: ""

@@ -1,0 +1,72 @@
+title: Non-System Process Accessing LSASS Memory
+id: det-005-lsass-memory-access
+status: test
+description: |
+  Detects OpenProcess access to lsass.exe from a process that is not a known-good
+  security or backup tool. Focuses on GrantedAccess masks used for memory reading
+  including the lower-privilege mask 0x1010 observed in UNC-CIPHER/Operation Desert
+  Cipher (PROCESS_VM_READ | PROCESS_QUERY_LIMITED_INFORMATION) which is missed by
+  rules tuned only for 0x1fffff (full access) or 0x1410 (Mimikatz default).
+  Covers T1003.001 (OS Credential Dumping — LSASS Memory).
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+  - https://www.elastic.co/blog/detecting-credential-access
+  - internal://operation-desert-cipher-MR-2024-1147
+author: CTI Lab Training
+date: 2024-11-01
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_access
+  product: windows
+  definition: Sysmon Event ID 10
+detection:
+  selection_target:
+    TargetImage|endswith: '\lsass.exe'
+  selection_access_masks:
+    GrantedAccess|contains:
+      - '0x1010'
+      - '0x1410'
+      - '0x1438'
+      - '0x143a'
+      - '0x1fffff'
+      - '0x1f1fff'
+  filter_known_good_source:
+    SourceImage|endswith:
+      - '\MsMpEng.exe'
+      - '\csrss.exe'
+      - '\werfault.exe'
+      - '\taskmgr.exe'
+      - '\services.exe'
+      - '\lsass.exe'
+      - '\svchost.exe'
+    SourceUser|contains: 'SYSTEM'
+  filter_edr:
+    SourceImage|contains:
+      - '\CrowdStrike\'
+      - '\Carbon Black\'
+      - '\SentinelOne\'
+      - '\MicrosoftSecurityClient'
+  condition: selection_target and selection_access_masks and not (filter_known_good_source or filter_edr)
+falsepositives:
+  - Antivirus and EDR products regularly access LSASS (add to filter_edr)
+  - Backup software (Veeam, Acronis) may access LSASS during VSS operations
+  - Process Monitor / diagnostic tools during troubleshooting
+  - Add known-good security tools from your environment to the filter
+level: high
+fields:
+  - SourceImage
+  - TargetImage
+  - GrantedAccess
+  - CallTrace
+  - SourceUser
+# EMULATION NOTE:
+# Atomic Red Team test: T1003.001 — LSASS Memory
+# Command: Invoke-AtomicTest T1003.001 -TestNumbers 1 (comsvcs.dll MiniDump)
+#          Invoke-AtomicTest T1003.001 -TestNumbers 2 (direct LSASS dump)
+# Expected: Sysmon EID 10 with TargetImage=lsass.exe, GrantedAccess in selection list
+# Lab result: PARTIAL — fires on 0x1410 (TestNumber 2) but NOT on 0x1010 (custom test)
+# Issue: Atomic test uses 0x1410 by default; Desert Cipher uses 0x1010 — rule covers both but
+#        lab only exercises one path. Need custom test for 0x1010 mask.
+# Custom test command: See emulation-results/atomic-test-results.json for custom test details

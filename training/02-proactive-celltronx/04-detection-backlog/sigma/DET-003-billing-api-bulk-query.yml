@@ -1,0 +1,42 @@
+title: Billing API Bulk Record Query from Non-Approved IP
+id: e9f0a1b2-3456-7890-cdef-012345678901
+status: experimental
+description: >
+  DRAFT RULE — BLOCKED on billing API log pipeline (see DET-003 in detection backlog).
+  Detects high-volume API calls to CelltronX billing system from source IPs not on the
+  approved contractor access list. Targets SCN-002 (billing system credential abuse).
+  Deploy after billing API log pipeline connected to SIEM.
+author: CelltronX CTI
+date: 2024/10/01
+tags:
+  - attack.collection
+  - attack.t1078.003
+logsource:
+  category: webserver
+  product: generic
+  # Log source: CelltronX billing system API access logs
+  # Status: NOT YET CONNECTED TO SIEM
+  # Pipeline work estimate: 3 days engineering + 5 days CAB (Sprint 2)
+detection:
+  # Implemented as threshold rule:
+  # Count > 100 API requests to /billing/subscriber/* or /roaming/records/*
+  # Grouped by source.ip within 15 minutes
+  # Excludes known internal API gateway IPs
+  selection:
+    url.path|contains:
+      - '/billing/subscriber/'
+      - '/roaming/records/'
+      - '/subscriber/bulk'
+    http.response.status_code|not: 401
+  filter_internal:
+    source.ip:
+      - '10.10.0.0/16'   # Internal API gateway
+      - '172.16.0.0/12'  # Internal management network
+  condition: selection and not filter_internal
+  # Threshold: count > 100, grouped by source.ip, over 15 minutes
+falsepositives:
+  - 'Scheduled billing reconciliation batch jobs — pre-approve source IPs and add to filter'
+  - 'NetSys maintenance API calls during approved windows — add time-based exclusion'
+level: high
+# BLOCKED: Billing API logs not in SIEM. Log source pipeline required before deployment.
+# See blocked-items/blocked-detections.md for sprint planning.

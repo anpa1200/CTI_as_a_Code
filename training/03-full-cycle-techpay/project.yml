@@ -1,0 +1,69 @@
+---
+project:
+  id: PROJ-2024-003
+  name: TechPay — CTI Program Design and Remediation
+  type: full-cycle
+  classification: TLP:AMBER
+  status: in-progress
+
+analyst:
+  name: CTI Analyst
+  role: Lead CTI Analyst (contractor)
+  contact: cti-consult@techpay.co.il
+  team:
+    - SOC Lead
+    - Compliance Officer (Bank of Israel framework)
+
+timeline:
+  program_start: "2024-09-01"
+  current_quarter: Q4-2024
+  review_date: "2025-01-15"
+  report_due: "2024-11-30"
+
+stakeholders:
+  - name: CISO
+    role: CISO
+    intelligence_requirements:
+      - "What threats target Israeli fintech payment processors?"
+      - "Are we meeting Bank of Israel regulatory requirements for threat intelligence?"
+  - name: SOC Lead
+    role: SOC Lead
+    intelligence_requirements:
+      - "What TTPs should we write detection rules for?"
+      - "What are current IOCs for credential stuffing tools?"
+  - name: Compliance Officer
+    role: Compliance / Legal
+    intelligence_requirements:
+      - "Do any current threats trigger BoI notification requirements?"
+      - "What does the credential stuffing incident mean for PCI-DSS compliance?"
+
+pirs:
+  - id: PIR-001
+    question: "What threat actors are currently targeting Israeli payment processors using credential stuffing or account takeover?"
+    consumer: CISO + SOC Lead
+    priority: high
+    review_cycle: monthly
+  - id: PIR-002
+    question: "Are there active campaigns exploiting payment APIs at our merchant tier?"
+    consumer: SOC Lead
+    priority: high
+    review_cycle: monthly
+  - id: PIR-003
+    question: "What intelligence-sharing obligations does TechPay have and are we meeting them?"
+    consumer: Compliance Officer
+    priority: medium
+    review_cycle: quarterly
+
+sharing:
+  cert_il: false
+  sector_peers: []
+  isac: "FinCERT (Bank of Israel) — lapsed 9 months"
+  tlp_default: TLP:AMBER
+
+program_metrics:
+  products_delivered_qtd: 0
+  pirs_answered_qtd: 0
+  detections_deployed_qtd: 0
+  false_positive_rate: 0.0
+
+notes: "Program starting from near-zero: PIRs from 2022 consultant, never reviewed. MISP admin Avi departed with undocumented access. FinCERT MOU lapsed. Near-miss credential stuffing incident (INC-2024-0831) catalyzed this engagement."

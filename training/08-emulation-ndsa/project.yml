@@ -1,0 +1,53 @@
+---
+project:
+  id: PROJ-2026-008
+  name: NDSA — Adversary Emulation (CEDAR-SIGNAL / GovID 2.0 TTPs)
+  type: emulation
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: CTI Analyst / Detection Engineer
+  role: CTI + SOC
+  contact: cti@ndsa.gov.il
+
+timeline:
+  emulation_date: "2026-02-15"
+  report_due: "2026-02-22"
+
+source_cti_report: "Assessment A06 (GovID 2.0 proactive) + A05 (NDSA breach findings)"
+source_actor: "CEDAR-SIGNAL (assessed) + contractor breach TTPs"
+
+emulation_scope:
+  environment: NDSA detection lab
+  target_systems:
+    - GOVNET-WS-01 (Windows workstation)
+    - Contractor DMZ environment
+    - VRID-LAB-01 (biometric DB lab)
+  tools:
+    - MITRE CALDERA (10 tests)
+    - Elastic Security 8.13.4
+
+results_summary:
+  total_tests: 10
+  pass: 3
+  partial: 3
+  fail: 4
+  coverage_score: "30% PASS"
+  incd_compliance: "NOT MET"
+
+detections:
+  deployed: 10
+  pass: [GOV-DET-003, GOV-DET-004, GOV-DET-005]
+  partial: [GOV-DET-001, GOV-DET-002, GOV-DET-010]
+  fail: [GOV-DET-006, GOV-DET-007, GOV-DET-008, GOV-DET-009]
+
+known_issues:
+  - "GOV-DET-001: 30-min suppression window active from Feb 2025 config — suppressed first 2 anomalous sessions"
+  - "GOV-DET-002: 30-min NetFlow delay — detection fires 30 min after lateral movement event"
+  - "GOV-DET-006/008: Sprint 23 API namespace separation not deployed — BLOCKED"
+  - "GOV-DET-007: Kong rate-limit plugin not forwarding events to Elastic — BLOCKED"
+  - "GOV-DET-009: No DNS monitoring on contractor DMZ — architectural gap"
+  - "GOV-DET-010: Veeam backup filter broken — FP from nightly backup job"
+
+notes: "INCD Section 8 compliance assessment: NOT MET. Board presentation: do not claim full detection coverage. 4 FAIL rules require infrastructure fixes before GovID 2.0 production launch."

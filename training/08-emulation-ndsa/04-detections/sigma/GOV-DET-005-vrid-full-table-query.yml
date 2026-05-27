@@ -1,0 +1,42 @@
+title: VRID Database Full-Table SELECT Query
+id: gov-det-005-vrid-full-table-query
+status: production
+description: |
+  Detects unbounded SELECT * queries against VRID production tables (citizens,
+  biometric_enrollment) that would result in full-table scans of millions of rows.
+  Any such query outside a scheduled maintenance window is highly anomalous.
+  The March 2025 incident was detected by this rule — adversary executed
+  SELECT * FROM citizens at 2025-03-14T22:11:03Z; alert fired and escalated.
+  Covers T1005 (Data from Local System) in database context.
+author: NDSA Detection Engineering
+date: 2024-10-01
+tags:
+  - attack.collection
+  - attack.t1005
+logsource:
+  category: database
+  product: postgresql
+  service: vrid-srv-01
+detection:
+  selection_full_table:
+    db.statement|contains:
+      - 'SELECT * FROM citizens'
+      - 'SELECT * FROM biometric_enrollment'
+      - 'COPY (SELECT'
+  filter_maintenance_window:
+    # Maintenance window: first Sunday of month, 02:00-04:00 IST
+    labels.maintenance_window: true
+  condition: selection_full_table and not filter_maintenance_window
+falsepositives:
+  - Scheduled maintenance (must be tagged in log with maintenance_window=true)
+  - Database admin during incident response (document as exception)
+level: critical
+fields:
+  - user.name
+  - db.statement
+  - db.instance
+  - process.name
+# STATUS: ACTIVE — confirmed working in March 2025 incident
+# LIMITATION: Only deployed on VRID-SRV-01; not applicable to GovID 2.0 nodes (different schema)
+# EMULATION TARGET: Execute SELECT * FROM vrid_test_citizens in lab against replica DB
+# EXPECTED: PASS

@@ -1,0 +1,80 @@
+---
+project:
+  id: PROJ-2025-007
+  name: NDSA — Formal CTI Program (INCD Remediation Directive RD-2025-NDSA-004)
+  type: full-cycle
+  classification: TLP:AMBER
+  status: in-progress
+
+analyst:
+  name: CTI Analyst
+  role: CTI Program Lead
+  contact: cti@ndsa.gov.il
+  team:
+    - Detection Engineer
+    - SOC Liaison
+    - Legal / Compliance (INCD reporting)
+
+timeline:
+  program_start: "2025-09-01"
+  current_quarter: Q4-2025
+  review_date: "2026-01-31"
+  report_due: "2026-01-31"
+
+stakeholders:
+  - name: CISO / Director of Digital Infrastructure
+    role: CISO
+    intelligence_requirements:
+      - "What Iranian-nexus capabilities are directed at GovID 2.0 post-launch?"
+      - "Are we meeting INCD RD-2025-NDSA-004 compliance requirements?"
+  - name: SOC Lead
+    role: SOC Lead
+    intelligence_requirements:
+      - "What detection rules are needed for the 4 FAIL results from A08 emulation?"
+      - "What new IOCs from CERT-IL Q1 2026 report require monitoring?"
+  - name: INCD Liaison
+    role: Regulatory / Compliance
+    intelligence_requirements:
+      - "Are we meeting all 5 requirements of RD-2025-NDSA-004?"
+      - "What peer MOUs are required by June 2026?"
+
+pirs:
+  - id: PIR-001
+    question: "Is CEDAR-SIGNAL or any Iranian-nexus actor currently conducting operations against GovID 2.0 post-launch infrastructure?"
+    consumer: CISO + SOC Lead
+    priority: high
+    review_cycle: monthly
+  - id: PIR-002
+    question: "What new TTPs are being observed in Israeli government sector attacks that we lack detection coverage for?"
+    consumer: SOC Lead
+    priority: high
+    review_cycle: monthly
+  - id: PIR-003
+    question: "Are any NDSA contractors or service providers currently targeted or compromised by adversary actors?"
+    consumer: CISO
+    priority: high
+    review_cycle: monthly
+  - id: PIR-004
+    question: "What intelligence-sharing obligations under RD-2025-NDSA-004 are outstanding?"
+    consumer: INCD Liaison
+    priority: medium
+    review_cycle: quarterly
+
+sharing:
+  cert_il: false               # CERT-IL MOU due by 2026-03-01
+  sector_peers: []             # Peer MOUs due by 2026-06-01
+  isac: ""
+  tlp_default: TLP:AMBER
+
+program_metrics:
+  products_delivered_qtd: 0
+  pirs_answered_qtd: 0
+  detections_deployed_qtd: 3   # 3 PASS from A08 emulation deployed
+  false_positive_rate: 0.12    # GOV-DET-010 Veeam FP still unresolved
+
+notes: |
+  Mandated by INCD RD-2025-NDSA-004 following March 2025 breach (A05).
+  Deadlines: formal CTI program Jan 31 2026, CERT-IL MOU Mar 1 2026, peer MOUs Jun 1 2026,
+  detection-CTI integration Apr 1 2026, annual compliance report Dec 31 2026.
+  Starting baseline: A08 emulation results (3 PASS, 3 PARTIAL, 4 FAIL).
+  Q1 2026 CERT-IL sector report: CEDAR-SIGNAL HIGH, FIN-CLUSTER-17 MEDIUM.

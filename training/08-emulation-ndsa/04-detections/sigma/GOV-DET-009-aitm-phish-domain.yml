@@ -1,0 +1,50 @@
+title: AiTM Phishing — Contractor Endpoint DNS Resolution of Lookalike Domain
+id: gov-det-009-aitm-phish-domain
+status: draft
+description: |
+  Detects DNS queries from Contractor DMZ endpoints to known AiTM lookalike domains
+  or any domain matching the pattern of CEDAR-SIGNAL phishing infrastructure.
+  Draft status — requires DNS monitoring to be deployed on Contractor DMZ endpoints.
+  Currently no DNS visibility from JUMPHOST-CONTRACTOR-01 or contractor VPN clients.
+  Covers T1566.001 (Spearphishing Attachment/Link) via DNS indicator.
+author: NDSA Detection Engineering
+date: 2025-07-15
+tags:
+  - attack.initial_access
+  - attack.t1566.001
+  - attack.t1071.004
+logsource:
+  category: dns
+  product: sysmon
+  service: contractor-dmz
+detection:
+  selection_known_domains:
+    dns.question.name|endswith:
+      - 'govid-authentication.com'
+      - 'ndsa-staff-access.net'
+      - 'onegov-portal-login.com'
+      - 'gov-portal-auth-il.com'
+      - 'ndsa-sso-secure.net'
+  selection_pattern:
+    dns.question.name|re: '(govid|ndsa|onegov|gov-portal|ministry-sso).*\.(com|net|org)$'
+  filter_legitimate:
+    dns.question.name|endswith:
+      - 'gov.il'
+      - 'ndsa.gov.il'
+      - 'incd.gov.il'
+      - 'cert.gov.il'
+  condition: (selection_known_domains or selection_pattern) and not filter_legitimate
+falsepositives:
+  - Legitimate domains containing these keywords (unlikely but possible)
+  - Security researchers testing phishing domains
+level: high
+fields:
+  - dns.question.name
+  - dns.resolved_ip
+  - source.ip
+  - process.name
+# BLOCKED: No DNS monitoring on Contractor DMZ endpoints
+# JUMPHOST-CONTRACTOR-01 does not have Sysmon installed
+# Contractor VPN clients are not under NDSA MDM
+# UNBLOCK PATH: Deploy Sysmon to JUMPHOST-CONTRACTOR-01 (5-day CAB); configure DNS logging
+# COMPENSATING CONTROL: Block known domains at DNS resolver level

@@ -1,0 +1,56 @@
+From: finance-reports@lifetechpharma-secure.com
+To: m.cohen@lifetechpharma.co.il
+Subject: Q4 2024 Forecast — Urgent Board Review Required
+Date: Fri, 15 Nov 2024 17:58:31 +0200
+Message-ID: <3F8K9mP2xQ4rS7tU1vW6yA0bC5dE2fH8jL3nO6pR1sT4vX7zA@mail.lifetechpharma-secure.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==MimeBoundary_F7E6D5C4B3A2"
+X-Originating-IP: [198.51.100.22]
+X-Microsoft-Antispam: BCL:0; PCL:0; SRVR:AM7PR0101MB3048;
+X-Forefront-Antispam-Report: SFV:NSPM; SCL:4;
+X-MS-Exchange-Organization-SCL: 4
+Received: from mail.lifetechpharma-secure.com (198.51.100.22) by
+ AM7PR0101MB3048.eurprd01.prod.exchangelabs.com with HTTPS; Fri, 15 Nov 2024
+ 15:58:31 +0000
+
+--==MimeBoundary_F7E6D5C4B3A2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<body style="font-family:Calibri,Arial,sans-serif; font-size:14px;">
+<p>Michal,</p>
+<p>Following the board request from this morning, please find attached the updated
+<strong>Q4 2024 Forecast</strong> with the revised MENA distribution projections.
+The board chair asked for your sign-off before the Monday call.</p>
+<p>Please review and approve by end of day.</p>
+<p>Note: The file contains live data links — please enable macros when prompted to
+allow the data to refresh.</p>
+<p>Best,<br>
+Oren Friedman<br>
+VP Finance | LifeTech Pharma<br>
++972-3-XXX-XXXX</p>
+</body>
+</html>
+
+--==MimeBoundary_F7E6D5C4B3A2
+Content-Type: application/vnd.ms-excel.sheet.macroEnabled.12
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Q4-Forecast-Update.xlsm"
+
+[SYNTHETIC PLACEHOLDER — actual .xlsm would contain Excel 4.0 macro dropper]
+[SHA256 of sample: 5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c]
+[VT score at time of delivery: 0/68 — undetected; submitted post-incident]
+
+--==MimeBoundary_F7E6D5C4B3A2--
+
+X-ANALYSIS-NOTES: |
+  Sender domain: lifetechpharma-secure.com (NOT lifetechpharma.co.il)
+  Registered: 2024-11-12 (3 days before delivery) via Porkbun, privacy-protected
+  Impersonates: Oren Friedman (real VP Finance — name harvested from LinkedIn)
+  Board call reference: plausible (real board meeting on Monday 18 Nov confirmed)
+  "Enable macros" social engineering: matches Excel 4.0 macro technique
+  SCL: 4 — below block threshold; ATP sandbox NOT triggered
+  Homograph: lifetechpharma-SECURE.com vs lifetechpharma.co.il
+  Note: This email was sent ~2h AFTER WS-IT-LEVI was already active on C2 —
+  CFO was targeted as a second-stage pivot for financial data access

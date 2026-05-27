@@ -1,0 +1,65 @@
+---
+project:
+  id: PROJ-2025-005
+  name: NDSA — Contractor Breach Investigation (March 2025)
+  type: reactive
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: CTI Analyst
+  role: Senior CTI Analyst
+  contact: cti@ndsa.gov.il
+
+timeline:
+  incident_date: "2025-03-10"
+  detection_date: "2025-03-14"
+  investigation_start: "2025-03-14"
+  report_due: "2025-03-21"
+
+pirs:
+  - id: PIR-001
+    question: "How did the contractor account gain unauthorized access to GOVNET OPS and VRID systems?"
+    priority: high
+    status: answered
+  - id: PIR-002
+    question: "What data was accessed or exfiltrated, and does it trigger INCD-CID or BDA notification obligations?"
+    priority: high
+    status: answered
+  - id: PIR-003
+    question: "What detection gaps allowed this access to continue across multiple sessions?"
+    priority: high
+    status: answered
+  - id: PIR-004
+    question: "What is the scope of compromise — was this the contractor acting alone or is there an external actor?"
+    priority: medium
+    status: open
+
+scope:
+  systems:
+    - Contractor DMZ (10.200.2.0/24)
+    - GOVNET OPS segment (10.100.0.0/16)
+    - VRID-LAB-01 (biometric database lab)
+    - Jump host infrastructure
+  threat_actor: "Insider / compromised contractor — external actor involvement unconfirmed"
+  attck_techniques:
+    - T1133
+    - T1021.004
+    - T1078.002
+    - T1059.004
+    - T1048
+    - T1530
+    - T1005
+
+deliverables:
+  - type: executive-brief
+    status: delivered
+  - type: soc-handoff
+    status: delivered
+  - type: regulatory-notifications
+    status: filed
+  - type: sigma-rules
+    count: 5
+    status: delivered
+
+notes: "INCD-CID Article 7(3)(a) notification filed within 8-hour window. BDA Section 18(b) notification required — dual authorization obtained. Veeam FP filter for GOV-DET-010 still pending."

@@ -1,0 +1,42 @@
+title: Staging-to-Production API Cross-Contamination
+id: gov-det-008-api-cross-contamination
+status: draft
+description: |
+  Detects use of staging environment API credentials or service accounts against the
+  production GovID 2.0 API. Staging and production should be completely isolated;
+  any staging token or account authenticating to production indicates either misconfiguration
+  or an adversary who has compromised staging and is attempting to pivot to production.
+  Covers T1078.002 (Valid Accounts — Domain Accounts) in API credential context.
+  STATUS: DRAFT — depends on Sprint 23 fix to separate staging/production API namespaces.
+  Without Sprint 23: staging and production share the same API token format;
+  cross-contamination cannot be detected by credential pattern alone.
+author: NDSA Detection Engineering
+date: 2025-07-15
+tags:
+  - attack.initial_access
+  - attack.t1078.002
+  - attack.defense_evasion
+logsource:
+  category: web
+  product: govid2_api_gateway
+  service: production
+detection:
+  selection_staging_credentials:
+    # After Sprint 23: staging tokens will have 'stg_' prefix, production 'prd_' prefix
+    http.request.headers.Authorization|contains: 'Bearer stg_'
+  selection_prod_endpoint:
+    http.request.host: 'api.govid2.gov.il'  # Production endpoint
+  condition: selection_staging_credentials and selection_prod_endpoint
+falsepositives:
+  - None expected once Sprint 23 prefix separation is implemented
+  - Pre-Sprint 23: rule cannot be deployed (no prefix distinction)
+level: critical
+fields:
+  - source.ip
+  - http.request.headers
+  - http.request.path
+  - user.id
+# BLOCKED: Sprint 23 API namespace separation not yet deployed
+# Without Sprint 23: no way to distinguish staging vs production tokens
+# Sprint 23 ETA: 3 weeks before planned October 2025 launch
+# EMULATION RESULT: FAIL (see caldera-govid-run.json)

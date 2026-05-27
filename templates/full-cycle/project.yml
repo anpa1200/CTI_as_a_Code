@@ -1,0 +1,48 @@
+---
+# CTI as Code — Full-Cycle Intelligence Program Project Metadata
+
+project:
+  id: ""
+  name: ""
+  type: full-cycle
+  classification: TLP:AMBER
+  status: in-progress             # scoping | in-progress | review | closed
+
+analyst:
+  name: ""                        # Program lead
+  role: ""
+  contact: ""
+  team: []                        # Other team members
+
+timeline:
+  program_start: ""               # When the CTI program officially started
+  current_quarter: ""             # e.g. Q2-2026
+  review_date: ""                 # Next formal program review
+  report_due: ""
+
+stakeholders:
+  - name: ""
+    role: ""                      # e.g. CISO, SOC Lead, Compliance Officer
+    intelligence_requirements: [] # Their specific needs
+
+pirs:
+  # Program-level PIRs — standing intelligence requirements
+  - id: PIR-001
+    question: ""
+    consumer: ""                  # Who needs this answered
+    priority: high
+    review_cycle: quarterly       # quarterly | monthly | ad-hoc
+
+sharing:
+  cert_il: false                  # MOU with CERT-IL
+  sector_peers: []                # Peer organizations in sharing arrangement
+  isac: ""                        # Sector ISAC membership
+  tlp_default: TLP:AMBER
+
+program_metrics:
+  products_delivered_qtd: 0
+  pirs_answered_qtd: 0
+  detections_deployed_qtd: 0
+  false_positive_rate: 0.0        # Target < 5%
+
+notes: ""

@@ -1,0 +1,45 @@
+---
+project:
+  id: PROJ-2024-004
+  name: TechPay — Adversary Emulation (Operation Desert Cipher TTPs)
+  type: emulation
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: CTI Analyst / Red Team Lead
+  role: CTI + Detection Engineering
+  contact: cti@techpay.co.il
+
+timeline:
+  emulation_date: "2024-10-15"
+  report_due: "2024-10-22"
+
+source_cti_report: "01-cti-report/operation-desert-cipher.md"
+source_actor: UNC-CIPHER (fictional — Operation Desert Cipher)
+
+emulation_scope:
+  environment: TechPay lab (isolated)
+  target_systems:
+    - TECHPAY-WS-01 (Windows 10 workstation)
+    - TECHPAY-DC-01 (Domain Controller)
+    - TECHPAY-DB-01 (Payment database)
+  tools:
+    - Atomic Red Team (Invoke-AtomicRedTeam)
+    - MITRE CALDERA
+    - VECTR
+
+results_summary:
+  total_tests: 7
+  pass: 3
+  partial: 2
+  fail: 2
+  coverage_score: "43% PASS"
+
+detections:
+  deployed: 7
+  pass: [DET-002, DET-004, DET-006]
+  partial: [DET-003, DET-005]
+  fail: [DET-001, DET-007]
+
+notes: "DET-001 FAIL: no cloud log ingestion for Entra ID. DET-007 FAIL: Atomic test uses Start-BitsTransfer not bitsadmin.exe — coverage gap. DET-006 (DCSync) is the highest-value rule: PASS, 4s latency, near-zero FP."

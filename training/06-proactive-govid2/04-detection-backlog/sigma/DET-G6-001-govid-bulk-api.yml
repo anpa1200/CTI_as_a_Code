@@ -1,0 +1,41 @@
+title: GovID 2.0 Bulk API Extraction — High-Volume /verify/bulk Calls
+id: a1b2c3d4-5678-9012-abcd-e34567890123
+status: experimental
+description: >
+  DRAFT RULE — BLOCKED on GovID API log pipeline (see DET-G6-001 in detection backlog).
+  Detects more than 50 calls to the GovID 2.0 /verify/bulk endpoint from a single source IP
+  within 10 minutes, excluding scheduled internal batch jobs from approved IP ranges.
+  Based on TRG-004: BiometricTech API probing observation (185.220.101.47, 2400 calls/day).
+  Deploy after GovID API log pipeline connected to Elastic SIEM (Sprint 2).
+author: NDSA CTI
+date: 2025/10/01
+references:
+  - 'A06 TRG-004 — BiometricTech API probing notification'
+  - 'PROJ-2025-006 detection backlog DET-G6-001'
+tags:
+  - attack.collection
+  - attack.t1530
+logsource:
+  category: webserver
+  product: nginx
+  # Log source: GovID 2.0 nginx access logs
+  # Status: NOT YET CONNECTED TO SIEM
+  # Pipeline: Filebeat on GovID 2.0 frontend → Elastic (Sprint 2)
+detection:
+  # Implemented as Elastic threshold rule
+  # Field: url.path == "/verify/bulk" AND http.response.status_code != 401
+  # Threshold: count > 50, grouped by source.ip, over 10 minutes
+  selection:
+    url.path: '/verify/bulk'
+    http.response.status_code|not: 401
+  filter_internal_batch:
+    source.ip:
+      - '10.20.15.0/24'   # Internal API gateway — scheduled batch jobs
+  condition: selection and not filter_internal_batch
+falsepositives:
+  - 'High-volume legitimate batch verification (annual electoral roll) — pre-approve source IPs and add to filter list before scheduled batch runs'
+  - 'Ministry of Interior bulk citizenship verification — pre-approve via named exception'
+level: critical
+# BLOCKED: GovID API logs not in SIEM.
+# Compensating control until deployed: BiometricTech daily manual report of /verify/bulk volumes.
+# This rule was GOV-DET-006 in A08 (08-emulation-ndsa); drafted here in pre-launch assessment.

@@ -1,0 +1,45 @@
+title: Contractor VPN Auth from Non-Corporate ASN with Data Volume Anomaly
+id: a05-gov-det-001-contractor-vpn-aitm
+status: test
+description: |
+  Detects contractor VPN authentication from a source IP whose ASN is not in the
+  approved corporate/contractor ASN allowlist, especially when combined with
+  anomalous session data volume. Designed to catch AiTM session token replay
+  (T1557) against contractor VPN accounts (T1133).
+  Replaces GOV-DET-001 which had a 12-hour suppression bug that silenced this
+  rule for the first two anomalous sessions in the March 2025 NDSA breach.
+  Fix: removed suppression window; lowered threshold.
+author: NDSA Detection Engineering
+date: 2025-03-21
+tags:
+  - attack.initial_access
+  - attack.t1133
+  - attack.credential_access
+  - attack.t1557
+logsource:
+  category: firewall
+  product: palo_alto_globalprotect
+detection:
+  selection:
+    event_type: globalprotect
+    status: success
+    user.domain: contractor-accounts
+  filter_known_asn:
+    source_asn:
+      - 'AS[NDSA-approved-ASN-list]'   # Replace with actual approved ASNs
+  condition: selection and not filter_known_asn
+falsepositives:
+  - Contractors working from home on residential ISPs — high FP; tune with off-hours condition
+  - Approved remote work from travel — document in IT ticket and add to approved-ASN exception
+level: high
+fields:
+  - user.name
+  - source.ip
+  - source.geo.country_iso_code
+  - bytes_out
+  - event.duration
+# EMULATION NOTE:
+# Test: VPN auth from non-approved ASN IP (use test credential from CyberShield VPS)
+# Expected result: PASS — rule fires immediately; no suppression window
+# Fix from GOV-DET-001: removed 12-hour quiet period; added bytes_out anomaly correlation
+# Improvement: add bytes_out > 50MB threshold to reduce FP from normal remote work

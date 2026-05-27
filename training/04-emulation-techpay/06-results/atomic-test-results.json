@@ -1,0 +1,112 @@
+{
+  "_meta": {
+    "exercise": "Operation Desert Cipher — TechPay Detection Validation",
+    "date": "2024-11-08",
+    "lab_environment": "CTI Lab Docker Compose (Elastic 8.13.4 + Sysmon SwiftOnSecurity v13.30)",
+    "operator": "CTI Analyst (Lab)",
+    "framework": "Invoke-AtomicRedTeam v4.5.1",
+    "scope": "DET-001 through DET-007"
+  },
+  "results": [
+    {
+      "detection_id": "DET-001",
+      "technique": "T1078.004",
+      "test": "Simulated AiTM session token reuse",
+      "result": "FAIL",
+      "reason": "Lab does not have Entra ID / Azure AD connected to Elastic SIEM. AiTM token cannot be tested without cloud log ingestion.",
+      "evidence": null,
+      "recommendation": "Deploy Entra ID sign-in log connector to Elastic SIEM (separate sprint). Compensating test: validate Entra ID Conditional Access alert in Microsoft portal manually."
+    },
+    {
+      "detection_id": "DET-002",
+      "technique": "T1059.001",
+      "test": "Invoke-AtomicTest T1059.001 -TestNumbers 1",
+      "command_run": "powershell.exe -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBPAGI=",
+      "result": "PASS",
+      "evidence": {
+        "siem_alert_time": "2024-11-08T09:14:33Z",
+        "alert_latency_seconds": 28,
+        "sysmon_event": {"EventID": 1, "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine_contains": ["-NonI", "-W Hidden", "-Enc"]},
+        "elastic_hit_count": 1
+      },
+      "recommendation": "Deploy to production. Add SCCM service account to allowlist before deployment to reduce FP rate."
+    },
+    {
+      "detection_id": "DET-003",
+      "technique": "T1547.001",
+      "test": "Invoke-AtomicTest T1547.001 -TestNumbers 1 (HKCU) and -TestNumbers 2 (HKLM)",
+      "result": "PARTIAL",
+      "evidence": {
+        "hkcu_test": {"result": "PASS", "sysmon_event": {"EventID": 13, "TargetObject": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\AtomicRedTeam"}},
+        "hklm_test": {"result": "NOT_COVERED", "reason": "Rule scoped to HKCU only; HKLM variant not in rule"}
+      },
+      "recommendation": "HKCU coverage is correct (Desert Cipher uses HKCU). Add separate rule for HKLM variant (lower priority — requires admin rights). Mark as PARTIAL.",
+      "gap": "HKLM Run key not covered — create DET-007B"
+    },
+    {
+      "detection_id": "DET-004",
+      "technique": "T1053.005",
+      "test": "Invoke-AtomicTest T1053.005 -TestNumbers 4",
+      "command_run": "schtasks.exe /Create /SC ONLOGON /TN 'AtomicTask' /TR 'C:\\Windows\\Temp\\atomic.exe' /RU SYSTEM /F",
+      "result": "PASS",
+      "evidence": {
+        "siem_alert_time": "2024-11-08T09:31:15Z",
+        "alert_latency_seconds": 19,
+        "sysmon_event": {"EventID": 1, "CommandLine_contains": ["/Create", "/TR", "\\Windows\\Temp\\"]}
+      },
+      "recommendation": "Deploy to production. Tune FP allowlist before deployment (check what installers create tasks via AppData in your environment)."
+    },
+    {
+      "detection_id": "DET-005",
+      "technique": "T1003.001",
+      "test": "Invoke-AtomicTest T1003.001 -TestNumbers 2 (direct LSASS dump) + custom 0x1010 test",
+      "result": "PARTIAL",
+      "evidence": {
+        "standard_test_0x1410": {"result": "PASS", "sysmon_event": {"EventID": 10, "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1410"}},
+        "custom_test_0x1010": {"result": "FAIL", "reason": "Custom test using direct OpenProcess with 0x1010 mask did not trigger Sysmon EID 10 — Sysmon rule filtering may exclude this mask in SwiftOnSecurity profile"}
+      },
+      "recommendation": "Update Sysmon config to include 0x1010 access mask in LSASS access monitoring rule. Current SwiftOnSecurity profile does not include 0x1010. Custom Sysmon config update needed.",
+      "gap": "0x1010 LSASS access mask not captured — requires Sysmon config update"
+    },
+    {
+      "detection_id": "DET-006",
+      "technique": "T1003.006",
+      "test": "Invoke-AtomicTest T1003.006 -TestNumbers 1 (mimikatz dcsync)",
+      "command_run": "mimikatz.exe \"lsadump::dcsync /user:krbtgt\" exit",
+      "result": "PASS",
+      "evidence": {
+        "siem_alert_time": "2024-11-08T10:02:08Z",
+        "alert_latency_seconds": 4,
+        "windows_security_event": {"EventID": 4662, "SubjectUserName": "testuser", "Properties_contains": "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2"}
+      },
+      "recommendation": "HIGHEST CONFIDENCE rule. Deploy immediately. No tuning needed — FP rate in production is near-zero."
+    },
+    {
+      "detection_id": "DET-007",
+      "technique": "T1197",
+      "test": "Invoke-AtomicTest T1197 -TestNumbers 1 (Start-BitsTransfer)",
+      "result": "FAIL",
+      "evidence": {
+        "bitsadmin_test": {"result": "NOT_TESTED", "reason": "Atomic test uses Start-BitsTransfer PowerShell cmdlet, not bitsadmin.exe"},
+        "powershell_bits": {"result": "FAIL", "reason": "Rule only covers bitsadmin.exe binary; PowerShell BITS cmdlet creates jobs differently — no bitsadmin.exe process created"}
+      },
+      "recommendation": "Two fixes required: (1) Write separate rule for Start-BitsTransfer using PS module logs EID 4103. (2) Add network-layer detection: Sysmon EID 3 for svchost.exe connecting to non-Microsoft IP during BITS job. Desert Cipher specifically uses bitsadmin.exe — this gap is lower risk for the specific threat but must be closed.",
+      "gap": "PowerShell BITS method not covered — create DET-007B (Start-BitsTransfer)"
+    }
+  ],
+  "summary": {
+    "PASS": ["DET-002", "DET-004", "DET-006"],
+    "PARTIAL": ["DET-003", "DET-005"],
+    "FAIL": ["DET-001", "DET-007"],
+    "total_detections": 7,
+    "fully_validated": 3,
+    "partially_validated": 2,
+    "not_validated": 2,
+    "coverage_score": "3/7 (43%) PASS | 2/7 (29%) PARTIAL | 2/7 (29%) FAIL",
+    "highest_priority_fixes": [
+      "DET-007 FAIL: Add bitsadmin + Start-BitsTransfer BITS exfil coverage",
+      "DET-005 PARTIAL: Update Sysmon config to include 0x1010 LSASS access mask",
+      "DET-001 FAIL: Deploy Entra ID sign-in log connector to SIEM"
+    ]
+  }
+}

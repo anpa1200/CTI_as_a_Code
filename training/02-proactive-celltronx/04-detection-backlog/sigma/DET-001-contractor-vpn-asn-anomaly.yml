@@ -1,0 +1,49 @@
+title: Contractor VPN Authentication from Non-Corporate ASN Off-Hours
+id: c7d8e9f0-1234-5678-abcd-ef1234567890
+status: test
+description: >
+  Detects contractor VPN authentication from non-corporate ASN during off-hours (22:00-06:00 IST).
+  Targets the AiTM post-exploitation pattern: adversary uses session token captured via EvilGinx2
+  to authenticate to CelltronX contractor VPN from a residential or anonymous VPN exit node.
+  Based on MobileTech IL incident pattern and CERT-IL AiTM bulletin.
+author: CelltronX CTI
+date: 2024/10/01
+references:
+  - 'CERT-IL AiTM Campaign Advisory (2024)'
+  - 'MobileTech IL incident — same attack pattern'
+tags:
+  - attack.initial_access
+  - attack.t1133
+  - attack.credential_access
+  - attack.t1557
+logsource:
+  product: generic
+  service: vpn
+  # Log source: CelltronX VPN gateway authentication logs
+  # Required fields: user, source_ip, source_asn, timestamp
+detection:
+  selection_time:
+    # Off-hours: 22:00-06:00 IST (UTC+3 = 19:00-03:00 UTC)
+    timestamp|timeframe: '19:00-03:00'
+  selection_asn:
+    # Flag ASNs that are residential VPN providers, Tor exit nodes, or not on the approved corporate network list
+    source_asn|contains:
+      - 'Frantech'
+      - 'Psychz'
+      - 'M247'
+      - 'Zayo'
+      - 'AS9009'       # M247
+      - 'AS395839'     # Psychz
+      - 'AS53667'      # Frantech
+    # Alternative approach: whitelist known corporate ASNs and alert on anything not in the list
+    # NOT source_asn: ('CelltronX-ASN' OR 'Approved-Office-ISP')
+  filter_helpdesk:
+    # Reduce FP: exclude authorized after-hours access by IT on-call accounts
+    user|startswith: 'svc-'
+  condition: selection_time and selection_asn and not filter_helpdesk
+falsepositives:
+  - 'Contractor working from home via non-corporate ISP (residential) — tune by adding approved home ASNs to allowlist per contractor'
+  - 'IT on-call access during maintenance windows — add scheduled exclusion for change windows'
+level: high
+# Emulation note: DET-001 was not formally emulated in PROJ-2024-002; analogous to DET-004 from
+# PROJ-2024-001 (A01 LifeTech Pharma) which PASSED lab validation. Same rule logic.

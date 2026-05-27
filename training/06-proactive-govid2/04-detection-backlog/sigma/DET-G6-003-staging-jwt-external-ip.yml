@@ -1,0 +1,37 @@
+title: GovID 2.0 Staging Environment JWT Used from Non-NDSA IP
+id: b2c3d4e5-6789-0123-bcde-f456789012345
+status: test
+description: >
+  Detects a GovID 2.0 staging environment JWT (JSON Web Token) being used to authenticate
+  from a source IP not on the NDSA approved staging access list. Staging JWTs are not
+  intended for production use; a staging JWT appearing from a non-NDSA IP indicates either
+  a staging→production token confusion vulnerability (SCN-002) or a credential leak.
+author: NDSA CTI
+date: 2025/10/01
+references:
+  - 'A06 SCN-002 — Staging→Production Gap'
+  - 'PROJ-2025-006 detection backlog DET-G6-003'
+tags:
+  - attack.credential_access
+  - attack.t1078.002
+  - attack.defense_evasion
+logsource:
+  category: application
+  product: govid2
+  # Log source: GovID 2.0 authentication service logs
+  # Field required: token_audience (staging vs production), source.ip
+detection:
+  selection:
+    event.action: 'token_validated'
+    token.audience|contains: 'staging'
+  filter_approved:
+    source.ip:
+      - '10.20.0.0/16'    # NDSA internal network
+      - '10.30.0.0/16'    # NDSA developer VPN range
+  condition: selection and not filter_approved
+falsepositives:
+  - 'Approved developers working from home via VPN — ensure all developer VPN exit IPs are in the filter list'
+  - 'Automated CI/CD pipeline running integration tests from cloud build agents — add approved build agent CIDRs'
+level: high
+# Deployable — no log pipeline work required if GovID 2.0 auth service logs are already in SIEM
+# Deploy in Sprint 1 per detection roadmap

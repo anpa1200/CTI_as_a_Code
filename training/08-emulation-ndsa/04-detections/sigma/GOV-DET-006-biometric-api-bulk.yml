@@ -1,0 +1,42 @@
+title: Biometric API Bulk Extraction — High-Volume Match Requests
+id: gov-det-006-biometric-api-bulk
+status: draft
+description: |
+  Detects high-volume biometric match API requests from a single authenticated client
+  within a short time window. Normal GovID 2.0 match requests are single-citizen events.
+  Bulk requests (>100 within 5 minutes from a single client ID) indicate either a
+  misconfigured integration or adversary bulk biometric matching activity.
+  Covers T1530 (Data from Cloud Storage) in API context / T1005 (Data from Local System).
+  STATUS: DRAFT — not yet deployed. Built in Assignment 6 (proactive analysis).
+  Deployment blocked: requires Sprint 23 GovID 2.0 API logging enhancement.
+author: NDSA Detection Engineering
+date: 2025-07-15
+tags:
+  - attack.collection
+  - attack.t1530
+  - attack.t1005
+logsource:
+  category: web
+  product: govid2_api_gateway
+detection:
+  selection:
+    http.request.path|contains: '/api/v2/biometric/match'
+    http.response.status_code: [200, 206]
+  aggregate:
+    count(http.request.path) by user.id: '>100'
+    timeframe: 5m
+  condition: selection | aggregate
+falsepositives:
+  - Bulk enrollment testing during maintenance windows (document and tag)
+  - Integration testing by BiometricTech IL in staging environment
+level: critical
+fields:
+  - user.id
+  - source.ip
+  - http.request.path
+  - http.response.status_code
+  - count
+# BLOCKED: Sprint 23 API structured logging not yet deployed
+# Without Sprint 23: API gateway does not emit structured JSON logs with user.id
+# Sprint 23 estimated completion: 3 weeks before launch (Sept 2025)
+# EMULATION: Cannot fully test until Sprint 23 deployed; partial test available via mock logs

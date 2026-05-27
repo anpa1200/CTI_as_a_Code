@@ -1,0 +1,97 @@
+---
+project:
+  id: PROJ-2024-002
+  name: CelltronX — Proactive Threat Assessment (CEDAR-SIGNAL)
+  type: proactive
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: CTI Analyst
+  role: Senior CTI Analyst
+  contact: cti@celltronx.com
+
+timeline:
+  trigger_received: "2024-10-15"
+  analysis_start: "2024-10-15"
+  report_due: "2024-10-22"
+  72h_plan_deadline: "2024-10-18"
+
+triggers:
+  - id: TRG-001
+    source: CERT-IL
+    type: advisory
+    classification: TLP:AMBER
+    admiralty_source: A
+    admiralty_info: "2"
+    summary: "TA-2024-089 — CEDAR-SIGNAL targeting Israeli telecom; ISO dropper + ENM exploitation CVE-2023-44481"
+  - id: TRG-002
+    source: Anonymized peer operator
+    type: incident-report
+    classification: TLP:AMBER
+    admiralty_source: B
+    admiralty_info: "2"
+    summary: "34-day dwell; SS7 MAP collection 1,800 subscribers; DNS TXT exfiltration"
+  - id: TRG-003
+    source: OSINT / DomainTools
+    type: osint
+    classification: TLP:WHITE
+    admiralty_source: C
+    admiralty_info: "2"
+    summary: "3 CelltronX lookalike domains registered Oct 1-9; AiTM + ENM update lures"
+  - id: TRG-004
+    source: NDSA sector threat-sharing
+    type: peer-intel
+    classification: TLP:AMBER
+    admiralty_source: B
+    admiralty_info: "2"
+    summary: "CEDAR-SIGNAL profile; 5 targeting overlap criteria with CelltronX"
+
+pirs:
+  - id: PIR-001
+    question: "Is CEDAR-SIGNAL actively targeting CelltronX infrastructure right now?"
+    priority: high
+    status: answered
+  - id: PIR-002
+    question: "Do we have detection coverage for CEDAR-SIGNAL's reported TTPs?"
+    priority: high
+    status: answered
+  - id: PIR-003
+    question: "Which CelltronX crown jewels are most exposed to CEDAR-SIGNAL's attack paths?"
+    priority: high
+    status: answered
+
+scope:
+  organization: CelltronX Telecommunications
+  threat_actor: CEDAR-SIGNAL (assessed Iranian-nexus, high confidence)
+  targeting_rationale: "Israeli telecom SS7 + subscriber data; ENM system access; network intelligence collection"
+  attck_techniques:
+    - T1566.001
+    - T1190
+    - T1078.002
+    - T1021.001
+    - T1040
+    - T1048.003
+
+crown_jewels:
+  - asset: SS7 signaling network
+    owner: NOC Operations
+    criticality: critical
+  - asset: Subscriber database (1.8M records)
+    owner: IT / Data
+    criticality: critical
+  - asset: Ericsson ENM management platform
+    owner: NOC Engineering
+    criticality: critical
+
+deliverables:
+  - type: technical-brief
+    status: delivered
+  - type: executive-brief
+    status: delivered
+  - type: 72h-action-plan
+    status: delivered
+  - type: detection-backlog
+    status: delivered
+
+notes: "CVE-2023-44481 on ENM v21.4.8 — confirmed unpatched. 3 lookalike domains registered targeting NOC/AiTM/ENM update. 72h priority: patch ENM, block domains, brief NOC on ISO dropper TTPs."

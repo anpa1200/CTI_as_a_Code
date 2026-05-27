@@ -1,0 +1,42 @@
+title: PowerShell Spawned by Microsoft Office Application
+id: a3b91c2d-4e5f-6789-abcd-ef0123456789
+status: test
+description: |
+  Detects PowerShell spawned directly by a Microsoft Office application.
+  Common in malicious macro execution. Based on LifeTech Pharma incident (Nov 2024).
+  Covers T1059.001 (PowerShell) in macro delivery context.
+author: LifeTech Pharma CTI
+date: 2024-11-20
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.initial_access
+  - attack.t1566.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\cmd.exe'
+    ParentImage|endswith:
+      - '\winword.exe'
+      - '\excel.exe'
+      - '\outlook.exe'
+      - '\powerpnt.exe'
+  condition: selection
+falsepositives:
+  - Legitimate macro automation in controlled environments — suppress by ParentCommandLine whitelist
+level: high
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - ParentCommandLine
+  - User
+  - ComputerName
+# EMULATION NOTE:
+# Test: Invoke-AtomicRedTeam T1059.001 with Word macro delivery
+# Expected result: PASS — fires on EID 1 with ParentImage winword.exe
+# Known issues: None — highly specific parent-child relationship

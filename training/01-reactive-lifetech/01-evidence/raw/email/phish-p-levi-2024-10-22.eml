@@ -1,0 +1,66 @@
+From: it-security-noreply@microsoft-mfa-portal.com
+To: p.levi@lifetechpharma.co.il
+Subject: [URGENT] Security Alert — MFA Re-enrollment Required by 25 October 2024
+Date: Tue, 22 Oct 2024 11:23:14 +0300
+Message-ID: <CABx7kL2mN4pQ8rS9tU0vW1xY2zA3bC4dE5fG6hI7jK8lM9nO@mail.microsoft-mfa-portal.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==MimeBoundary_A1B2C3D4E5F6"
+X-Mailer: Microsoft Outlook 16.0
+X-Originating-IP: [198.51.100.14]
+X-Microsoft-Antispam: BCL:0; PCL:0; RULEID:; SRVR:DB7PR0101MB3026;
+X-Forefront-Antispam-Report: SFV:NSPM; SCL:4;
+X-MS-Exchange-Organization-SCL: 4
+Received: from mail.microsoft-mfa-portal.com (198.51.100.14) by
+ DB7PR0101MB3026.eurprd01.prod.exchangelabs.com with HTTPS; Tue, 22 Oct 2024
+ 08:23:14 +0000
+
+--==MimeBoundary_A1B2C3D4E5F6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="font-family:Calibri,Arial,sans-serif; font-size:14px;">
+<table width="600" cellpadding="0" cellspacing="0">
+<tr><td style="background:#0078d4; padding:20px;">
+  <img src="https://microsoft-mfa-portal.com/img/logo.png" alt="Microsoft" height="32">
+</td></tr>
+<tr><td style="padding:30px;">
+<p>Dear Paz Levi,</p>
+<p>Our security systems have detected that your <strong>Multi-Factor Authentication (MFA)
+enrollment</strong> for <em>LifeTech Pharma</em> is expiring on <strong>25 October 2024</strong>.
+You must re-enroll by that date to maintain access to company resources.</p>
+<p>Please review the attached guide (<strong>MFA-ReEnroll-Guide.docm</strong>) and follow the
+instructions to complete re-enrollment within the next 48 hours.</p>
+<p>If you do not complete re-enrollment, your access to Microsoft 365, VPN, and internal
+systems will be suspended automatically.</p>
+<p>If you have questions, contact the IT Helpdesk at ext. 2100.</p>
+<p>Regards,<br>
+IT Security Team<br>
+LifeTech Pharma</p>
+</td></tr>
+</table>
+</body>
+</html>
+
+--==MimeBoundary_A1B2C3D4E5F6
+Content-Type: application/vnd.ms-word.document.macroEnabled.12
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="MFA-ReEnroll-Guide.docm"
+
+[SYNTHETIC PLACEHOLDER — actual .docm would contain macro dropper; not included for safety]
+[SHA256 of real sample: 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b]
+[VT score at time of delivery: 2/68 — two AV engines flagged Generic.Macro.Dropper]
+
+--==MimeBoundary_A1B2C3D4E5F6--
+
+X-ANALYSIS-NOTES: |
+  Sender domain: microsoft-mfa-portal.com (NOT microsoft.com)
+  Registered: 2024-10-19 (3 days before delivery) via NameCheap, privacy-protected
+  MX: mail.microsoft-mfa-portal.com -> 198.51.100.14 (TEST-NET-2, fictional)
+  SPF: PASS (adversary controlled domain, SPF record set deliberately)
+  DKIM: PASS (signed with adversary key)
+  DMARC: PASS (adversary controlled domain)
+  Microsoft 365 SCL: 4 (below block threshold of 5 — delivered to inbox)
+  ATP sandbox: NOT triggered (xlsm/docm sandbox detonation not configured)
+  Typosquatting: microsoft-mfa-portal.com vs microsoft.com

@@ -1,0 +1,96 @@
+---
+project:
+  id: PROJ-2025-006
+  name: NDSA GovID 2.0 — Pre-Launch Threat Assessment
+  type: proactive
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: CTI Analyst
+  role: Senior CTI Analyst
+  contact: cti@ndsa.gov.il
+
+timeline:
+  trigger_received: "2025-06-01"
+  analysis_start: "2025-06-01"
+  report_due: "2025-06-08"
+  72h_plan_deadline: "2025-06-04"
+
+triggers:
+  - id: TRG-001
+    source: INCD (classified brief — unclassified summary)
+    type: advisory
+    classification: TLP:RED
+    admiralty_source: A
+    admiralty_info: "1"
+    summary: "Iranian state-directed collection tasked against national authentication infrastructure; 2+ contractors known compromised"
+  - id: TRG-002
+    source: CERT-IL CB-2025-041
+    type: advisory
+    classification: TLP:AMBER
+    admiralty_source: A
+    admiralty_info: "2"
+    summary: "AiTM campaign; govid-authentication[.]com registered 6 days after GovID 2.0 staging press release"
+  - id: TRG-003
+    source: BiometricTech vendor audit
+    type: internal
+    classification: TLP:AMBER
+    admiralty_source: A
+    admiralty_info: "1"
+    summary: "Hardcoded API key in public GitHub; btil_prod key — tested valid, active, ndsa-govid2-prod-integration client"
+  - id: TRG-004
+    source: Internal API gateway logs
+    type: internal
+    classification: TLP:AMBER
+    admiralty_source: A
+    admiralty_info: "1"
+    summary: "Adversary using exposed API key: schema enumeration, biometric match queries, bulk enrollment attempt (403)"
+
+pirs:
+  - id: PIR-001
+    question: "Is there active adversary targeting of GovID 2.0 pre-launch infrastructure?"
+    priority: high
+    status: answered
+  - id: PIR-002
+    question: "Has the exposed BiometricTech API key been used maliciously? What data was accessed?"
+    priority: high
+    status: answered
+  - id: PIR-003
+    question: "Do we have adequate detection coverage for the reported TTPs before the October 2025 launch?"
+    priority: high
+    status: answered
+
+scope:
+  organization: NDSA — GovID 2.0 Program
+  threat_actor: "Assessed Iranian state-directed collection program (high confidence per INCD)"
+  targeting_rationale: "National biometric authentication infrastructure; citizen identity data; pre-launch window maximizes vulnerability"
+  attck_techniques:
+    - T1566.001
+    - T1078.002
+    - T1110
+    - T1190
+    - T1530
+
+crown_jewels:
+  - asset: GovID 2.0 biometric database
+    owner: NDSA Data
+    criticality: critical
+  - asset: BiometricTech API integration (btil_prod key)
+    owner: NDSA Engineering
+    criticality: critical
+  - asset: Citizen identity enrollment records (9M citizens)
+    owner: NDSA
+    criticality: critical
+
+deliverables:
+  - type: technical-brief
+    status: delivered
+  - type: executive-brief
+    status: delivered
+  - type: 72h-action-plan
+    status: delivered
+  - type: detection-backlog
+    status: delivered
+
+notes: "TRG-003 decision: notified BiometricTech and rotated API key immediately (not investigate-first approach). Active adversary use of key confirmed by TRG-004. Sprint 23 still required for GOV-DET-006/008."

@@ -1,0 +1,30 @@
+server.name: cti-kibana
+server.host: "0.0.0.0"
+server.port: 5601
+
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.username: "kibana_system"
+# Password is injected via ELASTICSEARCH_PASSWORD env var in docker-compose
+
+# Security
+xpack.security.enabled: true
+xpack.encryptedSavedObjects.encryptionKey: "${KIBANA_ENCRYPTION_KEY}"
+
+# Fleet / Elastic Agent
+xpack.fleet.enabled: true
+xpack.fleet.packages:
+  - name: system
+    version: latest
+  - name: elastic_agent
+    version: latest
+
+# SIEM / Security solution
+xpack.securitySolution.enabled: true
+
+# Reporting
+xpack.reporting.enabled: true
+xpack.reporting.encryptionKey: "${KIBANA_ENCRYPTION_KEY}"
+
+# Disable telemetry
+telemetry.enabled: false
+telemetry.optIn: false

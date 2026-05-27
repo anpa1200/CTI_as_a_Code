@@ -1,0 +1,39 @@
+title: DCSync Attack — Replication Get Changes All
+id: c5d13e4f-6071-8901-cdef-012345678901
+status: test
+description: |
+  Detects DCSync by monitoring for EID 4662 with the Replication-Get-Changes-All
+  access right GUID, performed by a non-DC computer account.
+  Covers T1003.006 (OS Credential Dumping: DCSync). Near-zero false positives in
+  well-managed environments.
+author: LifeTech Pharma CTI
+date: 2024-11-20
+tags:
+  - attack.credential_access
+  - attack.t1003.006
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4662
+    Properties|contains:
+      - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'
+      - '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'
+      - '89e95b76-444d-4c62-991a-0facbeda640c'
+  filter_dc:
+    SubjectUserName|endswith: '$'
+  condition: selection and not filter_dc
+falsepositives:
+  - Azure AD Connect sync accounts — add to filter by SubjectUserName
+  - Veeam / backup software with AD replication rights — add to filter
+level: critical
+fields:
+  - SubjectUserName
+  - Properties
+  - ObjectDN
+  - ComputerName
+# EMULATION NOTE:
+# Test: Invoke-Mimikatz -Command "lsadump::dcsync /user:krbtgt" from non-DC host
+# Expected result: PASS — EID 4662 fired in LifeTech incident; 4s latency
+# Known issues: Must filter Azure AD Connect (MSOL_*) and backup accounts

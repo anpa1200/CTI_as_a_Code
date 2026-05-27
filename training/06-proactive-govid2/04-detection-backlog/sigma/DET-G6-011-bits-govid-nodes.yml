@@ -1,0 +1,44 @@
+title: BITS Job Initiated from GovID 2.0 Infrastructure Node
+id: c3d4e5f6-7890-1234-cdef-567890123456
+status: test
+description: >
+  Detects BITS (Background Intelligent Transfer Service) job creation on GovID 2.0
+  infrastructure nodes (frontend, API tier, enrollment service). BITS is used legitimately
+  for Windows Update but is also a known persistence and C2 channel (T1197).
+  Based on A05 incident pattern: bitsadmin used to download svchosts.exe from
+  govservice-cdn-updates[.]net. GovID 2.0 nodes follow same contractor access model as
+  VRID-SRV-01 in the March 2025 incident.
+author: NDSA CTI
+date: 2025/10/01
+references:
+  - 'A05 timeline event 11 — BITS download of svchosts.exe'
+  - 'PROJ-2025-006 detection backlog DET-G6-011'
+tags:
+  - attack.defense_evasion
+  - attack.persistence
+  - attack.t1197
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_bitsadmin:
+    Image|endswith: '\bitsadmin.exe'
+    CommandLine|contains:
+      - '/transfer'
+      - '/download'
+  selection_bits_service:
+    Image|endswith: '\svchost.exe'
+    CommandLine|contains: 'BITS'
+    ParentImage|endswith: '\services.exe'
+  filter_microsoft_update:
+    CommandLine|contains:
+      - 'download.windowsupdate.com'
+      - 'windowsupdate.microsoft.com'
+      - 'dl.delivery.mp.microsoft.com'
+  condition: (selection_bitsadmin or selection_bits_service) and not filter_microsoft_update
+falsepositives:
+  - 'Windows Update BITS jobs — covered by filter; residual FP from third-party update tools using BITS (e.g., SCCM)'
+  - 'Baseline BITS activity on GovID nodes before deploying to reduce FP noise'
+level: high
+# Deploy in Sprint 1 — no new log sources required (Winlogbeat already on GovID 2.0 nodes)
+# This rule applies the same pattern validated in A08 MOD-05 (PARTIAL — field mapping bug)

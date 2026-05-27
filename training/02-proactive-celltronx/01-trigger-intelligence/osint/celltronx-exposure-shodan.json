@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "note": "Synthetic Shodan-style internet exposure data for CelltronX ASN. All IPs are RFC 5737/3849 documentation ranges.",
+    "query_date": "2024-10-12",
+    "query": "org:CelltronX",
+    "asn": "AS64500",
+    "total_results": 8
+  },
+  "results": [
+    {
+      "ip_str": "203.0.113.201",
+      "port": 443,
+      "transport": "tcp",
+      "product": "Ericsson ENM REST API",
+      "version": "21.4.8",
+      "hostname": "enm-ui.mgmt.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "cpe": ["cpe:/a:ericsson:enm:21.4.8"],
+      "ssl": {
+        "cert": {
+          "issued": "celltronx.co.il",
+          "expires": "2025-03-15",
+          "subject": {"CN": "enm-ui.mgmt.celltronx.co.il"}
+        }
+      },
+      "http": {
+        "title": "Ericsson Network Manager",
+        "status": 200,
+        "server": "nginx/1.18.0"
+      },
+      "shodan_analysis": "FINDING: Ericsson ENM management UI exposed to internet. CVE-2023-44481 (authentication bypass) affects versions <21.4.12. This host runs 21.4.8 — VULNERABLE if not patched separately.",
+      "risk": "CRITICAL"
+    },
+    {
+      "ip_str": "203.0.113.202",
+      "port": 8443,
+      "transport": "tcp",
+      "product": "Nokia NetAct Web Console",
+      "version": "22.3",
+      "hostname": "netact-web.ops.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "http": {
+        "title": "Nokia NetAct — Network Management",
+        "status": 200,
+        "server": "Apache/2.4.54"
+      },
+      "shodan_analysis": "FINDING: Nokia NetAct web console exposed to internet on port 8443. No WAF detected. Login form accessible without client certificate.",
+      "risk": "HIGH"
+    },
+    {
+      "ip_str": "203.0.113.203",
+      "port": 22,
+      "transport": "tcp",
+      "product": "OpenSSH",
+      "version": "8.0",
+      "hostname": "bss-oracle-mgt.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "shodan_analysis": "FINDING: SSH exposed on BSS Oracle management host. OpenSSH 8.0 — check for CVE-2023-38408. No banner restriction observed.",
+      "risk": "MEDIUM"
+    },
+    {
+      "ip_str": "203.0.113.204",
+      "port": 443,
+      "transport": "tcp",
+      "product": "Cisco ASA SSL VPN",
+      "version": "9.16.3",
+      "hostname": "vpn.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "http": {"title": "Cisco Adaptive Security Appliance", "status": 200},
+      "shodan_analysis": "Expected exposure — VPN portal. Cisco ASA 9.16.3 — verify CVE-2023-20269 patch status. AnyConnect visible.",
+      "risk": "EXPECTED — verify patch level"
+    },
+    {
+      "ip_str": "203.0.113.205",
+      "port": 9200,
+      "transport": "tcp",
+      "product": "Elasticsearch",
+      "version": "8.13.0",
+      "hostname": "siem-es01.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "shodan_analysis": "FINDING: Elasticsearch REST API port exposed to internet. Authentication required (TLS + basic auth visible in banner). Verify no unauthenticated access.",
+      "risk": "MEDIUM — authentication present but unexpected internet exposure"
+    },
+    {
+      "ip_str": "203.0.113.206",
+      "port": 443,
+      "transport": "tcp",
+      "product": "Customer Web Portal",
+      "version": null,
+      "hostname": "my.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "http": {"title": "My CelltronX — Customer Portal", "status": 200},
+      "shodan_analysis": "Expected exposure — customer self-service portal. Imperva WAF headers visible.",
+      "risk": "EXPECTED"
+    },
+    {
+      "ip_str": "203.0.113.207",
+      "port": 5060,
+      "transport": "udp",
+      "product": "SIP Gateway",
+      "version": null,
+      "hostname": null,
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "shodan_analysis": "FINDING: SIP gateway responding to OPTIONS probe on port 5060 UDP. Should not be internet-reachable. Potential VoIP infrastructure exposure.",
+      "risk": "MEDIUM"
+    },
+    {
+      "ip_str": "203.0.113.208",
+      "port": 443,
+      "transport": "tcp",
+      "product": "Ericsson ENM Northbound API",
+      "version": "21.4.8",
+      "hostname": "enm-api.mgmt.celltronx.co.il",
+      "org": "CelltronX Ltd",
+      "asn": "AS64500",
+      "http": {"title": "ENM REST/JSON API", "status": 401},
+      "shodan_analysis": "FINDING: Second Ericsson ENM endpoint (Northbound API). Returns HTTP 401 without auth but API version visible. Same CVE-2023-44481 exposure as primary ENM UI.",
+      "risk": "HIGH"
+    }
+  ],
+  "summary": {
+    "critical": ["203.0.113.201 — ENM UI exposed, CVE-2023-44481 unpatched version"],
+    "high": ["203.0.113.202 — NetAct console exposed", "203.0.113.208 — ENM API exposed"],
+    "medium": ["203.0.113.203 — SSH on BSS host", "203.0.113.205 — Elasticsearch exposed", "203.0.113.207 — SIP gateway"],
+    "expected": ["203.0.113.204 — VPN portal", "203.0.113.206 — Customer portal"]
+  }
+}

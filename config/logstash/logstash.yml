@@ -1,0 +1,9 @@
+http.host: "0.0.0.0"
+http.port: 9600
+
+pipeline.workers: 2
+pipeline.batch.size: 125
+pipeline.batch.delay: 50
+
+# Disable X-Pack monitoring to avoid requiring a license
+xpack.monitoring.enabled: false

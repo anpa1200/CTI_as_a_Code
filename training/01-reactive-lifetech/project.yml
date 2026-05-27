@@ -1,0 +1,69 @@
+---
+project:
+  id: PROJ-2024-001
+  name: LifeTech Pharma — Targeted Intrusion Investigation
+  type: reactive
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: CTI Analyst
+  role: Senior CTI Analyst
+  contact: cti@lifetechpharma.com
+
+timeline:
+  incident_date: "2024-11-13"
+  detection_date: "2024-11-15"
+  investigation_start: "2024-11-15"
+  report_due: "2024-11-22"
+
+pirs:
+  - id: PIR-001
+    question: "What was the initial access vector and how did the attacker bypass MFA?"
+    priority: high
+    status: answered
+  - id: PIR-002
+    question: "What data was accessed and exfiltrated, and what is the business impact?"
+    priority: high
+    status: answered
+  - id: PIR-003
+    question: "Who is the threat actor and what is their likely motivation?"
+    priority: medium
+    status: answered
+  - id: PIR-004
+    question: "What detection gaps enabled this attack to persist for 52 hours undetected?"
+    priority: high
+    status: answered
+
+scope:
+  systems:
+    - WS-IT-LEVI (IT admin workstation)
+    - WS-CFO-01 (CFO workstation)
+    - SERVER-FIN-01 (Financial file server)
+    - DC-01 (Domain controller)
+    - VPN Gateway
+  threat_actor: "Assessed Iranian-nexus cluster (medium confidence)"
+  attck_techniques:
+    - T1566.001
+    - T1557
+    - T1059.001
+    - T1003.001
+    - T1003.006
+    - T1021.001
+    - T1547.001
+    - T1039
+    - T1041
+    - T1070.001
+    - T1071.001
+    - T1197
+
+deliverables:
+  - type: executive-brief
+    status: delivered
+  - type: soc-handoff
+    status: delivered
+  - type: sigma-rules
+    count: 4
+    status: delivered
+
+notes: "Dwell time 52h46m. R&D data exfiltrated (~2.4 GB, 47 files). DCSync achieved. 0/12 TTPs had working detection rules that fired during the incident."

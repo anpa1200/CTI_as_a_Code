@@ -1,0 +1,39 @@
+title: Windows Event Log Cleared via wevtutil — Government Hosts (Fixed)
+id: a05-gov-det-005-wevtutil-fix
+status: production
+description: |
+  Detects Windows event log clearing via wevtutil.exe on government hosts.
+  Confirmed in March 2025 NDSA breach: attacker cleared Security, System, and
+  Application logs via wevtutil cl at 05:33 IST to cover tracks before departure.
+  This version removes the 12-hour quiet-period suppression that was present in
+  GOV-DET-004 and caused it to fail to fire during the March 2025 incident.
+  The quiet period was added to suppress repeated FPs but incorrectly silenced
+  the rule entirely for 12 hours after first fire.
+  Covers T1070.001 (Indicator Removal: Clear Windows Event Logs).
+author: NDSA Detection Engineering
+date: 2025-03-21
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\wevtutil.exe'
+    CommandLine|contains: 'cl '
+  condition: selection
+falsepositives:
+  - Approved log rotation by IT operations — require pre-approved change ticket
+  - No legitimate reason for wevtutil cl on production government servers without approval
+level: high
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - host.name
+# EMULATION NOTE:
+# Test: wevtutil.exe cl Security
+# Expected result: PASS — fires within 30s
+# Fix from GOV-DET-004: removed 12-hour suppression window that silenced rule in March 2025 incident

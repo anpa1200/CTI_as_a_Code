@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "note": "Synthetic URLScan.io-style results for CelltronX lookalike domains. All IPs are documentation ranges.",
+    "scan_date": "2024-10-12"
+  },
+  "scans": [
+    {
+      "domain": "celltronx-noc-portal.com",
+      "scan_id": "syn-001-urlscan",
+      "url": "https://celltronx-noc-portal.com/",
+      "ip": "203.0.113.101",
+      "asn": "AS399629",
+      "asn_name": "VULTR-AS",
+      "country": "NL",
+      "server": "nginx/1.24.0",
+      "status_code": 200,
+      "title": "CelltronX NOC — Secure Access Portal",
+      "page_text_excerpt": "Please enter your CelltronX employee credentials to access the Network Operations Center portal. For security purposes, MFA authentication is required.",
+      "screenshot_description": "Blue login page with CelltronX logo (slightly pixelated, appears hotlinked from official site). Username and password fields. 'Login with Okta' button pointing to attacker-controlled Okta relay.",
+      "tls_cert": {
+        "issuer": "Let's Encrypt",
+        "cn": "celltronx-noc-portal.com",
+        "valid_from": "2024-10-01",
+        "valid_to": "2025-01-01"
+      },
+      "cookies": [],
+      "scripts_loaded": [
+        "https://celltronx-noc-portal.com/assets/js/auth.js",
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      ],
+      "forms": [
+        {
+          "action": "https://celltronx-noc-portal.com/auth/submit",
+          "method": "POST",
+          "inputs": ["username", "password", "otp_token"]
+        }
+      ],
+      "assessment": "AiTM phishing page. Collects username, password, and OTP token simultaneously — consistent with session cookie theft via adversary-in-the-middle proxy (Evilginx/Modlishka pattern). The OTP field means the adversary relays credentials in real-time to capture the session token AFTER MFA.",
+      "indicators": {
+        "domain": "celltronx-noc-portal.com",
+        "ip": "203.0.113.101",
+        "submit_endpoint": "https://celltronx-noc-portal.com/auth/submit"
+      }
+    },
+    {
+      "domain": "celltronx-it-helpdesk.net",
+      "scan_id": "syn-002-urlscan",
+      "url": "https://celltronx-it-helpdesk.net/",
+      "ip": "203.0.113.102",
+      "asn": "AS399629",
+      "asn_name": "VULTR-AS",
+      "country": "NL",
+      "server": "nginx/1.24.0",
+      "status_code": 200,
+      "title": "CelltronX IT Self-Service Helpdesk",
+      "page_text_excerpt": "Submit IT tickets, reset your password, or check service status. Please log in with your employee credentials.",
+      "screenshot_description": "Generic helpdesk portal. CelltronX branding applied but fonts differ from official site. Login form present.",
+      "tls_cert": {
+        "issuer": "Let's Encrypt",
+        "cn": "celltronx-it-helpdesk.net",
+        "valid_from": "2024-10-04",
+        "valid_to": "2025-01-04"
+      },
+      "forms": [
+        {
+          "action": "https://celltronx-it-helpdesk.net/login",
+          "method": "POST",
+          "inputs": ["email", "password"]
+        }
+      ],
+      "assessment": "Credential harvesting page. No OTP field — may target accounts without MFA, or this is a first-stage collector that re-presents credentials to trigger real MFA. Same hosting infrastructure as domain 1.",
+      "indicators": {
+        "domain": "celltronx-it-helpdesk.net",
+        "ip": "203.0.113.102",
+        "submit_endpoint": "https://celltronx-it-helpdesk.net/login"
+      }
+    },
+    {
+      "domain": "celltronx-enm-update.com",
+      "scan_id": "syn-003-urlscan",
+      "url": "https://celltronx-enm-update.com/",
+      "ip": "203.0.113.103",
+      "asn": "AS399629",
+      "asn_name": "VULTR-AS",
+      "country": "NL",
+      "status_code": 200,
+      "title": "Parked Domain",
+      "page_text_excerpt": "This domain is parked. Please check back later.",
+      "screenshot_description": "Default Porkbun parking page.",
+      "assessment": "Parked. No active content at scan time. Same /24 as the two active domains — likely pre-positioned for future use. Monitor for content changes.",
+      "indicators": {
+        "domain": "celltronx-enm-update.com",
+        "ip": "203.0.113.103"
+      }
+    }
+  ],
+  "infrastructure_summary": {
+    "common_asn": "AS399629 (Vultr)",
+    "common_subnet": "203.0.113.0/24",
+    "common_registrar": "Porkbun (domains 2 and 3), Namecheap (domain 1)",
+    "tls_issuer": "Let's Encrypt (all)",
+    "registration_pattern": "All registered within 9-day window (Oct 1–9); all privacy-protected",
+    "threat_cluster_overlap": "Infrastructure pattern matches CEDAR-SIGNAL profile (TRG-004): Vultr hosting, Let's Encrypt TLS, Porkbun/Namecheap, lookalike domains registered days before first use"
+  }
+}

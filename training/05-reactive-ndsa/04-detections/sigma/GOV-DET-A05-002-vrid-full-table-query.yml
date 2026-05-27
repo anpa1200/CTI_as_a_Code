@@ -1,0 +1,42 @@
+title: VRID Server Full-Table SELECT on Citizen Records
+id: a05-gov-det-002-vrid-full-table-query
+status: production
+description: |
+  Detects full-table SELECT queries against the VRID citizen biometric database.
+  Normal VRID operations perform single-citizen or small-batch lookups.
+  A full-table SELECT (estimated >50,000 rows or no WHERE clause on citizen_records)
+  indicates bulk extraction, automation, or data theft.
+  Deploys on VRID-SRV-01 (production) — NOT just VRID-LAB-01.
+  This rule was confirmed effective in March 2025 NDSA breach but was deployed
+  only on the lab server; this version covers the production host.
+  Covers T1005 (Data from Local System) in DB query context.
+author: NDSA Detection Engineering
+date: 2025-03-21
+tags:
+  - attack.collection
+  - attack.t1005
+logsource:
+  category: database
+  product: vrid_db
+  service: audit_log
+detection:
+  selection_full_table:
+    db.statement|contains: 'SELECT'
+    db.table: 'citizen_records'
+  filter_where_clause:
+    db.statement|contains: 'WHERE'
+  condition: selection_full_table and not filter_where_clause
+falsepositives:
+  - Approved bulk export for audit purposes — requires pre-approved ticket + time window
+  - Database backup jobs — use service account filter if backup uses dedicated account
+level: critical
+fields:
+  - user.name
+  - db.statement
+  - db.instance
+  - host.name
+  - source.ip
+# EMULATION NOTE:
+# Test: Execute "SELECT * FROM citizen_records" via test account on VRID-SRV-01
+# Expected result: PASS — confirmed effective in March 2025 incident; 8s latency
+# Key fix from incident: rule was only on VRID-LAB-01; production VRID-SRV-01 had no equivalent rule

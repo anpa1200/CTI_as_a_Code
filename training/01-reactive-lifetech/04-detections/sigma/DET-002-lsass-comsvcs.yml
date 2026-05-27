@@ -1,0 +1,36 @@
+title: LSASS Memory Dump via comsvcs.dll MiniDump
+id: b4c02d3e-5f60-7890-bcde-f01234567890
+status: test
+description: |
+  Detects LSASS memory dump using the comsvcs.dll MiniDump export via rundll32.
+  Evidenced in LifeTech Pharma incident (Nov 2024); GrantedAccess 0x1410.
+  Covers T1003.001 (OS Credential Dumping: LSASS Memory).
+author: LifeTech Pharma CTI
+date: 2024-11-20
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains|all:
+      - 'comsvcs.dll'
+      - 'MiniDump'
+  condition: selection
+falsepositives:
+  - Legitimate crash dump collection — rare; suppress by ParentImage if from known crash reporter
+  - Backup software (Veeam) may use this API — add svc-veeam to user filter
+level: critical
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - ComputerName
+# EMULATION NOTE:
+# Test: rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump 648 C:\temp\lsass_test.dmp full
+# Expected result: PARTIAL — fires on comsvcs.dll MiniDump; Veeam FP filter needed
+# Known issues: Veeam backup job triggers same pattern — filter by user (svc-veeam)

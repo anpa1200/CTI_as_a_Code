@@ -1,0 +1,40 @@
+title: GovID API Authentication Rate Limit Bypass Attempt
+id: gov-det-007-govid-rate-limit
+status: draft
+description: |
+  Detects high-frequency authentication attempts against the GovID 2.0 API that
+  exceed normal single-citizen authentication patterns. Normal usage: 1 auth request
+  per citizen per service interaction. >100 auth requests per minute from a single
+  source indicates either misconfiguration, automated testing, or brute-force attack.
+  Covers T1110 (Brute Force) in API authentication context.
+  STATUS: DRAFT — requires Kong API Gateway rate-limit event logging to be configured.
+  Currently Kong does not emit structured rate-limit events to Elastic SIEM.
+author: NDSA Detection Engineering
+date: 2025-07-15
+tags:
+  - attack.credential_access
+  - attack.t1110
+  - attack.t1110.003
+logsource:
+  category: web
+  product: kong_api_gateway
+detection:
+  selection:
+    http.request.path|contains: '/api/v2/authenticate'
+  aggregate:
+    count(http.request.path) by source.ip: '>100'
+    timeframe: 1m
+  condition: selection | aggregate
+falsepositives:
+  - Load testing (must be pre-approved and tagged in system)
+  - Integration testing by BiometricTech in staging environment
+level: high
+fields:
+  - source.ip
+  - http.request.path
+  - http.response.status_code
+  - count
+# BLOCKED: Kong rate-limit events not forwarded to Elastic SIEM
+# UNBLOCK: Configure Kong rate-limit plugin to emit structured events
+# Estimated effort: 3 days engineering + 5 days CAB approval
+# EMULATION RESULT: FAIL (see caldera-govid-run.json)
