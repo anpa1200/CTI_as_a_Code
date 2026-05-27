@@ -5,7 +5,7 @@ const { themes } = require('prism-react-renderer');
 const config = {
   title: 'CTI as a Code',
   tagline: 'Version-controlled CTI methodology. Evidence-traced analysis. Deployable detections.',
-  favicon: 'img/logo.png',
+  favicon: 'img/ap-logo.png',
 
   url: 'https://anpa1200.github.io',
   baseUrl: '/CTI_as_a_Code/',
@@ -48,7 +48,7 @@ const config = {
         title: 'CTI as a Code',
         logo: {
           alt: '1200km',
-          src: 'img/logo.png',
+          src: 'img/ap-logo.png',
         },
         items: [
           {
@@ -56,6 +56,11 @@ const config = {
             sidebarId: 'labSidebar',
             position: 'left',
             label: 'Lab',
+          },
+          {
+            to: '/methodology',
+            label: 'Methodology',
+            position: 'left',
           },
           {
             type: 'docSidebar',
@@ -90,6 +95,7 @@ const config = {
           {
             title: 'Lab',
             items: [
+              { label: 'Methodology', to: '/methodology' },
               { label: 'Quick Start', to: '/quick-start' },
               { label: 'Architecture', to: '/architecture' },
               { label: 'Services', to: '/services/elasticsearch' },
