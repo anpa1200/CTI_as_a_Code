@@ -41,7 +41,7 @@ For analyzers requiring API keys, click the analyzer → **Configuration** and e
 
 ## Generate Cortex API key
 
-1. **Organization → Users → <your user> → Create API key**
+1. **Organization → Users → `<your user>` → Create API key**
 2. Copy the key immediately — it won't be shown again
 
 ## Wire Cortex into TheHive

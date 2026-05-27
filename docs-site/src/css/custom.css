@@ -1,22 +1,99 @@
 :root {
-  --ifm-color-primary: #e85d04;
-  --ifm-color-primary-dark: #d15403;
-  --ifm-color-primary-darker: #c44f03;
-  --ifm-color-primary-darkest: #a24102;
-  --ifm-color-primary-light: #ff6a10;
-  --ifm-color-primary-lighter: #ff731d;
-  --ifm-color-primary-lightest: #ff8c42;
-  --ifm-code-font-size: 93%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-primary: #1b5e3e;
+  --ifm-color-primary-dark: #174f35;
+  --ifm-color-primary-darker: #144a31;
+  --ifm-color-primary-darkest: #0f3824;
+  --ifm-color-primary-light: #216e49;
+  --ifm-color-primary-lighter: #277d54;
+  --ifm-color-primary-lightest: #2d8c5f;
+  --ifm-code-font-size: 95%;
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #ff6a10;
-  --ifm-color-primary-dark: #f55e00;
-  --ifm-color-primary-darker: #e85900;
-  --ifm-color-primary-darkest: #bf4900;
-  --ifm-color-primary-light: #ff7a2a;
-  --ifm-color-primary-lighter: #ff8337;
-  --ifm-color-primary-lightest: #ffa060;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #4ade80;
+  --ifm-color-primary-dark: #22c55e;
+  --ifm-color-primary-darker: #16a34a;
+  --ifm-color-primary-darkest: #15803d;
+  --ifm-color-primary-light: #86efac;
+  --ifm-color-primary-lighter: #bbf7d0;
+  --ifm-color-primary-lightest: #dcfce7;
+}
+
+/* Hero */
+.hero--lab {
+  background: linear-gradient(135deg, #0d1f13 0%, #1b3a27 50%, #0f2d1e 100%);
+  color: #e2f5e9;
+}
+.hero--lab .hero__title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.hero--lab .hero__subtitle {
+  font-size: 1.2rem;
+  opacity: 0.85;
+  max-width: 640px;
+  margin: 0.75rem auto 1.5rem;
+}
+
+/* Sections */
+.lab-section {
+  padding: 3rem 0;
+}
+.lab-section:nth-child(even) {
+  background: var(--ifm-background-surface-color);
+}
+
+/* Card grid */
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.lab-card {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 1.25rem;
+  background: var(--ifm-background-surface-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.lab-card:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 2px 8px rgba(27, 94, 62, 0.15);
+}
+.lab-card h3 { margin-top: 0; font-size: 1rem; }
+
+/* Assignment type badges */
+.assignment-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-reactive   { background: #fee2e2; color: #991b1b; }
+.badge-proactive  { background: #dbeafe; color: #1e40af; }
+.badge-full-cycle { background: #fef3c7; color: #92400e; }
+.badge-emulation  { background: #f3e8ff; color: #6b21a8; }
+
+[data-theme='dark'] .badge-reactive   { background: #450a0a; color: #fca5a5; }
+[data-theme='dark'] .badge-proactive  { background: #172554; color: #93c5fd; }
+[data-theme='dark'] .badge-full-cycle { background: #451a03; color: #fcd34d; }
+[data-theme='dark'] .badge-emulation  { background: #3b0764; color: #d8b4fe; }
+
+/* Portfolio navbar button */
+.navbar-portfolio-btn {
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 6px;
+  padding: 4px 12px !important;
+  color: var(--ifm-color-primary) !important;
+  font-weight: 700;
+}
+.navbar-portfolio-btn:hover {
+  background: var(--ifm-color-primary);
+  color: #fff !important;
+  text-decoration: none;
 }

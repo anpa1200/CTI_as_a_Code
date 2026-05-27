@@ -11,8 +11,8 @@ Get the full lab running in under 10 minutes.
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/anpa1200/CTI-lab.git
-cd CTI-lab
+git clone https://github.com/anpa1200/CTI_as_a_Code.git
+cd CTI_as_a_Code
 ```
 
 ## 2. Configure credentials

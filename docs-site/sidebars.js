@@ -1,26 +1,11 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
   labSidebar: [
-    {
-      type: 'doc',
-      id: 'intro',
-      label: 'Introduction',
-    },
-    {
-      type: 'doc',
-      id: 'architecture',
-      label: 'Architecture',
-    },
-    {
-      type: 'doc',
-      id: 'prerequisites',
-      label: 'Prerequisites',
-    },
-    {
-      type: 'doc',
-      id: 'quick-start',
-      label: 'Quick Start',
-    },
+    { type: 'doc', id: 'intro', label: 'Introduction' },
+    { type: 'doc', id: 'architecture', label: 'Architecture' },
+    { type: 'doc', id: 'prerequisites', label: 'Prerequisites' },
+    { type: 'doc', id: 'quick-start', label: 'Quick Start' },
+    { type: 'doc', id: 'ecosystem', label: 'Ecosystem' },
     {
       type: 'category',
       label: 'Services',
@@ -56,6 +41,32 @@ const sidebars = {
       items: [
         'workflows/ioc-triage',
         'workflows/threat-actor-research',
+      ],
+    },
+  ],
+
+  trainingSidebar: [
+    { type: 'doc', id: 'training/index', label: 'Training Overview' },
+    {
+      type: 'category',
+      label: 'Private Sector (A01–A04)',
+      collapsed: false,
+      items: [
+        'training/reactive-lifetech',
+        'training/proactive-celltronx',
+        'training/full-cycle-techpay',
+        'training/emulation-techpay',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Government Narrative Arc (A05–A08)',
+      collapsed: false,
+      items: [
+        'training/reactive-ndsa',
+        'training/proactive-govid2',
+        'training/full-cycle-ndsa',
+        'training/emulation-ndsa',
       ],
     },
   ],

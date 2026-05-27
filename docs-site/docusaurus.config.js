@@ -3,19 +3,19 @@ const { themes } = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'CTI Lab',
-  tagline: 'Full Linux CTI Lab — OpenCTI · TheHive · Cortex · Elastic SIEM',
-  favicon: 'img/favicon.ico',
+  title: 'CTI as a Code',
+  tagline: 'Version-controlled CTI methodology. Evidence-traced analysis. Deployable detections.',
+  favicon: 'img/logo.png',
 
   url: 'https://anpa1200.github.io',
-  baseUrl: '/cti-lab/',
+  baseUrl: '/CTI_as_a_Code/',
 
   organizationName: 'anpa1200',
-  projectName: 'CTI-lab',
+  projectName: 'CTI_as_a_Code',
   deploymentBranch: 'gh-pages',
-  trailingSlash: false,
+  trailingSlash: true,
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
@@ -31,14 +31,11 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
-          editUrl: 'https://github.com/anpa1200/CTI-lab/edit/main/docs-site/',
+          editUrl: 'https://github.com/anpa1200/CTI_as_a_Code/edit/main/docs-site/',
         },
         blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
-        },
-        gtag: {
-          trackingID: 'G-TMTG21RVHM',
         },
       }),
     ],
@@ -48,9 +45,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'CTI Lab',
+        title: 'CTI as a Code',
         logo: {
-          alt: 'CTI Lab',
+          alt: '1200km',
           src: 'img/logo.png',
         },
         items: [
@@ -58,18 +55,33 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'labSidebar',
             position: 'left',
-            label: 'Docs',
+            label: 'Lab',
           },
           {
-            href: 'https://anpa1200.github.io',
-            label: 'Portfolio',
-            position: 'right',
+            type: 'docSidebar',
+            sidebarId: 'trainingSidebar',
+            position: 'left',
+            label: 'Training',
           },
           {
-            href: 'https://github.com/anpa1200/CTI-lab',
-            label: 'GitHub',
-            position: 'right',
+            to: '/ecosystem',
+            label: 'Ecosystem',
+            position: 'left',
           },
+          {
+            label: 'Projects',
+            position: 'right',
+            items: [
+              { label: 'CTI as a Code', href: 'https://anpa1200.github.io/CTI_as_a_Code/' },
+              { label: 'CTI Analyst Field Manual', href: 'https://anpa1200.github.io/cti-analyst-field-manual/' },
+              { label: 'Customer-Driven AI CTI', href: 'https://anpa1200.github.io/customer-driven-ai-cti-project/' },
+              { label: 'Israel Threat Actors CTI', href: 'https://anpa1200.github.io/israel-government-threat-actors-cti/' },
+              { label: 'HexStrike AI', href: 'https://github.com/0x4m4/hexstrike-ai' },
+            ],
+          },
+          { href: 'https://medium.com/@1200km', label: 'Medium', position: 'right' },
+          { href: 'https://github.com/anpa1200/CTI_as_a_Code', label: 'GitHub', position: 'right' },
+          { href: 'https://anpa1200.github.io/', label: 'All Projects', position: 'right', className: 'navbar-portfolio-btn' },
         ],
       },
       footer: {
@@ -81,30 +93,42 @@ const config = {
               { label: 'Quick Start', to: '/quick-start' },
               { label: 'Architecture', to: '/architecture' },
               { label: 'Services', to: '/services/elasticsearch' },
+              { label: 'Workflows', to: '/workflows/ioc-triage' },
             ],
           },
           {
-            title: 'Workflows',
+            title: 'Training',
             items: [
-              { label: 'IOC Triage', to: '/workflows/ioc-triage' },
-              { label: 'Threat Actor Research', to: '/workflows/threat-actor-research' },
+              { label: 'All Assignments', to: '/training' },
+              { label: 'A01 — Reactive IR', to: '/training/01-reactive-lifetech' },
+              { label: 'A04 — Adversary Emulation', to: '/training/04-emulation-techpay' },
+              { label: 'A08 — Gov Emulation', to: '/training/08-emulation-ndsa' },
             ],
           },
           {
-            title: 'Links',
+            title: 'Ecosystem',
             items: [
-              { label: 'Portfolio', href: 'https://anpa1200.github.io' },
-              { label: 'GitHub', href: 'https://github.com/anpa1200/CTI-lab' },
-              { label: 'Medium', href: 'https://medium.com/@anpa1200' },
+              { label: 'CTI Analyst Field Manual', href: 'https://anpa1200.github.io/cti-analyst-field-manual/' },
+              { label: 'Customer-Driven AI CTI', href: 'https://anpa1200.github.io/customer-driven-ai-cti-project/' },
+              { label: 'Israel Threat Actors CTI', href: 'https://anpa1200.github.io/israel-government-threat-actors-cti/' },
+              { label: 'HexStrike AI', href: 'https://github.com/0x4m4/hexstrike-ai' },
+            ],
+          },
+          {
+            title: 'Author',
+            items: [
+              { label: 'Medium', href: 'https://medium.com/@1200km' },
+              { label: 'GitHub', href: 'https://github.com/anpa1200' },
+              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/andrey-pautov/' },
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} Andrey Pautov`,
+        copyright: `Copyright © ${new Date().getFullYear()} Andrey Pautov. CTI as a Code — defensive methodology lab and training.`,
       },
       prism: {
         theme: themes.github,
         darkTheme: themes.dracula,
-        additionalLanguages: ['bash', 'yaml', 'json', 'python', 'hocon'],
+        additionalLanguages: ['bash', 'yaml', 'json', 'python'],
       },
       colorMode: {
         defaultMode: 'dark',

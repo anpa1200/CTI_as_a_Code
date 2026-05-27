@@ -1,0 +1,14 @@
+.env
+*.log
+
+# Docker volumes (if bound locally)
+data/
+
+# Docusaurus
+docs-site/node_modules/
+docs-site/.docusaurus/
+docs-site/build/
+
+# OS
+.DS_Store
+Thumbs.db

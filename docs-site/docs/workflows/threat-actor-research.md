@@ -116,7 +116,7 @@ sequence by host.name
 
 ### Export from OpenCTI
 
-**Threats → Intrusion Sets → <actor> → Actions → Export → STIX2 bundle**
+**Threats → Intrusion Sets → `<actor>` → Actions → Export → STIX2 bundle**
 
 The bundle contains the actor, all linked TTPs, malware, tools, indicators, and relationships — ready to share with other platforms.
 
