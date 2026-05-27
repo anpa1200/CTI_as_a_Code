@@ -36,12 +36,12 @@ docker compose logs opencti | tail -50
 ## 4. TheHive
 
 - Open http://localhost:9100
-- Complete the first-login wizard: [TheHive setup →](thehive-setup)
+- Complete the first-login wizard: [TheHive setup →](/setup/thehive-setup)
 
 ## 5. Cortex
 
 - Open http://localhost:9002
-- Complete the first-login wizard: [Cortex setup →](cortex-setup)
+- Complete the first-login wizard: [Cortex setup →](/setup/cortex-setup)
 
 ## 6. MinIO
 

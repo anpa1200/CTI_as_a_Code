@@ -115,8 +115,8 @@ Point Filebeat or Winlogbeat on your endpoints at `<lab-host>:5044`.
 
 ## Next steps
 
-1. **[OpenCTI first-run setup](setup/opencti-setup)** — configure organizations and marking definitions
-2. **[TheHive first-run setup](setup/thehive-setup)** — create an organization and first user
-3. **[Connect Cortex to TheHive](setup/cortex-setup)** — wire up automated enrichment
-4. **[Connect OpenCTI to TheHive](integrations/opencti-thehive)** — push threat intel into cases
-5. **[IOC triage workflow](workflows/ioc-triage)** — put it all together
+1. **[OpenCTI first-run setup](/setup/opencti-setup)** — configure organizations and marking definitions
+2. **[TheHive first-run setup](/setup/thehive-setup)** — create an organization and first user
+3. **[Connect Cortex to TheHive](/setup/cortex-setup)** — wire up automated enrichment
+4. **[Connect OpenCTI to TheHive](/integrations/opencti-thehive)** — push threat intel into cases
+5. **[IOC triage workflow](/workflows/ioc-triage)** — put it all together

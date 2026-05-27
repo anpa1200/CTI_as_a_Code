@@ -37,31 +37,31 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 
 ### Reactive Investigation → Sigma Rule → Lab Validation
 
-1. Use [CTI as a Code A01](./training/01-reactive-lifetech) or [A05](./training/05-reactive-ndsa) as the scenario
+1. Use [CTI as a Code A01](/training/reactive-lifetech) or [A05](/training/reactive-ndsa) as the scenario
 2. Apply [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/) and [Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/source-reliability/) to each timeline event
 3. Convert findings to detection logic using [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-4. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](./training/04-emulation-techpay) or [A08](./training/08-emulation-ndsa) emulation methodology
+4. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/training/emulation-techpay) or [A08](/training/emulation-ndsa) emulation methodology
 5. Use [HexStrike AI](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage
 
 ### Threat Modeling → Detection Backlog → Customer Project
 
-1. Use [A02](./training/02-proactive-celltronx) or [A06](./training/06-proactive-govid2) as the proactive threat modeling framework
+1. Use [A02](/training/proactive-celltronx) or [A06](/training/proactive-govid2) as the proactive threat modeling framework
 2. Reference [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) for sector-specific threat actor TTPs
 3. Produce a detection backlog with Sigma rules (CTI as a Code template structure)
 4. Hand off to [Customer-Driven AI CTI Project](https://anpa1200.github.io/customer-driven-ai-cti-project/) for managed delivery with quality gates and customer acceptance criteria
 
 ### CTI Program Build → INCD Compliance
 
-1. Use [A07 (NDSA full-cycle program)](./training/07-full-cycle-ndsa) as the governance framework template
+1. Use [A07 (NDSA full-cycle program)](/training/full-cycle-ndsa) as the governance framework template
 2. Apply [Field Manual — PIR/SIR framework](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/pir-sir-eei/) for requirement design
-3. Use [A08 compliance report](./training/08-emulation-ndsa) as the detection validation evidence format
+3. Use [A08 compliance report](/training/emulation-ndsa) as the detection validation evidence format
 4. Cross-reference [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) for INCD regulatory framework context
 
 ### Actor Profile → Sector Context → Detection
 
 1. Use [Field Manual — Actor Research](https://anpa1200.github.io/cti-analyst-field-manual/docs/actor-research/) to structure the actor profile
 2. Use [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) for the Iranian-nexus cluster context relevant to A05–A08
-3. Extract detection-relevant TTPs using [A04 TTP extraction methodology](./training/04-emulation-techpay)
+3. Extract detection-relevant TTPs using [A04 TTP extraction methodology](/training/emulation-techpay)
 4. Turn the profile into a customer project with [Customer-Driven AI CTI](https://anpa1200.github.io/customer-driven-ai-cti-project/)
 
 ## NDSA Narrative Arc and the Israel CTI Project

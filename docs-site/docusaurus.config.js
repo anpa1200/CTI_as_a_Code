@@ -106,9 +106,9 @@ const config = {
             title: 'Training',
             items: [
               { label: 'All Assignments', to: '/training' },
-              { label: 'A01 — Reactive IR', to: '/training/01-reactive-lifetech' },
-              { label: 'A04 — Adversary Emulation', to: '/training/04-emulation-techpay' },
-              { label: 'A08 — Gov Emulation', to: '/training/08-emulation-ndsa' },
+              { label: 'A01 — Reactive IR', to: '/training/reactive-lifetech' },
+              { label: 'A04 — Adversary Emulation', to: '/training/emulation-techpay' },
+              { label: 'A08 — Gov Emulation', to: '/training/emulation-ndsa' },
             ],
           },
           {

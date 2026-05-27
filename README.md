@@ -6,7 +6,7 @@ A full Linux Cyber Threat Intelligence lab and structured CTI methodology framew
 
 **Stack:** OpenCTI · TheHive 5 · Cortex · Elastic SIEM (ES + Kibana) · Logstash
 
-**Documentation site:** https://anpa1200.github.io/cti-lab/
+**Documentation site:** https://anpa1200.github.io/CTI_as_a_Code/
 
 ---
 

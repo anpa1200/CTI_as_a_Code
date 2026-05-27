@@ -47,10 +47,10 @@ Assignments 1–4 cover the Israeli private sector. Assignments 5–8 form a con
 
 ## Navigation
 
-- **[Quick Start](quick-start)** — lab up and running in 10 minutes
-- **[Architecture](architecture)** — design decisions and data flows
-- **[Training](training)** — all 8 assignments with objectives and deliverables
-- **[Ecosystem](ecosystem)** — how this project fits with the Field Manual and other CTI projects
+- **[Quick Start](/quick-start)** — lab up and running in 10 minutes
+- **[Architecture](/architecture)** — design decisions and data flows
+- **[Training](/training)** — all 8 assignments with objectives and deliverables
+- **[Ecosystem](/ecosystem)** — how this project fits with the Field Manual and other CTI projects
 
 ## Related projects
 

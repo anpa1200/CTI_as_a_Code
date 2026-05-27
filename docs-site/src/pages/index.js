@@ -10,7 +10,7 @@ const assignments = [
     label: 'Reactive',
     title: 'LifeTech Pharma — Targeted Intrusion',
     body: 'Reconstruct a 52-hour Iranian-nexus kill chain from zero coverage. DCSync, AiTM session bypass, 2.4 GB R&D exfiltration. Write four Sigma rules from scratch.',
-    href: '/training/01-reactive-lifetech',
+    href: '/training/reactive-lifetech',
   },
   {
     id: 'A02',
@@ -18,7 +18,7 @@ const assignments = [
     label: 'Proactive',
     title: 'CelltronX — Nation-State Telecom Targeting',
     body: 'Four threat triggers converge on the same contractor access path. Build crown jewels analysis, attack scenarios, and a detection backlog before anything happens.',
-    href: '/training/02-proactive-celltronx',
+    href: '/training/proactive-celltronx',
   },
   {
     id: 'A03',
@@ -26,7 +26,7 @@ const assignments = [
     label: 'Full Cycle',
     title: 'TechPay — CTI Program from Scratch',
     body: 'Near-miss incident, departing CTI lead, lapsed CERT-IL MOU, BoI-CD 362 compliance gap. Build the PIR framework, collection plan, and governance from zero.',
-    href: '/training/03-full-cycle-techpay',
+    href: '/training/full-cycle-techpay',
   },
   {
     id: 'A04',
@@ -34,7 +34,7 @@ const assignments = [
     label: 'Emulation',
     title: 'TechPay — Operation Desert Cipher Validation',
     body: 'Extract TTPs from an Iranian-nexus campaign report, write an 11-module emulation plan, execute, score PASS/PARTIAL/FAIL, and produce a BoI-CD 362 compliance report.',
-    href: '/training/04-emulation-techpay',
+    href: '/training/emulation-techpay',
   },
   {
     id: 'A05',
@@ -42,7 +42,7 @@ const assignments = [
     label: 'Reactive (Gov)',
     title: 'NDSA — Contractor Breach, 340K Biometric Records',
     body: '36-hour government breach via AiTM phishing and contractor VPN abuse. Regulatory notifications to INCD and the Biometric Database Authority. Five Sigma rules derived from the 16-event timeline.',
-    href: '/training/05-reactive-ndsa',
+    href: '/training/reactive-ndsa',
   },
   {
     id: 'A06',
@@ -50,7 +50,7 @@ const assignments = [
     label: 'Proactive (Gov)',
     title: 'GovID 2.0 — National Auth System Pre-Launch',
     body: 'Active adversary probing 72 hours before a national biometric system goes live. Four converging triggers. Go / no-go recommendation for the CISO and Director General.',
-    href: '/training/06-proactive-govid2',
+    href: '/training/proactive-govid2',
   },
   {
     id: 'A07',
@@ -58,7 +58,7 @@ const assignments = [
     label: 'Full Cycle (Gov)',
     title: 'NDSA — Post-Breach CTI Program Under INCD Mandate',
     body: 'INCD Remediation Directive requires a formal program in 12 months. Build PIRs, a CERT-IL MOU, a collection plan with 7 gaps, and 8 measurable INCD compliance milestones.',
-    href: '/training/07-full-cycle-ndsa',
+    href: '/training/full-cycle-ndsa',
   },
   {
     id: 'A08',
@@ -66,7 +66,7 @@ const assignments = [
     label: 'Emulation (Gov)',
     title: 'NDSA — INCD Section 8 Detection Validation',
     body: '15 TTPs from the A05 breach and A06 threat assessment. 11-module exercise: 6 PASS, 2 PARTIAL, 3 FAIL. Compliance report with HavayaIT vendor security requirements notice.',
-    href: '/training/08-emulation-ndsa',
+    href: '/training/emulation-ndsa',
   },
 ];
 

@@ -49,7 +49,7 @@ On first visit to http://localhost:9100:
 2. Create an admin user
 3. Log in with those credentials
 
-See the [TheHive setup guide](../setup/thehive-setup) for the full walkthrough.
+See the [TheHive setup guide](/setup/thehive-setup) for the full walkthrough.
 
 ---
 
@@ -90,7 +90,7 @@ For analyzers that require API keys, configure them under the analyzer settings 
 
 ### Connecting Cortex to TheHive
 
-See the [Cortex setup guide](../setup/cortex-setup).
+See the [Cortex setup guide](/setup/cortex-setup).
 
 ### Docker socket requirement
 
