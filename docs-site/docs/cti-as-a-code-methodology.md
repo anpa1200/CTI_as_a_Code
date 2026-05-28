@@ -646,26 +646,9 @@ proactive/
 
 ### Step P2: Run the Intake
 
-Use the same intake template as reactive, adapted for proactive context. Key questions to add:
+Before you open any advisory or run any query, capture the commissioner's requirements in a structured intake call.
 
-```markdown
-## Proactive-specific intake questions
-
-**What is the trigger for this assessment?**
-(What happened externally or internally that caused this work to be commissioned now?)
-
-**Is there a hard deadline?**
-(Product launch, compliance audit, board review, contract renewal — any of these set a fixed end date)
-
-**What detection capability currently exists?**
-(What SIEM rules are already deployed? What log sources are already ingested?)
-
-**What is the budget for detection backlog work?**
-(How many engineering sprints are available? This determines how many P1 items can realistically land)
-
-**What threat actor context is already available?**
-(Prior incident reports, CERT advisories, threat intel subscriptions)
-```
+→ **[Proactive Assessment — Intake](/workflows/proactive-assessment)** — full intake form (trigger, crown jewels, detection posture, mandate, threat context, regulatory context), why each section matters, and how to commit the intake into the project git history.
 
 ---
 
@@ -814,6 +797,12 @@ cp -r CTI_as_a_Code/templates/full-cycle/ programs/myorg-cti-program-2025/
 cd programs/myorg-cti-program-2025/
 git init && git add . && git commit -m "PROJ-003: full-cycle scaffold initialized"
 ```
+
+Before any program design work begins, run the intake to capture the sponsor's mandate, stakeholder map, initial PIRs, and maturity target.
+
+→ **[Full-Cycle Program — Intake](/workflows/fullcycle-program)** — full intake form (program mandate, stakeholders, PIR register, collection requirements, sharing architecture, governance), why each section matters, and how to commit the intake as the program's first artifact.
+
+---
 
 **Key outputs of full-cycle mode:**
 

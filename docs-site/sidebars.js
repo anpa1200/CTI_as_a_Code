@@ -41,6 +41,8 @@ const sidebars = {
       label: 'Workflows',
       items: [
         'workflows/reactive-investigation',
+        'workflows/proactive-assessment',
+        'workflows/fullcycle-program',
         'workflows/ioc-triage',
         'workflows/threat-actor-research',
       ],
