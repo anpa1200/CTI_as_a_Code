@@ -4,6 +4,38 @@
 
 ---
 
+## Contents
+
+- [Why This Methodology Exists](#why-this-methodology-exists)
+- [The Four Operational Modes](#the-four-operational-modes)
+- [Setup: Get the Repository and Start the Lab](#setup-get-the-repository-and-start-the-lab)
+- [Step 1: Initial Information Gathering — Ask Before You Look](#step-1-initial-information-gathering--ask-before-you-look)
+- [Step 2: Create Your Project Folder from the Template](#step-2-create-your-project-folder-from-the-template)
+- [Step 3: Scope the Project](#step-3-scope-the-project)
+- **Reactive Mode**
+  - [Step R1: Collect and Inventory Evidence](#step-r1-collect-and-inventory-evidence)
+  - [Step R2: Build the Timeline with Evidence Labels](#step-r2-build-the-timeline-with-evidence-labels)
+  - [Step R3: Claims Ledger](#step-r3-claims-ledger)
+  - [Step R4: ATT&CK Mapping with Gap Classification](#step-r4-attck-mapping-with-gap-classification)
+  - [Step R5: Attribution Assessment](#step-r5-attribution-assessment)
+  - [Step R6: Derive Sigma Rules for Every Missed Technique](#step-r6-derive-sigma-rules-for-every-missed-technique)
+  - [Step R7: Produce Deliverables](#step-r7-produce-deliverables)
+- **Proactive Mode**
+  - [Step P1: Copy the Template](#step-p1-copy-the-template)
+  - [Step P2: Run the Intake](#step-p2-run-the-intake)
+  - [Step P3: Assess Trigger Intelligence](#step-p3-assess-trigger-intelligence)
+  - [Step P4: Crown Jewels Analysis](#step-p4-crown-jewels-analysis)
+  - [Step P5: Model Attack Scenarios](#step-p5-model-attack-scenarios)
+  - [Step P6: Build the Detection Backlog](#step-p6-build-the-detection-backlog)
+- [Full Cycle Mode: Building a CTI Program](#full-cycle-mode-building-a-cti-program)
+- [Adversary Emulation Mode: Validating Coverage](#adversary-emulation-mode-validating-coverage)
+- [Git Discipline — The Same for All Modes](#git-discipline--the-same-for-all-modes)
+- [Minimum-Viable Path: No Lab Required](#minimum-viable-path-no-lab-required)
+- [The Ecosystem](#the-ecosystem)
+- [Where to Start](#where-to-start)
+
+---
+
 ## Why This Methodology Exists
 
 Most CTI work degrades in three predictable ways:
