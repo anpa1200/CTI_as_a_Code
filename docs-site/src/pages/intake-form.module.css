@@ -1,0 +1,373 @@
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+/* Toolbar */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: var(--ifm-navbar-background-color);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  margin: 0 -1rem 1.5rem;
+}
+
+.toolbarTitle {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.toolbarActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btnPrimary {
+  padding: 0.4rem 1rem;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btnPrimary:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+.btnSecondary {
+  padding: 0.4rem 1rem;
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* Form header */
+.header {
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-size: 1.4rem;
+  margin: 0 0 1rem;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.headerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.5rem;
+}
+
+.headerField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.headerField label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.headerField input {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  width: 100%;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 2rem;
+  border-left: 3px solid var(--ifm-color-primary);
+  padding-left: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Questions */
+.question {
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.question:last-child {
+  border-bottom: none;
+}
+
+.qLabel {
+  margin-bottom: 0.4rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+  font-style: italic;
+  margin-bottom: 0.4rem;
+}
+
+/* Fields */
+.field {
+  margin-top: 0.3rem;
+}
+
+.fieldLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  resize: vertical;
+}
+
+.inlineInput {
+  padding: 0.2rem 0.4rem;
+  border: none;
+  border-bottom: 1px solid var(--ifm-color-emphasis-500);
+  background: transparent;
+  font-size: 0.88rem;
+  color: var(--ifm-font-color-base);
+  margin: 0 4px;
+  outline: none;
+}
+
+.inlineInput:focus {
+  border-bottom-color: var(--ifm-color-primary);
+}
+
+.inlineRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 0.88rem;
+  margin-top: 0.3rem;
+}
+
+/* Checkboxes / radios */
+.checkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+/* Log source table */
+.logRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-100);
+}
+
+.logSrc {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Note box */
+.noteBox {
+  background: var(--ifm-color-warning-contrast-background, #fff3cd);
+  border-left: 3px solid var(--ifm-color-warning, #ffc107);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 1rem;
+}
+
+/* Regulations table */
+.regTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  margin-top: 0.3rem;
+}
+
+.regTable th {
+  background: var(--ifm-color-emphasis-200);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.regTable td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  vertical-align: middle;
+}
+
+.deadline {
+  font-size: 0.78rem;
+  color: var(--ifm-color-emphasis-600);
+  white-space: nowrap;
+}
+
+/* Actions table */
+.actionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-top: 0.3rem;
+}
+
+.actionsTable th {
+  background: var(--ifm-color-emphasis-200);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.actionsTable td {
+  padding: 0.35rem 0.4rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.actionsTable td:first-child {
+  color: var(--ifm-color-emphasis-600);
+  width: 30px;
+  text-align: center;
+}
+
+.tableInput {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  background: transparent;
+  font-size: 0.88rem;
+  padding: 0.15rem 0.2rem;
+  color: var(--ifm-font-color-base);
+  outline: none;
+}
+
+.tableInput:focus {
+  border-bottom-color: var(--ifm-color-primary);
+}
+
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .wrapper {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .textarea,
+  .inlineInput,
+  .tableInput,
+  .headerField input {
+    border: 1px solid #ccc !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .regTable,
+  .actionsTable {
+    border: 1px solid #ccc;
+  }
+
+  .regTable th,
+  .actionsTable th {
+    background: #eee !important;
+    color: black !important;
+  }
+
+  .noteBox {
+    background: #fffde7 !important;
+  }
+}

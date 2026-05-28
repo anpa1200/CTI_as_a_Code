@@ -74,6 +74,11 @@ const config = {
             position: 'left',
           },
           {
+            to: '/intake-form',
+            label: 'Intake Form',
+            position: 'left',
+          },
+          {
             label: 'Projects',
             position: 'right',
             items: [
