@@ -40,6 +40,7 @@ const sidebars = {
       type: 'category',
       label: 'Workflows',
       items: [
+        'workflows/reactive-investigation',
         'workflows/ioc-triage',
         'workflows/threat-actor-research',
       ],
