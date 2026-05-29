@@ -434,6 +434,31 @@ The ATT&CK mapping has two purposes: documenting what happened (intelligence) an
 | Architectural gap | Log source cannot be enabled or doesn't exist | IT architecture | Weeks to months |
 | Not applicable | Technique out of scope for this engagement | — | — |
 
+**Decider — guided ATT&CK mapping when the technique is unclear:**
+
+When you observe a behavior but are not certain which ATT&CK technique or sub-technique it maps to, [Decider](https://github.com/cisagov/Decider) (CISA) walks you to the correct answer through a structured question tree. Instead of searching the ATT&CK site manually, Decider asks what the adversary was trying to accomplish, then narrows to the correct tactic, technique, and sub-technique.
+
+```bash
+# Run Decider locally with Docker (one-time setup)
+git clone https://github.com/cisagov/Decider.git
+cd Decider
+cp .env.docker .env
+# Edit .env — set DB_ADMIN_PASS, DB_KIOSK_PASS, CART_ENC_KEY, APP_ADMIN_PASS
+cp -r default_config/. config/
+sudo docker compose up
+# Visit http://localhost:8001
+```
+
+**Workflow within Step R4:**
+
+1. **Question Tree** — navigate Matrix → Tactic → Technique → Sub-technique by answering what the adversary did. Useful when the behavior is ambiguous (e.g., distinguishing T1059.001 from T1059.003 from an encoded command line, or deciding between T1078.001 and T1078.002 for a credential re-use event).
+
+2. **Full Technique Search** — boolean search with prefix-matching and stemming across all ATT&CK descriptions. Faster than the ATT&CK site when you have a partial technique name or keyword from a log line.
+
+3. **Cart → Export** — add confirmed techniques to the cart as you work through the mapping table. Export as a Navigator layer JSON (heatmap) or a formatted table for the `attck-mapping.md` file.
+
+Decider does not replace the ATT&CK Navigator — it answers the "which technique is this?" question before you get to the Navigator layer. Use Decider to map, Navigator to visualize coverage.
+
 Export the Navigator layer and commit it:
 
 ```bash
