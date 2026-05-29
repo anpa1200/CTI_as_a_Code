@@ -201,31 +201,215 @@ nano 00-scope/intake-2024-11-15.md
 The template has 9 sections. Work through them in order during the call — do not paraphrase in real time, write what the reporter says verbatim. You will analyze it after. For LifeTech this call produces:
 
 ```markdown
-# Intake — PROJ-2024-001 — 2024-11-15
+# Investigation Intake — PROJ-2024-001 — 2024-11-15
 
-Completed by: On-call CTI analyst
-Called with: IR Lead Noa Ben-David, SOC Manager
-Time: 2024-11-15 18:55 IST
+Completed by: On-call CTI analyst (Yael Mizrahi)
+Intake call with: Noa Ben-David (IR Lead), Ran Katz (SOC Manager)
+Call time: 2024-11-15 18:55 IST
 
-## What was reported?
-CrowdStrike behavioral alert — PowerShell spawned by OUTLOOK.EXE on CFO workstation.
-Tier 1 found 3 additional network connections to 203.0.113.87 in 15 minutes.
+---
 
-## What has already been done?
-WS-CFO-01 — NOT yet isolated. Memory dump NOT yet taken.
-SOC is running Splunk queries — no results beyond 1-hour window.
+## 1. What was reported?
 
-## What should NOT be touched?
-WS-IT-LEVI — legal hold issued 20:45 IST. HR investigation underway (unrelated to incident).
-Hardware access blocked for 48–72 hours. Remote CrowdStrike RTR permitted.
+**1.1 What did you see or receive that caused you to raise this?**
+"CrowdStrike fired a high-severity behavioral IOA on Michal Cohen's workstation —
+PowerShell with base64 payload launched directly from Outlook. Tier 1 pulled the
+network tab and found 3 outbound connections to 203.0.113.87 over the last 15
+minutes. This is the CFO's machine. We escalated immediately."
 
-## Regulatory
-Affected data MAY include formula files — Israeli Privacy Protection Law + FDA NDA filing.
-INCD notification: assess after scope is confirmed.
+**1.2 Where did this first come to your attention?**
+- [x] Alert from SIEM / EDR / AV  ← CrowdStrike Falcon behavioral IOA, severity: High
 
-## Analyst assessment (hypothesis before looking at logs)
-Initial hypothesis: spearphishing → macro → PowerShell → C2 → lateral movement.
-The alert is 2 hours old. This is probably not the beginning.
+**1.3 When did you first notice it?**
+Date: 2024-11-15   Time: 18:47   Timezone: IST (UTC+2)
+
+**1.4 Do you believe the activity is still ongoing?**
+- [x] Yes — still active (C2 connections still firing at time of call)
+
+---
+
+## 2. What is already known?
+
+**2.1 What systems, accounts, or services appear to be involved?**
+- WS-CFO-01.lifetechpharma.local — Michal Cohen, CFO. Dell Latitude, Windows 11.
+- 203.0.113.87 — external IP, destination of C2 connections. Not in any allowlist.
+- OUTLOOK.EXE (PID 2240) → powershell.exe (PID 3784) — parent-child confirmed.
+- No other hosts identified yet — investigation is 8 minutes old.
+
+**2.2 What was the observed behavior?**
+"PowerShell with -NonI -W Hidden -Enc flags spawned from Outlook. The encoded
+command has not been decoded yet. Three separate TCP connections to 203.0.113.87
+on port 443 over 15 minutes — looks like a beacon pattern."
+
+**2.3 Has anyone else already investigated or looked into this?**
+- [x] Yes — Tier 1 analyst (Omer Cohen) ran initial Splunk queries (last 1 hour only).
+  What did they touch: read-only Splunk queries. No changes to the endpoint.
+
+**2.4 What do you think happened?**
+"Probably a phishing email with a malicious attachment — xlsm macro or something
+similar. Michal must have opened it in the last few hours. We don't know if anyone
+else was targeted."
+
+---
+
+## 3. Timeline of discovery
+
+**3.1 When do you believe the activity started?**
+- [ ] Known
+- [x] Estimated: activity on WS-CFO-01 started approximately 18:42 IST (PowerShell
+  launch timestamp from CrowdStrike event).
+
+**3.2 How long do you estimate the activity has been occurring?**
+Approximately 13 minutes from first PowerShell event to escalation call (18:42–18:55 IST).
+However: unknown whether this is the beginning of the intrusion or a later stage.
+
+**3.3 Is there a specific event that triggered the alert or complaint?**
+CrowdStrike behavioral IOA fired at 18:42:33 IST on WS-CFO-01. Tier 1 escalated
+at 18:47. IR Lead paged at 18:52. Intake call started at 18:55.
+
+---
+
+## 4. What has already been done?
+
+**4.1 Has any system been rebooted, shut down, or reimaged since the activity was discovered?**
+- [x] No — WS-CFO-01 is still running. Not yet isolated.
+
+**4.2 Have any credentials, tokens, or API keys been rotated or revoked?**
+- [x] No — no credential changes made yet.
+
+**4.3 Has any network access been blocked or firewall rules been changed?**
+- [x] No — 203.0.113.87 has not been blocked. Ran confirmed: "We wanted to check
+  with you first before blocking — didn't want to tip them off."
+
+**4.4 Has any malware been deleted or quarantined?**
+- [x] No — CrowdStrike flagged the process but did not quarantine. Alert status: Detected,
+  not Prevented (policy is set to Detect-only on this machine — CFO exception policy).
+
+**4.5 Has anyone notified external parties?**
+- [x] No — no external notification yet. INCD assessment pending scope confirmation.
+
+---
+
+## 5. Systems and access
+
+**5.1 What logging is expected to exist for the affected systems?**
+- Endpoint logs (Sysmon, CrowdStrike): [x] Yes — CrowdStrike on WS-CFO-01. Sysmon on
+  WS-CFO-01. NOTE: Sysmon NOT deployed on server-class machines or DC01.
+- VPN / authentication logs: [x] Yes — Cisco AnyConnect VPN, logs in Splunk.
+- Database audit logs: [x] Yes — SQL audit on SERVER-RD-02 (partial EIDs only).
+- Network flow / firewall logs: [x] Yes — Palo Alto NGFW. RETENTION: 14 days only.
+  ⚠ SERVER-RD-02 outbound logs will expire 2024-11-29 for today's traffic.
+- Email gateway logs: [x] Yes — M365 Message Trace, 30-day retention. ATP enabled.
+  NOTE: ATP sandbox NOT enabled for xlsm files — policy gap identified.
+- Cloud provider logs: [x] Yes — Azure AD sign-in logs, 30-day retention.
+
+**5.2 What tools and access does the analyst have?**
+- [x] Admin access to affected hosts (CrowdStrike RTR for WS-CFO-01, WS-CFO-01 CrowdStrike console)
+- [x] Read access to SIEM (Splunk — full org)
+- [x] Access to EDR console (CrowdStrike Falcon — full org view)
+- [x] Access to network equipment / firewall logs (Palo Alto Panorama — read only)
+- [x] Access to cloud console (Azure AD — Security Reader role)
+- [x] Access to email gateway (M365 Security & Compliance — Message Trace)
+- [ ] VPN / jump host credentials — not yet, request submitted
+- [x] TheHive / OpenCTI lab access
+
+**5.3 Are there any systems the analyst should NOT touch?**
+⚠ WS-IT-LEVI (Paz Levi, IT Admin): LEGAL HOLD issued at 20:45 IST today.
+  HR investigation underway — UNRELATED to this incident (employment matter).
+  Hardware access BLOCKED for 48–72 hours per Legal counsel (Adv. Dina Shapiro).
+  Remote CrowdStrike RTR is PERMITTED — confirmed by Legal.
+  No memory image, no disk image, no physical access until hold lifted.
+
+---
+
+## 6. Business impact
+
+**6.1 What business processes are affected or at risk?**
+"The CFO's email and workstation are involved. If this is a full compromise, finance
+data is at risk. We also have R&D server SERVER-RD-02 — it holds the formula files
+for the US licensing deal. That deal closes in 6 weeks. If those files were touched,
+we have an FDA NDA issue and a $52M deal at risk."
+
+**6.2 Is customer data, employee data, or regulated data potentially involved?**
+- [x] Yes — type: proprietary formula files under FDA NDA filing (USPartner2024 package,
+  47 files, ~380 MB). Also: employee financial data on SERVER-FIN-01 if CFO path
+  extended to finance server.
+
+**6.3 What is the financial exposure if this is confirmed?**
+Direct deal risk: $52M US licensing agreement. Regulatory exposure: Israeli Privacy
+Protection Law (PPL) fines + FDA NDA breach penalties. Reputational exposure: US
+partner disclosure obligation if formula data confirmed exfiltrated.
+
+**6.4 Is there a hard deadline driving this investigation?**
+- [x] Yes — deadline: INCD 72-hour notification window starts from discovery of
+  breach (not discovery of alert). If formula data or critical infrastructure
+  involvement confirmed: clock starts NOW → expires 2024-11-17 ~18:47 IST.
+
+---
+
+## 7. Regulatory and legal constraints
+
+**7.1 Are there applicable notification requirements?**
+
+| Regulation | Applicable? | Deadline | Notified? |
+|---|---|---|---|
+| INCD (Israeli critical infrastructure) | TBD — assess after scope confirmed | 72h from discovery | No |
+| Biometric Database Authority | No — no biometric data at LifeTech | — | N/A |
+| BoI-CD 362 (Israeli financial) | No — LifeTech is not a financial entity | — | N/A |
+| GDPR | TBD — EU customers in export data? | 72h from awareness | No |
+| PCI-DSS | No — no card processing at LifeTech | — | N/A |
+| Israeli Privacy Protection Law | Yes — employee + partner data in scope | Per PPL — notify DPA if breach confirmed | No |
+| FDA / NDA obligation | Yes — if formula files confirmed exfiltrated | Immediate notification to US partner | No |
+
+**7.2 Is there an active legal hold on any systems or data?**
+- [x] Yes — WS-IT-LEVI (Paz Levi). Legal hold issued 2024-11-15 20:45 IST.
+  Contact: Adv. Dina Shapiro (Legal). Hold expected: 48–72 hours minimum.
+
+**7.3 Has legal counsel been notified?**
+- [x] Yes — Adv. Dina Shapiro notified of the security incident at 19:10 IST.
+  Advised: do not touch WS-IT-LEVI hardware. RTR permitted with logging.
+
+---
+
+## 8. Analyst notes
+
+(Raw notes taken during call — unprocessed)
+
+- Ran (SOC): "The CFO is still at the office. We haven't told her yet. Should we?"
+  → IR Lead decision: do not inform CFO until after memory dump. Risk: she might
+  reboot the machine.
+- The CrowdStrike policy on WS-CFO-01 is DETECT-ONLY (CFO exception policy).
+  This is why the process was not killed automatically. SOC should evaluate
+  moving to Prevent for exec machines after this incident.
+- 203.0.113.87 — not blocklisted anywhere in org. Ran says: "It's clean on our
+  end, never seen it before." Worth enriching immediately (VirusTotal, Shodan).
+- Memory dump of WS-CFO-01 is urgent — C2 is still active. Process may have
+  network artifact or decrypted payload in memory. Action: RTR memory dump NOW.
+- No mention of SERVER-RD-02 during this call — IR Lead is not aware of the
+  formula file risk yet. Will scope that separately after evidence inventory.
+- p.levi (WS-IT-LEVI) is under HR investigation for unrelated reason. Legal hold
+  is coincidental. However: IT admin access + legal hold + security incident
+  creates a complex situation. Document carefully.
+
+---
+
+## 9. Next actions
+
+| # | Action | Owner | Due |
+|---|---|---|---|
+| 1 | Take memory dump of WS-CFO-01 via CrowdStrike RTR before C2 session ends | Yael (CTI) | Immediate |
+| 2 | Enrich 203.0.113.87 — VirusTotal, Shodan, passive DNS, ASN lookup | Yael (CTI) | Within 30 min |
+| 3 | Pull M365 Message Trace for m.cohen last 48h — identify delivery vector | Omer (Tier 1) | Within 30 min |
+| 4 | Retrieve Palo Alto firewall logs for WS-CFO-01 and SERVER-RD-02 — full available window | Ran (SOC) | Within 1h ⚠ retention risk |
+| 5 | Check Azure AD sign-in logs for m.cohen and p.levi — last 30 days | Yael (CTI) | Within 1h |
+| 6 | Confirm SERVER-RD-02 USPartner2024 directory access — pull EID 4663 from Splunk | Yael (CTI) | Within 2h |
+| 7 | Open TheHive case PROJ-2024-001, attach this intake as first observable | Yael (CTI) | Within 30 min |
+| 8 | Advise IR Lead on INCD 72h clock — confirm if formula data scope triggers mandatory notification | Noa (IR Lead) + Legal | Within 2h |
+
+---
+
+*Intake completed 2024-11-15 19:18 IST. File saved as 00-scope/intake-2024-11-15.md.*
+*Case opened in TheHive: PROJ-2024-001.*
 ```
 
 Two items in this intake change the entire investigation trajectory: the legal hold on `WS-IT-LEVI` (you cannot image it), and the potential for formula data in scope (Israeli PPL + FDA notification obligations). Both need to be on the table before analysis starts, not discovered mid-investigation.
