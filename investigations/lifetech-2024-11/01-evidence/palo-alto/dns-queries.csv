@@ -1,0 +1,23 @@
+# Palo Alto NGFW — DNS Query Log Export
+# Device: PA-3260 (perimeter-fw-01.lifetechpharma.com)
+# Query: dns.query contains "telemetry" OR "cdn-services" OR "sys-update" OR "lifetechpharma-corp" OR "mfa-lifetech"
+# Expanded: all DNS from 10.10.3.22 and 10.10.1.45 for investigation period
+# Time range: 2024-10-18 to 2024-11-15
+# Exported: 2024-11-15 20:08 UTC by Yael Mizrahi
+#
+receive_time,src,dst,query,query_type,response,response_ttl,category,action,analyst_note
+2024-10-22T09:28:41Z,10.10.3.22,10.10.4.1,mfa-lifetechpharma.com,A,185.220.101.47,300,malware,allow,⚠ DNS lookup to attacker phishing domain shortly after phishing email opened at 09:31
+2024-10-22T09:29:02Z,10.10.3.22,10.10.4.1,mfa-lifetechpharma.com,A,185.220.101.47,300,malware,allow,AiTM phishing page loaded — session token stolen
+2024-10-24T00:16:44Z,185.220.101.47,10.10.8.1,vpn.lifetechpharma.com,A,10.10.8.1,60,business-and-economy,allow,VPN gateway lookup from external attacker IP before session
+2024-11-01T07:14:00Z,10.10.3.22,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,⚠ First C2 beacon after GAP-001 ends — Sysmon and forwarder restarted at 07:14 IST
+2024-11-01T07:14:02Z,10.10.3.22,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon #2
+2024-11-01T07:21:14Z,10.10.3.22,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon interval ~7 min
+2024-11-01T07:28:44Z,10.10.3.22,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon interval ~7 min
+2024-11-06T00:09:01Z,10.10.3.22,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon before formula exfil session
+2024-11-06T00:10:14Z,10.10.2.15,10.10.4.1,sys-update-cdn.net,A,198.51.100.44,300,malware,allow,⚠ SECONDARY C2 domain resolved from SERVER-RD-02 at start of exfiltration — sys-update-cdn.net → 198.51.100.44
+2024-11-06T00:24:33Z,10.10.3.22,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,Post-exfil beacon from WS-IT-LEVI
+2024-11-15T15:58:08Z,10.10.1.45,10.10.4.1,globalcontracts-secure.net,A,185.220.101.52,300,malware,allow,⚠ CFO workstation DNS lookup to phishing delivery domain — corresponds to delayed delivery email at 17:58 IST
+2024-11-15T16:42:33Z,10.10.1.45,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,⚠ TRIGGERING: CFO C2 beacon — same C2 domain as IT admin path, confirms single infrastructure
+2024-11-15T16:42:41Z,10.10.1.45,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon #2 from WS-CFO-01
+2024-11-15T16:49:22Z,10.10.1.45,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon #3 from WS-CFO-01
+2024-11-15T16:56:03Z,10.10.1.45,10.10.4.1,telemetry-cdn-services.biz,A,203.0.113.87,60,malware,allow,C2 beacon #4 from WS-CFO-01

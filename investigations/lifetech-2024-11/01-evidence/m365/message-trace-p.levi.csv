@@ -1,0 +1,20 @@
+# M365 Message Trace Export — p.levi@lifetechpharma.com
+# Query: Recipient=p.levi@lifetechpharma.com, Date range: 2024-10-15 to 2024-10-25
+# Exported: 2024-11-15 20:14 UTC by Yael Mizrahi (Security & Compliance Center)
+# SHA256 of this file: [compute on export]
+#
+Received,SenderAddress,RecipientAddress,Subject,Status,ToIP,FromIP,Size,MessageId,MessageTraceId,ScamConf,SpamConf,SCL,DKIM,SPF,DMARC,Attachments
+2024-10-15T08:22:11Z,newsletter@techinsight-weekly.com,p.levi@lifetechpharma.com,Tech Insight Weekly — October 2024,Delivered,10.10.4.5,209.85.220.41,48291,<CA+xyz001@mail.gmail.com>,mt-001-aa,0,0,-1,pass,pass,pass,0
+2024-10-15T09:41:33Z,no-reply@atlassian.com,p.levi@lifetechpharma.com,[Jira] ITOPS-2241 assigned to you: Switch port config DC01,Delivered,10.10.4.5,104.192.136.143,12847,<jira-notify-8821@atlassian.net>,mt-001-ab,0,0,-1,pass,pass,pass,0
+2024-10-16T07:15:02Z,backup-alerts@lifetechpharma.com,p.levi@lifetechpharma.com,[ALERT] Backup job BKUP-009 completed successfully,Delivered,10.10.4.5,10.10.2.30,8441,<backup-20241016-001@lifetechpharma.com>,mt-001-ac,0,0,-1,pass,pass,pass,0
+2024-10-16T14:03:55Z,hr@lifetechpharma.com,p.levi@lifetechpharma.com,Q4 IT Budget Review — action required,Delivered,10.10.4.5,10.10.4.5,22183,<hr-q4-2024@lifetechpharma.com>,mt-001-ad,0,0,-1,pass,pass,pass,1
+2024-10-17T09:58:41Z,alerts@crowdstrike.com,p.levi@lifetechpharma.com,[CrowdStrike] Falcon Insight Weekly Digest,Delivered,10.10.4.5,40.107.220.60,31004,<cs-digest-oct3@crowdstrike.com>,mt-001-ae,0,0,-1,pass,pass,pass,0
+2024-10-18T06:22:18Z,noreply@microsoft.com,p.levi@lifetechpharma.com,Your Microsoft 365 usage report is ready,Delivered,10.10.4.5,40.107.220.60,18882,<m365-usage-20241018@microsoft.com>,mt-001-af,0,0,-1,pass,pass,pass,0
+2024-10-18T11:47:03Z,no-reply@github.com,p.levi@lifetechpharma.com,[GitHub] A third-party OAuth application has been authorized,Delivered,10.10.4.5,192.30.252.0,9221,<gh-oauth-20241018@github.com>,mt-001-ag,0,0,-1,pass,pass,pass,0
+2024-10-21T08:14:29Z,backup-alerts@lifetechpharma.com,p.levi@lifetechpharma.com,[ALERT] Backup job BKUP-009 completed successfully,Delivered,10.10.4.5,10.10.2.30,8441,<backup-20241021-001@lifetechpharma.com>,mt-001-ah,0,0,-1,pass,pass,pass,0
+2024-10-21T14:52:09Z,helpdesk@lifetechpharma.com,p.levi@lifetechpharma.com,Re: Ticket #4421 — VPN client update rollout,Delivered,10.10.4.5,10.10.4.5,14003,<hd-4421-reply@lifetechpharma.com>,mt-001-ai,0,0,-1,pass,pass,pass,0
+2024-10-22T06:08:44Z,noreply@microsoft.com,p.levi@lifetechpharma.com,Action Required: Sign in activity on your Microsoft account,Delivered,10.10.4.5,40.107.220.60,14882,<msft-signin-alert-20241022@microsoft.com>,mt-001-aj,0,0,-1,pass,pass,pass,0
+2024-10-22T11:23:07Z,security-noreply@mfa-lifetechpharma.com,p.levi@lifetechpharma.com,ACTION REQUIRED: MFA Re-enrollment — LifeTech IT Security,Delivered,10.10.4.5,185.220.101.47,38841,<mfa-reenroll-LT8821@mfa-lifetechpharma.com>,mt-001-ak,0,4,4,fail,fail,fail,1
+2024-10-22T13:30:17Z,no-reply@zoom.us,p.levi@lifetechpharma.com,Reminder: IT All-Hands meeting at 14:00,Delivered,10.10.4.5,192.204.4.0,10441,<zoom-reminder-20241022@zoom.us>,mt-001-al,0,0,-1,pass,pass,pass,0
+2024-10-23T09:22:48Z,alerts@lifetechpharma.com,p.levi@lifetechpharma.com,[SIEM] Low-priority alert digest — 2024-10-22,Delivered,10.10.4.5,10.10.4.5,28114,<siem-digest-20241022@lifetechpharma.com>,mt-001-am,0,0,-1,pass,pass,pass,0
+2024-10-24T08:41:22Z,backup-alerts@lifetechpharma.com,p.levi@lifetechpharma.com,[ALERT] Backup job BKUP-009 completed successfully,Delivered,10.10.4.5,10.10.2.30,8441,<backup-20241024-001@lifetechpharma.com>,mt-001-an,0,0,-1,pass,pass,pass,0
