@@ -268,7 +268,7 @@ export default function IntakeForm() {
             <Q
               num="3.3"
               text="Is there a specific event that triggered the alert or complaint?"
-              hint='"user reported they couldn't log in", "SOC saw an alert at 03:14", "customer called about unauthorized charges"'
+              hint={"\"user reported they couldn't log in\", \"SOC saw an alert at 03:14\", \"customer called about unauthorized charges\""}
             >
               <Field rows={2} />
             </Q>

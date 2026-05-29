@@ -440,7 +440,7 @@ export default function IntakeProactive() {
               <RadioGroup name="relevance" options={[
                 'High — direct targeting assessed, specific TTPs confirmed relevant',
                 'Medium — indirect exposure, plausible targeting, partial TTP overlap',
-                'Low — generic threat, limited relevance to this org's profile',
+                "Low — generic threat, limited relevance to this org's profile",
               ]} />
             </Q>
             <Q num="7.2" text="Top 3 risks to investigate first?">
