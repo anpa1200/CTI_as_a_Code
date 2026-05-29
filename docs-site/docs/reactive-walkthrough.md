@@ -254,9 +254,18 @@ The investigation faces a key analytical question: Path A (CFO phishing, Novembe
 
 The actor compromised the IT admin first (October 22), used that access for data theft (November 6), then independently targeted the CFO to expand access to finance data. The two phishing lures used different delivery infrastructure (different sender domains, different sending IPs from the same /24 block) — consistent with an actor who maintains parallel operational tracks.
 
-**Attribution confidence:** Medium. The toolchain overlap and shared secondary C2 strongly indicate a single actor. The actor profile — AiTM credential theft, pharmaceutical IP targeting, Israeli organization, dual-track operations — is consistent with Iranian-nexus industrial espionage groups documented in public reporting (ClearSky, Mandiant). However, the toolset has not been definitively matched to a named cluster in public reporting, and no CERT-IL deconfliction has been performed.
+**Attribution confidence: Medium-High.** Apply the [confidence ladder from Step R5 of the methodology](/docs/cti-as-a-code-methodology#step-r5-attribution-assessment) to score this case:
 
-**What to write:** *"Activity assessed as a single threat actor based on shared toolchain indicators (PE timestamp, secondary C2 domain). Tradecraft is consistent with Iranian-nexus industrial espionage targeting Israeli pharmaceutical IP. Attribution to a named group is not warranted based on currently available evidence. Confidence: Medium."*
+| Criterion | Present? | Notes |
+|---|---|---|
+| TTP overlap | Yes | AiTM + DCSync + pharmaceutical IP staging — consistent with Iranian-nexus industrial espionage (ClearSky, Mandiant) |
+| Infrastructure match | Yes | Shared secondary C2 `sys-update-cdn[.]net` appears in both path artifacts; shared PE timestamp `2018-04-09` across both implants |
+| Tooling match | Partial | Toolset is consistent with documented clusters but not definitively matched to a named cluster in public reporting |
+| Independent CERT/ISAC confirmation | No | No CERT-IL deconfliction performed; no ISAC report cross-matched |
+
+**Ladder tier: Medium-High** — TTP overlap + infrastructure match present; independent confirmation absent. The toolset has not been definitively matched to a named cluster, which prevents elevation to High.
+
+**What to write:** *"Activity assessed as a single threat actor based on shared toolchain indicators (PE timestamp, secondary C2 domain). Tradecraft and targeting profile are consistent with Iranian-nexus industrial espionage operations targeting Israeli pharmaceutical IP. Attribution to a named cluster is not warranted without CERT-IL deconfliction or independent confirmation. Confidence: Medium-High."*
 
 ---
 
