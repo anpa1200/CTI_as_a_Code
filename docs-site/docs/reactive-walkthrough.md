@@ -15,6 +15,7 @@ sidebar_position: 2
 ## Contents
 
 - [The Scenario](#the-scenario)
+- [Step 00: Clone, Initialize, and Fill the Template](#step-00-clone-initialize-and-fill-the-template)
 - [Step 0: Intake — What the First Call Captures](#step-0-intake--what-the-first-call-captures)
 - [Step 1–2: Project Setup and Scope](#step-12-project-setup-and-scope)
 - [Step R1: Evidence Inventory — What Exists and What Is Missing](#step-r1-evidence-inventory--what-exists-and-what-is-missing)
@@ -49,11 +50,155 @@ That's the visible trigger. The actual breach started **24 days earlier** — an
 
 ---
 
+## Step 00: Clone, Initialize, and Fill the Template
+
+**Before the phone rings.** This step takes three minutes and is done once per investigation — ideally before the alert even comes in, or in the first five minutes after hanging up the initial call.
+
+### 1. Clone the repository (one-time setup)
+
+If you have not cloned `CTI_as_a_Code` yet, do this once on your analyst workstation:
+
+```bash
+cd ~
+git clone https://github.com/anpa1200/CTI_as_a_Code.git
+```
+
+You will never modify this clone. It is your template source. Leave it as-is and pull updates periodically:
+
+```bash
+cd ~/CTI_as_a_Code && git pull
+```
+
+### 2. Create your investigations folder
+
+```bash
+mkdir -p ~/investigations
+```
+
+Use any path you prefer — just keep it consistent across all cases. Do not create investigations inside the `CTI_as_a_Code` clone.
+
+### 3. Copy the reactive template for this case
+
+```bash
+cp -r ~/CTI_as_a_Code/templates/reactive/ ~/investigations/lifetech-2024-11
+```
+
+Naming convention: `[org-slug]-[YYYY-MM]`. One folder per case. Verify the structure:
+
+```bash
+ls ~/investigations/lifetech-2024-11/
+```
+
+Expected:
+```
+00-scope/   01-evidence/   02-sources/   03-analysis/
+04-detections/   05-deliverables/   06-ai-outputs/   07-feedback/
+README.md   intake-form.md   project.yml
+```
+
+### 4. Initialize git inside the case folder
+
+```bash
+cd ~/investigations/lifetech-2024-11
+git init
+git add .
+git commit -m "PROJ-2024-001: scaffold initialized from reactive template"
+```
+
+This is commit zero. Its purpose is to prove — to a lawyer, an auditor, or yourself — exactly what state you started from before any analysis began.
+
+### 5. Fill in `project.yml`
+
+This file is the single source of truth for project metadata. Open it now:
+
+```bash
+nano project.yml
+```
+
+The template has blank fields. Fill every one:
+
+```yaml
+project:
+  id: "PROJ-2024-001"
+  name: "LifeTech Pharma — Targeted Intrusion"
+  type: reactive
+  classification: TLP:AMBER
+  status: in-progress
+
+analyst:
+  name: "Your Name"
+  role: "CTI Analyst"
+  contact: "your@email.com"
+
+timeline:
+  incident_date: "2024-11-15"
+  detection_date: "2024-11-15"
+  investigation_start: "2024-11-15"
+  report_due: "2024-11-17"         # INCD 72h clock — expires 18:47 IST Nov 17
+
+pirs:
+  - id: PIR-001
+    question: "Was the US licensing formula package (SERVER-RD-02\\USPartner2024\\) accessed or exfiltrated? If so, what and when?"
+    priority: high
+    status: open
+  - id: PIR-002
+    question: "How did the adversary gain initial access — phishing, credential theft, or exploitation?"
+    priority: high
+    status: open
+  - id: PIR-003
+    question: "Is there evidence of ongoing access or persistence as of investigation date?"
+    priority: high
+    status: open
+
+scope:
+  systems:
+    - WS-CFO-01
+    - WS-IT-LEVI
+    - SERVER-RD-02
+    - SERVER-FIN-01
+    - DC01
+  threat_actor: unknown
+  attck_techniques: []             # leave blank now — fill during R4
+
+deliverables:
+  - type: executive-brief
+    status: pending
+  - type: soc-handoff
+    status: pending
+  - type: sigma-rules
+    count: 0
+    status: pending
+
+notes: "INCD 72h notification clock starts 2024-11-15 18:47 IST. Legal hold on WS-IT-LEVI — no hardware access, RTR only."
+```
+
+**Do not leave any field as `""` or `[]` if you know the value.** Unknown fields are fine — write `unknown` explicitly. A blank field means "forgot to fill in." `unknown` means "we looked and do not know yet."
+
+### 6. Commit the filled metadata
+
+```bash
+git add project.yml
+git commit -m "PROJ-2024-001: project.yml filled — 3 PIRs, INCD deadline 2024-11-17 18:47 IST, legal hold WS-IT-LEVI"
+```
+
+The folder is now named, scoped, and version-controlled. The intake call can begin.
+
+---
+
 ## Step 0: Intake — What the First Call Captures
 
 Before opening Splunk, before pivoting on the C2 IP, before forming a hypothesis — the intake call runs. This is 15 minutes with the Tier 2 escalation and the IR Lead before any analysis work begins.
 
-The intake captures facts that change what you look for:
+The intake captures facts that change what you look for.
+
+**Open the intake form before dialing:**
+
+```bash
+cp intake-form.md 00-scope/intake-2024-11-15.md
+nano 00-scope/intake-2024-11-15.md
+```
+
+The template has 9 sections. Work through them in order during the call — do not paraphrase in real time, write what the reporter says verbatim. You will analyze it after. For LifeTech this call produces:
 
 ```markdown
 # Intake — PROJ-2024-001 — 2024-11-15
@@ -96,41 +241,109 @@ git commit -m "PROJ-001: intake — CFO PowerShell alert, legal hold on WS-IT-LE
 
 ## Step 1–2: Project Setup and Scope
 
+The folder and git repo already exist from Step 00. This step fills the scope document and gets stakeholder sign-off before any analysis begins. The rule: **you do not start looking at logs until the scope is committed.**
+
+### 1. Open the scope document
+
 ```bash
-cp -r CTI_as_a_Code/templates/reactive/ investigations/lifetech-2024-11/
-cd investigations/lifetech-2024-11/
-git init
-git add .
-git commit -m "PROJ-001: scaffold initialized"
+nano 00-scope/scope.md
 ```
 
-The scope document defines the boundary before analysis begins. Three PIRs are committed before looking at a single log:
+The template has six sections. Fill each one now:
 
-```markdown
-## PIRs
-
-- PIR-001: Was the US licensing formula package (SERVER-RD-02\\USPartner2024\\) 
-  accessed or exfiltrated? If so, what and when?
-- PIR-002: How did the adversary gain initial access — phishing, credential theft, 
-  or exploitation?
-- PIR-003: Is there evidence of ongoing access or persistence as of investigation date?
-
-## Out of scope
-- Cloud (SharePoint Online) — separate authorization required
-- Manufacturing SCADA systems — no evidence of involvement
-
-## Evidence handling
-TLP: AMBER. Legal hold on WS-IT-LEVI — no hardware access, RTR permitted.
-14-day firewall log retention — SERVER-RD-02 outbound traffic expires Nov 20.
+**Header — fill the four metadata lines at the top:**
+```
+Project: PROJ-2024-001
+Classification: TLP:AMBER
+Date scoped: 2024-11-15
+Scoped by: [your name]
+Approved by: Noa Ben-David, IR Lead
 ```
 
-The firewall log retention deadline is the highest-priority time constraint. If SERVER-RD-02's November 6 outbound traffic is not retrieved by November 20, the exfiltration confirmation window closes permanently.
+**Incident Summary — one paragraph, what triggered this:**
+```
+CrowdStrike behavioral detection on WS-CFO-01 at 18:42 IST, November 15, 2024.
+PowerShell spawned by OUTLOOK.EXE with base64-encoded payload, downloading from
+203.0.113.87. Scope of compromise unknown. Formula files on SERVER-RD-02 are
+potentially in scope — US licensing deal ($52M) requires regulatory assessment.
+```
+
+**In Scope — fill the asset table:**
+
+| Asset / System | Owner | Justification |
+|---|---|---|
+| WS-CFO-01 | IT / Michal Cohen (CFO) | Triggering alert host |
+| WS-IT-LEVI | IT / Paz Levi | Suspected initial access vector |
+| SERVER-RD-02 | R&D | Formula file storage — PIR-001 asset |
+| SERVER-FIN-01 | Finance | Lateral movement target — CrowdStrike alert |
+| DC01 | IT | DCSync indicator from this host |
+
+**Out of Scope — fill the exclusion table:**
+
+| Asset / System | Reason for Exclusion |
+|---|---|
+| SharePoint Online | Cloud scope — requires separate authorization |
+| Manufacturing SCADA | No evidence of involvement at this time |
+| WS-IT-LEVI hardware | Legal hold — no hardware access, RTR only |
+
+**PIRs — copy from project.yml, add due dates:**
+
+| ID | Question | Priority | Due |
+|---|---|---|---|
+| PIR-001 | Was the US licensing formula package (SERVER-RD-02\\USPartner2024\\) accessed or exfiltrated? | High | 2024-11-16 02:00 IST |
+| PIR-002 | How did the adversary gain initial access? | High | 2024-11-16 02:00 IST |
+| PIR-003 | Is there evidence of ongoing access or persistence? | High | 2024-11-16 02:00 IST |
+
+**Constraints and Assumptions — fill the four fields:**
+```
+Legal/regulatory: INCD 72h notification window expires 2024-11-17 18:47 IST.
+  Israeli Privacy Protection Law + FDA NDA obligations if formula data confirmed.
+Evidence limitations: Palo Alto firewall logs — 14-day retention.
+  SERVER-RD-02 Nov 6 outbound logs expire 2024-11-20. Retrieve immediately.
+  Sysmon absent from all server-class machines.
+Access restrictions: WS-IT-LEVI — legal hold, no hardware access. RTR permitted.
+Assumptions: All timestamps assumed UTC unless marked IST. Not converted in log excerpts.
+```
+
+**Definition of Done — check the boxes your team has agreed to:**
+```
+- [ ] All PIRs answered or formally deferred with reasoning
+- [ ] Timeline covers full attacker dwell period (or gap documented)
+- [ ] ATT&CK mapping reviewed and finalized
+- [ ] At least one detection rule per confirmed TTP
+- [ ] SOC handoff delivered and acknowledged
+- [ ] Executive brief approved by Noa Ben-David (IR Lead)
+- [ ] INCD notification filed if formula data confirmed
+```
+
+### 2. Save the file and commit
+
+```bash
+git add 00-scope/scope.md
+git commit -m "PROJ-2024-001: scope signed off — 5 systems, 3 PIRs, INCD deadline 2024-11-17, firewall log retrieval urgent"
+```
+
+**The firewall log retention deadline drives everything.** SERVER-RD-02's November 6 outbound traffic expires November 20. That is the exfiltration confirmation window. If it closes, CL-003 becomes INFERRED, not CONFIRMED. Retrieve those logs before any other analysis.
 
 ---
 
 ## Step R1: Evidence Inventory — What Exists and What Is Missing
 
 The evidence inventory runs before analysis. The rule: **you do not analyze what you have not inventoried.**
+
+### 1. Open the source registry
+
+```bash
+nano 02-sources/source-registry.md
+```
+
+The template has two tables: Internal Sources and External Sources. Fill every row you have access to — and explicitly mark what is absent. Unknown coverage is not the same as no coverage.
+
+### 2. Fill in what you have
+
+For each log source, fill four fields: **Source name**, **System(s) it covers**, **Admiralty reliability rating**, and **any known gap**. Where a source is absent from a system that should have it, add a row with `— absent` in the Gap column. That absence is a finding.
+
+For LifeTech, the completed source registry drives this inventory:
 
 | Source | System | Coverage | Reliability | Gap |
 |---|---|---|---|---|
@@ -159,14 +372,63 @@ Possible cause: Deliberate anti-forensic technique — terminating Sysmon
 
 The 10-day gap on the IT admin workstation starts the same day a phishing email was delivered to him. This is not coincidence — it is a finding.
 
+### 3. Create a GAP document for every gap
+
+Each gap gets its own file. Create it now:
+
 ```bash
-git add 01-evidence/
-git commit -m "PROJ-001: evidence inventory — 6 sources, GAP-001 (10-day Sysmon gap IT admin, Oct 22–Nov 1), firewall log retrieval urgent"
+nano 01-evidence/GAP-001-ws-it-levi-sysmon.md
+```
+
+Paste the filled template:
+
+```markdown
+# GAP-001 — WS-IT-LEVI Sysmon | 2024-10-22 – 2024-11-01
+
+Duration: 10 days (2024-10-22 11:31 UTC to 2024-11-01 09:14 UTC)
+Root cause: Sysmon forwarder stopped. Coincides exactly with delivery
+  of phishing email to p.levi at 11:23 UTC.
+What is missing: EID 1 (process creation), EID 3 (network connections),
+  EID 11 (file creation) for WS-IT-LEVI during this entire window.
+Impact: Cannot confirm or rule out attacker activity during this period.
+  All claims covering Oct 22–Nov 1 on this host are INFERRED or
+  HYPOTHESIZED unless corroborated by VPN logs, DC auth logs, or
+  firewall flows.
+Possible cause: Deliberate — terminating Sysmon is T1562.001 (Impair
+  Defenses). A gap coinciding with a malicious delivery is itself a
+  finding, not merely an absence.
+```
+
+### 4. Commit the evidence inventory
+
+```bash
+git add 01-evidence/ 02-sources/source-registry.md
+git commit -m "PROJ-2024-001: evidence inventory — 6 sources, GAP-001 (10-day Sysmon gap WS-IT-LEVI Oct 22–Nov 1), firewall log retrieval urgent before Nov 20"
 ```
 
 ---
 
 ## Step R2: Timeline — Two Paths, One Actor
+
+### 1. Open the timeline file
+
+```bash
+nano 03-analysis/timeline/timeline.md
+```
+
+The template has a header block and a markdown table. Fill the header first:
+
+```
+Project: PROJ-2024-001
+Analyst: [your name]
+Last updated: 2024-11-15
+Time range: 2024-10-18 – 2024-11-15
+Evidence label key: CONFIRMED / CORROBORATED / INFERRED / HYPOTHESIZED / GAP
+```
+
+Then add one row per event. Every row needs: timestamp (UTC), host, what happened, which log source you saw it in, an evidence label, and the ATT&CK technique. If you do not have a technique yet, leave it blank and come back — do not skip the label.
+
+### 2. Add events in chronological order
 
 The timeline reveals what the CFO alert obscured: the breach started 24 days earlier through a completely different person.
 
@@ -193,9 +455,35 @@ The timeline reveals what the CFO alert obscured: the breach started 24 days ear
 
 **The evidence label system matters here.** Event 12 (DCSync) is CONFIRMED — it exists in DC01's Windows Security log, forwarded to Splunk, from an IP that is definitively WS-IT-LEVI and definitively not the pentest VLAN. That cannot be waved away as "possible pentest activity." Event 6 (finance server access) is CORROBORATED — single source with incomplete log — and can only appear in the technical report with an explicit qualifier, not in the executive brief as a stated fact.
 
+### 3. Save and commit
+
+```bash
+git add 03-analysis/timeline/timeline.md
+git commit -m "PROJ-2024-001: timeline — 18 events Oct 18–Nov 15, dual-path confirmed, GAP-001 bounds established"
+```
+
 ---
 
 ## Step R3: Claims Ledger — Every Assertion Traced to Evidence
+
+### 1. Open the claims ledger
+
+```bash
+nano 03-analysis/claims/claims-ledger.md
+```
+
+The template has a table with six columns: ID, Claim, Evidence, Confidence, Competing Hypotheses, PIR. Start with an empty row for each major assertion you identified in the timeline — then fill each one completely before moving to the next.
+
+**For each row, answer these five questions before typing a word:**
+1. What is the exact assertion? (One sentence, falsifiable — could in principle be proven false)
+2. Which file and line number is the evidence in? (Not "we saw in Splunk" — the actual log reference)
+3. What confidence level and why? (High / Medium / Low / Insufficient — with explicit rationale)
+4. What alternative explanations were considered — and why were they ruled out or left open?
+5. Which PIR does this answer?
+
+If you cannot answer question 4, the claim is not ready to write. Think first.
+
+### 2. Fill in one claim per confirmed technique or PIR answer
 
 The claims ledger converts the timeline into auditable, falsifiable assertions. Each claim answers five questions: what, evidence, confidence, competing hypotheses, which PIR.
 
@@ -210,9 +498,69 @@ The claims ledger converts the timeline into auditable, falsifiable assertions. 
 
 **CL-003 is the pivotal claim.** The US partner's formulas are gone. That drives the PIR-001 answer and the entire notification timeline. CL-004 and CL-006 change the scope of remediation from "contain these three hosts" to "rotate all AD credentials, treat all 80 servers as potentially compromised."
 
+### 3. Update project.yml PIR status
+
+When a PIR is answered, open `project.yml` and change the status field immediately:
+
+```bash
+nano project.yml
+```
+
+Change:
+```yaml
+  - id: PIR-001
+    status: open
+```
+To:
+```yaml
+  - id: PIR-001
+    status: answered    # CL-003 — exfiltration confirmed, 381 MB, Nov 6
+```
+
+### 4. Commit the claims ledger
+
+```bash
+git add 03-analysis/claims/claims-ledger.md project.yml
+git commit -m "PROJ-2024-001: claims — 6 claims; PIR-001 ANSWERED YES (CL-003 exfil confirmed); PIR-003 CONFIRMED ONGOING (CL-006 DCSync)"
+```
+
 ---
 
 ## Step R4: ATT&CK Mapping — Where Detection Failed
+
+### 1. Open the ATT&CK mapping file
+
+```bash
+nano 03-analysis/attck-mapping/attck-mapping.md
+```
+
+For each technique you identified in the timeline, add one row. The four columns that matter most operationally are: **Confidence** (how sure are you the technique was used), **Rule Fired?** (yes/no/partial — check your SIEM), and **Gap Type** (what kind of work is needed to close this detection hole).
+
+**Gap types:** `Rule missing` / `Data source missing` / `Coverage incomplete` / `Architectural gap`. Pick one. If you are unsure, write your best guess and flag it for SOC review.
+
+Also update `project.yml` — fill the `attck_techniques` list:
+
+```bash
+nano project.yml
+```
+```yaml
+scope:
+  attck_techniques:
+    - T1566.001
+    - T1557
+    - T1133
+    - T1078.002
+    - T1059.001
+    - T1003.001
+    - T1003.006
+    - T1021.003
+    - T1197
+    - T1047
+    - T1070.001
+    - T1547.001
+```
+
+### 2. Fill one row per technique
 
 | # | Technique | Evidence | Confidence | Rule Fired? | Gap Type |
 |---|---|---|---|---|---|
@@ -236,9 +584,28 @@ The claims ledger converts the timeline into auditable, falsifiable assertions. 
 
 The DCSync gap (T1003.006) is particularly stark: the Advanced Audit Policy that generates EID 4662 was correctly configured on DC01, the event was forwarded to Splunk, and the event was visible in Splunk. There was no alert rule. A single Splunk search rule on `source=WinEventLog:Security EventCode=4662 ObjectType="{19195a5b-6da0-11d0-afd3-00c04fd930c9}"` from a non-DC IP would have fired and contained this incident before the formula exfiltration.
 
+### 3. Commit the ATT&CK mapping
+
+```bash
+git add 03-analysis/attck-mapping/attck-mapping.md project.yml
+git commit -m "PROJ-2024-001: ATT&CK mapping — 12 techniques, 7 rule-missing, 3 coverage-incomplete, 1 data-source-missing, 1 arch-gap"
+```
+
 ---
 
 ## Step R5: Attribution Assessment — Same Actor or Two?
+
+### 1. Open the attribution file
+
+```bash
+nano 03-analysis/attribution/attribution.md
+```
+
+Write attribution **only after the claims ledger is complete**. The attribution file has three sections: evidence for unification (or separation), confidence ladder scoring, and the exact language to use in deliverables. Fill them in that order.
+
+**Do not start with a hypothesis.** Start with the evidence you have from the claims ledger, then see where it points.
+
+### 2. Score the evidence against the confidence ladder
 
 The investigation faces a key analytical question: Path A (CFO phishing, November 15) and Path B (IT admin AiTM, October 22) — are they the same actor?
 
@@ -267,9 +634,37 @@ The actor compromised the IT admin first (October 22), used that access for data
 
 **What to write:** *"Activity assessed as a single threat actor based on shared toolchain indicators (PE timestamp, secondary C2 domain). Tradecraft and targeting profile are consistent with Iranian-nexus industrial espionage operations targeting Israeli pharmaceutical IP. Attribution to a named cluster is not warranted without CERT-IL deconfliction or independent confirmation. Confidence: Medium-High."*
 
+### 3. Paste the final language into attribution.md and commit
+
+```bash
+git add 03-analysis/attribution/attribution.md
+git commit -m "PROJ-2024-001: attribution — single actor, Medium-High confidence, shared PE timestamp + secondary C2, Iranian-nexus tradecraft consistent"
+```
+
 ---
 
 ## Step R6: Detection Rules — Four That Would Have Changed the Outcome
+
+### 1. Create one file per rule
+
+Each rule gets its own file in `04-detections/sigma/`:
+
+```bash
+cp 04-detections/sigma/SIGMA-TEMPLATE.yml 04-detections/sigma/DET-001-anomalous-vpn-auth.yml
+cp 04-detections/sigma/SIGMA-TEMPLATE.yml 04-detections/sigma/DET-002-dcsync-non-dc.yml
+cp 04-detections/sigma/SIGMA-TEMPLATE.yml 04-detections/sigma/DET-003-svc-account-offhours.yml
+cp 04-detections/sigma/SIGMA-TEMPLATE.yml 04-detections/sigma/DET-004-wmiprvse-powershell.yml
+```
+
+Open the first one:
+
+```bash
+nano 04-detections/sigma/DET-001-anomalous-vpn-auth.yml
+```
+
+Every rule must reference the CL-ID it would have detected and the gap type it closes. That is how the detection backlog stays traceable to the investigation.
+
+### 2. Fill each rule
 
 Each rule is written with a reference to the claim it would have detected and the evidence gap it closes.
 
@@ -415,9 +810,49 @@ tags:
 
 **Validation:** All four rules were validated against the `PROJ-001` evidence set using Hayabusa before deployment. DET-001 fires on the October 24 Istanbul VPN login. DET-002 fires on the November 6 DCSync event. DET-003 fires on every `svc_backup` off-hours logon. DET-004 fires on the SERVER-FIN-01 WMI execution.
 
+### 3. Validate each rule against your evidence set
+
+```bash
+# Run Hayabusa against the collected logs to confirm rules fire on known-bad events
+hayabusa csv-timeline -d 01-evidence/ -r 04-detections/sigma/ -o validation-results.csv
+```
+
+Review the output. A rule that does not fire on its own evidence set should not be deployed.
+
+### 4. Update project.yml deliverables count and commit
+
+```bash
+nano project.yml
+```
+
+```yaml
+deliverables:
+  - type: sigma-rules
+    count: 4
+    status: complete
+```
+
+```bash
+git add 04-detections/sigma/ project.yml
+git commit -m "PROJ-2024-001: detections — DET-001 to DET-004 written and validated PASS against evidence set via Hayabusa"
+```
+
 ---
 
 ## Step R7: Deliverables — What Each Stakeholder Gets
+
+### 1. Open the deliverable templates
+
+```bash
+nano 05-deliverables/executive-brief.md
+nano 05-deliverables/soc-handoff.md
+```
+
+The executive brief answers three questions only: what happened, what was confirmed stolen or compromised, and what must happen in the next 24 hours. One page. No technical jargon. Every PIR that is answered gets a one-line answer at the top.
+
+The SOC handoff lists: current IOCs (with confidence ratings), detection rules deployed, hunting queries still open, and escalation criteria. The SOC receives this, not the executive brief.
+
+### 2. Fill the executive brief
 
 **Executive brief (1 page, TLP:AMBER) — what the CISO needs in 90 minutes:**
 
@@ -434,6 +869,30 @@ tags:
 Current IOCs: `203.0.113.87`, `198.51.100.44`, `telemetry-cdn-services[.]biz`, `sys-update-cdn[.]net`, `uslifepartner-group[.]com`, `lifetechpharma-corp[.]eu`.
 
 Four detection rules deployed (DET-001 through DET-004). Two hunting queries: (1) pivot on C2 domains across all 838 endpoints — the 3 confirmed hosts may not be all; (2) hunt for any svc_backup authentication from non-WSUS IPs in the past 30 days.
+
+### 3. Update project.yml status to closed and commit everything
+
+```bash
+nano project.yml
+```
+
+```yaml
+project:
+  status: closed
+
+pirs:
+  - id: PIR-001
+    status: answered    # CL-003
+  - id: PIR-002
+    status: answered    # CL-001
+  - id: PIR-003
+    status: answered    # CL-006 — ongoing, AD rotation required
+```
+
+```bash
+git add 05-deliverables/ project.yml
+git commit -m "PROJ-2024-001: deliverables — executive brief, SOC handoff, INCD notification ready; all PIRs answered; project closed"
+```
 
 ---
 
