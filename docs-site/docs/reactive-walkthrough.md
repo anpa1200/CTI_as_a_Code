@@ -433,71 +433,117 @@ The folder and git repo already exist from Step 00. This step fills the scope do
 nano 00-scope/scope.md
 ```
 
-The template has six sections. Fill each one now:
+The template has six sections. Here is the complete filled file for LifeTech:
 
-**Header — fill the four metadata lines at the top:**
-```
-Project: PROJ-2024-001
-Classification: TLP:AMBER
-Date scoped: 2024-11-15
-Scoped by: [your name]
-Approved by: Noa Ben-David, IR Lead
-```
+```markdown
+# Scope Definition
 
-**Incident Summary — one paragraph, what triggered this:**
-```
-CrowdStrike behavioral detection on WS-CFO-01 at 18:42 IST, November 15, 2024.
-PowerShell spawned by OUTLOOK.EXE with base64-encoded payload, downloading from
-203.0.113.87. Scope of compromise unknown. Formula files on SERVER-RD-02 are
-potentially in scope — US licensing deal ($52M) requires regulatory assessment.
-```
+**Project:** PROJ-2024-001
+**Classification:** TLP:AMBER
+**Date scoped:** 2024-11-15
+**Scoped by:** Yael Mizrahi (CTI Analyst)
+**Approved by:** Noa Ben-David (IR Lead) — verbal approval 19:22 IST
 
-**In Scope — fill the asset table:**
+---
+
+## Incident Summary
+
+CrowdStrike behavioral IOA fired on WS-CFO-01 (Michal Cohen, CFO) at 18:42 IST on
+2024-11-15. PowerShell with encoded payload launched from OUTLOOK.EXE; three outbound
+C2 connections to 203.0.113.87 confirmed within 15 minutes of detection. Scope of
+compromise is unknown at time of scoping — the CFO alert may be a late-stage indicator
+of a broader intrusion. Formula files on SERVER-RD-02 (US licensing package, ~380 MB,
+47 files) are in scope for PIR-001 due to financial and regulatory exposure ($52M deal,
+FDA NDA obligations). INCD 72h notification clock assessed as active from time of
+discovery.
+
+---
+
+## In Scope
 
 | Asset / System | Owner | Justification |
 |---|---|---|
-| WS-CFO-01 | IT / Michal Cohen (CFO) | Triggering alert host |
-| WS-IT-LEVI | IT / Paz Levi | Suspected initial access vector |
-| SERVER-RD-02 | R&D | Formula file storage — PIR-001 asset |
-| SERVER-FIN-01 | Finance | Lateral movement target — CrowdStrike alert |
-| DC01 | IT | DCSync indicator from this host |
+| WS-CFO-01.lifetechpharma.local | IT Dept / Michal Cohen (CFO) | Triggering alert host — CrowdStrike IOA, active C2 |
+| WS-IT-LEVI.lifetechpharma.local | IT Dept / Paz Levi (IT Admin) | Suspected initial access vector — AiTM phishing hypothesis |
+| SERVER-RD-02.lifetechpharma.local | R&D Dept | Formula file storage — PIR-001 primary asset |
+| SERVER-FIN-01.lifetechpharma.local | Finance Dept | Lateral movement target — confirmed by CrowdStrike alert Nov 15 |
+| DC01.lifetechpharma.local | IT Dept | DCSync event EID 4662 observed from non-DC IP |
+| Exchange Online (M365) | IT / Microsoft | Email delivery vector — phishing investigation |
+| Azure AD | IT / Microsoft | Authentication logs — VPN session token replay |
+| Palo Alto NGFW (perimeter) | IT / Network team | C2 traffic confirmation, SERVER-RD-02 exfil flows |
 
-**Out of Scope — fill the exclusion table:**
+---
+
+## Out of Scope
 
 | Asset / System | Reason for Exclusion |
 |---|---|
-| SharePoint Online | Cloud scope — requires separate authorization |
-| Manufacturing SCADA | No evidence of involvement at this time |
-| WS-IT-LEVI hardware | Legal hold — no hardware access, RTR only |
+| SharePoint Online / OneDrive | Cloud scope — no evidence of involvement; requires separate authorization |
+| Manufacturing SCADA / OT network | No evidence of lateral movement into OT segment at this time |
+| WS-IT-LEVI — hardware / disk image | Legal hold issued 2024-11-15 20:45 IST. No hardware access until hold lifted. RTR permitted. |
+| All other endpoints (838 total) | Out of scope pending hunt results — may expand if pivot on C2 domains finds new hosts |
 
-**PIRs — copy from project.yml, add due dates:**
+---
 
-| ID | Question | Priority | Due |
-|---|---|---|---|
-| PIR-001 | Was the US licensing formula package (SERVER-RD-02\\USPartner2024\\) accessed or exfiltrated? | High | 2024-11-16 02:00 IST |
-| PIR-002 | How did the adversary gain initial access? | High | 2024-11-16 02:00 IST |
-| PIR-003 | Is there evidence of ongoing access or persistence? | High | 2024-11-16 02:00 IST |
+## Priority Intelligence Requirements (PIRs)
 
-**Constraints and Assumptions — fill the four fields:**
-```
-Legal/regulatory: INCD 72h notification window expires 2024-11-17 18:47 IST.
-  Israeli Privacy Protection Law + FDA NDA obligations if formula data confirmed.
-Evidence limitations: Palo Alto firewall logs — 14-day retention.
-  SERVER-RD-02 Nov 6 outbound logs expire 2024-11-20. Retrieve immediately.
-  Sysmon absent from all server-class machines.
-Access restrictions: WS-IT-LEVI — legal hold, no hardware access. RTR permitted.
-Assumptions: All timestamps assumed UTC unless marked IST. Not converted in log excerpts.
-```
+| ID | Question | Priority | Due | Status |
+|---|---|---|---|---|
+| PIR-001 | Was the US licensing formula package (`SERVER-RD-02\LicenseDeals\USPartner2024\`) accessed or exfiltrated? If so, what and when? | High | 2024-11-16 06:00 IST | Open |
+| PIR-002 | How did the adversary gain initial access — phishing, credential theft, exploitation, or insider? | High | 2024-11-16 06:00 IST | Open |
+| PIR-003 | Is there evidence of ongoing access or persistence as of 2024-11-15 19:00 IST? Are any other hosts compromised? | High | 2024-11-16 06:00 IST | Open |
 
-**Definition of Done — check the boxes your team has agreed to:**
-```
-- [ ] All PIRs answered or formally deferred with reasoning
-- [ ] Timeline covers full attacker dwell period (or gap documented)
-- [ ] ATT&CK mapping reviewed and finalized
-- [ ] At least one detection rule per confirmed TTP
-- [ ] SOC handoff delivered and acknowledged
+---
+
+## Constraints and Assumptions
+
+- **Legal/regulatory:** INCD 72h notification window — expires approximately 2024-11-17
+  18:47 IST. Israeli Privacy Protection Law (PPL) notification to DPA if personal data
+  breach confirmed. FDA NDA obligation to notify US partner if formula files confirmed
+  exfiltrated — no specific deadline but immediate notification is standard practice.
+- **Evidence limitations:**
+  - Palo Alto NGFW firewall flows: 14-day retention only. SERVER-RD-02 November 6
+    outbound traffic expires 2024-11-20. **Retrieve before any other analysis.**
+  - Sysmon NOT deployed on server-class machines (SERVER-RD-02, SERVER-FIN-01, DC01).
+  - CrowdStrike NOT deployed on R&D server fleet (12 servers) or DC01.
+  - DC01 Windows Security log: only partial export available — full log inaccessible.
+  - ATP sandbox not enabled for .xlsm files — attachment was delivered uninspected.
+- **Access restrictions:**
+  - WS-IT-LEVI: legal hold, no hardware/disk/memory access. CrowdStrike RTR permitted
+    with full session logging. Contact Adv. Dina Shapiro before any exception.
+  - VPN jump host credentials: requested, not yet provisioned (Yael Mizrahi, 19:05 IST).
+- **Assumptions:**
+  - All log timestamps assumed UTC unless explicitly marked IST in source.
+  - CrowdStrike behavioral detections treated as CONFIRMED source (Admiralty A/2).
+  - Sysmon EID events treated as CONFIRMED source where forwarder health is verified.
+
+---
+
+## Stakeholders
+
+| Name | Role | Involvement |
+|---|---|---|
+| Noa Ben-David | IR Lead | Scope approval; receives executive brief; INCD notification decision |
+| Ran Katz | SOC Manager | SOC handoff; implements detection rules; hunting queries |
+| Adv. Dina Shapiro | Legal Counsel | Legal hold oversight; PPL / regulatory notifications; WS-IT-LEVI access decisions |
+| [CISO name] | CISO | Executive brief recipient; $52M deal brief to Board |
+| [US Partner contact] | External — US biopharma | FDA NDA notification if PIR-001 answered YES |
+
+---
+
+## Definition of Done
+
+This investigation is complete when:
+
+- [ ] All three PIRs answered or formally deferred with documented reasoning
+- [ ] Timeline covers full attacker dwell period from first access to detection (or gap documented)
+- [ ] ATT&CK mapping completed and reviewed — all confirmed techniques have a gap type
+- [ ] At least one Sigma detection rule per confirmed TTP with Rule Missing or Coverage Incomplete gap
+- [ ] SOC handoff document delivered to Ran Katz and acknowledged
 - [ ] Executive brief approved by Noa Ben-David (IR Lead)
-- [ ] INCD notification filed if formula data confirmed
+- [ ] INCD notification filed if formula data or CII involvement confirmed (deadline: 2024-11-17 18:47 IST)
+- [ ] PPL / FDA NDA notification decision documented (even if decision is: not required)
+- [ ] project.yml status set to `closed` and all PIR statuses updated
 ```
 
 ### 2. Save the file and commit
