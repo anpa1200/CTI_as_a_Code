@@ -571,18 +571,64 @@ The template has two tables: Internal Sources and External Sources. Fill every r
 
 ### 2. Fill in what you have
 
-For each log source, fill four fields: **Source name**, **System(s) it covers**, **Admiralty reliability rating**, and **any known gap**. Where a source is absent from a system that should have it, add a row with `— absent` in the Gap column. That absence is a finding.
+Here is the complete filled `02-sources/source-registry.md` for LifeTech:
 
-For LifeTech, the completed source registry drives this inventory:
+```markdown
+# Intelligence Source Registry
 
-| Source | System | Coverage | Reliability | Gap |
-|---|---|---|---|---|
-| CrowdStrike EDR | WS-CFO-01, SERVER-FIN-01 | Full — events available | High | EDR absent from all 12 research servers, DC01, SERVER-RD-02 |
-| Sysmon | WS-CFO-01, WS-IT-LEVI | WS-CFO-01: full. WS-IT-LEVI: **10-day gap Oct 22–Nov 1** | High | Sysmon absent from all servers |
-| Windows Security log | SERVER-RD-02, DC01 | Partial — EID 4624, 4662, 4663 only | Medium | Full DC log inaccessible; R&D server log is partial |
-| Palo Alto DNS / NGFW | Perimeter | DNS: full. Firewall flows: **14-day retention** | High | SERVER-RD-02 Nov 6 outbound: retrieve before Nov 20 |
-| M365 Message Trace | Exchange Online | Full — 30 days | High | ATP sandbox not enabled for `.xlsm` files |
-| Azure AD sign-in | Cloud | Full | High | — |
+**Project:** PROJ-2024-001 — LifeTech Pharma Targeted Intrusion
+
+Admiralty Scale: Source reliability A (completely reliable) – F (reliability cannot be judged).
+Information reliability: 1 (confirmed by other sources) – 6 (truth cannot be judged).
+
+---
+
+## Internal Sources
+
+| ID | Source | Systems Covered | Type | Admiralty | Retention | Notes / Gaps |
+|---|---|---|---|---|---|---|
+| INT-001 | CrowdStrike Falcon EDR | WS-CFO-01, SERVER-FIN-01 | Endpoint telemetry | A/2 | 90 days | ⚠ NOT deployed on SERVER-RD-02, DC01, or any of 12 R&D servers |
+| INT-002 | Sysmon (via Winlogbeat → Splunk) | WS-CFO-01, WS-IT-LEVI | Endpoint telemetry | A/2 | 30 days in Splunk | ⚠ WS-IT-LEVI: 10-day gap 2024-10-22–2024-11-01 (GAP-001). NOT on any server |
+| INT-003 | Windows Security Event Log | SERVER-RD-02, DC01, SERVER-FIN-01 | Auth / object access | B/2 | 30 days in Splunk | Partial: EID 4624, 4662, 4663 only forwarded. Full DC01 log inaccessible |
+| INT-004 | Palo Alto NGFW — DNS logs | Perimeter (all hosts) | DNS telemetry | A/2 | 30 days | Full org coverage. Used for C2 domain pivot |
+| INT-005 | Palo Alto NGFW — firewall flows | Perimeter (all hosts) | Network flow | A/2 | **14 days only** | ⚠ SERVER-RD-02 Nov 6 outbound traffic expires 2024-11-20. Retrieve immediately |
+| INT-006 | Cisco AnyConnect VPN logs | Remote access (all users) | Auth / session | A/2 | 30 days in Splunk | Full session data including source IP, duration, MFA status |
+| INT-007 | M365 Message Trace | Exchange Online (all users) | Email delivery | A/2 | 30 days | ATP enabled but ⚠ sandbox NOT enabled for .xlsm files — attachment was delivered uninspected |
+| INT-008 | Azure AD sign-in logs | Cloud auth (all users) | Auth / session | A/2 | 30 days | Includes MFA status, conditional access result, source IP, device |
+| INT-009 | SQL Server audit log (SERVER-RD-02) | SERVER-RD-02 databases | Object access | B/3 | 30 days | Partial EIDs only. File-level access (EID 4663) confirmed for USPartner2024 |
+| INT-010 | RADIUS log (VPN auth) | VPN gateway | Auth | A/2 | 30 days | Corroborates AnyConnect session data — used to validate SessionID match |
+
+---
+
+## External / OSINT Sources
+
+| ID | Source | Type | Admiralty | TLP | Notes |
+|---|---|---|---|---|---|
+| EXT-001 | VirusTotal | IOC enrichment (hash, IP, domain) | C/3 | TLP:WHITE | 203.0.113.87 enrichment; binary hash lookup for svchost32.exe |
+| EXT-002 | Shodan | Infrastructure recon | C/3 | TLP:WHITE | Co-hosted domain discovery on C2 IPs |
+| EXT-003 | URLScan.io | Domain analysis | C/3 | TLP:WHITE | telemetry-cdn-services[.]biz, lifetechpharma-corp[.]eu analysis |
+| EXT-004 | PassiveDNS (RiskIQ/Farsight) | Historical DNS resolution | C/2 | TLP:WHITE | Infrastructure pivot from C2 IPs to actor-linked domains |
+| EXT-005 | WHOIS / ICANN | Domain registration | D/3 | TLP:WHITE | lifetechpharma-corp[.]eu registration date 2024-10-18 confirmed |
+| EXT-006 | Certificate Transparency (crt.sh) | TLS cert history | C/3 | TLP:WHITE | SAN pivot — co-hosted domains on C2 infrastructure |
+| EXT-007 | CERT-IL advisory feed | Government threat intel | A/2 | TLP:AMBER | Checked for matching C2 IPs and actor profiles — no match at time of investigation |
+| EXT-008 | ClearSky / Mandiant public reporting | Threat actor reports | B/2 | TLP:WHITE | Iranian-nexus industrial espionage pattern matching for attribution |
+
+---
+
+## Source Limitations
+
+| Source | Known Limitation |
+|---|---|
+| INT-001 (CrowdStrike) | Detect-only policy on WS-CFO-01 (CFO exception) — process was not killed. Not deployed on server fleet or DC01 |
+| INT-002 (Sysmon) | 10-day gap on WS-IT-LEVI (GAP-001). Not deployed on any server. Cannot reconstruct server-side process activity |
+| INT-003 (Windows Security) | DC01 full log inaccessible — only Splunk-forwarded subset available. May miss authentication events not in forwarded EID list |
+| INT-005 (Firewall flows) | 14-day retention only. Any server traffic before 2024-11-01 is expired. Nov 6 traffic expires 2024-11-20 |
+| INT-007 (M365 ATP) | .xlsm files not sandboxed — SCL=4 phishing email delivered without detonation. Attachment analysis not available from gateway |
+| INT-009 (SQL audit) | Partial EID forwarding only. Full SQL audit trail not in SIEM — direct server access required for complete file access log |
+| EXT-007 (CERT-IL) | No deconfliction performed for this actor — no advisory matched at time of investigation. Absence of match ≠ absence of attribution |
+```
+
+For LifeTech, the completed source registry reveals the critical coverage picture:
 
 **GAP-001 — WS-IT-LEVI Sysmon: October 22 – November 1, 2024**
 
