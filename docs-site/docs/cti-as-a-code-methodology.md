@@ -63,6 +63,8 @@ Before picking up a tool, identify which mode you are in:
 
 The four modes share the same scaffold, the same analytical discipline, and the same git workflow. The difference is which steps you run and in what order.
 
+![The four operational modes — when to use each and what it produces](/img/infographic-four-modes.png)
+
 ---
 
 ## Setup: Get the Repository and Start the Lab
@@ -118,6 +120,8 @@ Once running:
 | Cortex | http://localhost:9002 | Automated enrichment — runs VirusTotal, Shodan, passive-DNS against observables |
 | Kibana / SIEM | http://localhost:5601 | Detection rule management, alert triage, timeline visualization |
 | Elasticsearch | http://localhost:9200 | Shared data store for all services |
+
+![CTI services overview — URLs, roles, and what each service does](/img/infographic-services.png)
 
 You do not need the lab to run the methodology. The minimum-viable path at the end of this article covers what to use instead.
 
@@ -221,6 +225,8 @@ git commit -m "PROJ-001: scope signed off by CISO — PIR-001 through PIR-003, T
 **File:** `01-evidence/README.md` | **Time:** 2–8 h depending on evidence volume
 
 Before any analysis, build the complete evidence inventory. The rule: **you do not analyze what you have not inventoried.** Working from untracked evidence is how findings get missed and how the chain of custody breaks.
+
+![Log sources inventory — source, file, time range, gaps, SHA256, and usability](/img/infographic-log-sources.png)
 
 **Collection with Velociraptor (remote, no reboot required):**
 
@@ -329,6 +335,8 @@ The timeline is a chronological log of every relevant event with three things th
 | **HYPOTHESIZED** | Plausible; no supporting evidence — open question | No — document as question only |
 | **GAP** | No evidence covers this window | Yes — as a finding, not a claim |
 
+![Evidence label system — every event gets one label; what each means and where it can appear](/img/infographic-evidence-labels.png)
+
 **Why labels matter:** Without them, analysts conflate what they saw with what they inferred. The label forces explicit acknowledgment of how strong each piece of evidence is. When an executive asks "are you sure they took the data?", the answer is "CONFIRMED — two independent sources (DB audit log and netflow) both show 892 MB outbound" not "we think so."
 
 **Example timeline entries:**
@@ -394,6 +402,8 @@ The claims ledger is the single most important document in the investigation. It
 | CL-005 | No confirmed evidence of access after 2025-03-17 07:02 IST (Sysmon restart) | All log sources show no activity from 185.234.x.x after 03:21 | Medium | Adversary using different infrastructure after initial exfil — cannot rule out; recommend threat hunt | PIR-003 |
 ```
 
+![Claims register — structured claims with supporting evidence, confidence, competing hypotheses, and PIR mapping](/img/infographic-claims-register.png)
+
 The claims ledger drives everything downstream:
 - Executive brief cites CL-IDs, not raw log lines
 - SOC handoff uses claims to justify IOC confidence
@@ -432,6 +442,10 @@ The ATT&CK mapping has two purposes: documenting what happened (intelligence) an
 | Data source missing | Log source exists but not ingested into SIEM | SOC engineering | Days to weeks |
 | Coverage incomplete | Rule fires but with wrong severity, missing fields, or high latency | Detection engineer | 2–8 h per rule |
 | Architectural gap | Log source cannot be enabled or doesn't exist | IT architecture | Weeks to months |
+
+![Gap type reference — what each gap means, who fixes it, and estimated effort](/img/infographic-gap-types.png)
+
+![MITRE ATT&CK coverage gap matrix — technique, evidence, confidence, rule fired, gap type, and remediation](/img/infographic-attack-matrix.png)
 | Not applicable | Technique out of scope for this engagement | — | — |
 
 **Decider — guided ATT&CK mapping when the technique is unclear:**
@@ -487,6 +501,8 @@ Write the attribution section only after the claims ledger is complete. Attribut
 | **Medium** | TTP overlap only; no infrastructure overlap; no independent confirmation | "Tradecraft consistent with [actor] operations; insufficient evidence for attribution" |
 | **Low** | Broadly consistent TTPs; single vector; no corroboration | "Activity shares characteristics with [actor] tradecraft; attribution is inconclusive" |
 | **Insufficient** | Single IOC; no technique context; no corroboration | "Insufficient evidence to attribute to a named group or cluster" |
+
+![Confidence ladder — evidence requirements and correct language for each attribution tier](/img/infographic-confidence-ladder.png)
 
 Infrastructure pivoting for attribution — run from the C2 IP before enrichment ages:
 
