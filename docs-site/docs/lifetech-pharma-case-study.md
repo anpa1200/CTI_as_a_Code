@@ -472,3 +472,4 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 | ATT&CK Navigator layer | [Download JSON](/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json) |
 | Related ecosystem tools | [Ecosystem Overview](/docs/ecosystem) |
 | CTI Analyst Field Manual | [Evidence discipline and analytic standards](https://anpa1200.github.io/cti-analyst-field-manual/) |
+| Full CTI Portfolio | [All projects, repositories, and articles](https://anpa1200.github.io/cti.html) |

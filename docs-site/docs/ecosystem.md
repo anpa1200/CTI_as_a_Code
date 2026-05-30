@@ -12,9 +12,14 @@ This page connects the CTI documentation projects into one practitioner ecosyste
 
 ## The Ecosystem
 
+:::tip Start here
+**[CTI Portfolio — Andrey Pautov](https://anpa1200.github.io/cti.html)** is the top-level entry point: four documentation sites, 11 repositories, 36 articles. Start there to navigate the full body of work, then come back to the specific project you need.
+:::
+
 | Project | Role | Use When |
 |---|---|---|
-| **[CTI as a Code](https://anpa1200.github.io/CTI_as_a_Code/)** | Lab platform + structured training assignments | You want a hands-on lab, worked case studies, Sigma rules, and methodology scaffolds |
+| **[CTI Portfolio](https://anpa1200.github.io/cti.html)** | Top-level hub — all CTI work in one place | You want an overview of the full body of work: actor research, methodology, detection engineering, labs |
+| **[CTI as a Code](https://anpa1200.github.io/CTI_as_a_Code/)** | Lab platform + structured training assignments + published case studies | You want a hands-on lab, worked case studies, Sigma rules, and methodology scaffolds |
 | **[CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/)** | General CTI tradecraft and analytic operating manual | You need evidence discipline, analytic judgment, attribution methodology, infrastructure pivoting, or CTI-to-detection reasoning |
 | **[Customer-Driven AI CTI Project](https://anpa1200.github.io/customer-driven-ai-cti-project/)** | Delivery methodology and customer engagement model | CTI work must become a managed project with phases, quality gates, and customer acceptance criteria |
 | **[Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)** | Israeli sector and actor knowledge base | The question involves Israeli government, municipal, telecom, critical infrastructure, or supplier exposure |
@@ -93,6 +98,7 @@ The government assignments (A05–A08) are grounded in the Israeli public-sector
 
 ## Repository Links
 
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — full work index
 - [CTI as a Code](https://github.com/anpa1200/CTI_as_a_Code)
 - [CTI Analyst Field Manual](https://github.com/anpa1200/cti-analyst-field-manual)
 - [Customer-Driven AI CTI Project](https://github.com/anpa1200/customer-driven-ai-cti-project)
