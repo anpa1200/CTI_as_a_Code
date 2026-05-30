@@ -11,9 +11,7 @@ import TabItem from '@theme/TabItem';
 # Case Study: CTI as a Code in Practice — LifeTech Pharma
 
 <figure>
-
-![CTI as a Code in Practice — LifeTech Pharma cover](/img/lifetech/00-cover.png)
-
+<img src="/img/lifetech/00-cover.png" alt="CTI as a Code in Practice — LifeTech Pharma cover" />
 </figure>
 
 > *A complete walkthrough of the methodology applied to a real training scenario: pharmaceutical IP theft, dual entry points, and a DCSync that changes everything.*
@@ -68,16 +66,12 @@ cd PROJ-2024-001 && git init && git add . && git commit -m "PROJ-2024-001: initi
 ```
 
 <figure>
-
-![Project folder structure](/img/lifetech/01-project-structure.png)
-
+<img src="/img/lifetech/01-project-structure.png" alt="Project folder structure" />
 <figcaption>The reactive case template creates a consistent, auditable folder structure before any analysis begins.</figcaption>
 </figure>
 
 <figure>
-
-![Folder tree output](/img/lifetech/02-folder-tree.png)
-
+<img src="/img/lifetech/02-folder-tree.png" alt="Folder tree output" />
 <figcaption>The full evidence tree as seen in VS Code Explorer — every log source one click away.</figcaption>
 </figure>
 
@@ -88,9 +82,7 @@ cd PROJ-2024-001 && git init && git add . && git commit -m "PROJ-2024-001: initi
 Before touching any log, fill the intake form. It captures constraints that shape every downstream decision.
 
 <figure>
-
-![project.yml metadata form](/img/lifetech/03-project-yml.png)
-
+<img src="/img/lifetech/03-project-yml.png" alt="project.yml metadata form" />
 <figcaption>Completed project.yml — legal hold status, notification deadlines, and evidence retention windows documented before analysis starts.</figcaption>
 </figure>
 
@@ -102,34 +94,26 @@ Key constraints recorded in intake:
 **Scope — assets in scope and out of scope:**
 
 <figure>
-
-![Scope document — in-scope assets](/img/lifetech/00b-scope-in-scope.png)
-
+<img src="/img/lifetech/00b-scope-in-scope.png" alt="Scope document — in-scope assets" />
 <figcaption>In-scope assets: formula files on SERVER-RD-02, IT admin and CFO workstations, Azure AD, VPN gateway. The $52M licensing deal defines the crown jewels.</figcaption>
 </figure>
 
 <figure>
-
-![Scope document — out-of-scope exclusions](/img/lifetech/00c-scope-out-of-scope.png)
-
+<img src="/img/lifetech/00c-scope-out-of-scope.png" alt="Scope document — out-of-scope exclusions" />
 <figcaption>Out-of-scope: production pharmacy systems and clinical trial data — legal hold constraints from the FDA prevent unrestricted forensic access.</figcaption>
 </figure>
 
 **Priority Intelligence Requirements (PIRs):**
 
 <figure>
-
-![PIRs from project.yml](/img/lifetech/00d-pirs.png)
-
+<img src="/img/lifetech/00d-pirs.png" alt="PIRs from project.yml" />
 <figcaption>Three PIRs drive the investigation: (1) scope and entry vector, (2) actor attribution, (3) what detection would have caught this. Every claim in the claims ledger maps to one PIR.</figcaption>
 </figure>
 
 **Source registry — evidence inventory with Admiralty ratings:**
 
 <figure>
-
-![Source registry with Admiralty reliability ratings](/img/lifetech/00e-source-registry.png)
-
+<img src="/img/lifetech/00e-source-registry.png" alt="Source registry with Admiralty reliability ratings" />
 <figcaption>Every evidence source rated for reliability (A–F) and credibility (1–6) before analysis. Where a source is absent from a system that should have it, the absence is recorded as a finding — not skipped.</figcaption>
 </figure>
 
@@ -142,9 +126,7 @@ VS Code is the primary analysis tool. One window holds the evidence tree, format
 **Opening the evidence folder:**
 
 <figure>
-
-![VS Code Explorer showing full evidence tree](/img/lifetech/00f-evidence-tree.png)
-
+<img src="/img/lifetech/00f-evidence-tree.png" alt="VS Code Explorer showing full evidence tree" />
 <figcaption>One command opens the complete evidence directory as a VS Code workspace. Every JSON, JSONL, CSV, and syslog file is one click away — no context switching between applications.</figcaption>
 </figure>
 
@@ -153,18 +135,14 @@ VS Code is the primary analysis tool. One window holds the evidence tree, format
 **Install four extensions** (`Ctrl+Shift+X`):
 
 <figure>
-
-![VS Code extensions installation panel](/img/lifetech/04-vscode-extensions.png)
-
+<img src="/img/lifetech/04-vscode-extensions.png" alt="VS Code extensions installation panel" />
 <figcaption>Rainbow CSV, REST Client, Hex Editor, and Prettier — the four extensions that make VS Code a complete log analysis workstation.</figcaption>
 </figure>
 
 **Key shortcuts used throughout:**
 
 <figure>
-
-![VS Code keyboard shortcuts reference](/img/lifetech/05-vscode-shortcuts.png)
-
+<img src="/img/lifetech/05-vscode-shortcuts.png" alt="VS Code keyboard shortcuts reference" />
 <figcaption>Global search (Ctrl+Shift+F), file search (Ctrl+F), JSON outline (Ctrl+Shift+O), and RBQL console (F5) — four shortcuts that replace an entire toolchain.</figcaption>
 </figure>
 
@@ -177,18 +155,14 @@ See the [full setup instructions and download links](/docs/reactive-walkthrough#
 The investigation opens with a CrowdStrike `Critical` detection on `WS-CFO-01`. Press `Shift+Alt+F` to format the JSON, then `Ctrl+Shift+O` to open the Outline panel.
 
 <figure>
-
-![CrowdStrike alert outline panel](/img/lifetech/06-crowdstrike-outline.png)
-
+<img src="/img/lifetech/06-crowdstrike-outline.png" alt="CrowdStrike alert outline panel" />
 <figcaption>The Outline panel collapses 1,200 lines of JSON into a navigable tree — four detected behaviors visible at a glance: Execution, C2, Persistence, Credential Access.</figcaption>
 </figure>
 
 Click `prevention_policy` in the Outline:
 
 <figure>
-
-![Prevention policy detect-only confirmation](/img/lifetech/07-prevention-policy.png)
-
+<img src="/img/lifetech/07-prevention-policy.png" alt="Prevention policy detect-only confirmation" />
 <figcaption>"prevent": false — the CFO machine is in detect-only mode. The C2 connection is live. Memory dump before anything else.</figcaption>
 </figure>
 
@@ -203,16 +177,12 @@ Click `prevention_policy` in the Outline:
 `Ctrl+F` → `-Enc` in the formatted JSON. Copy the base64 argument, decode in the terminal:
 
 <figure>
-
-![Base64 decode step 1](/img/lifetech/08-base64-decode-1.png)
-
+<img src="/img/lifetech/08-base64-decode-1.png" alt="Base64 decode step 1" />
 <figcaption>The encoded PowerShell command is visible in the behaviors[0].cmdline field — one Ctrl+F away from the raw JSON.</figcaption>
 </figure>
 
 <figure>
-
-![Base64 decode step 2 — decoded payload](/img/lifetech/09-base64-decode-2.png)
-
+<img src="/img/lifetech/09-base64-decode-2.png" alt="Base64 decode step 2 — decoded payload" />
 <figcaption>Decoded output: a WebClient downloading from the C2 IP. The payload URL, User-Agent header, and destination are all visible in plaintext.</figcaption>
 </figure>
 
@@ -225,9 +195,7 @@ echo "JABjAD0ATg..." | base64 -d | iconv -f UTF-16LE -t UTF-8
 **Decode locally** — never paste encoded malware into online decoders. Encoding is a common obfuscation layer; decoding reveals the real C2 endpoint.
 
 <figure>
-
-![PowerShell base64 decoded output](/img/lifetech/09b-base64-output.png)
-
+<img src="/img/lifetech/09b-base64-output.png" alt="PowerShell base64 decoded output" />
 <figcaption>Decoded output: a WebClient DownloadString call to the C2 IP. The full payload URL, User-Agent, and C2 address are visible in one terminal command — no online decoder needed.</figcaption>
 </figure>
 
@@ -240,18 +208,14 @@ echo "JABjAD0ATg..." | base64 -d | iconv -f UTF-16LE -t UTF-8
 Click `m365/message-trace-p.levi.csv` in Explorer. Rainbow CSV colorizes every column. Press `F5` for the RBQL console.
 
 <figure>
-
-![M365 RBQL results — failed auth](/img/lifetech/10-m365-rbql-results.png)
-
+<img src="/img/lifetech/10-m365-rbql-results.png" alt="M365 RBQL results — failed auth" />
 <figcaption>RBQL query: WHERE DMARC == 'fail' — the phishing email to the IT admin lands in the first result row: DMARC fail, DKIM fail, SPF fail, SCL=4, delivered.</figcaption>
 </figure>
 
 Switch to `message-trace-m.cohen.csv` for the CFO mailbox:
 
 <figure>
-
-![CFO phishing email discovery](/img/lifetech/11-cfo-phishing-discovery.png)
-
+<img src="/img/lifetech/11-cfo-phishing-discovery.png" alt="CFO phishing email discovery" />
 <figcaption>The CFO phishing delivery: .xlsm attachment, SCL=4, DMARC fail — same bypass pattern as the IT admin attack 24 days earlier. Same SCL threshold gap, different sender domain.</figcaption>
 </figure>
 
@@ -262,16 +226,12 @@ The [ATP SCL threshold gap (INT-007)](/docs/reactive-walkthrough#3-m365-message-
 ### 4. Azure AD Sign-In Analysis
 
 <figure>
-
-![Azure AD sign-in comparison table](/img/lifetech/12-azure-ad-signin-table.png)
-
+<img src="/img/lifetech/12-azure-ad-signin-table.png" alt="Azure AD sign-in comparison table" />
 <figcaption>Four sign-in entries extracted with jq. Entry [1] (aad-signin-002) immediately stands out: Istanbul, Conditional Access notApplied, MFA null — three red flags in one row.</figcaption>
 </figure>
 
 <figure>
-
-![Suspicious sign-in detail — Istanbul](/img/lifetech/13-suspicious-signin.png)
-
+<img src="/img/lifetech/13-suspicious-signin.png" alt="Suspicious sign-in detail — Istanbul" />
 <figcaption>The anomalous sign-in: foreign city, CA policy bypassed, no MFA challenge, unknown device OS. All consistent with token replay — MFA was satisfied when the token was originally issued.</figcaption>
 </figure>
 
@@ -284,9 +244,7 @@ The +2h17m gap between the legitimate sign-in (07:14 IST) and the replayed token
 ### 5. VPN Log Analysis
 
 <figure>
-
-![VPN session extraction output](/img/lifetech/14-vpn-session-output.png)
-
+<img src="/img/lifetech/14-vpn-session-output.png" alt="VPN session extraction output" />
 <figcaption>Three log lines tell the full VPN story: attacker authenticates as p.levi from 185.220.101.47 (Istanbul), gets assigned 10.10.3.22 — the IT admin's own internal IP — and holds the session for 1h 12min.</figcaption>
 </figure>
 
@@ -299,67 +257,49 @@ The internal IP assignment (`10.10.3.22`) is the key finding: all attacker activ
 Click `palo-alto/ngfw-flows.csv`. **Start with the anomaly query — sort by bytes_sent descending:**
 
 <figure>
-
-![NGFW Rainbow CSV interface](/img/lifetech/15-ngfw-rainbow-csv.png)
-
+<img src="/img/lifetech/15-ngfw-rainbow-csv.png" alt="NGFW Rainbow CSV interface" />
 <figcaption>Rainbow CSV colorizes the 41-column flow log. The LOGMAGNIFIER panel at the bottom shows the full row detail as you navigate.</figcaption>
 </figure>
 
 <figure>
-
-![381 MB exfiltration flow highlighted](/img/lifetech/16-exfil-flow-discovery.png)
-
+<img src="/img/lifetech/16-exfil-flow-discovery.png" alt="381 MB exfiltration flow highlighted" />
 <figcaption>Query 1 result — the 381 MB outlier is immediately visible: 17,000× larger than the next largest flow, 99% upload ratio, 312s duration. This is the exfiltration event.</figcaption>
 </figure>
 
 <figure>
-
-![Beacon pattern query results — two external IPs](/img/lifetech/06b-beacon-pattern-results.png)
-
+<img src="/img/lifetech/06b-beacon-pattern-results.png" alt="Beacon pattern query results — two external IPs" />
 <figcaption>Query 3 result: two external IPs, completely different profiles. 9 small uniform sessions (~14 KB avg) = C2 beacon. 1 giant session (399 MB) = exfiltration. No ambiguity.</figcaption>
 </figure>
 
 <figure>
-
-![Beacon timing analysis](/img/lifetech/17-beacon-timing.png)
-
+<img src="/img/lifetech/17-beacon-timing.png" alt="Beacon timing analysis" />
 <figcaption>Query 5 — C2 beacon sessions sorted by time. The 432–452 second intervals (~7.2 minutes) are consistent across both infected hosts — same implant configuration.</figcaption>
 </figure>
 
 <figure>
-
-![Internal lateral movement flows](/img/lifetech/18-lateral-movement-flows.png)
-
+<img src="/img/lifetech/18-lateral-movement-flows.png" alt="Internal lateral movement flows" />
 <figcaption>Query 4 — internal flows only. CFO workstation (10.10.1.45) connects to 10.10.2.20 on port 135 (DCE/RPC) then 49152 (dynamic RPC) — the WMI/DCOM lateral movement signature, 3 hours after CFO compromise.</figcaption>
 </figure>
 
 Switch to `dns-queries.csv`:
 
 <figure>
-
-![C2 beacon timeline per host](/img/lifetech/19-c2-beacon-timeline.png)
-
+<img src="/img/lifetech/19-c2-beacon-timeline.png" alt="C2 beacon timeline per host" />
 <figcaption>Query 5 — beacon timing from both infected hosts. WS-IT-LEVI began beaconing Nov 1; WS-CFO-01 joined Nov 15. Same C2 domain, same interval. Two hosts, one operator.</figcaption>
 </figure>
 
 <figure>
-
-![Full malware DNS query timeline](/img/lifetech/20-dns-malware-timeline.png)
-
+<img src="/img/lifetech/20-dns-malware-timeline.png" alt="Full malware DNS query timeline" />
 <figcaption>Query 6 — all malware-category DNS entries sorted by time. The full attack timeline is visible in DNS alone: AiTM phishing (Oct 22), C2 beaconing (Nov 1), exfil domain lookup (Nov 6), CFO phishing (Nov 15).</figcaption>
 </figure>
 
 <figure>
-
-![Per-host beacon count — two infected hosts](/img/lifetech/21-per-host-beacon-count.png)
-
+<img src="/img/lifetech/21-per-host-beacon-count.png" alt="Per-host beacon count — two infected hosts" />
 <figcaption>Query 7 — how many hosts query the C2 domain? Two: WS-IT-LEVI (6 queries) and WS-CFO-01 (3 queries). The IT admin host was the initial foothold; the CFO is the second wave 14 days later.</figcaption>
 </figure>
 
 <figure>
-
-![Attacker recon — VPN hostname lookup](/img/lifetech/22-attacker-recon-lookup.png)
-
+<img src="/img/lifetech/22-attacker-recon-lookup.png" alt="Attacker recon — VPN hostname lookup" />
 <figcaption>Query 8 — external IPs in DNS logs. The attacker IP (185.220.101.47) queried vpn.lifetechpharma.com one minute before the VPN login. Confirms an active human operator, not an automated tool.</figcaption>
 </figure>
 
@@ -370,16 +310,12 @@ Switch to `dns-queries.csv`:
 ### 8. Windows Security Events — DCSync
 
 <figure>
-
-![DCSync events extraction](/img/lifetech/23-dcsync-events.png)
-
+<img src="/img/lifetech/23-dcsync-events.png" alt="DCSync events extraction" />
 <figcaption>Three EID 4662 events from DC01 in 18 seconds: svc_backup replicated the full domain, then krbtgt, then Administrator. Source IP: 10.10.3.22 — a workstation, not a DC. Golden ticket capability obtained.</figcaption>
 </figure>
 
 <figure>
-
-![SERVER-RD-02 Windows Security events — file access and exfil connection](/img/lifetech/08b-server-rd02-security.png)
-
+<img src="/img/lifetech/08b-server-rd02-security.png" alt="SERVER-RD-02 Windows Security events — file access and exfil connection" />
 <figcaption>SERVER-RD-02 security log: 47 formula files accessed via EID 4663, followed by PowerShell EID 5156 connection to 198.51.100.44:443. Three independent sources triangulate to the same 20-second window.</figcaption>
 </figure>
 
@@ -394,30 +330,22 @@ See [Step R4 — ATT&CK Mapping](/docs/reactive-walkthrough#step-r4-attck-mappin
 VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four searches navigate the complete attack chain without opening a SIEM.
 
 <figure>
-
-![Global search — exfil IP pivot](/img/lifetech/24-pivot-exfil-ip.png)
-
+<img src="/img/lifetech/24-pivot-exfil-ip.png" alt="Global search — exfil IP pivot" />
 <figcaption>Ctrl+Shift+F → 198.51.100.44: four hits across four files — NGFW flow (381 MB), DNS lookup (sys-update-cdn.net resolved), SQL audit (WebClient.UploadFile command), Windows Security EID 5156 (PowerShell connection). One IP, full exfil chain.</figcaption>
 </figure>
 
 <figure>
-
-![Global search — svc_backup pivot](/img/lifetech/25-pivot-svc-backup.png)
-
+<img src="/img/lifetech/25-pivot-svc-backup.png" alt="Global search — svc_backup pivot" />
 <figcaption>Ctrl+Shift+F → svc_backup: appears in DC01-security (DCSync ×3), SERVER-RD-02-security (SMB logon + file access + exfil connection), and sql-audit (full xp_cmdshell chain). One account, full lateral movement path.</figcaption>
 </figure>
 
 <figure>
-
-![Global search — C2 domain pivot](/img/lifetech/26-pivot-c2-domain.png)
-
+<img src="/img/lifetech/26-pivot-c2-domain.png" alt="Global search — C2 domain pivot" />
 <figcaption>Ctrl+Shift+F → telemetry-cdn-services.biz: 11 DNS queries across two infected hosts. The domain appears only in dns-queries.csv — not in the VPN log, despite being active during the VPN session.</figcaption>
 </figure>
 
 <figure>
-
-![Global search — attacker source IP pivot](/img/lifetech/27-pivot-attacker-ip.png)
-
+<img src="/img/lifetech/27-pivot-attacker-ip.png" alt="Global search — attacker source IP pivot" />
 <figcaption>Ctrl+Shift+F → 185.220.101.47: ties together three evidence sources — Azure AD suspicious sign-in, VPN authentication, and the pre-login VPN hostname recon in DNS. One IP, initial access chain complete.</figcaption>
 </figure>
 
@@ -433,18 +361,14 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 ## Attack Chain Summary
 
 <figure>
-
-![Attack chain phase correlation matrix](/img/lifetech/28-attack-chain-matrix.png)
-
+<img src="/img/lifetech/28-attack-chain-matrix.png" alt="Attack chain phase correlation matrix" />
 <figcaption>Four IOCs map the complete attack chain: initial access through credential theft, persistence via C2, lateral movement via a compromised service account, and data exfiltration to a dedicated upload endpoint.</figcaption>
 </figure>
 
 ### Full Timeline
 
 <figure>
-
-![Complete 18-event investigation timeline](/img/lifetech/s2-timeline-table.png)
-
+<img src="/img/lifetech/s2-timeline-table.png" alt="Complete 18-event investigation timeline" />
 <figcaption>The 18-event timeline reveals the breach started 24 days before the CrowdStrike alert. Every event carries an evidence label (CONFIRMED/CORROBORATED/INFERRED/GAP) and an ATT&CK technique ID.</figcaption>
 </figure>
 
@@ -470,16 +394,12 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 12 techniques mapped. The [full ATT&CK Navigator layer](/img/lifetech/) is available for import.
 
 <figure>
-
-![ATT&CK technique mapping table](/img/lifetech/s4-attck-mapping.png)
-
+<img src="/img/lifetech/s4-attck-mapping.png" alt="ATT&CK technique mapping table" />
 <figcaption>The ATT&CK mapping table from the investigation. Each row has: technique, evidence source, confidence, whether the rule fired, and the gap type. This drives the detection engineering sprint directly.</figcaption>
 </figure>
 
 <figure>
-
-![ATT&CK infographic](/img/infographic-attack-matrix.png)
-
+<img src="/img/infographic-attack-matrix.png" alt="ATT&CK infographic" />
 <figcaption>Coverage gap breakdown: 7 rule-missing (data in SIEM, no alert), 3 coverage-incomplete (partial/mis-tuned), 1 data-source-missing (WMI logging not forwarded).</figcaption>
 </figure>
 
@@ -505,9 +425,7 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 **Sandbox analysis** — the dropper recovered via CrowdStrike RTR is submitted to [ANY.RUN](https://app.any.run) for behavioral confirmation. Steps 11–12 of the technical walkthrough use a real Cobalt Strike beacon (`1cf56da3…`, 48/75 VT detections):
 
 <figure>
-
-![ANY.RUN sandbox submission settings](/img/lifetech/11b-sandbox-submission.png)
-
+<img src="/img/lifetech/11b-sandbox-submission.png" alt="ANY.RUN sandbox submission settings" />
 <figcaption>ANY.RUN submission: Windows 10 x64, Real with IDS network mode, 120-second timeout. The Cobalt Strike beacon contacts C2 within the first minute — confirming the implant is live and the C2 IP is real.</figcaption>
 </figure>
 
@@ -516,16 +434,12 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 ## Key Lessons
 
 <figure>
-
-![Evidence labels infographic](/img/infographic-evidence-labels.png)
-
+<img src="/img/infographic-evidence-labels.png" alt="Evidence labels infographic" />
 <figcaption>Evidence discipline: every claim in the claims ledger carries one of five labels — CONFIRMED, CORROBORATED, INFERRED, HYPOTHESIZED, or GAP. No unlabelled assertions.</figcaption>
 </figure>
 
 <figure>
-
-![Gap types infographic](/img/infographic-gap-types.png)
-
+<img src="/img/infographic-gap-types.png" alt="Gap types infographic" />
 <figcaption>Gap taxonomy drives remediation effort: Rule missing → sprint item. Coverage incomplete → tuning sprint. Data source missing → infrastructure project. Architectural gap → strategic initiative.</figcaption>
 </figure>
 
@@ -540,9 +454,7 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 **5. Version control enables compliance.** The git commit hash proves what evidence existed when analysis began. This is the chain of custody for the investigation itself.
 
 <figure>
-
-![Claims ledger filled example](/img/lifetech/s3-claims-ledger.png)
-
+<img src="/img/lifetech/s3-claims-ledger.png" alt="Claims ledger filled example" />
 <figcaption>The claims ledger converts the timeline into auditable, falsifiable assertions. Each claim answers five questions: what, evidence, confidence, competing hypotheses, which PIR. No unlabelled assertions.</figcaption>
 </figure>
 
@@ -551,25 +463,19 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 ## Confidence Assessment
 
 <figure>
-
-![Confidence ladder infographic](/img/infographic-confidence-ladder.png)
-
+<img src="/img/infographic-confidence-ladder.png" alt="Confidence ladder infographic" />
 <figcaption>Attribution confidence: Medium-High. TTP overlap and infrastructure match present. Independent CERT-IL deconfliction not performed — prevents elevation to High.</figcaption>
 </figure>
 
 **Attribution:** Single threat actor, dual delivery mechanism. Shared PE compile timestamp (`2018-04-09`) and shared secondary C2 domain (`sys-update-cdn.net`) across both implants are inconsistent with two independent actors. Tradecraft (AiTM + DCSync + pharmaceutical IP staging) is consistent with Iranian-nexus industrial espionage. Named cluster attribution is not warranted without CERT-IL deconfliction.
 
 <figure>
-
-![Attribution confidence scoring table](/img/lifetech/s5-attribution-table.png)
-
+<img src="/img/lifetech/s5-attribution-table.png" alt="Attribution confidence scoring table" />
 <figcaption>Attribution scored against four criteria: TTP overlap (Yes), infrastructure match (Yes), tooling match (Partial), independent confirmation (No). Result: Medium-High. The missing CERT-IL deconfliction prevents elevation to High.</figcaption>
 </figure>
 
 <figure>
-
-![Completed investigation git history](/img/lifetech/s7-git-history.png)
-
+<img src="/img/lifetech/s7-git-history.png" alt="Completed investigation git history" />
 <figcaption>The git log of a completed PROJ-2024-001 investigation. Every commit is a timestamped audit record: when each analytical step was performed, what was added, and in what order. This is the chain of custody for the investigation itself.</figcaption>
 </figure>
 
