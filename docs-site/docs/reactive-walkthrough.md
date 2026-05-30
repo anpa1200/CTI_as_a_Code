@@ -749,12 +749,13 @@ The investigation starts with the alert that opened the case. Read it before que
 
 ```bash
 # Get the detection summary — check severity and whether the process was prevented
-jq '{
-  detection_id: .metadata.detection_id,
-  severity: .metadata.severity,
-  host: .metadata.hostname,
-  prevented: .metadata.prevention_policy.prevent,
-  timestamp: .metadata.timestamp
+# The Falcon API wraps detections under .resources[]
+jq '.resources[0] | {
+  detection_id,
+  severity:  .max_severity_displayname,
+  host:      .device.hostname,
+  prevented: .prevention_policy.prevent,
+  timestamp: .created_timestamp
 }' crowdstrike/WS-CFO-01-alert-20241115.json
 ```
 
@@ -762,49 +763,80 @@ Output:
 ```json
 {
   "detection_id": "ldt:8f2a4b91e33a471cae44b2fdb8812201:884921003",
-  "severity": "High",
-  "host": "WS-CFO-01",
-  "prevented": false,
-  "timestamp": "2024-11-15T16:42:33Z"
+  "severity":     "Critical",
+  "host":         "WS-CFO-01",
+  "prevented":    false,
+  "timestamp":    "2024-11-15T16:42:47.882Z"
 }
 ```
 
-`"prevented": false` — the CFO's machine was in detect-only mode. The process was never killed. The C2 connection is live at this moment. **Take the memory dump before you do anything else.**
+`"prevented": false` — the CFO's machine was in detect-only mode (Executive Detect-Only Policy). The process was never killed. The C2 connection is live at this moment. **Take the memory dump before you do anything else.**
 
 ```bash
 # List all detected behaviors — each is a TTP
-jq '.behaviors[] | {
+jq '.resources[0].behaviors[] | {
   timestamp,
   tactic,
-  technique,
-  parent: .parent_image,
-  image,
-  cmdline: .cmdline[0:80]
+  technique_id,
+  display_name,
+  parent: .parent_image_filename,
+  image:  .filename,
+  cmdline: (.cmdline // "" | .[0:80])
 }' crowdstrike/WS-CFO-01-alert-20241115.json
 ```
 
 Output:
 ```
-{"timestamp":"2024-11-15T16:42:33Z","tactic":"Execution","technique":"T1059.001",
- "parent":"...\\OUTLOOK.EXE","image":"...\\powershell.exe",
- "cmdline":"powershell.exe -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBP..."}
+{"timestamp":"2024-11-15T16:42:33Z","tactic":"Execution","technique_id":"T1059.001",
+ "display_name":"Malicious PowerShell via Office Application",
+ "parent":"OUTLOOK.EXE","image":"powershell.exe",
+ "cmdline":"powershell.exe  -NonI -W Hidden -Enc JABjAD0ATgBlAHcALQBP..."}
 
-{"timestamp":"2024-11-15T16:44:01Z","tactic":"Command and Control","technique":"T1071.001",...}
-{"timestamp":"2024-11-15T16:46:22Z","tactic":"Credential Access","technique":"T1003.001",...}
-{"timestamp":"2024-11-15T16:52:09Z","tactic":"Persistence","technique":"T1547.001",...}
+{"timestamp":"2024-11-15T16:42:41Z","tactic":"Command and Control","technique_id":"T1071.001",
+ "display_name":"Suspicious Outbound HTTPS Connection",...}
+
+{"timestamp":"2024-11-15T16:43:08Z","tactic":"Persistence","technique_id":"T1547.001",
+ "display_name":"Executable Written to AppData",...}
+
+{"timestamp":"2024-11-15T16:46:22Z","tactic":"Credential Access","technique_id":"T1003.001",
+ "display_name":"LSASS Memory Access",...}
 ```
 
 ```bash
-# Extract network IOCs from the alert
-jq '.iocs.network[] | {type, value, description}' \
+# Extract observed network connections from the alert
+jq '.resources[0].network_accesses[] | {
+  remote_address,
+  remote_port,
+  protocol,
+  direction: .connection_direction,
+  timestamp
+}' crowdstrike/WS-CFO-01-alert-20241115.json
+```
+
+Output:
+```json
+{"remote_address": "203.0.113.87", "remote_port": 443, "protocol": "TCP",
+ "direction": "OUTBOUND", "timestamp": "2024-11-15T16:42:41Z"}
+{"remote_address": "203.0.113.87", "remote_port": 443, "protocol": "TCP",
+ "direction": "OUTBOUND", "timestamp": "2024-11-15T16:49:22Z"}
+{"remote_address": "203.0.113.87", "remote_port": 443, "protocol": "TCP",
+ "direction": "OUTBOUND", "timestamp": "2024-11-15T16:56:03Z"}
+```
+
+```bash
+# Check prevention policy — confirm detect-only mode
+jq '.resources[0].prevention_policy | {name, prevent, detect, note}' \
   crowdstrike/WS-CFO-01-alert-20241115.json
 ```
 
 Output:
 ```json
-{"type": "ip",     "value": "203.0.113.87",              "description": "C2 callback — HTTPS/443"}
-{"type": "domain", "value": "telemetry-cdn-services.biz", "description": "C2 domain"}
-{"type": "ip",     "value": "198.51.100.44",              "description": "Secondary C2 / exfil endpoint"}
+{
+  "name":    "Executive Detect-Only Policy",
+  "prevent": false,
+  "detect":  true,
+  "note":    "⚠ POLICY GAP: This machine is in detect-only mode. svchost32.exe was NOT automatically killed."
+}
 ```
 
 Write these down. They are your starting IOC set for enrichment. Everything else in this step expands from here.
@@ -840,26 +872,26 @@ What this tells you immediately:
 - **Pattern:** first-stage downloader followed by a second stage — look for the file drop in Sysmon
 
 ```bash
-# Confirm in Sysmon what the PowerShell actually dropped
+# Confirm in Sysmon what the PowerShell actually dropped (EID 11 = file create)
 jq 'select(.EventID == 11) | {
-  time: .EventTime,
+  time:       .TimeCreated,
   dropped_by: .Image,
-  file: .TargetFilename,
-  pe_timestamp: .PETimestamp
+  file:       .TargetFilename,
+  note:       .analyst_note
 }' sysmon/WS-CFO-01-sysmon.jsonl
 ```
 
 Output:
 ```json
 {
-  "time": "2024-11-15T16:44:01Z",
+  "time":       "2024-11-15T16:43:08Z",
   "dropped_by": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-  "file": "C:\\Users\\m.cohen\\AppData\\Roaming\\Microsoft\\Windows\\svchost32.exe",
-  "pe_timestamp": "2018-04-09T08:00:00Z"
+  "file":       "C:\\Users\\m.cohen\\AppData\\Roaming\\Microsoft\\Windows\\svchost32.exe",
+  "note":       "⚠ svchost32.exe dropped to AppData\\Roaming — masquerading as legitimate svchost. Fake PE timestamp: 2018-04-09T08:00:00Z (timestomped)"
 }
 ```
 
-Flag `"pe_timestamp": "2018-04-09T08:00:00Z"` — you will prove this is forged during binary analysis (Section 8).
+Flag the `analyst_note` PE timestamp comment — you will prove this is forged during binary analysis (Section 8).
 
 ---
 
@@ -1543,33 +1575,37 @@ The full chain:
 ```bash
 # Find EID 4662 — the DCSync indicator
 jq 'select(.EventID == 4662) | {
-  time:        .EventTime,
+  time:        .TimeCreated,
   subject:     .SubjectUserName,
-  src_ip:      .IpAddress,
+  domain:      .SubjectDomainName,
   object_type: .ObjectType,
-  properties:  (.Properties // "" | .[0:120])
+  object_name: .ObjectName,
+  properties:  (.Properties // "" | .[0:120]),
+  note:        .analyst_note
 }' windows-security/DC01-security.jsonl
 ```
 
-Output:
+Output (first event):
 ```json
 {
   "time":        "2024-11-06T00:48:33Z",
   "subject":     "svc_backup",
-  "src_ip":      "10.10.3.22",
+  "domain":      "LIFETECHPHARMA",
   "object_type": "{19195a5b-6da0-11d0-afd3-00c04fd930c9}",
-  "properties":  "{1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}\n{1131f6ab-9c07-11d1-f79f-00c04fc2dcd2}"
+  "object_name": "DC=lifetechpharma,DC=local",
+  "properties":  "{19195a5b-...}\n{1131f6aa-...}\n{1131f6ab-...}\n{89e95b76-...}",
+  "note":        "🔴 CRITICAL: DCSync — DS-Replication-Get-Changes + DS-Replication-Get-Changes-All from WORKSTATION IP 10.10.3.22 (WS-IT-LEVI)..."
 }
 ```
 
 The GUID `19195a5b` is the `domainDNS` object class. Properties `1131f6aa` and `1131f6ab` are the `DS-Replication-Get-Changes` and `DS-Replication-Get-Changes-All` extended rights. This is the textbook DCSync signature.
 
-Source IP `10.10.3.22` = WS-IT-LEVI — definitively a workstation IP, not a domain controller.
+Note: Windows EID 4662 does not log the source IP directly — the `analyst_note` records it from the correlated EID 4624 `SubjectLogonId` matching. The source was confirmed as `10.10.3.22` (WS-IT-LEVI) via that correlation.
 
 ```bash
 # Which accounts were DCSync'd? Check for krbtgt and Administrator
-jq 'select(.EventID == 4662 and (.Properties != null)) | {
-  time:    .EventTime,
+jq 'select(.EventID == 4662) | {
+  time:    .TimeCreated,
   subject: .SubjectUserName,
   object:  .ObjectName
 }' windows-security/DC01-security.jsonl
@@ -1582,7 +1618,7 @@ If `krbtgt` and `Administrator` appear — the adversary now holds Kerberos gold
 ```bash
 # Count EID 4663 file access events in USPartner2024
 jq 'select(.EventID == 4663) | {
-  time:    .EventTime,
+  time:    .TimeCreated,
   subject: .SubjectUserName,
   file:    .ObjectName,
   access:  .AccessMask
@@ -1591,7 +1627,7 @@ jq 'select(.EventID == 4663) | {
 
 ```bash
 # Show the first and last accessed file + timestamps
-jq 'select(.EventID == 4663) | {time: .EventTime, file: (.ObjectName | split("\\\\") | last)}' \
+jq 'select(.EventID == 4663) | {time: .TimeCreated, file: (.ObjectName | split("\\\\") | last)}' \
   windows-security/SERVER-RD-02-security.jsonl | jq -s 'sort_by(.time) | [first, last]'
 ```
 
@@ -1601,7 +1637,7 @@ jq 'select(.EventID == 4663) | {time: .EventTime, file: (.ObjectName | split("\\
 
 ```bash
 jq 'select(.EventID == 5156) | {
-  time:      .EventTime,
+  time:      .TimeCreated,
   process:   (.Application | split("\\\\") | last),
   src:       .SourceAddress,
   dst:       .DestAddress,
@@ -1613,11 +1649,11 @@ jq 'select(.EventID == 5156) | {
 Output:
 ```json
 {
-  "time":     "2024-11-06T00:14:14Z",
-  "process":  "powershell.exe",
-  "src":      "10.10.2.15",
-  "dst":      "198.51.100.44",
-  "dst_port": 443,
+  "time":      "2024-11-06T00:14:14Z",
+  "process":   "powershell.exe",
+  "src":       "10.10.2.15",
+  "dst":       "198.51.100.44",
+  "dst_port":  443,
   "direction": "Outbound"
 }
 ```
