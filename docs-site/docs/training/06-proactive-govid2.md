@@ -11,13 +11,13 @@ sidebar_position: 7
 
 GovID 2.0 — Israel's next-generation biometric authentication gateway for 9.5 million citizens — launches in 4 months. INCD certification is required before go-live. The biometric engine is supplied by a third-party vendor (BiometricTech IL Ltd.) whose source code NDSA cannot inspect. Four intelligence triggers land within a 3-week window. Your job: threat model the launch, build a detection backlog, and produce a security go/no-go recommendation.
 
-**Your entry point:** 5 existing detection rules (all post-A05 reactive), zero GovID 2.0–specific detections, ₪7.8M remaining security budget, and 5 business days of change control for every detection rule deployment.
+**Your entry point:** 5 existing detection rules (all post-[A05](/docs/training/05-reactive-ndsa) reactive), zero GovID 2.0–specific detections, ₪7.8M remaining security budget, and 5 business days of change control for every detection rule deployment.
 
 ## Four Trigger Events
 
 | # | Trigger | Source | Classification | Confidence |
 |---|---|---|---|---|
-| TRG-001 | UAE government identity platform breached — biometric engine vendor credentials used to bulk-extract 1.7M templates; assessed Iranian-nexus | INCD TLP:AMBER (via Friedman) | TLP:AMBER — NDSA leadership only | Medium-High |
+| TRG-001 | UAE government identity platform breached — biometric engine vendor credentials used to bulk-extract 1.7M templates; assessed [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) | [INCD](https://anpa1200.github.io/israel-government-threat-actors-cti/) TLP:AMBER (via Friedman) | TLP:AMBER — NDSA leadership only | Medium-High |
 | TRG-002 | CERT-IL Bulletin CB-2025-041 — ongoing Iranian-nexus targeting of biometric infrastructure in Middle East and European government platforms | CERT-IL TLP:AMBER | TLP:AMBER | Medium-High |
 | TRG-003 | BiometricTech IL Ltd. possibly named in classified tier of UAE advisory as affected vendor | INCD (classified; read-in pending 3 weeks) | TLP:RED via Friedman only | Low-Medium until read-in |
 | TRG-004 | 2,400 calls/day to `/verify/bulk` endpoint from IP 185.220.101.47 (Tor exit node) on staging environment | NDSA internal monitoring | Internal | High |
@@ -86,6 +86,14 @@ Citizen Browser / Mobile App
 - **CTI program built post-launch:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa)
 - **Detections from this assignment validated in:** [A08 — INCD Section 8 Emulation](./08-emulation-ndsa)
 - **Israeli government threat context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+
+---
+
+## Continue in the ecosystem
+
+- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
 
 ## Critical Pre-Launch Constraint
 

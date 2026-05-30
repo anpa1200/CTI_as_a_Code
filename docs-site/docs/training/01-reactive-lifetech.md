@@ -5,13 +5,13 @@ sidebar_position: 2
 
 # A01 — Reactive IR: LifeTech Pharma
 
-**Mode:** Reactive · **Org:** LifeTech Pharma · **PROJ-2024-001**
+**Mode:** Reactive · **Org:** LifeTech Pharma · [PROJ-2024-001](/docs/lifetech-pharma-case-study)
 
 ## Scenario
 
 An Israeli pharmaceutical company discovers that 2.4 GB of R&D data was exfiltrated over 3 hours on the night of 14–15 November 2024. The SOC opened a P3 ticket after noticing a log gap — not an alert. Zero detection rules fired during the 52-hour incident.
 
-**Your entry point:** You receive a case in TheHive with 6 evidence sources, a 4-hour Sysmon gap, and a P1 escalation. Determine who, how, and why — and ensure it doesn't happen again.
+**Your entry point:** You receive a case in [TheHive](/docs/services/thehive-cortex) with 6 evidence sources, a 4-hour Sysmon gap, and a P1 escalation. Determine who, how, and why — and ensure it doesn't happen again.
 
 ## Key Facts
 
@@ -21,7 +21,7 @@ An Israeli pharmaceutical company discovers that 2.4 GB of R&D data was exfiltra
 | Detection | None during incident — gap noticed manually |
 | Data stolen | 2.4 GB R&D data (R&D share, `USPartner2024` folder) |
 | Entry vector | AiTM phishing → session token capture → contractor VPN |
-| Assessment | Iranian-nexus activity cluster (medium confidence) |
+| Assessment | [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) activity cluster (medium confidence) |
 | Coverage gap | 0 / 12 techniques detected during incident |
 
 ## Kill Chain Summary
@@ -42,7 +42,7 @@ An Israeli pharmaceutical company discovers that 2.4 GB of R&D data was exfiltra
 1. **Unified incident timeline** — all 22 events with source, account, indicator, ATT&CK technique, confidence
 2. **ATT&CK mapping** — 12 techniques; detection status column; DeTT&CT score per technique
 3. **Attribution assessment** — Admiralty-rated claim; competing hypotheses; what would change the assessment
-4. **4 Sigma rules** — DET-001 (Office→PS child), DET-002 (LSASS comsvcs), DET-003 (DCSync EID 4662), DET-004 (VPN ASN anomaly)
+4. **4 [Sigma](https://sigmahq.io/) rules** — DET-001 (Office→PS child), DET-002 (LSASS comsvcs), DET-003 (DCSync EID 4662), DET-004 (VPN ASN anomaly)
 5. **SOC handoff** — IOC table, detection deployment status, immediate containment actions
 6. **Executive brief** — 1-page non-technical; gap statement; 3 recommended actions
 
@@ -77,3 +77,12 @@ An Israeli pharmaceutical company discovers that 2.4 GB of R&D data was exfiltra
 The 4-hour Sysmon gap (WS-IT-LEVI) is a critical constraint: the initial staging activity during that window cannot be confirmed from SIEM. Log clearing (EID 1102) occurred at 03:14 IST — inside the gap. The PAM session recording on JUMPHOST-01 is the primary source for the 22:11–02:47 IST window.
 
 DET-003 (DCSync) requires filtering EID 4662 by both ObjectType (computer account or domain) AND the two DS-Replication-Get-Changes GUIDs — without the GUID filter, noise from legitimate replication events makes the rule unusable.
+
+---
+
+## Continue in the ecosystem
+
+- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [LifeTech Pharma case study](/docs/lifetech-pharma-case-study) — full worked investigation for PROJ-2024-001
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work

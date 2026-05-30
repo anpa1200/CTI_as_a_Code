@@ -12,3 +12,6 @@ docs-site/build/
 # OS
 .DS_Store
 Thumbs.db
+
+medium-export-*/
+.claude/

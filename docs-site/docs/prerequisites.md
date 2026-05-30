@@ -6,6 +6,8 @@ sidebar_position: 3
 
 # Prerequisites
 
+Requirements for running the [CTI as a Code lab](/docs/architecture) on a single Linux host. Once these are met, follow the [Quick Start](/docs/quick-start) to bring up all services.
+
 ## Host requirements
 
 | Requirement | Minimum | Recommended |
@@ -27,7 +29,7 @@ newgrp docker
 docker --version
 ```
 
-### Docker Compose v2 (plugin)
+### [Docker Compose](https://docs.docker.com/compose/) v2 (plugin)
 
 Comes bundled with Docker Desktop and recent Docker Engine packages. Verify:
 
@@ -81,3 +83,12 @@ Check with:
 ```bash
 ss -tlnp | grep -E '8080|9200|9100|9002|9000|9001|5601|15672|5672|5044|9600'
 ```
+
+
+---
+
+## Next steps
+
+- **[Quick Start](/docs/quick-start)** — bring the lab up in 10 minutes
+- **[Architecture](/docs/architecture)** — understand how services are wired together
+- **[Ecosystem](/docs/ecosystem)** — see how this lab fits in the broader [CTI Portfolio](https://anpa1200.github.io/cti.html)

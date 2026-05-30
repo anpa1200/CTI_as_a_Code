@@ -11,7 +11,7 @@ sidebar_position: 8
 
 It is January 2026. NDSA has survived the biometric breach (A05), launched GovID 2.0 (A06), and received an INCD remediation directive: build a formal CTI program within 6 months. The CISO has ₪8.5M/year and a Knesset committee watching. Build it.
 
-**Your entry point:** 5 existing SIEM rules, 15 detection backlog items, an informal CERT-IL relationship (no MOU), an empty MISP instance, and an INCD liaison who is simultaneously your primary intelligence source and your compliance auditor.
+**Your entry point:** 5 existing [SIEM](/docs/services/elastic-siem) rules, 15 detection backlog items, an informal CERT-IL relationship (no MOU), an empty MISP instance, and an [INCD](https://anpa1200.github.io/israel-government-threat-actors-cti/) liaison who is simultaneously your primary intelligence source and your compliance auditor.
 
 ## Organizational Starting Point
 
@@ -21,7 +21,7 @@ It is January 2026. NDSA has survived the biometric breach (A05), launched GovID
 | Threat reports | A05 post-incident assessment (1 document) | Collection plan |
 | Collection | INCD embedded liaison (Friedman) | Intelligence production process |
 | Sharing | Informal CERT-IL relationship | CERT-IL MOU; ITA MOU; ministry sharing agreements |
-| Tools | MISP (empty); Elastic SIEM | Any structured CTI workflow |
+| Tools | MISP (empty); [Elastic SIEM](/docs/services/elastic-siem) | Any structured CTI workflow |
 
 ## The INCD Dual Role Problem
 
@@ -102,3 +102,11 @@ The 6-month INCD remediation directive mandates:
 - **Detection backlog from this program tested in:** [A08 — INCD Section 8 Emulation](./08-emulation-ndsa)
 - **Private sector parallel:** [A03 — Full Cycle TechPay](./03-full-cycle-techpay)
 - **INCD regulatory framework context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+
+---
+
+## Continue in the ecosystem
+
+- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work

@@ -10,6 +10,12 @@ import TabItem from '@theme/TabItem';
 
 # Case Study: CTI as a Code in Practice — LifeTech Pharma
 
+<figure>
+
+![CTI as a Code in Practice — LifeTech Pharma cover](../static/img/lifetech/00-cover.png)
+
+</figure>
+
 > *A complete walkthrough of the methodology applied to a real training scenario: pharmaceutical IP theft, dual entry points, and a DCSync that changes everything.*
 
 **Originally published on Medium:** [CTI as a Code in Practice: Reactive Investigation — LifeTech Pharma](https://medium.com/@1200km/cti-as-a-code-in-practice-reactive-investigation-lifetech-pharma-3e6574b7b85f)
@@ -93,11 +99,54 @@ Key constraints recorded in intake:
 - **PDPA notification deadline** — 72 hours from confirmed breach
 - **Evidence retention** — 90 days minimum; chain of custody required for insurance claim
 
+**Scope — assets in scope and out of scope:**
+
+<figure>
+
+![Scope document — in-scope assets](../static/img/lifetech/00b-scope-in-scope.png)
+
+<figcaption>In-scope assets: formula files on SERVER-RD-02, IT admin and CFO workstations, Azure AD, VPN gateway. The $52M licensing deal defines the crown jewels.</figcaption>
+</figure>
+
+<figure>
+
+![Scope document — out-of-scope exclusions](../static/img/lifetech/00c-scope-out-of-scope.png)
+
+<figcaption>Out-of-scope: production pharmacy systems and clinical trial data — legal hold constraints from the FDA prevent unrestricted forensic access.</figcaption>
+</figure>
+
+**Priority Intelligence Requirements (PIRs):**
+
+<figure>
+
+![PIRs from project.yml](../static/img/lifetech/00d-pirs.png)
+
+<figcaption>Three PIRs drive the investigation: (1) scope and entry vector, (2) actor attribution, (3) what detection would have caught this. Every claim in the claims ledger maps to one PIR.</figcaption>
+</figure>
+
+**Source registry — evidence inventory with Admiralty ratings:**
+
+<figure>
+
+![Source registry with Admiralty reliability ratings](../static/img/lifetech/00e-source-registry.png)
+
+<figcaption>Every evidence source rated for reliability (A–F) and credibility (1–6) before analysis. Where a source is absent from a system that should have it, the absence is recorded as a finding — not skipped.</figcaption>
+</figure>
+
 ---
 
 ## Step R1.5 — Hands-On Evidence Analysis in VS Code
 
 VS Code is the primary analysis tool. One window holds the evidence tree, formatted logs, API calls, and terminal — no context switching.
+
+**Opening the evidence folder:**
+
+<figure>
+
+![VS Code Explorer showing full evidence tree](../static/img/lifetech/00f-evidence-tree.png)
+
+<figcaption>One command opens the complete evidence directory as a VS Code workspace. Every JSON, JSONL, CSV, and syslog file is one click away — no context switching between applications.</figcaption>
+</figure>
 
 ### Setup
 
@@ -174,6 +223,13 @@ echo "JABjAD0ATg..." | base64 -d | iconv -f UTF-16LE -t UTF-8
 ```
 
 **Decode locally** — never paste encoded malware into online decoders. Encoding is a common obfuscation layer; decoding reveals the real C2 endpoint.
+
+<figure>
+
+![PowerShell base64 decoded output](../static/img/lifetech/09b-base64-output.png)
+
+<figcaption>Decoded output: a WebClient DownloadString call to the C2 IP. The full payload URL, User-Agent, and C2 address are visible in one terminal command — no online decoder needed.</figcaption>
+</figure>
 
 → [Full decode procedure in the technical walkthrough](/docs/reactive-walkthrough#2-decode-the-powershell-payload)
 
@@ -258,6 +314,13 @@ Click `palo-alto/ngfw-flows.csv`. **Start with the anomaly query — sort by byt
 
 <figure>
 
+![Beacon pattern query results — two external IPs](../static/img/lifetech/06b-beacon-pattern-results.png)
+
+<figcaption>Query 3 result: two external IPs, completely different profiles. 9 small uniform sessions (~14 KB avg) = C2 beacon. 1 giant session (399 MB) = exfiltration. No ambiguity.</figcaption>
+</figure>
+
+<figure>
+
 ![Beacon timing analysis](../static/img/lifetech/17-beacon-timing.png)
 
 <figcaption>Query 5 — C2 beacon sessions sorted by time. The 432–452 second intervals (~7.2 minutes) are consistent across both infected hosts — same implant configuration.</figcaption>
@@ -311,6 +374,13 @@ Switch to `dns-queries.csv`:
 ![DCSync events extraction](../static/img/lifetech/23-dcsync-events.png)
 
 <figcaption>Three EID 4662 events from DC01 in 18 seconds: svc_backup replicated the full domain, then krbtgt, then Administrator. Source IP: 10.10.3.22 — a workstation, not a DC. Golden ticket capability obtained.</figcaption>
+</figure>
+
+<figure>
+
+![SERVER-RD-02 Windows Security events — file access and exfil connection](../static/img/lifetech/08b-server-rd02-security.png)
+
+<figcaption>SERVER-RD-02 security log: 47 formula files accessed via EID 4663, followed by PowerShell EID 5156 connection to 198.51.100.44:443. Three independent sources triangulate to the same 20-second window.</figcaption>
 </figure>
 
 The DCSync gap is the starkest finding: the EID 4662 audit policy was correctly configured, the event reached Splunk, and the data was queryable — but no alert rule existed. A single SPL rule would have contained this incident before the formula exfiltration.
@@ -371,6 +441,13 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 
 ### Full Timeline
 
+<figure>
+
+![Complete 18-event investigation timeline](../static/img/lifetech/s2-timeline-table.png)
+
+<figcaption>The 18-event timeline reveals the breach started 24 days before the CrowdStrike alert. Every event carries an evidence label (CONFIRMED/CORROBORATED/INFERRED/GAP) and an ATT&CK technique ID.</figcaption>
+</figure>
+
 | Date | Event | Evidence |
 |---|---|---|
 | Oct 18 | `mfa-lifetechpharma.com` registered | RDAP (4 days pre-phishing) |
@@ -391,6 +468,13 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 ## ATT&CK Coverage
 
 12 techniques mapped. The [full ATT&CK Navigator layer](/img/lifetech/) is available for import.
+
+<figure>
+
+![ATT&CK technique mapping table](../static/img/lifetech/s4-attck-mapping.png)
+
+<figcaption>The ATT&CK mapping table from the investigation. Each row has: technique, evidence source, confidence, whether the rule fired, and the gap type. This drives the detection engineering sprint directly.</figcaption>
+</figure>
 
 <figure>
 
@@ -417,6 +501,15 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 The DCSync gap is the most consequential: **the audit policy was correct, the data was in Splunk, but no alert rule existed**. A single detection rule on EID 4662 from a non-DC IP would have fired 34 minutes before the formula exfiltration completed.
 
 → [Step R6 — Detection Rules](/docs/reactive-walkthrough#step-r6-detection-rules--four-that-would-have-changed-the-outcome) — the four Sigma rules that change the outcome
+
+**Sandbox analysis** — the dropper recovered via CrowdStrike RTR is submitted to [ANY.RUN](https://app.any.run) for behavioral confirmation. Steps 11–12 of the technical walkthrough use a real Cobalt Strike beacon (`1cf56da3…`, 48/75 VT detections):
+
+<figure>
+
+![ANY.RUN sandbox submission settings](../static/img/lifetech/11b-sandbox-submission.png)
+
+<figcaption>ANY.RUN submission: Windows 10 x64, Real with IDS network mode, 120-second timeout. The Cobalt Strike beacon contacts C2 within the first minute — confirming the implant is live and the C2 IP is real.</figcaption>
+</figure>
 
 ---
 
@@ -446,6 +539,13 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 
 **5. Version control enables compliance.** The git commit hash proves what evidence existed when analysis began. This is the chain of custody for the investigation itself.
 
+<figure>
+
+![Claims ledger filled example](../static/img/lifetech/s3-claims-ledger.png)
+
+<figcaption>The claims ledger converts the timeline into auditable, falsifiable assertions. Each claim answers five questions: what, evidence, confidence, competing hypotheses, which PIR. No unlabelled assertions.</figcaption>
+</figure>
+
 ---
 
 ## Confidence Assessment
@@ -458,6 +558,20 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 </figure>
 
 **Attribution:** Single threat actor, dual delivery mechanism. Shared PE compile timestamp (`2018-04-09`) and shared secondary C2 domain (`sys-update-cdn.net`) across both implants are inconsistent with two independent actors. Tradecraft (AiTM + DCSync + pharmaceutical IP staging) is consistent with Iranian-nexus industrial espionage. Named cluster attribution is not warranted without CERT-IL deconfliction.
+
+<figure>
+
+![Attribution confidence scoring table](../static/img/lifetech/s5-attribution-table.png)
+
+<figcaption>Attribution scored against four criteria: TTP overlap (Yes), infrastructure match (Yes), tooling match (Partial), independent confirmation (No). Result: Medium-High. The missing CERT-IL deconfliction prevents elevation to High.</figcaption>
+</figure>
+
+<figure>
+
+![Completed investigation git history](../static/img/lifetech/s7-git-history.png)
+
+<figcaption>The git log of a completed PROJ-2024-001 investigation. Every commit is a timestamped audit record: when each analytical step was performed, what was added, and in what order. This is the chain of custody for the investigation itself.</figcaption>
+</figure>
 
 ---
 

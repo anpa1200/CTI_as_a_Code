@@ -18,7 +18,7 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 | # | Trigger | Source | INCD-CID Relevance |
 |---|---|---|---|
 | TRG-001 | Peer telecom ransomware — 400K subscribers disrupted; credential stuffing initial access via VPN similar to CelltronX | Informal CISO call | Article 21(2)(b)(e) |
-| TRG-002 | CERT-IL TLP:AMBER — Iranian-nexus actor actively targeting Israeli telecoms with government contracts; SS7 + OSS/NMS TTPs | CERT-IL advisory | Article 21(2)(e) |
+| TRG-002 | CERT-IL TLP:AMBER — [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) actor actively targeting Israeli telecoms with government contracts; SS7 + OSS/NMS TTPs | CERT-IL advisory | Article 21(2)(e) |
 | TRG-003 | NetSys Solutions Ltd. contractor has AWS AdministratorAccess from 18 months ago — never revoked | Internal AWS IAM review | Article 21(2)(d) |
 | TRG-004 | AiTM phishing blocked — 3 attempts in 2 weeks targeting OSS Engineering and Network Operations employees | Microsoft Defender ATP | Article 21(2)(b) |
 
@@ -47,7 +47,7 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 |---|---|---|---|---|
 | DB-001 | T1078 / T1110.003 | VPN: >10 failed auth from one IP in 5 min | Data already in Splunk | S1 |
 | DB-002 | T1003.006 | EID 4662 DS-Replication-Get-Changes (not DC/AAD-Connect) | Enable Advanced Audit Policy all 3 DCs | S1 |
-| DB-003 | T1059.001 | powershell.exe with -Enc or -EncodedCommand | Sysmon EID 1 already in Splunk | S1 |
+| DB-003 | T1059.001 | powershell.exe with -Enc or -EncodedCommand | [Elastic SIEM](/docs/services/elastic-siem) EID 1 already in Splunk | S1 |
 | DB-004 | T1078.004 | CloudTrail AssumeRole from unexpected IP for NetSys role | CloudTrail → Splunk integration (3 days) | S1→S2 |
 | DB-005 | T1530 | BigQuery job bytes_processed >10 GB from non-analytics account | GCP Pub/Sub → Splunk (2 weeks) | S2→S3 |
 
@@ -81,3 +81,11 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 - **Same VPN and AiTM TTPs in incident context:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech)
 - **TechPay CTI program (same ecosystem):** [A03 — Full Cycle CTI TechPay](./03-full-cycle-techpay)
 - **Israeli telecom sector threat context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+
+---
+
+## Continue in the ecosystem
+
+- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
