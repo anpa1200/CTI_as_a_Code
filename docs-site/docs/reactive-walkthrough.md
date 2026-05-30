@@ -958,6 +958,67 @@ Attachment: 1    ← .xlsm Excel macro file
 
 The `.xlsm` attachment was not sandboxed — Microsoft ATP was not configured to detonate macro-enabled Excel files. This is the policy gap documented in the source registry (INT-007). Add `globalcontracts-secure.net` to IOC list.
 
+**Alternative: explore the same CSVs interactively with VisiData**
+
+VisiData is a terminal spreadsheet for structured data. Install it once:
+
+```bash
+pip install visidata
+# or: apt install visidata / brew install visidata
+```
+
+Open a message trace file:
+
+```bash
+vd m365/message-trace-p.levi.csv
+```
+
+VisiData opens in the terminal showing all rows and columns. Key commands for this file:
+
+| Keys | What it does |
+|---|---|
+| `←` `→` or `h` `l` | Move between columns |
+| `↑` `↓` or `j` `k` | Move between rows |
+| `g` `←` / `g` `→` | Jump to first / last column |
+| `/` then `fail` `Enter` | Search forward for "fail" in current column |
+| `n` / `N` | Next / previous search match |
+
+**Frequency table on the DMARC column — instantly see pass/fail counts:**
+
+1. Navigate to the `DMARC` column (`←`/`→` until cursor is on it)
+2. Press `F`
+
+VisiData opens a new frequency sheet:
+```
+DMARC    count  percent
+fail        3    21.4%
+pass       11    78.6%
+```
+
+Three `fail` rows out of 14 — those are your suspects. Press `q` to close the frequency sheet and return.
+
+**Filter to show only rows where DMARC = fail:**
+
+1. Navigate to the `DMARC` column
+2. Press `|` (select by regex), type `fail`, press `Enter` — matching rows are highlighted
+3. Press `"` — opens a new sheet containing only the selected rows
+
+You now have a filtered view of just the malicious emails. Press `q` to close and return.
+
+**Sort by SCL to find highest-confidence spam:**
+
+1. Navigate to the `SCL` column
+2. Press `#` to set column type to integer (so sort is numeric, not lexicographic)
+3. Press `]` to sort descending — highest SCL rows appear at top
+
+**Save your filtered view as a new CSV:**
+
+```
+g Ctrl+S  → save current sheet to a new file
+```
+
+Type a filename like `m365-phishing-only.csv` and press `Enter`. The filtered rows are saved for future reference.
+
 ---
 
 ### 4. Azure AD Sign-In Analysis
@@ -1522,6 +1583,93 @@ Output:
 ```
 
 The ~7-minute interval matches sandbox analysis. This regularity is itself an indicator: a Sigma rule alerting on DNS queries to the same external domain every 6–8 minutes from any internal host would catch this without knowing the specific IOC.
+
+**Explore both NGFW files interactively with VisiData:**
+
+```bash
+# Open both files as separate sheets in one session
+vd palo-alto/ngfw-flows.csv palo-alto/dns-queries.csv
+```
+
+VisiData opens on the first file. Press `S` (Sheets list) to see both loaded sheets and switch between them with `Enter`.
+
+---
+
+**ngfw-flows.csv — find the largest outbound transfer in 3 keystrokes:**
+
+```bash
+vd palo-alto/ngfw-flows.csv
+```
+
+1. Navigate to the `bytes_sent` column
+2. Press `#` — set type to integer (required for numeric sort)
+3. Press `]` — sort descending
+
+The 381 MB exfil row (`bytes_sent = 399481224`) floats to the top immediately. No grep, no Python.
+
+**Frequency table on destination IPs — see all external connections ranked:**
+
+1. Navigate to the `dst_ip` column (or `dst` depending on header)
+2. Press `F`
+
+```
+dst_ip           count
+203.0.113.87        9
+198.51.100.44       1
+10.10.4.1          47    ← internal DNS resolver, expected
+...
+```
+
+Two external IPs with non-trivial hit counts stand out immediately against the internal baseline.
+
+**Filter for only external traffic (non-RFC-1918):**
+
+1. Navigate to the `dst_ip` column
+2. Press `|`, type `^(?!10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.)`, press `Enter`
+3. Press `"` — new sheet with only external destination rows
+
+**Compute bytes in MB on the fly:**
+
+1. Press `=` (add derived column), type `int(bytes_sent)/1024/1024`, press `Enter`
+2. A new `bytes_MB` column appears — set it to float with `%`, then sort with `]`
+
+---
+
+**dns-queries.csv — beacon pattern analysis:**
+
+```bash
+vd palo-alto/dns-queries.csv
+```
+
+**Frequency table on query domain — instantly see which domain was queried most:**
+
+1. Navigate to the `query` column
+2. Press `F`
+
+```
+query                         count
+telemetry-cdn-services.biz       9
+globalcontracts-secure.net       1
+vpn.lifetechpharma.com           1
+mfa-lifetechpharma.com           2
+...
+```
+
+`telemetry-cdn-services.biz` with 9 queries immediately stands out — that's the C2 beacon pattern. Any legitimate CDN would appear hundreds of times; 9 queries in 3 weeks from a single internal host is not CDN traffic.
+
+**Filter to the C2 domain and measure time gaps between beacons:**
+
+1. Navigate to the `query` column
+2. Press `|`, type `telemetry-cdn`, press `Enter`
+3. Press `"` — filtered sheet with only C2 beacon rows
+4. Navigate to `receive_time` column, press `@` (set type to date), press `[` to sort ascending
+5. Read the `receive_time` values top to bottom — the ~7-minute interval is visible by eye
+
+**Cross-reference category labels:**
+
+1. Navigate to the `category` column
+2. Press `F` — frequency table shows `malware` category on C2-linked queries vs `business-and-economy` on legitimate traffic
+3. Press `Enter` on the `malware` row — jumps to all rows matching that category
 
 ---
 
