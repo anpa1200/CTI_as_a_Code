@@ -1,0 +1,239 @@
+{
+  "name": "PROJ-2024-001 — LifeTech Pharma: Detection Gaps (Oct–Nov 2024)",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "ATT&CK technique coverage for PROJ-2024-001 LifeTech Pharma intrusion. Red = rule missing (no detection). Orange = coverage incomplete (partial / mis-tuned). Yellow = data source missing (infra change required). Green = rule fired.",
+  "filters": {
+    "platforms": ["Windows"]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false,
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1566.001",
+      "tactic": "initial-access",
+      "color": "#ff9b23",
+      "comment": "Phishing attachment (CFO .xlsm). M365 ATP delivered (SCL=4, threshold=5). ATP partially detected but did not block. GAP: Coverage incomplete — SCL threshold tuning required.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "m365/message-trace-m.cohen.csv" },
+        { "name": "gap_type", "value": "Coverage incomplete" },
+        { "name": "rule_fired", "value": "Partial" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1557",
+      "tactic": "credential-access",
+      "color": "#ff6666",
+      "comment": "AiTM proxy attack against IT admin (p.levi). Session token stolen via mfa-lifetechpharma.com phishing page. Azure AD Conditional Access bypassed (notApplied). GAP: Rule missing — no AiTM / impossible-travel / token-replay detection.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "azure-ad/signin-p.levi.json, palo-alto/dns-queries.csv" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1133",
+      "tactic": "initial-access",
+      "color": "#ff6666",
+      "comment": "VPN access using stolen session token. Istanbul, off-hours (00:17 local), no prior VPN history for this location. Assigned internal IP 10.10.3.22 — activity masquerades as legitimate workstation. GAP: Rule missing — no anomalous VPN geolocation / off-hours auth alert.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "vpn/anyconnect-2024-10-24.log" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1078.002",
+      "tactic": "privilege-escalation",
+      "color": "#ff6666",
+      "comment": "svc_backup (Domain Admin) abused for lateral movement to SERVER-RD-02 and DC01, file access (47 formula files), and DCSync. EID 4624 visible in SIEM. Off-hours logon. GAP: Rule missing — service account off-hours logon not alerted on.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "windows-security/DC01-security.jsonl, windows-security/SERVER-RD-02-security.jsonl" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1078.002",
+      "tactic": "defense-evasion",
+      "color": "#ff6666",
+      "comment": "Valid domain account (svc_backup) used to blend lateral movement with legitimate backup traffic.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1059.001",
+      "tactic": "execution",
+      "color": "#ff9b23",
+      "comment": "Encoded PowerShell (-Enc) on WS-CFO-01 (OUTLOOK.EXE parent) and WS-IT-LEVI. CrowdStrike detected on CFO host only. Sysmon EID 1 on both hosts. GAP: Coverage incomplete — IT admin host had Sysmon gap (GAP-001, 10 days) and no alert fired.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "crowdstrike/WS-CFO-01-alert-20241115.json, sysmon/WS-CFO-01-sysmon.jsonl" },
+        { "name": "gap_type", "value": "Coverage incomplete" },
+        { "name": "rule_fired", "value": "Yes (CFO only — CrowdStrike behavioral)" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1003.001",
+      "tactic": "credential-access",
+      "color": "#ff6666",
+      "comment": "LSASS memory access on WS-CFO-01. Sysmon EID 10, GrantedAccess 0x1010 (PROCESS_VM_READ + PROCESS_QUERY_INFORMATION). GAP: Rule missing — Sysmon EID 10 not alerted on in SIEM.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "sysmon/WS-CFO-01-sysmon.jsonl (EID 10)" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1003.006",
+      "tactic": "credential-access",
+      "color": "#ff6666",
+      "comment": "DCSync from WS-IT-LEVI (10.10.3.22 — non-DC). svc_backup replicated domain, krbtgt, and Administrator hashes. Golden ticket capability obtained. EID 4662 audit was configured and event reached SIEM — but no alert rule existed. GAP: Rule missing — single SPL rule on EID 4662 from non-DC would have contained this incident.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "windows-security/DC01-security.jsonl (EID 4662 ×3)" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1021.003",
+      "tactic": "lateral-movement",
+      "color": "#ff6666",
+      "comment": "DCOM lateral movement to SERVER-FIN-01. WmiPrvSE spawning PowerShell observed in CrowdStrike. GAP: Rule missing — WmiPrvSE parent-child alert not deployed.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "crowdstrike/WS-CFO-01-alert-20241115.json (behaviors)" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1197",
+      "tactic": "defense-evasion",
+      "color": "#ff6666",
+      "comment": "BITS used to download second-stage payload. Sysmon EID 1 (bitsadmin.exe). GAP: Rule missing — BITS external download not monitored.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "sysmon/WS-CFO-01-sysmon.jsonl (EID 1, bitsadmin)" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1047",
+      "tactic": "execution",
+      "color": "#ffcc44",
+      "comment": "WMI used for lateral movement execution. Observed in CrowdStrike log. GAP: Data source missing — WMI execution logging (Microsoft-Windows-WMI-Activity/Operational) not forwarded to SIEM.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "crowdstrike/WS-CFO-01-alert-20241115.json" },
+        { "name": "gap_type", "value": "Data source missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1070.001",
+      "tactic": "defense-evasion",
+      "color": "#ff6666",
+      "comment": "Windows event log cleared post-exfil. EID 1102 observed in CrowdStrike. GAP: Rule missing — wevtutil / EID 1102 alert not deployed in SIEM.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "crowdstrike/WS-CFO-01-alert-20241115.json (EID 1102)" },
+        { "name": "gap_type", "value": "Rule missing" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1547.001",
+      "tactic": "persistence",
+      "color": "#ff9b23",
+      "comment": "Registry Run Key written to HKCU\\...\\Run\\WindowsHostSvc (AppData\\Roaming path). Sysmon EID 13 ingested in SIEM. GAP: Coverage incomplete — EID 13 data present but no alert rule on AppData\\Roaming persistence paths.",
+      "enabled": true,
+      "metadata": [
+        { "name": "evidence", "value": "sysmon/WS-CFO-01-sysmon.jsonl (EID 13)" },
+        { "name": "gap_type", "value": "Coverage incomplete" },
+        { "name": "rule_fired", "value": "No" }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    }
+  ],
+  "gradient": {
+    "colors": ["#ff6666", "#ff6666"],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Rule missing — data in SIEM, no alert (sprint item)",
+      "color": "#ff6666"
+    },
+    {
+      "label": "Coverage incomplete — partial detection, tuning required",
+      "color": "#ff9b23"
+    },
+    {
+      "label": "Data source missing — infra change required before rules can be written",
+      "color": "#ffcc44"
+    },
+    {
+      "label": "Detected — rule fired",
+      "color": "#7fd48f"
+    }
+  ],
+  "metadata": [
+    { "name": "project",  "value": "PROJ-2024-001" },
+    { "name": "case",     "value": "LifeTech Pharma intrusion Oct–Nov 2024" },
+    { "name": "analyst",  "value": "anpa1200" },
+    { "name": "created",  "value": "2026-05-30" },
+    { "name": "attck_version", "value": "14" }
+  ],
+  "links": [],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false
+}

@@ -20,12 +20,27 @@ This page connects the CTI documentation projects into one practitioner ecosyste
 | **[Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)** | Israeli sector and actor knowledge base | The question involves Israeli government, municipal, telecom, critical infrastructure, or supplier exposure |
 | **[HexStrike AI](https://github.com/0x4m4/hexstrike-ai)** | AI-powered offensive security automation | Adversarially validating detection coverage built in A04 or A08 against real TTPs |
 
+## Published Case Studies
+
+Real investigations worked end-to-end using the CTI as a Code methodology — from first alert through stakeholder deliverables. Each article is a complete, reproducible walkthrough with evidence files, queries, and detection rules.
+
+| Case Study | Scenario | Key Techniques | Article |
+|---|---|---|---|
+| **[LifeTech Pharma — Reactive IR](/docs/lifetech-pharma-case-study)** | Dual-entry pharmaceutical IP theft — AiTM + CFO phishing, DCSync, 381 MB exfiltration | T1557 · T1003.006 · T1133 · RBQL anomaly detection · Cobalt Strike beacon analysis | [Medium](https://medium.com/@1200km/cti-as-a-code-in-practice-reactive-investigation-lifetech-pharma-3e6574b7b85f) |
+
+Each case study maps directly to a training assignment, a full technical walkthrough, and an ATT&CK Navigator layer:
+
+- **LifeTech Pharma:** [Case study](/docs/lifetech-pharma-case-study) · [Technical walkthrough](/docs/reactive-walkthrough) · [Assignment A01](/docs/training/01-reactive-lifetech) · [ATT&CK Navigator layer](/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json)
+
+---
+
 ## How CTI as a Code Fits
 
 CTI as a Code is the **practice environment**. It provides:
 
 - The Docker Compose lab stack where you run OpenCTI, TheHive, and Elastic SIEM
 - The structured training assignments (A01–A08) as worked case studies
+- Published case studies with full evidence analysis, detection gaps, and Sigma rules
 - Distributed analytical files demonstrating the methodology in action
 - Sigma rules derived from incident TTPs — ready for lab validation
 
@@ -37,11 +52,12 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 
 ### Reactive Investigation → Sigma Rule → Lab Validation
 
-1. Use [CTI as a Code A01](/training/reactive-lifetech) or [A05](/training/reactive-ndsa) as the scenario
-2. Apply [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/) and [Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/source-reliability/) to each timeline event
-3. Convert findings to detection logic using [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-4. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/training/emulation-techpay) or [A08](/training/emulation-ndsa) emulation methodology
-5. Use [HexStrike AI](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage
+1. Read the **[LifeTech Pharma case study](/docs/lifetech-pharma-case-study)** as a worked example of the full flow
+2. Run the same investigation yourself with [Assignment A01](/docs/training/01-reactive-lifetech) or [A05](/docs/training) as the scenario
+3. Apply [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/) and [Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/source-reliability/) to each timeline event
+4. Convert findings to detection logic using [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
+5. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/docs/training) or [A08](/docs/training) emulation methodology
+6. Use [HexStrike AI](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage
 
 ### Threat Modeling → Detection Backlog → Customer Project
 
