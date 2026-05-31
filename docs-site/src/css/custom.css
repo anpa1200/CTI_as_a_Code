@@ -98,17 +98,23 @@
   text-decoration: none;
 }
 
-/* ── Cyber background (pages without special hero/cover) ── */
-[data-theme='dark'] html { background-color: #050c1a; }
-[data-theme='dark'] body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('../../static/img/bg-cyber.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.35;
-  z-index: -1;
-  pointer-events: none;
+/* ── Cyber background: visible on every doc page in dark mode ── */
+[data-theme="dark"] html {
+  background: #050c1a url("../../static/img/bg-cyber.png") center / cover fixed no-repeat;
+}
+
+[data-theme="dark"] {
+  --ifm-background-color: rgba(5, 12, 26, 0.82);
+  --ifm-background-surface-color: rgba(10, 18, 35, 0.76);
+  --ifm-navbar-background-color: rgba(5, 10, 22, 0.90);
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(5, 10, 22, 0.90) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] footer.footer {
+  background: rgba(5, 10, 22, 0.92) !important;
 }
