@@ -98,11 +98,6 @@
   text-decoration: none;
 }
 
-/* ── Cyber background: visible on every doc page in dark mode ── */
-html[data-theme="dark"] {
-  background: #050c1a url("../../static/img/bg-cyber.png") center / cover fixed no-repeat;
-}
-
 [data-theme="dark"] {
   --ifm-background-color: rgba(5, 12, 26, 0.82);
   --ifm-background-surface-color: rgba(10, 18, 35, 0.76);
@@ -116,5 +111,30 @@ html[data-theme="dark"] {
 }
 
 [data-theme="dark"] footer.footer {
+  background: rgba(5, 10, 22, 0.92) !important;
+}
+
+
+/* ── Cyber background: visible on every doc page in dark mode ── */
+html[data-theme="dark"] body {
+  background-image: url("../../static/img/bg-cyber.png") !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: #050c1a !important;
+}
+
+html[data-theme="dark"] .main-wrapper {
+  background: transparent !important;
+}
+
+html[data-theme="dark"] .navbar {
+  background: rgba(5, 10, 22, 0.92) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+html[data-theme="dark"] footer.footer {
   background: rgba(5, 10, 22, 0.92) !important;
 }
