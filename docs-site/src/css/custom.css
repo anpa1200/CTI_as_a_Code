@@ -97,3 +97,18 @@
   color: #fff !important;
   text-decoration: none;
 }
+
+/* ── Cyber background (pages without special hero/cover) ── */
+[data-theme='dark'] html { background-color: #050c1a; }
+[data-theme='dark'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/CTI_as_a_Code/img/bg-cyber.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+  z-index: -1;
+  pointer-events: none;
+}
