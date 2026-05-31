@@ -24,6 +24,7 @@ This page connects the CTI documentation projects into one practitioner ecosyste
 | **[CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/)** | General CTI tradecraft and analytic operating manual | You need evidence discipline, analytic judgment, attribution methodology, infrastructure pivoting, or CTI-to-detection reasoning |
 | **[Customer-Driven AI CTI Project](https://anpa1200.github.io/customer-driven-ai-cti-project/)** | Delivery methodology and customer engagement model | CTI work must become a managed project with phases, quality gates, and customer acceptance criteria |
 | **[Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)** | Israeli sector and actor knowledge base | The question involves Israeli government, municipal, telecom, critical infrastructure, or supplier exposure |
+| **[AI vs Defense](https://anpa1200.github.io/ai-vs-defense/)** | Guide to AI-era threat model and SOC adaptation | Understanding how skill-floor collapse changes the threat model, Pyramid of Pain, and detection strategy |
 | **[HexStrike AI](https://github.com/0x4m4/hexstrike-ai)** | AI-powered offensive security automation | Adversarially validating detection coverage built in A04 or A08 against real TTPs |
 
 ## Published Case Studies
