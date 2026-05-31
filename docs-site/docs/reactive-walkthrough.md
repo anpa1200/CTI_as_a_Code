@@ -49,6 +49,9 @@ Timestamp: 2024-11-15T18:42:33Z
 
 That's the visible trigger. The actual breach started **24 days earlier** — and the alert is the second of two entry points, not the first.
 
+<figure>
+<img src="/img/lifetech/00-cover.png" alt="LifeTech Pharma — CTI as a Code reactive investigation cover" />
+</figure>
 ---
 
 ## Step 00: Clone, Initialize, and Fill the Template
@@ -184,6 +187,19 @@ git commit -m "PROJ-2024-001: project.yml filled — 3 PIRs, INCD deadline 2024-
 
 The folder is now named, scoped, and version-controlled. The intake call can begin.
 
+<figure>
+<img src="/img/lifetech/01-project-structure.png" alt="Project folder structure initialized from reactive template" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/02-folder-tree.png" alt="Folder tree — reactive investigation scaffold" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/03-project-yml.png" alt="project.yml filled with case metadata" />
+</figure>
 ---
 
 ## Step 0: Intake — What the First Call Captures
@@ -556,6 +572,19 @@ git commit -m "PROJ-2024-001: scope signed off — 5 systems, 3 PIRs, INCD deadl
 
 **The firewall log retention deadline drives everything.** SERVER-RD-02's November 6 outbound traffic expires November 20. That is the exfiltration confirmation window. If it closes, CL-003 becomes INFERRED, not CONFIRMED. Retrieve those logs before any other analysis.
 
+<figure>
+<img src="/img/lifetech/00b-scope-in-scope.png" alt="Scope document — in-scope systems" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/00c-scope-out-of-scope.png" alt="Scope document — out-of-scope exclusions" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/00d-pirs.png" alt="Priority Intelligence Requirements (PIRs)" />
+</figure>
 ---
 
 ## Step R1: Evidence Inventory — What Exists and What Is Missing
@@ -683,6 +712,14 @@ git add 01-evidence/ 02-sources/source-registry.md
 git commit -m "PROJ-2024-001: evidence inventory — 6 sources, GAP-001 (10-day Sysmon gap WS-IT-LEVI Oct 22–Nov 1), firewall log retrieval urgent before Nov 20"
 ```
 
+<figure>
+<img src="/img/lifetech/00e-source-registry.png" alt="Source registry with Admiralty reliability ratings" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/00f-evidence-tree.png" alt="VS Code Explorer — full evidence tree" />
+</figure>
 ---
 
 ## Step R1.5: Hands-On Evidence Analysis — VS Code Investigation
@@ -715,6 +752,16 @@ code --install-extension humao.rest-client
 code --install-extension ms-vscode.hexeditor
 code --install-extension esbenp.prettier-vscode
 ```
+
+<figure>
+<img src="/img/lifetech/04-vscode-extensions.png" alt="VS Code extensions installed for evidence analysis" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/05-vscode-shortcuts.png" alt="VS Code keyboard shortcuts reference" />
+</figure>
+
 
 **Key VS Code shortcuts used throughout this step:**
 
@@ -776,6 +823,16 @@ Press `Shift+Alt+F` to auto-format. The nested structure becomes readable with c
 ```
 
 Click any node to jump directly to that section. Click `prevention_policy` — you see `"prevent": false` immediately. The CFO's machine is in detect-only mode; the C2 connection is live. **Take the memory dump before anything else.**
+
+<figure>
+<img src="/img/lifetech/06-crowdstrike-outline.png" alt="CrowdStrike alert JSON structure in VS Code" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/07-prevention-policy.png" alt="Prevention policy showing detect-only mode" />
+</figure>
+
 
 **Search** (`Ctrl+F`): type `prevented` → jumps to `"prevent": false`. Type `cmdline` → jumps to the encoded PowerShell command.
 
@@ -872,6 +929,17 @@ jq 'select(.EventID == 11) | {
 
 ### 3. M365 Message Trace — Rainbow CSV
 
+
+<figure>
+<img src="/img/lifetech/10-m365-rbql-results.png" alt="M365 message trace RBQL query results" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/11-cfo-phishing-discovery.png" alt="CFO phishing email discovery in message trace" />
+</figure>
+
+
 **In VS Code Explorer:** click `m365/message-trace-p.levi.csv`
 
 With Rainbow CSV installed, every column gets its own color. The status bar at the bottom shows the column name as you move the cursor.
@@ -943,6 +1011,17 @@ The `.xlsm` attachment was not sandboxed — ATP policy gap (INT-007). Add `glob
 
 ### 4. Azure AD Sign-In Analysis
 
+
+<figure>
+<img src="/img/lifetech/12-azure-ad-signin-table.png" alt="Azure AD sign-in table — suspicious session from Istanbul" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/13-suspicious-signin.png" alt="Suspicious sign-in detail — token replay indicators" />
+</figure>
+
+
 **In VS Code Explorer:** click `azure-ad/signin-p.levi.json`
 
 Press `Shift+Alt+F` to format. Open the Outline (`Ctrl+Shift+O`) — the array shows four sign-in entries. Click entry `[1]` to jump to `aad-signin-002`.
@@ -992,6 +1071,12 @@ jq '.[] | {
 
 ### 5. VPN Log Analysis
 
+
+<figure>
+<img src="/img/lifetech/14-vpn-session-output.png" alt="VPN gateway log — contractor-07 session from Istanbul IP" />
+</figure>
+
+
 **In VS Code Explorer:** click `vpn/anyconnect-2024-10-24.log`
 
 VS Code opens the plain syslog file. Use `Ctrl+F` to navigate without any commands:
@@ -1034,6 +1119,17 @@ grep "203.0.113.87" vpn/anyconnect-2024-10-24.log | awk '{print $1,$2,$3}' | hea
 ---
 
 ### 6. NGFW Log Analysis — Rainbow CSV
+
+
+<figure>
+<img src="/img/lifetech/15-ngfw-rainbow-csv.png" alt="NGFW logs open in Rainbow CSV — column-aware view" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/16-exfil-flow-discovery.png" alt="381 MB exfiltration flow identified — 99% upload ratio" />
+</figure>
+
 
 **Column map** (RBQL uses positional names — `a1`…`a41` — not header names):
 
@@ -1094,6 +1190,11 @@ ORDER BY parseInt(a29) DESC
 
 Result: only one row — `10.10.2.15 → 198.51.100.44`, 99% upload, 381 MB. Every other flow is bidirectional C2 (55–65% upload) which is beacon traffic, not exfil.
 
+<figure>
+<img src="/img/lifetech/06b-beacon-pattern-results.png" alt="Beacon pattern query results — C2 traffic identified" />
+</figure>
+
+
 ---
 
 **Query 3 — beacon pattern: repeated small flows to same external IP**
@@ -1137,6 +1238,11 @@ Result:
 
 CFO workstation (`10.10.1.45`) connected to an internal host (`10.10.2.20`) on port 135 (DCE/RPC endpoint mapper) then port 49152 (dynamic RPC). This is the WMI/DCOM lateral movement signature — 3 hours after the CFO was compromised.
 
+<figure>
+<img src="/img/lifetech/18-lateral-movement-flows.png" alt="Internal lateral movement flows — WMI/DCOM signature" />
+</figure>
+
+
 ---
 
 **Query 5 — beacon timing: isolate C2 host and sort by time to measure intervals**
@@ -1162,6 +1268,21 @@ Result:
 ```
 
 Beacon interval: **432–452 seconds (~7.2 minutes)**. Consistent across both infected hosts — same implant, same configuration. The 4.7-day gap (Nov 1–6) between IT admin beacon clusters is the C2 going quiet while staging lateral movement.
+
+<figure>
+<img src="/img/lifetech/17-beacon-timing.png" alt="Beacon timing analysis — 7-minute intervals across both hosts" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/19-c2-beacon-timeline.png" alt="C2 beacon timeline — activity across investigation period" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/20-dns-malware-timeline.png" alt="DNS queries mapped to malware activity timeline" />
+</figure>
+
 
 ---
 
@@ -1204,6 +1325,11 @@ Result — full malware DNS timeline:
 
 **Query 7 — per-host beacon count: how many hosts are infected?**
 
+<figure>
+<img src="/img/lifetech/21-per-host-beacon-count.png" alt="Per-host beacon count — two infected hosts confirmed" />
+</figure>
+
+
 ```sql
 SELECT a2, COUNT(a2) AS queries
 WHERE a4 == 'telemetry-cdn-services.biz'
@@ -1221,6 +1347,11 @@ Result:
 Two hosts. Two infections. Same C2 domain. The IT admin host was the initial foothold; the CFO host is the second wave, 14 days later.
 
 **Query 8 — attacker recon: external IPs making DNS queries (not internal hosts)**
+
+<figure>
+<img src="/img/lifetech/22-attacker-recon-lookup.png" alt="Attacker recon activity — external DNS queries before compromise" />
+</figure>
+
 
 ```sql
 SELECT a1, a2, a4, a6, a8, a10
@@ -1318,6 +1449,11 @@ Output:
 
 `krbtgt` and `Administrator` DCSync'd — golden ticket capability obtained. Full domain credential rotation required.
 
+<figure>
+<img src="/img/lifetech/23-dcsync-events.png" alt="DCSync events — EID 4662 krbtgt and Administrator from non-DC IP" />
+</figure>
+
+
 **Click `windows-security/SERVER-RD-02-security.jsonl`:**
 
 `Ctrl+F` → `4663` — file access events. `Ctrl+F` → `5156` — network connection event.
@@ -1407,6 +1543,31 @@ The full attack chain — AiTM phishing → VPN access → formula exfiltration 
 
 - **IP** `198.51.100.44` — Confirmed in 4 files: ngfw-flows, dns-queries, sql-audit, SERVER-RD-02-security
 - **Account** `svc_backup` — Confirmed in 3 files: DC01-security (DCSync), SERVER-RD-02-security (SMB+exfil), sql-audit (xp_cmdshell)
+
+<figure>
+<img src="/img/lifetech/24-pivot-exfil-ip.png" alt="Pivot from exfil IP — cross-file corroboration" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/25-pivot-svc-backup.png" alt="Pivot from svc_backup account — lateral movement confirmed" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/26-pivot-c2-domain.png" alt="Pivot from C2 domain — infrastructure mapping" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/27-pivot-attacker-ip.png" alt="Pivot from attacker VPN IP — full access timeline" />
+</figure>
+
+
+<figure>
+<img src="/img/lifetech/28-attack-chain-matrix.png" alt="Complete attack chain — AiTM to DCSync" />
+</figure>
+
 - **Domain** `telemetry-cdn-services.biz` — Confirmed in dns-queries only (11 queries, 2 infected hosts)
 - **Timestamp** `00:13:54Z – 00:14:14Z` — 20-second exfil window triangulated across SQL, NGFW, and EID 5156
 
@@ -1887,6 +2048,12 @@ The timeline in Step R2 is now fully supported. Every event in the table has a s
 
 ## Step R2: Timeline — Two Paths, One Actor
 
+
+<figure>
+<img src="/img/lifetech/s2-timeline-table.png" alt="Completed timeline — dual entry points, chronological reconstruction" />
+</figure>
+
+
 ### 1. Open the timeline file
 
 ```bash
@@ -1942,6 +2109,12 @@ git commit -m "PROJ-2024-001: timeline — 18 events Oct 18–Nov 15, dual-path 
 ---
 
 ## Step R3: Claims Ledger — Every Assertion Traced to Evidence
+
+
+<figure>
+<img src="/img/lifetech/s3-claims-ledger.png" alt="Claims ledger — structured assertions with evidence citations and PIR mapping" />
+</figure>
+
 
 ### 1. Open the claims ledger
 
@@ -2004,6 +2177,12 @@ git commit -m "PROJ-2024-001: claims — 6 claims; PIR-001 ANSWERED YES (CL-003 
 ---
 
 ## Step R4: ATT&CK Mapping — Where Detection Failed
+
+
+<figure>
+<img src="/img/lifetech/s4-attck-mapping.png" alt="ATT&CK mapping — 12 techniques, 7 detection gaps classified" />
+</figure>
+
 
 ### 1. Open the ATT&CK mapping file
 
@@ -2071,6 +2250,12 @@ git commit -m "PROJ-2024-001: ATT&CK mapping — 12 techniques, 7 rule-missing, 
 ---
 
 ## Step R5: Attribution Assessment — Same Actor or Two?
+
+
+<figure>
+<img src="/img/lifetech/s5-attribution-table.png" alt="Attribution assessment — confidence ladder, medium-high, Iranian-nexus cluster" />
+</figure>
+
 
 ### 1. Open the attribution file
 
@@ -2374,6 +2559,12 @@ git commit -m "PROJ-2024-001: deliverables — executive brief, SOC handoff, INC
 ---
 
 ## The Git History: What a Completed Investigation Looks Like
+
+
+<figure>
+<img src="/img/lifetech/s7-git-history.png" alt="Git log — phase-by-phase investigation audit trail" />
+</figure>
+
 
 ```
 b9a2f1c  PROJ-001: deliverables — executive brief, SOC handoff, INCD notification ready
