@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 
 const assignments = [
@@ -123,7 +124,7 @@ export default function Home() {
             </Link>
           </div>
           <img
-            src="/img/cti-cover.png"
+            src={useBaseUrl('/img/cti-cover.png')}
             alt="CTI as a Code — version-controlled workflow from evidence collection to Sigma rule"
             style={{
               marginTop: '2.5rem',
