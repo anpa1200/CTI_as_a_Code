@@ -99,7 +99,7 @@
 }
 
 /* ── Cyber background: visible on every doc page in dark mode ── */
-[data-theme="dark"] html {
+html[data-theme="dark"] {
   background: #050c1a url("../../static/img/bg-cyber.png") center / cover fixed no-repeat;
 }
 
