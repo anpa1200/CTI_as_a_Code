@@ -2,7 +2,15 @@
 const sidebars = {
   labSidebar: [
     { type: 'doc', id: 'intro', label: 'Introduction' },
-    { type: 'doc', id: 'methodology', label: 'Methodology' },
+    {
+      type: 'category',
+      label: 'Methodology',
+      collapsed: false,
+      items: [
+        { type: 'doc', id: 'methodology', label: 'Reference Guide' },
+        { type: 'doc', id: 'cti-as-a-code-methodology', label: 'Step-by-Step (Full)' },
+      ],
+    },
     { type: 'doc', id: 'architecture', label: 'Architecture' },
     { type: 'doc', id: 'prerequisites', label: 'Prerequisites' },
     { type: 'doc', id: 'quick-start', label: 'Quick Start' },

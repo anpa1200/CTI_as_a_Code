@@ -5,7 +5,11 @@ sidebar_position: 3
 
 # CTI as a Code — Methodology
 
-Version-controlled, template-driven threat intelligence. Every claim traces to evidence. Every detection traces to a technique. Every commit is an audit record. This page is the step-by-step execution guide.
+Version-controlled, template-driven threat intelligence. Every claim traces to evidence. Every detection traces to a technique. Every commit is an audit record. This page is the tool reference and quick-step overview.
+
+:::tip Full step-by-step guide
+For the complete intake questionnaire, worked claim examples, Sigma validation commands, and detection backlog structure, see the **[Step-by-Step Methodology](/cti-as-a-code-methodology)** page.
+:::
 
 ---
 

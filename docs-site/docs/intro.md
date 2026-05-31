@@ -49,6 +49,8 @@ Assignments 1–4 cover the Israeli private sector. Assignments 5–8 form a con
 
 - **[Quick Start](/quick-start)** — lab up and running in 10 minutes
 - **[Architecture](/architecture)** — design decisions and data flows
+- **[Methodology](/methodology)** — tool reference and workflow steps
+- **[Step-by-Step Methodology](/cti-as-a-code-methodology)** — complete intake, claims ledger, gap taxonomy, Sigma validation, and detection backlog guide
 - **[Training](/training)** — all 8 assignments with objectives and deliverables
 - **[Ecosystem](/ecosystem)** — how this project fits with the Field Manual and other CTI projects
 

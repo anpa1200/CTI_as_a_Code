@@ -58,9 +58,12 @@ const config = {
             label: 'Lab',
           },
           {
-            to: '/methodology',
             label: 'Methodology',
             position: 'left',
+            items: [
+              { label: 'Reference Guide', to: '/methodology' },
+              { label: 'Step-by-Step (Full)', to: '/cti-as-a-code-methodology' },
+            ],
           },
           {
             type: 'docSidebar',
@@ -96,6 +99,7 @@ const config = {
             title: 'Lab',
             items: [
               { label: 'Methodology', to: '/methodology' },
+              { label: 'Step-by-Step Guide', to: '/cti-as-a-code-methodology' },
               { label: 'Quick Start', to: '/quick-start' },
               { label: 'Architecture', to: '/architecture' },
               { label: 'Services', to: '/services/elasticsearch' },

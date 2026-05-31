@@ -1,3 +1,9 @@
+---
+id: cti-as-a-code-methodology
+title: Complete Methodology
+sidebar_position: 4
+---
+
 # CTI as a Code: Complete Step-by-Step Methodology
 
 **Version-controlled threat intelligence — from first call to deployed Sigma rule.**
