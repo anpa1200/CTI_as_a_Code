@@ -88,6 +88,7 @@ const config = {
             items: [
               { label: 'Reference Guide', to: '/methodology' },
               { label: 'Step-by-Step (Full)', to: '/cti-as-a-code-methodology' },
+              { label: 'Proactive Walkthrough', to: '/proactive-walkthrough' },
             ],
           },
           {

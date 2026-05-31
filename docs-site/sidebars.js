@@ -10,7 +10,6 @@ const sidebars = {
       items: [
         'cti-as-a-code-methodology',
         'reactive-walkthrough',
-        'proactive-walkthrough',
       ],
     },
     { type: 'doc', id: 'architecture', label: 'Architecture' },
