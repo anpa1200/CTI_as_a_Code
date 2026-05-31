@@ -12,6 +12,13 @@ sidebar_position: 4
 
 ---
 
+<figure>
+<img src="/img/celltronx/cert-il-advisory-IL-2024-TAL-0847.png" alt="CERT-IL Advisory IL-2024-TAL-0847 — MuddyWater targeting Israeli telecom operators" />
+<figcaption>CERT-IL Advisory IL-2024-TAL-0847 (TLP:AMBER, 2024-08-11) — the trigger for this assessment. MuddyWater targeting Israeli MNOs via SimpleHelp RMM lures, EMS portal exploitation, and roaming API credential collection.</figcaption>
+</figure>
+
+---
+
 ## Contents
 
 - [The Scenario](#the-scenario)
