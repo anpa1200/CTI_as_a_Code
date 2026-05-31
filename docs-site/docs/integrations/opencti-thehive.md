@@ -7,7 +7,7 @@ sidebar_position: 1
 # OpenCTI → TheHive Integration
 
 This integration enables two workflows:
-1. **Push intel to cases** — when a threat actor or campaign is confirmed, push related IOCs from [OpenCTI](/docs/services/opencti) into a [TheHive](/docs/services/thehive-cortex) case automatically
+1. **Push intel to cases** — when a threat actor or campaign is confirmed, push related IOCs from [OpenCTI](/CTI_as_a_Code/services/opencti) into a [TheHive](/CTI_as_a_Code/services/thehive-cortex) case automatically
 2. **Enrich observables** — when analysts add observables to TheHive cases, query OpenCTI to see if they match known threat intel
 
 ## Method 1: TheHive connector for OpenCTI (recommended)
@@ -65,7 +65,7 @@ For each OpenCTI `Indicator` object, the connector creates a TheHive **Alert** w
 - Custom fields: STIX ID, OpenCTI URL
 - Severity: configurable via `THEHIVE_ALERT_SEVERITY`
 
-Analysts promote alerts to cases and add [Cortex](/docs/services/thehive-cortex) analyzers to enrich them.
+Analysts promote alerts to cases and add [Cortex](/CTI_as_a_Code/services/thehive-cortex) analyzers to enrich them.
 
 ## Method 2: Manual export via STIX2
 
@@ -106,7 +106,7 @@ for event in client.stream("<stream-id>"):
 
 ## Querying OpenCTI from TheHive (observable lookup)
 
-You can manually query OpenCTI from the TheHive observable panel using [Cortex](/docs/setup/cortex-setup)'s `OpenCTI_*` analyzers (if installed). These hit the OpenCTI API and return any matching STIX objects.
+You can manually query OpenCTI from the TheHive observable panel using [Cortex](/CTI_as_a_Code/setup/cortex-setup)'s `OpenCTI_*` analyzers (if installed). These hit the OpenCTI API and return any matching STIX objects.
 
 Enable in Cortex: **Organization → Analyzers → OpenCTI_SimpleObservable_1_0**
 
@@ -118,4 +118,4 @@ Configuration:
 
 ## Ecosystem
 
-This integration is part of the [lab stack](/docs/architecture). See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This integration is part of the [lab stack](/CTI_as_a_Code/architecture). See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

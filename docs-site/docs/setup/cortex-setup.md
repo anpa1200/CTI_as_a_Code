@@ -44,7 +44,7 @@ For analyzers requiring API keys, click the analyzer → **Configuration** and e
 1. **Organization → Users → `<your user>` → Create API key**
 2. Copy the key immediately — it won't be shown again
 
-## Wire Cortex into [TheHive](/docs/services/thehive-cortex)
+## Wire Cortex into [TheHive](/CTI_as_a_Code/services/thehive-cortex)
 
 ### Step 1: Add the key to `.env`
 
@@ -94,4 +94,4 @@ docker compose up -d thehive
 
 ## Ecosystem
 
-This page is part of the [Cortex setup](/docs/setup/cortex-setup) flow. See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [Cortex setup](/CTI_as_a_Code/setup/cortex-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

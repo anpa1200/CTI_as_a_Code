@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # Quick Start
 
-Get the full [lab](/docs/architecture) running in under 10 minutes. See [Prerequisites](/docs/prerequisites) before starting if this is your first run.
+Get the full [lab](/CTI_as_a_Code/architecture) running in under 10 minutes. See [Prerequisites](/CTI_as_a_Code/prerequisites) before starting if this is your first run.
 
 ## 1. Clone the repository
 
@@ -106,19 +106,19 @@ Point Filebeat or Winlogbeat on your endpoints at `<lab-host>:5044`.
 
 | Service | URL | Credentials |
 |---|---|---|
-| [OpenCTI](/docs/services/opencti) | http://localhost:8080 | `OPENCTI_ADMIN_EMAIL` + `OPENCTI_ADMIN_PASSWORD` from `.env` |
-| [Kibana SIEM](/docs/services/elastic-siem) | http://localhost:5601 | `elastic` + `ELASTIC_PASSWORD` |
-| [TheHive](/docs/services/thehive-cortex) | http://localhost:9100 | Create admin on first visit |
-| [Cortex](/docs/services/thehive-cortex) | http://localhost:9002 | Create admin on first visit |
+| [OpenCTI](/CTI_as_a_Code/services/opencti) | http://localhost:8080 | `OPENCTI_ADMIN_EMAIL` + `OPENCTI_ADMIN_PASSWORD` from `.env` |
+| [Kibana SIEM](/CTI_as_a_Code/services/elastic-siem) | http://localhost:5601 | `elastic` + `ELASTIC_PASSWORD` |
+| [TheHive](/CTI_as_a_Code/services/thehive-cortex) | http://localhost:9100 | Create admin on first visit |
+| [Cortex](/CTI_as_a_Code/services/thehive-cortex) | http://localhost:9002 | Create admin on first visit |
 | MinIO Console | http://localhost:9001 | `MINIO_ROOT_USER` + `MINIO_ROOT_PASSWORD` |
 | RabbitMQ | http://localhost:15672 | `RABBITMQ_DEFAULT_USER` + `RABBITMQ_DEFAULT_PASS` |
 
 ## Next steps
 
-1. **[OpenCTI first-run setup](/docs/setup/opencti-setup)** — configure organizations and marking definitions
-2. **[TheHive first-run setup](/docs/setup/thehive-setup)** — create an organization and first user
-3. **[Connect Cortex to TheHive](/docs/setup/cortex-setup)** — wire up automated enrichment
-4. **[Connect OpenCTI to TheHive](/docs/integrations/opencti-thehive)** — push threat intel into cases
-5. **[IOC triage workflow](/docs/workflows/ioc-triage)** — put it all together
-6. **[Start training — A01](/docs/training/01-reactive-lifetech)** — run your first reactive investigation
-7. **[Full ecosystem](/docs/ecosystem)** — see how this lab fits with the CTI Portfolio and Field Manual
+1. **[OpenCTI first-run setup](/CTI_as_a_Code/setup/opencti-setup)** — configure organizations and marking definitions
+2. **[TheHive first-run setup](/CTI_as_a_Code/setup/thehive-setup)** — create an organization and first user
+3. **[Connect Cortex to TheHive](/CTI_as_a_Code/setup/cortex-setup)** — wire up automated enrichment
+4. **[Connect OpenCTI to TheHive](/CTI_as_a_Code/integrations/opencti-thehive)** — push threat intel into cases
+5. **[IOC triage workflow](/CTI_as_a_Code/workflows/ioc-triage)** — put it all together
+6. **[Start training — A01](/CTI_as_a_Code/training/reactive-lifetech/)** — run your first reactive investigation
+7. **[Full ecosystem](/CTI_as_a_Code/ecosystem)** — see how this lab fits with the CTI Portfolio and Field Manual

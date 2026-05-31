@@ -78,20 +78,20 @@ An INCD red team exercise ran 10 days before the incident under INCD-CID Section
 
 ## Cross-Links
 
-- **Attribution methodology:** [Field Manual — Attribution Methodology](https://anpa1200.github.io/cti-analyst-field-manual/docs/attribution/attribution-methodology/)
-- **Evidence labels:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/)
-- **Same adversary cluster in private sector:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech)
-- **GovID 2.0 pre-launch threat model (next assignment):** [A06 — Proactive GovID 2.0](./06-proactive-govid2)
-- **NDSA CTI program built from this incident:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa)
+- **Attribution methodology:** [Field Manual — Attribution Methodology](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/)
+- **Evidence labels:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
+- **Same adversary cluster in private sector:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech.md)
+- **GovID 2.0 pre-launch threat model (next assignment):** [A06 — Proactive GovID 2.0](./06-proactive-govid2.md)
+- **NDSA CTI program built from this incident:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
 - **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
 
 ---
 
 ## Continue in the ecosystem
 
-- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
-- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
-- [LifeTech Pharma case study](/docs/lifetech-pharma-case-study) — parallel reactive investigation in the private sector (PROJ-2024-001)
+- [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
+- [LifeTech Pharma case study](/CTI_as_a_Code/lifetech-pharma-case-study) — parallel reactive investigation in the private sector (PROJ-2024-001)
 - [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
 
 ## Solution Highlights

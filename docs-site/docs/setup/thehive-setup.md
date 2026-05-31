@@ -28,11 +28,11 @@ Create an analyst user for daily work — avoid using the admin account for case
 
 ## Create alert sources
 
-Alerts feed into [TheHive](https://thehive-project.org/) from external sources ([SIEM](/docs/services/elastic-siem), SOAR, manual import). Configure sources under:
+Alerts feed into [TheHive](https://thehive-project.org/) from external sources ([SIEM](/CTI_as_a_Code/services/elastic-siem), SOAR, manual import). Configure sources under:
 
 **Organisation → Alert management → Webhooks**
 
-For [Elastic SIEM](/docs/services/elastic-siem) integration, you can use the Elastic SIEM alerting webhook to push alerts directly to TheHive.
+For [Elastic SIEM](/CTI_as_a_Code/services/elastic-siem) integration, you can use the Elastic SIEM alerting webhook to push alerts directly to TheHive.
 
 ## Custom fields (optional)
 
@@ -71,4 +71,4 @@ curl -H "Authorization: Bearer <api-key>" \
 
 ## Ecosystem
 
-This page is part of the [TheHive setup](/docs/setup/thehive-setup) flow. See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [TheHive setup](/CTI_as_a_Code/setup/thehive-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

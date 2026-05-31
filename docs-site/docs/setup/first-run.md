@@ -20,13 +20,13 @@ Expected: `"status": "yellow"` (single-node, normal)
 
 - Open http://localhost:5601
 - Log in with `elastic` / `ELASTIC_PASSWORD`
-- Navigate to **Security** — the [Elastic SIEM](/docs/services/elastic-siem) tile should appear without errors
+- Navigate to **Security** — the [Elastic SIEM](/CTI_as_a_Code/services/elastic-siem) tile should appear without errors
 
 ## 3. OpenCTI
 
 - Open http://localhost:8080
 - Log in with `OPENCTI_ADMIN_EMAIL` / `OPENCTI_ADMIN_PASSWORD`
-- Go to **Settings → Parameters** — check platform status is green (see [OpenCTI setup](/docs/setup/opencti-setup))
+- Go to **Settings → Parameters** — check platform status is green (see [OpenCTI setup](/CTI_as_a_Code/setup/opencti-setup))
 
 If OpenCTI shows a red status on any dependency, run:
 ```bash
@@ -61,7 +61,7 @@ docker compose logs opencti | tail -50
 ./scripts/health-check.sh
 ```
 
-All lines should show `✓  HTTP 200`.
+All lines should show `OK  HTTP 200`.
 
 ## Common startup issues
 
@@ -85,7 +85,7 @@ docker compose restart opencti
 
 ### TheHive cannot reach Elasticsearch
 
-Verify the `ELASTIC_PASSWORD` env var is set correctly in `.env` and that the [`thehive`](/docs/services/thehive-cortex) service can reach [`elasticsearch:9200`](/docs/services/elasticsearch):
+Verify the `ELASTIC_PASSWORD` env var is set correctly in `.env` and that the [`thehive`](/CTI_as_a_Code/services/thehive-cortex) service can reach [`elasticsearch:9200`](/CTI_as_a_Code/services/elasticsearch):
 
 ```bash
 docker exec cti-thehive curl -su "elastic:${ELASTIC_PASSWORD}" http://elasticsearch:9200/_cluster/health
@@ -107,4 +107,4 @@ docker run --rm --network cti-lab_cti-net minio/mc:latest sh -c "
 
 ## Ecosystem
 
-This page is part of the [initial setup](/docs/setup/first-run) flow. See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [initial setup](/CTI_as_a_Code/setup/first-run) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

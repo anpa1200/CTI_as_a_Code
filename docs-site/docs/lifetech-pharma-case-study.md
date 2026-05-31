@@ -26,15 +26,15 @@ IPs, domains, company names, and individuals are invented for training. Steps 11
 
 ## What This Case Study Demonstrates
 
-This article applies the full [CTI as a Code Methodology](/docs/cti-as-a-code-methodology) to a single incident from first alert through stakeholder deliverables. Every analytical decision is traceable to a log line, every claim is falsifiable, and the entire investigation lives in git.
+This article applies the full [CTI as a Code Methodology](/CTI_as_a_Code/cti-as-a-code-methodology) to a single incident from first alert through stakeholder deliverables. Every analytical decision is traceable to a log line, every claim is falsifiable, and the entire investigation lives in git.
 
-It is the worked answer to [Assignment A01 — Reactive IR: LifeTech Pharma](/docs/training/01-reactive-lifetech).
+It is the worked answer to [Assignment A01 — Reactive IR: LifeTech Pharma](/CTI_as_a_Code/training/reactive-lifetech/).
 
 **Relevant ecosystem links:**
-- [Methodology reference](/docs/cti-as-a-code-methodology) — the seven-step reactive framework used throughout
-- [Full technical walkthrough](/docs/reactive-walkthrough) — step-by-step commands, queries, and outputs
-- [Training assignment A01](/docs/training/01-reactive-lifetech) — the student-facing brief for this scenario
-- [Ecosystem overview](/docs/ecosystem) — how this case study fits into the broader CTI as a Code platform
+- [Methodology reference](/CTI_as_a_Code/cti-as-a-code-methodology) — the seven-step reactive framework used throughout
+- [Full technical walkthrough](/CTI_as_a_Code/reactive-walkthrough) — step-by-step commands, queries, and outputs
+- [Training assignment A01](/CTI_as_a_Code/training/reactive-lifetech/) — the student-facing brief for this scenario
+- [Ecosystem overview](/CTI_as_a_Code/ecosystem) — how this case study fits into the broader CTI as a Code platform
 
 ---
 
@@ -146,7 +146,7 @@ VS Code is the primary analysis tool. One window holds the evidence tree, format
 <figcaption>Global search (Ctrl+Shift+F), file search (Ctrl+F), JSON outline (Ctrl+Shift+O), and RBQL console (F5) — four shortcuts that replace an entire toolchain.</figcaption>
 </figure>
 
-See the [full setup instructions and download links](/docs/reactive-walkthrough#step-r15-hands-on-evidence-analysis--vs-code-investigation) in the technical walkthrough.
+See the [full setup instructions and download links](/CTI_as_a_Code/reactive-walkthrough#step-r15-hands-on-evidence-analysis--vs-code-investigation) in the technical walkthrough.
 
 ---
 
@@ -199,7 +199,7 @@ echo "JABjAD0ATg..." | base64 -d | iconv -f UTF-16LE -t UTF-8
 <figcaption>Decoded output: a WebClient DownloadString call to the C2 IP. The full payload URL, User-Agent, and C2 address are visible in one terminal command — no online decoder needed.</figcaption>
 </figure>
 
-→ [Full decode procedure in the technical walkthrough](/docs/reactive-walkthrough#2-decode-the-powershell-payload)
+→ [Full decode procedure in the technical walkthrough](/CTI_as_a_Code/reactive-walkthrough#2-decode-the-powershell-payload)
 
 ---
 
@@ -219,7 +219,7 @@ Switch to `message-trace-m.cohen.csv` for the CFO mailbox:
 <figcaption>The CFO phishing delivery: .xlsm attachment, SCL=4, DMARC fail — same bypass pattern as the IT admin attack 24 days earlier. Same SCL threshold gap, different sender domain.</figcaption>
 </figure>
 
-The [ATP SCL threshold gap (INT-007)](/docs/reactive-walkthrough#3-m365-message-trace--rainbow-csv) allowed both emails to deliver. A threshold of `5` permits SCL=4 mail regardless of authentication failures.
+The [ATP SCL threshold gap (INT-007)](/CTI_as_a_Code/reactive-walkthrough#3-m365-message-trace--rainbow-csv) allowed both emails to deliver. A threshold of `5` permits SCL=4 mail regardless of authentication failures.
 
 ---
 
@@ -237,7 +237,7 @@ The [ATP SCL threshold gap (INT-007)](/docs/reactive-walkthrough#3-m365-message-
 
 The +2h17m gap between the legitimate sign-in (07:14 IST) and the replayed token (09:31 IST) is consistent with an attacker operating from a different time zone, allowing a startup delay before exploitation.
 
-→ [Azure AD token replay detection](/docs/reactive-walkthrough#4-azure-ad-sign-in-analysis) — full jq extraction and red-flag table
+→ [Azure AD token replay detection](/CTI_as_a_Code/reactive-walkthrough#4-azure-ad-sign-in-analysis) — full jq extraction and red-flag table
 
 ---
 
@@ -303,7 +303,7 @@ Switch to `dns-queries.csv`:
 <figcaption>Query 8 — external IPs in DNS logs. The attacker IP (185.220.101.47) queried vpn.lifetechpharma.com one minute before the VPN login. Confirms an active human operator, not an automated tool.</figcaption>
 </figure>
 
-→ [All 8 RBQL queries with correct JavaScript syntax](/docs/reactive-walkthrough#6-ngfw-log-analysis--rainbow-csv) — no FROM clause, parseInt() not CAST(), .startsWith() not LIKE
+→ [All 8 RBQL queries with correct JavaScript syntax](/CTI_as_a_Code/reactive-walkthrough#6-ngfw-log-analysis--rainbow-csv) — no FROM clause, parseInt() not CAST(), .startsWith() not LIKE
 
 ---
 
@@ -321,7 +321,7 @@ Switch to `dns-queries.csv`:
 
 The DCSync gap is the starkest finding: the EID 4662 audit policy was correctly configured, the event reached Splunk, and the data was queryable — but no alert rule existed. A single SPL rule would have contained this incident before the formula exfiltration.
 
-See [Step R4 — ATT&CK Mapping](/docs/reactive-walkthrough#step-r4-attck-mapping--where-detection-failed) for the full gap taxonomy: 7 rule-missing, 3 coverage-incomplete, 1 data-source-missing.
+See [Step R4 — ATT&CK Mapping](/CTI_as_a_Code/reactive-walkthrough#step-r4-attck-mapping--where-detection-failed) for the full gap taxonomy: 7 rule-missing, 3 coverage-incomplete, 1 data-source-missing.
 
 ---
 
@@ -391,7 +391,7 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 
 ## ATT&CK Coverage
 
-12 techniques mapped. The [full ATT&CK Navigator layer](/img/lifetech/) is available for import.
+12 techniques mapped. The [full ATT&CK Navigator layer](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json) is available for import.
 
 <figure>
 <img src="/CTI_as_a_Code/img/lifetech/s4-attck-mapping.png" alt="ATT&CK technique mapping table" />
@@ -420,7 +420,7 @@ VS Code's `Ctrl+Shift+F` searches across every open file simultaneously. Four se
 
 The DCSync gap is the most consequential: **the audit policy was correct, the data was in Splunk, but no alert rule existed**. A single detection rule on EID 4662 from a non-DC IP would have fired 34 minutes before the formula exfiltration completed.
 
-→ [Step R6 — Detection Rules](/docs/reactive-walkthrough#step-r6-detection-rules--four-that-would-have-changed-the-outcome) — the four Sigma rules that change the outcome
+→ [Step R6 — Detection Rules](/CTI_as_a_Code/reactive-walkthrough#step-r6-detection-rules--four-that-would-have-changed-the-outcome) — the four Sigma rules that change the outcome
 
 **Sandbox analysis** — the dropper recovered via CrowdStrike RTR is submitted to [ANY.RUN](https://app.any.run) for behavioral confirmation. Steps 11–12 of the technical walkthrough use a real Cobalt Strike beacon (`1cf56da3…`, 48/75 VT detections):
 
@@ -485,11 +485,11 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 
 | Next step | Link |
 |---|---|
-| Run this investigation yourself | [Assignment A01](/docs/training/01-reactive-lifetech) |
-| Step-by-step technical commands | [Reactive Walkthrough](/docs/reactive-walkthrough) |
-| The methodology behind the steps | [CTI as a Code Methodology](/docs/cti-as-a-code-methodology) |
-| Detection rules from this case | [Step R6 — Sigma Rules](/docs/reactive-walkthrough#step-r6-detection-rules--four-that-would-have-changed-the-outcome) |
-| ATT&CK Navigator layer | [Download JSON](/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json) |
-| Related ecosystem tools | [Ecosystem Overview](/docs/ecosystem) |
+| Run this investigation yourself | [Assignment A01](/CTI_as_a_Code/training/reactive-lifetech/) |
+| Step-by-step technical commands | [Reactive Walkthrough](/CTI_as_a_Code/reactive-walkthrough) |
+| The methodology behind the steps | [CTI as a Code Methodology](/CTI_as_a_Code/cti-as-a-code-methodology) |
+| Detection rules from this case | [Step R6 — Sigma Rules](/CTI_as_a_Code/reactive-walkthrough#step-r6-detection-rules--four-that-would-have-changed-the-outcome) |
+| ATT&CK Navigator layer | [Download JSON](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json) |
+| Related ecosystem tools | [Ecosystem Overview](/CTI_as_a_Code/ecosystem) |
 | CTI Analyst Field Manual | [Evidence discipline and analytic standards](https://anpa1200.github.io/cti-analyst-field-manual/) |
 | Full CTI Portfolio | [All projects, repositories, and articles](https://anpa1200.github.io/cti.html) |

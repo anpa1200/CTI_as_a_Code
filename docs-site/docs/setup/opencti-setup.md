@@ -35,12 +35,12 @@ Set it as the platform organization: **Settings → Parameters → Platform orga
 
 ## Create API users for integrations
 
-For [TheHive](/docs/services/thehive-cortex) and other tools that connect to OpenCTI via API:
+For [TheHive](/CTI_as_a_Code/services/thehive-cortex) and other tools that connect to OpenCTI via API:
 
 1. **Settings → Security → Users → Add User**
 2. Name: `TheHive Connector`
 3. Role: `Connector`
-4. Copy the generated API token — you'll need it in the [OpenCTI-TheHive integration](/docs/integrations/opencti-thehive)
+4. Copy the generated API token — you'll need it in the [OpenCTI-TheHive integration](/CTI_as_a_Code/integrations/opencti-thehive)
 
 ## Start the MITRE ATT&CK connector
 
@@ -69,10 +69,10 @@ OpenCTI's live streams allow other platforms (TheHive, MISP) to subscribe to int
 - Filters: select the entity types you want to push to cases
 - Visibility: `Public`
 
-Copy the stream ID — you'll use it in the [OpenCTI-TheHive integration](/docs/integrations/opencti-thehive).
+Copy the stream ID — you'll use it in the [OpenCTI-TheHive integration](/CTI_as_a_Code/integrations/opencti-thehive).
 
 ---
 
 ## Ecosystem
 
-This page is part of the [OpenCTI setup](/docs/setup/opencti-setup) flow. See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [OpenCTI setup](/CTI_as_a_Code/setup/opencti-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

@@ -100,7 +100,7 @@ const config = {
           },
           { href: 'https://medium.com/@1200km', label: 'Medium', position: 'right' },
           { href: 'https://github.com/anpa1200/CTI_as_a_Code', label: 'GitHub', position: 'right' },
-          { href: 'https://anpa1200.github.io/', label: 'All Projects', position: 'right', className: 'navbar-portfolio-btn' },
+          { href: 'https://anpa1200.github.io/', label: 'Main Page', position: 'right', className: 'navbar-portfolio-btn' },
         ],
       },
       footer: {

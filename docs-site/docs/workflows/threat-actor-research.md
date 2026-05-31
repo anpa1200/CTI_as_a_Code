@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Threat Actor Research Workflow
 
-A structured approach to building a threat actor profile using the [lab](/docs/architecture) — from open-source collection to a finished STIX-structured intelligence product in [OpenCTI](/docs/services/opencti). This workflow follows the [proactive assessment](/docs/workflows/proactive-assessment) intake and feeds directly into [IOC triage](/docs/workflows/ioc-triage) and detection engineering.
+A structured approach to building a threat actor profile using the [lab](/CTI_as_a_Code/architecture) — from open-source collection to a finished STIX-structured intelligence product in [OpenCTI](/CTI_as_a_Code/services/opencti). This workflow follows the [proactive assessment](/CTI_as_a_Code/workflows/proactive-assessment) intake and feeds directly into [IOC triage](/CTI_as_a_Code/workflows/ioc-triage) and detection engineering.
 
 ## Objective
 
@@ -17,12 +17,12 @@ Produce a comprehensive, STIX2-structured profile of a threat actor that can be 
 ## Step 1: Collection — gather raw reporting
 
 Starting points:
-- MITRE ATT&CK Groups page (already in [OpenCTI](/docs/services/opencti) after MITRE connector sync)
+- MITRE ATT&CK Groups page (already in [OpenCTI](/CTI_as_a_Code/services/opencti) after MITRE connector sync)
 - Vendor threat reports (Mandiant, CrowdStrike, Recorded Future, Secureworks)
 - ISAC feeds
 - Academic papers, conference presentations
 
-In [OpenCTI](/docs/services/opencti), check if the actor already exists:
+In [OpenCTI](/CTI_as_a_Code/services/opencti), check if the actor already exists:
 
 1. **Threats → Intrusion Sets** → search by name or alias
 2. If found, review existing knowledge and note gaps
@@ -30,7 +30,7 @@ In [OpenCTI](/docs/services/opencti), check if the actor already exists:
 
 ---
 
-## Step 2: Structure — create the actor in [OpenCTI](/docs/services/opencti)
+## Step 2: Structure — create the actor in [OpenCTI](/CTI_as_a_Code/services/opencti)
 
 ### Create the Intrusion Set
 
@@ -56,7 +56,7 @@ In [OpenCTI](/docs/services/opencti), check if the actor already exists:
 
 ### Link to malware
 
-1. **Arsenal → Malware → Create** (if not yet in [OpenCTI](/docs/services/opencti))
+1. **Arsenal → Malware → Create** (if not yet in [OpenCTI](/CTI_as_a_Code/services/opencti))
 2. Back in the Intrusion Set → **Add relationship → Uses (Malware)**
 3. Repeat for tools
 
@@ -79,7 +79,7 @@ For each piece of evidence, apply the Admiralty Scale:
 | C (fairly reliable) | 3 (possibly true) | Medium |
 | D (not usually reliable) | 4 (doubtfully true) | Low |
 
-Record confidence level (0–100) on each [OpenCTI](/docs/services/opencti) relationship. Use the **Confidence** field when creating relationships.
+Record confidence level (0–100) on each [OpenCTI](/CTI_as_a_Code/services/opencti) relationship. Use the **Confidence** field when creating relationships.
 
 ---
 
@@ -87,9 +87,9 @@ Record confidence level (0–100) on each [OpenCTI](/docs/services/opencti) rela
 
 From the ATT&CK techniques linked to the actor, generate detection hypotheses. Cross-reference technique coverage using the [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/).
 
-### [Kibana](/docs/services/elastic-siem) KQL
+### [Kibana](/CTI_as_a_Code/services/elastic-siem) KQL
 
-For each technique, write a [Kibana](/docs/services/elastic-siem) detection rule:
+For each technique, write a [Kibana](/CTI_as_a_Code/services/elastic-siem) detection rule:
 
 ```
 # T1566.001 - Spearphishing Attachment
@@ -97,7 +97,7 @@ process.name: "winword.exe" AND process.parent.name: "outlook.exe"
   AND event.type: "process_start"
 ```
 
-Add the rule in [Kibana](/docs/services/elastic-siem): **Security → Rules → Create rule → Custom query**
+Add the rule in [Kibana](/CTI_as_a_Code/services/elastic-siem): **Security → Rules → Create rule → Custom query**
 
 ### Elastic EQL (behavioral)
 
@@ -114,20 +114,20 @@ sequence by host.name
 
 ## Step 5: Product — export the intelligence
 
-### Export from [OpenCTI](/docs/services/opencti)
+### Export from [OpenCTI](/CTI_as_a_Code/services/opencti)
 
 **Threats → Intrusion Sets → `<actor>` → Actions → Export → STIX2 bundle**
 
 The bundle contains the actor, all linked TTPs, malware, tools, indicators, and relationships — ready to share with other platforms.
 
-### [TheHive](/docs/services/thehive-cortex) case for tracking
+### [TheHive](/CTI_as_a_Code/services/thehive-cortex) case for tracking
 
-Create a [TheHive](/docs/services/thehive-cortex) case for the research activity itself:
+Create a [TheHive](/CTI_as_a_Code/services/thehive-cortex) case for the research activity itself:
 
 - Title: `Threat Actor Research: <actor name>`
 - Add the PDF reports as attachments
 - Link IOCs as observables
-- Run [Cortex](/docs/services/thehive-cortex) analyzers on key IOCs to validate they are currently active (use [VirusTotal](https://www.virustotal.com) and [Shodan](https://www.shodan.io) analyzers for infrastructure)
+- Run [Cortex](/CTI_as_a_Code/services/thehive-cortex) analyzers on key IOCs to validate they are currently active (use [VirusTotal](https://www.virustotal.com) and [Shodan](https://www.shodan.io) analyzers for infrastructure)
 
 ### Written intelligence product
 
@@ -138,7 +138,7 @@ Structure your written product as:
 3. **TTP analysis** (primary techniques with ATT&CK IDs)
 4. **Infrastructure analysis** (IP ranges, domains, hosting patterns)
 5. **Indicators of compromise** (table: type, value, confidence, date)
-6. **Detection recommendations** (specific [Kibana](/docs/services/elastic-siem) rules referencing lab-generated queries)
+6. **Detection recommendations** (specific [Kibana](/CTI_as_a_Code/services/elastic-siem) rules referencing lab-generated queries)
 7. **Confidence assessment** (Admiralty Scale per major claim)
 
 ---
@@ -147,9 +147,9 @@ Structure your written product as:
 
 After running this workflow for one actor, the lab should have:
 
-- [OpenCTI](/docs/services/opencti): structured STIX2 profile with relationships
-- [Kibana](/docs/services/elastic-siem): 3–5 detection rules based on actor TTPs
-- [TheHive](/docs/services/thehive-cortex): research case with source attachments
+- [OpenCTI](/CTI_as_a_Code/services/opencti): structured STIX2 profile with relationships
+- [Kibana](/CTI_as_a_Code/services/elastic-siem): 3–5 detection rules based on actor TTPs
+- [TheHive](/CTI_as_a_Code/services/thehive-cortex): research case with source attachments
 - Exported STIX2 bundle ready for sharing
 
 For a real-world worked example of this workflow applied to a named actor, see the [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) research.
@@ -158,7 +158,7 @@ For a real-world worked example of this workflow applied to a named actor, see t
 
 ## Ecosystem
 
-- [Ecosystem overview](/docs/ecosystem) — all tools and integrations in the lab
-- [CTI as a Code Methodology](/docs/cti-as-a-code-methodology) — the step-by-step process this workflow fits into
+- [Ecosystem overview](/CTI_as_a_Code/ecosystem) — all tools and integrations in the lab
+- [CTI as a Code Methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the step-by-step process this workflow fits into
 - [CTI Portfolio](https://anpa1200.github.io/cti.html) — worked examples and published assessments
 - [CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/) — reference companion for threat actor research

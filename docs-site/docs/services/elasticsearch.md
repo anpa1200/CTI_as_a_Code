@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # Elasticsearch
 
-Elasticsearch 8.x acts as the shared data store for every service in the [lab stack](/docs/architecture): [OpenCTI](/docs/services/opencti), [TheHive](/docs/services/thehive-cortex), [Cortex](/docs/services/thehive-cortex), and [Kibana](/docs/services/elastic-siem) SIEM.
+Elasticsearch 8.x acts as the shared data store for every service in the [lab stack](/CTI_as_a_Code/architecture): [OpenCTI](/CTI_as_a_Code/services/opencti), [TheHive](/CTI_as_a_Code/services/thehive-cortex), [Cortex](/CTI_as_a_Code/services/thehive-cortex), and [Kibana](/CTI_as_a_Code/services/elastic-siem) SIEM.
 
 ## Configuration
 
@@ -24,7 +24,7 @@ Key settings:
 
 ## Credentials
 
-The `elastic` superuser password is set via the `ELASTIC_PASSWORD` environment variable at [first container startup](/docs/setup/first-run). If you change it after the fact, you must use the Elasticsearch API:
+The `elastic` superuser password is set via the `ELASTIC_PASSWORD` environment variable at [first container startup](/CTI_as_a_Code/setup/first-run). If you change it after the fact, you must use the Elasticsearch API:
 
 ```bash
 curl -X POST -u "elastic:OLD_PASSWORD" \
@@ -61,7 +61,7 @@ Expected output:
 }
 ```
 
-`yellow` is normal for a single-node cluster (replica shards cannot be assigned). See the [first-run checklist](/docs/setup/first-run) for expected health output.
+`yellow` is normal for a single-node cluster (replica shards cannot be assigned). See the [first-run checklist](/CTI_as_a_Code/setup/first-run) for expected health output.
 
 ## Useful queries
 
@@ -80,4 +80,4 @@ curl -u "elastic:$ELASTIC_PASSWORD" "http://localhost:9200/thehive/_stats/store?
 
 ## Ecosystem
 
-This service is part of the [lab stack](/docs/architecture). See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This service is part of the [lab stack](/CTI_as_a_Code/architecture). See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

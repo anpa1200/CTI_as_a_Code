@@ -16,7 +16,7 @@ URL: http://localhost:9100
 
 TheHive 5 in this lab uses:
 - **JanusGraph + BerkeleyDB** for its graph database (stored in `thehivedata:/data/db`)
-- [**Elasticsearch**](/docs/services/elasticsearch) for full-text indexing (`thehive` index)
+- [**Elasticsearch**](/CTI_as_a_Code/services/elasticsearch) for full-text indexing (`thehive` index)
 - **MinIO** (`thehive` bucket) for case file attachments
 
 ### Configuration
@@ -49,7 +49,7 @@ On first visit to http://localhost:9100:
 2. Create an admin user
 3. Log in with those credentials
 
-See the [TheHive setup guide](/docs/setup/thehive-setup) for the full walkthrough.
+See the [TheHive setup guide](/CTI_as_a_Code/setup/thehive-setup) for the full walkthrough.
 
 ---
 
@@ -90,7 +90,7 @@ For analyzers that require API keys, configure them under the analyzer settings 
 
 ### Connecting Cortex to TheHive
 
-See the [Cortex setup guide](/docs/setup/cortex-setup).
+See the [Cortex setup guide](/CTI_as_a_Code/setup/cortex-setup).
 
 ### Docker socket requirement
 
@@ -104,4 +104,4 @@ sudo usermod -aG docker $USER && newgrp docker
 
 ## Ecosystem
 
-This service is part of the [lab stack](/docs/architecture). See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This service is part of the [lab stack](/CTI_as_a_Code/architecture). See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

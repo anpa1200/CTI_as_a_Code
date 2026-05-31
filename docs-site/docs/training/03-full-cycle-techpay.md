@@ -21,7 +21,7 @@ You are the new CTI Lead at TechPay Israel, an Israeli payment processor handlin
 | P2 | Near-miss incident — authorized pentest mistaken for attack; €2.1B settlement disrupted | Already happened | DE team distrust; IR has no threat context process |
 | P3 | Recorded Future alert — TechPay domain in phishing campaign template | 3 weeks ago, unescalated | CISO trust in current CTI output: zero |
 | P4 | PCI-DSS Level 1 QSA assessment | 7 months | 3 open findings; Req. 12.3.2 CTI gap |
-| P5 | PayNext acquisition (140K merchants) — 3 open CVEs, no [SIEM](/docs/services/elastic-siem), separate AWS | Integration in 12 months | Unmonitored attack surface with CVSS 9.0 CVE |
+| P5 | PayNext acquisition (140K merchants) — 3 open CVEs, no [SIEM](/CTI_as_a_Code/services/elastic-siem), separate AWS | Integration in 12 months | Unmonitored attack surface with CVSS 9.0 CVE |
 
 ## Program Design Challenge
 
@@ -93,16 +93,16 @@ The Detection Engineering team's trust must be rebuilt through quality, not volu
 
 ## Cross-Links
 
-- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/pir-sir-eei/)
-- **Source reliability:** [Field Manual — Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/source-reliability/)
-- **Detection from CTI:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-- **TechPay detections under test:** [A04 — Operation Desert Cipher Emulation](./04-emulation-techpay)
-- **Government parallel (INCD program):** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa)
+- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
+- **Source reliability:** [Field Manual — Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
+- **Detection from CTI:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **TechPay detections under test:** [A04 — Operation Desert Cipher Emulation](./04-emulation-techpay.md)
+- **Government parallel (INCD program):** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
 
 ---
 
 ## Continue in the ecosystem
 
-- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
-- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
 - [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work

@@ -6,15 +6,15 @@ sidebar_position: 1
 
 # IOC Triage Workflow
 
-This workflow covers the end-to-end process of receiving a suspicious indicator, enriching it, correlating it with known threat intel, and producing a finished intelligence product. It is a core step in both the [reactive investigation](/docs/workflows/reactive-investigation) and [proactive assessment](/docs/workflows/proactive-assessment) workflows.
+This workflow covers the end-to-end process of receiving a suspicious indicator, enriching it, correlating it with known threat intel, and producing a finished intelligence product. It is a core step in both the [reactive investigation](/CTI_as_a_Code/workflows/reactive-investigation) and [proactive assessment](/CTI_as_a_Code/workflows/proactive-assessment) workflows.
 
 ## Scenario
 
-A [Kibana](/docs/services/elastic-siem) [SIEM](/docs/services/elastic-siem) detection rule fires on an outbound connection to an unknown IP. You need to determine whether it is malicious, attribute it if possible, and decide whether to escalate to a full incident.
+A [Kibana](/CTI_as_a_Code/services/elastic-siem) [SIEM](/CTI_as_a_Code/services/elastic-siem) detection rule fires on an outbound connection to an unknown IP. You need to determine whether it is malicious, attribute it if possible, and decide whether to escalate to a full incident.
 
 ---
 
-## Step 1: Alert triage in [Kibana](/docs/services/elastic-siem)
+## Step 1: Alert triage in [Kibana](/CTI_as_a_Code/services/elastic-siem)
 
 1. Navigate to **Security → Alerts**
 2. Find the alert: `Outbound connection to unknown external IP`
@@ -28,10 +28,10 @@ If the event looks anomalous, proceed to enrichment.
 
 ---
 
-## Step 2: Open a [TheHive](/docs/services/thehive-cortex) case
+## Step 2: Open a [TheHive](/CTI_as_a_Code/services/thehive-cortex) case
 
-1. In [Kibana](/docs/services/elastic-siem), copy the destination IP
-2. Open [TheHive](/docs/services/thehive-cortex) (http://localhost:9100)
+1. In [Kibana](/CTI_as_a_Code/services/elastic-siem), copy the destination IP
+2. Open [TheHive](/CTI_as_a_Code/services/thehive-cortex) (http://localhost:9100)
 3. **New Case → From scratch**
    - Title: `Suspicious outbound connection to <IP>`
    - TLP: AMBER
@@ -41,7 +41,7 @@ If the event looks anomalous, proceed to enrichment.
 
 ---
 
-## Step 3: [Cortex](/docs/services/thehive-cortex) enrichment
+## Step 3: [Cortex](/CTI_as_a_Code/services/thehive-cortex) enrichment
 
 1. In the Observables tab, select the IP observable
 2. Click **Actions → Analyze**
@@ -58,9 +58,9 @@ If the event looks anomalous, proceed to enrichment.
 
 ---
 
-## Step 4: Pivot in [OpenCTI](/docs/services/opencti)
+## Step 4: Pivot in [OpenCTI](/CTI_as_a_Code/services/opencti)
 
-1. Open [OpenCTI](/docs/services/opencti) (http://localhost:8080)
+1. Open [OpenCTI](/CTI_as_a_Code/services/opencti) (http://localhost:8080)
 2. Search for the IP in the search bar
 3. If the MITRE ATT&CK connector has been running, check:
    - Is the IP associated with any known **Intrusion Set**?
@@ -80,9 +80,9 @@ If no results, add the IP as a new indicator:
 
 If the IP belongs to a threat actor's infrastructure, expand the investigation:
 
-1. In [OpenCTI](/docs/services/opencti), view the IP entity → **Knowledge** tab
+1. In [OpenCTI](/CTI_as_a_Code/services/opencti), view the IP entity → **Knowledge** tab
 2. Explore the graph: look for related domains, other IPs, malware hashes
-3. For each new IOC found, add it as an observable in the [TheHive](/docs/services/thehive-cortex) case
+3. For each new IOC found, add it as an observable in the [TheHive](/CTI_as_a_Code/services/thehive-cortex) case
 
 Common pivots:
 - IP → WHOIS org → other IPs registered to same org
@@ -95,7 +95,7 @@ Common pivots:
 
 Check if the TTP pattern matches a known group:
 
-1. In [OpenCTI](/docs/services/opencti), review the **Techniques** associated with the linked malware
+1. In [OpenCTI](/CTI_as_a_Code/services/opencti), review the **Techniques** associated with the linked malware
 2. Compare against MITRE ATT&CK **Intrusion Sets** → **Techniques used** (explore interactively in [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/))
 3. If 3+ TTPs overlap with a known group, note it as a hypothesis (not a confirmed attribution)
 
@@ -105,15 +105,15 @@ Document confidence level in the TheHive case custom field `confidence_level`.
 
 ## Step 7: Close the case
 
-Update the [TheHive](/docs/services/thehive-cortex) case:
+Update the [TheHive](/CTI_as_a_Code/services/thehive-cortex) case:
 - **Status**: TruePositive / FalsePositive / Indeterminate
 - **Summary**: fill in the case summary with your findings
 - **Task**: mark enrichment tasks complete
 
 If escalating:
 - Raise severity to **High** or **Critical**
-- Add responders (block IP in firewall via [Cortex](/docs/services/thehive-cortex) responder if available)
-- Notify relevant stakeholders via [TheHive](/docs/services/thehive-cortex)'s notification rules
+- Add responders (block IP in firewall via [Cortex](/CTI_as_a_Code/services/thehive-cortex) responder if available)
+- Notify relevant stakeholders via [TheHive](/CTI_as_a_Code/services/thehive-cortex)'s notification rules
 
 ---
 
@@ -121,17 +121,17 @@ If escalating:
 
 | Artefact | Location |
 |---|---|
-| Enriched observables | [TheHive](/docs/services/thehive-cortex) case → Observables |
-| Analyzer reports | [TheHive](/docs/services/thehive-cortex) case → Observable → Analysis tab |
-| STIX indicator | [OpenCTI](/docs/services/opencti) → Analysis → Indicators |
-| Timeline evidence | [Kibana](/docs/services/elastic-siem) → Timeline (saved) |
-| Case report (PDF) | [TheHive](/docs/services/thehive-cortex) → Case → Export |
+| Enriched observables | [TheHive](/CTI_as_a_Code/services/thehive-cortex) case → Observables |
+| Analyzer reports | [TheHive](/CTI_as_a_Code/services/thehive-cortex) case → Observable → Analysis tab |
+| STIX indicator | [OpenCTI](/CTI_as_a_Code/services/opencti) → Analysis → Indicators |
+| Timeline evidence | [Kibana](/CTI_as_a_Code/services/elastic-siem) → Timeline (saved) |
+| Case report (PDF) | [TheHive](/CTI_as_a_Code/services/thehive-cortex) → Case → Export |
 
 ---
 
 ## Ecosystem
 
-- [Ecosystem overview](/docs/ecosystem) — all tools and integrations in the lab
-- [CTI as a Code Methodology](/docs/cti-as-a-code-methodology) — the step-by-step process this workflow fits into
+- [Ecosystem overview](/CTI_as_a_Code/ecosystem) — all tools and integrations in the lab
+- [CTI as a Code Methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the step-by-step process this workflow fits into
 - [CTI Portfolio](https://anpa1200.github.io/cti.html) — worked examples and published assessments
 - [CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/) — reference companion for IOC triage

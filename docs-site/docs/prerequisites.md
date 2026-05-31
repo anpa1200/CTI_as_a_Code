@@ -6,7 +6,7 @@ sidebar_position: 3
 
 # Prerequisites
 
-Requirements for running the [CTI as a Code lab](/docs/architecture) on a single Linux host. Once these are met, follow the [Quick Start](/docs/quick-start) to bring up all services.
+Requirements for running the [CTI as a Code lab](/CTI_as_a_Code/architecture) on a single Linux host. Once these are met, follow the [Quick Start](/CTI_as_a_Code/quick-start) to bring up all services.
 
 ## Host requirements
 
@@ -89,6 +89,6 @@ ss -tlnp | grep -E '8080|9200|9100|9002|9000|9001|5601|15672|5672|5044|9600'
 
 ## Next steps
 
-- **[Quick Start](/docs/quick-start)** — bring the lab up in 10 minutes
-- **[Architecture](/docs/architecture)** — understand how services are wired together
-- **[Ecosystem](/docs/ecosystem)** — see how this lab fits in the broader [CTI Portfolio](https://anpa1200.github.io/cti.html)
+- **[Quick Start](/CTI_as_a_Code/quick-start)** — bring the lab up in 10 minutes
+- **[Architecture](/CTI_as_a_Code/architecture)** — understand how services are wired together
+- **[Ecosystem](/CTI_as_a_Code/ecosystem)** — see how this lab fits in the broader [CTI Portfolio](https://anpa1200.github.io/cti.html)

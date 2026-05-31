@@ -33,11 +33,11 @@ Real investigations worked end-to-end using the CTI as a Code methodology — fr
 
 | Case Study | Scenario | Key Techniques | Article |
 |---|---|---|---|
-| **[LifeTech Pharma — Reactive IR](/docs/lifetech-pharma-case-study)** | Dual-entry pharmaceutical IP theft — AiTM + CFO phishing, DCSync, 381 MB exfiltration | T1557 · T1003.006 · T1133 · RBQL anomaly detection · Cobalt Strike beacon analysis | [Medium](https://medium.com/@1200km/cti-as-a-code-in-practice-reactive-investigation-lifetech-pharma-3e6574b7b85f) |
+| **[LifeTech Pharma — Reactive IR](/CTI_as_a_Code/lifetech-pharma-case-study)** | Dual-entry pharmaceutical IP theft — AiTM + CFO phishing, DCSync, 381 MB exfiltration | T1557 · T1003.006 · T1133 · RBQL anomaly detection · Cobalt Strike beacon analysis | [Medium](https://medium.com/@1200km/cti-as-a-code-in-practice-reactive-investigation-lifetech-pharma-3e6574b7b85f) |
 
 Each case study maps directly to a training assignment, a full technical walkthrough, and an ATT&CK Navigator layer:
 
-- **LifeTech Pharma:** [Case study](/docs/lifetech-pharma-case-study) · [Technical walkthrough](/docs/reactive-walkthrough) · [Assignment A01](/docs/training/01-reactive-lifetech) · [ATT&CK Navigator layer](/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json)
+- **LifeTech Pharma:** [Case study](/CTI_as_a_Code/lifetech-pharma-case-study) · [Technical walkthrough](/CTI_as_a_Code/reactive-walkthrough) · [Assignment A01](/CTI_as_a_Code/training/reactive-lifetech/) · [ATT&CK Navigator layer](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json)
 
 ---
 
@@ -59,11 +59,11 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 
 ### Reactive Investigation → Sigma Rule → Lab Validation
 
-1. Read the **[LifeTech Pharma case study](/docs/lifetech-pharma-case-study)** as a worked example of the full flow
-2. Run the same investigation yourself with [Assignment A01](/docs/training/01-reactive-lifetech) or [A05](/docs/training) as the scenario
-3. Apply [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/) and [Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/source-reliability/) to each timeline event
-4. Convert findings to detection logic using [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-5. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/docs/training) or [A08](/docs/training) emulation methodology
+1. Read the **[LifeTech Pharma case study](/CTI_as_a_Code/lifetech-pharma-case-study)** as a worked example of the full flow
+2. Run the same investigation yourself with [Assignment A01](/CTI_as_a_Code/training/reactive-lifetech/) or [A05](/CTI_as_a_Code/training) as the scenario
+3. Apply [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/) and [Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/) to each timeline event
+4. Convert findings to detection logic using [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+5. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/CTI_as_a_Code/training) or [A08](/CTI_as_a_Code/training) emulation methodology
 6. Use [HexStrike AI](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage
 
 ### Threat Modeling → Detection Backlog → Customer Project
@@ -76,13 +76,13 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 ### CTI Program Build → INCD Compliance
 
 1. Use [A07 (NDSA full-cycle program)](/training/full-cycle-ndsa) as the governance framework template
-2. Apply [Field Manual — PIR/SIR framework](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/pir-sir-eei/) for requirement design
+2. Apply [Field Manual — PIR/SIR framework](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/) for requirement design
 3. Use [A08 compliance report](/training/emulation-ndsa) as the detection validation evidence format
 4. Cross-reference [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) for INCD regulatory framework context
 
 ### Actor Profile → Sector Context → Detection
 
-1. Use [Field Manual — Actor Research](https://anpa1200.github.io/cti-analyst-field-manual/docs/actor-research/) to structure the actor profile
+1. Use [Field Manual — Actor Research](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/actor-research/) to structure the actor profile
 2. Use [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) for the Iranian-nexus cluster context relevant to A05–A08
 3. Extract detection-relevant TTPs using [A04 TTP extraction methodology](/training/emulation-techpay)
 4. Turn the profile into a customer project with [Customer-Driven AI CTI](https://anpa1200.github.io/customer-driven-ai-cti-project/)

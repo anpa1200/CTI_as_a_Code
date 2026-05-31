@@ -315,7 +315,7 @@ at 18:47. IR Lead paged at 18:52. Intake call started at 18:55.
 - VPN / authentication logs: [x] Yes — Cisco AnyConnect VPN, logs in Splunk.
 - Database audit logs: [x] Yes — SQL audit on SERVER-RD-02 (partial EIDs only).
 - Network flow / firewall logs: [x] Yes — Palo Alto NGFW. RETENTION: 14 days only.
-  ⚠ SERVER-RD-02 outbound logs will expire 2024-11-29 for today's traffic.
+  WARNING: SERVER-RD-02 outbound logs will expire 2024-11-29 for today's traffic.
 - Email gateway logs: [x] Yes — M365 Message Trace, 30-day retention. ATP enabled.
   NOTE: ATP sandbox NOT enabled for xlsm files — policy gap identified.
 - Cloud provider logs: [x] Yes — Azure AD sign-in logs, 30-day retention.
@@ -331,7 +331,7 @@ at 18:47. IR Lead paged at 18:52. Intake call started at 18:55.
 - [x] TheHive / OpenCTI lab access
 
 **5.3 Are there any systems the analyst should NOT touch?**
-⚠ WS-IT-LEVI (Paz Levi, IT Admin): LEGAL HOLD issued at 20:45 IST today.
+WARNING: WS-IT-LEVI (Paz Levi, IT Admin): LEGAL HOLD issued at 20:45 IST today.
   HR investigation underway — UNRELATED to this incident (employment matter).
   Hardware access BLOCKED for 48–72 hours per Legal counsel (Adv. Dina Shapiro).
   Remote CrowdStrike RTR is PERMITTED — confirmed by Legal.
@@ -417,7 +417,7 @@ partner disclosure obligation if formula data confirmed exfiltrated.
 | 1 | Take memory dump of WS-CFO-01 via CrowdStrike RTR before C2 session ends | Yael (CTI) | Immediate |
 | 2 | Enrich 203.0.113.87 — VirusTotal, Shodan, passive DNS, ASN lookup | Yael (CTI) | Within 30 min |
 | 3 | Pull M365 Message Trace for m.cohen last 48h — identify delivery vector | Omer (Tier 1) | Within 30 min |
-| 4 | Retrieve Palo Alto firewall logs for WS-CFO-01 and SERVER-RD-02 — full available window | Ran (SOC) | Within 1h ⚠ retention risk |
+| 4 | Retrieve Palo Alto firewall logs for WS-CFO-01 and SERVER-RD-02 — full available window | Ran (SOC) | Within 1h WARNING: retention risk |
 | 5 | Check Azure AD sign-in logs for m.cohen and p.levi — last 30 days | Yael (CTI) | Within 1h |
 | 6 | Confirm SERVER-RD-02 USPartner2024 directory access — pull EID 4663 from Splunk | Yael (CTI) | Within 2h |
 | 7 | Open TheHive case PROJ-2024-001, attach this intake as first observable | Yael (CTI) | Within 30 min |
@@ -617,13 +617,13 @@ Information reliability: 1 (confirmed by other sources) – 6 (truth cannot be j
 
 | ID | Source | Systems Covered | Type | Admiralty | Retention | Notes / Gaps |
 |---|---|---|---|---|---|---|
-| INT-001 | CrowdStrike Falcon EDR | WS-CFO-01, SERVER-FIN-01 | Endpoint telemetry | A/2 | 90 days | ⚠ NOT deployed on SERVER-RD-02, DC01, or any of 12 R&D servers |
-| INT-002 | Sysmon (via Winlogbeat → Splunk) | WS-CFO-01, WS-IT-LEVI | Endpoint telemetry | A/2 | 30 days in Splunk | ⚠ WS-IT-LEVI: 10-day gap 2024-10-22–2024-11-01 (GAP-001). NOT on any server |
+| INT-001 | CrowdStrike Falcon EDR | WS-CFO-01, SERVER-FIN-01 | Endpoint telemetry | A/2 | 90 days | WARNING: NOT deployed on SERVER-RD-02, DC01, or any of 12 R&D servers |
+| INT-002 | Sysmon (via Winlogbeat → Splunk) | WS-CFO-01, WS-IT-LEVI | Endpoint telemetry | A/2 | 30 days in Splunk | WARNING: WS-IT-LEVI: 10-day gap 2024-10-22–2024-11-01 (GAP-001). NOT on any server |
 | INT-003 | Windows Security Event Log | SERVER-RD-02, DC01, SERVER-FIN-01 | Auth / object access | B/2 | 30 days in Splunk | Partial: EID 4624, 4662, 4663 only forwarded. Full DC01 log inaccessible |
 | INT-004 | Palo Alto NGFW — DNS logs | Perimeter (all hosts) | DNS telemetry | A/2 | 30 days | Full org coverage. Used for C2 domain pivot |
-| INT-005 | Palo Alto NGFW — firewall flows | Perimeter (all hosts) | Network flow | A/2 | **14 days only** | ⚠ SERVER-RD-02 Nov 6 outbound traffic expires 2024-11-20. Retrieve immediately |
+| INT-005 | Palo Alto NGFW — firewall flows | Perimeter (all hosts) | Network flow | A/2 | **14 days only** | WARNING: SERVER-RD-02 Nov 6 outbound traffic expires 2024-11-20. Retrieve immediately |
 | INT-006 | Cisco AnyConnect VPN logs | Remote access (all users) | Auth / session | A/2 | 30 days in Splunk | Full session data including source IP, duration, MFA status |
-| INT-007 | M365 Message Trace | Exchange Online (all users) | Email delivery | A/2 | 30 days | ATP enabled but ⚠ sandbox NOT enabled for .xlsm files — attachment was delivered uninspected |
+| INT-007 | M365 Message Trace | Exchange Online (all users) | Email delivery | A/2 | 30 days | ATP enabled but WARNING: sandbox NOT enabled for .xlsm files — attachment was delivered uninspected |
 | INT-008 | Azure AD sign-in logs | Cloud auth (all users) | Auth / session | A/2 | 30 days | Includes MFA status, conditional access result, source IP, device |
 | INT-009 | SQL Server audit log (SERVER-RD-02) | SERVER-RD-02 databases | Object access | B/3 | 30 days | Partial EIDs only. File-level access (EID 4663) confirmed for USPartner2024 |
 | INT-010 | RADIUS log (VPN auth) | VPN gateway | Auth | A/2 | 30 days | Corroborates AnyConnect session data — used to validate SessionID match |
@@ -1429,7 +1429,7 @@ Six events: enumerate → recon (SELECT AuditLog) → stage → exfil → cleanu
 Press `Ctrl+F`, search `4662` — jumps to the DCSync event. The `analyst_note` gives the human-readable summary in the file itself:
 
 ```
-🔴 CRITICAL: DCSync — DS-Replication-Get-Changes + DS-Replication-Get-Changes-All
+CRITICAL: DCSync — DS-Replication-Get-Changes + DS-Replication-Get-Changes-All
 from WORKSTATION IP 10.10.3.22 (WS-IT-LEVI). NOT a DC. NOT in pentest VLAN (10.10.99.x).
 ```
 
@@ -2283,7 +2283,7 @@ The investigation faces a key analytical question: Path A (CFO phishing, Novembe
 
 The actor compromised the IT admin first (October 22), used that access for data theft (November 6), then independently targeted the CFO to expand access to finance data. The two phishing lures used different delivery infrastructure (different sender domains, different sending IPs from the same /24 block) — consistent with an actor who maintains parallel operational tracks.
 
-**Attribution confidence: Medium-High.** Apply the [confidence ladder from Step R5 of the methodology](/docs/cti-as-a-code-methodology#step-r5-attribution-assessment) to score this case:
+**Attribution confidence: Medium-High.** Apply the [confidence ladder from Step R5 of the methodology](/CTI_as_a_Code/cti-as-a-code-methodology#step-r5-attribution-assessment) to score this case:
 
 | Criterion | Present? | Notes |
 |---|---|---|

@@ -47,7 +47,7 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 |---|---|---|---|---|
 | DB-001 | T1078 / T1110.003 | VPN: >10 failed auth from one IP in 5 min | Data already in Splunk | S1 |
 | DB-002 | T1003.006 | EID 4662 DS-Replication-Get-Changes (not DC/AAD-Connect) | Enable Advanced Audit Policy all 3 DCs | S1 |
-| DB-003 | T1059.001 | powershell.exe with -Enc or -EncodedCommand | [Elastic SIEM](/docs/services/elastic-siem) EID 1 already in Splunk | S1 |
+| DB-003 | T1059.001 | powershell.exe with -Enc or -EncodedCommand | [Elastic SIEM](/CTI_as_a_Code/services/elastic-siem) EID 1 already in Splunk | S1 |
 | DB-004 | T1078.004 | CloudTrail AssumeRole from unexpected IP for NetSys role | CloudTrail → Splunk integration (3 days) | S1→S2 |
 | DB-005 | T1530 | BigQuery job bytes_processed >10 GB from non-analytics account | GCP Pub/Sub → Splunk (2 weeks) | S2→S3 |
 
@@ -76,16 +76,16 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 
 ## Cross-Links
 
-- **Detection methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-- **Evidence discipline:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/)
-- **Same VPN and AiTM TTPs in incident context:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech)
-- **TechPay CTI program (same ecosystem):** [A03 — Full Cycle CTI TechPay](./03-full-cycle-techpay)
+- **Detection methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **Evidence discipline:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
+- **Same VPN and AiTM TTPs in incident context:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech.md)
+- **TechPay CTI program (same ecosystem):** [A03 — Full Cycle CTI TechPay](./03-full-cycle-techpay.md)
 - **Israeli telecom sector threat context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
 
 ---
 
 ## Continue in the ecosystem
 
-- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
-- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
 - [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work

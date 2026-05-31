@@ -9,7 +9,7 @@ sidebar_position: 9
 
 ## Scenario
 
-INCD-CID Section 8 requires annual detection validation for critical national infrastructure. NDSA's first annual exercise validates the GovID 2.0 and VRID detection stack against [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) tradecraft drawn from the [A05](/docs/training/05-reactive-ndsa) breach, CERT-IL CB-2025-041, and Operation Desert Cipher. You have pre-notification filed with INCD (code INCD-2026-SEC8-0017), MATZBEN Security Officer approval per module, and a CAB-approved change window. Execute 11 modules, track PASS/PARTIAL/FAIL, and produce a BoI-CD 362 Section 8 compliance report.
+INCD-CID Section 8 requires annual detection validation for critical national infrastructure. NDSA's first annual exercise validates the GovID 2.0 and VRID detection stack against [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) tradecraft drawn from the [A05](/CTI_as_a_Code/training/reactive-ndsa/) breach, CERT-IL CB-2025-041, and Operation Desert Cipher. You have pre-notification filed with INCD (code INCD-2026-SEC8-0017), MATZBEN Security Officer approval per module, and a CAB-approved change window. Execute 11 modules, track PASS/PARTIAL/FAIL, and produce a BoI-CD 362 Section 8 compliance report.
 
 **Lab environment:** JUMPHOST-CONTRACTOR-LAB · VRID-LAB-SRV · CyberShield Ltd. red team
 
@@ -35,7 +35,7 @@ INCD-CID Section 8 requires annual detection validation for critical national in
 
 | Gap | ATT&CK | Root Cause | INCD Risk | Priority |
 |---|---|---|---|---|
-| No exfiltration volume rule | T1041 | No NetFlow/Zeek source in [Elastic SIEM](/docs/services/elastic-siem); no threshold rule | Yes — 413 MB exfiltrated in A05 undetected | P1 |
+| No exfiltration volume rule | T1041 | No NetFlow/Zeek source in [Elastic SIEM](/CTI_as_a_Code/services/elastic-siem); no threshold rule | Yes — 413 MB exfiltrated in A05 undetected | P1 |
 | HKCU registry not monitored | T1547.001 | Sysmon EID 13 covers HKLM only | Yes — contractor-level persistence invisible | P1 |
 | GOV-DET-006 biometric bulk API not deployed | T1530 | CAB CR not submitted before exercise | Yes — core GovID 2.0 threat unvalidated | P1 |
 | GOV-DET-007 API rate limit bypass not deployed | T1110 | CAB CR not submitted before exercise | Yes | P1 |
@@ -74,19 +74,19 @@ INCD-CID Section 8 requires annual detection validation for critical national in
 
 ## Cross-Links
 
-- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://anpa1200.github.io/cti-analyst-field-manual/docs/frameworks/mitre-attack-as-working-tool/)
-- **Same TTPs in private sector emulation:** [A04 — Operation Desert Cipher TechPay](./04-emulation-techpay)
-- **Detections under test built in:** [A06 — Proactive GovID 2.0](./06-proactive-govid2)
-- **Incident that sourced the TTPs:** [A05 — NDSA Reactive IR](./05-reactive-ndsa)
+- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
+- **Same TTPs in private sector emulation:** [A04 — Operation Desert Cipher TechPay](./04-emulation-techpay.md)
+- **Detections under test built in:** [A06 — Proactive GovID 2.0](./06-proactive-govid2.md)
+- **Incident that sourced the TTPs:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)
 - **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
 
 ---
 
 ## Continue in the ecosystem
 
-- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
-- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
 - [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
 
 ## Critical Execution Note

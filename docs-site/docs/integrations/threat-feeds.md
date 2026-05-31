@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # Threat Feeds and Data Sources
 
-Populate the lab with real threat intelligence by connecting external feeds. See the [ecosystem](/docs/ecosystem) for how feeds fit into the overall [lab stack](/docs/architecture).
+Populate the lab with real threat intelligence by connecting external feeds. See the [ecosystem](/CTI_as_a_Code/ecosystem) for how feeds fit into the overall [lab stack](/CTI_as_a_Code/architecture).
 
 ## [OpenCTI](https://www.opencti.io/) connectors
 
@@ -65,9 +65,9 @@ connector-alienvault:
 
 Add `OTX_API_KEY=<your-key>` to `.env`.
 
-## [Elastic SIEM](/docs/services/elastic-siem) threat intelligence feeds
+## [Elastic SIEM](/CTI_as_a_Code/services/elastic-siem) threat intelligence feeds
 
-[Kibana](/docs/services/elastic-siem)'s **Threat Intelligence** module can ingest STIX/TAXII feeds directly:
+[Kibana](/CTI_as_a_Code/services/elastic-siem)'s **Threat Intelligence** module can ingest STIX/TAXII feeds directly:
 
 1. **Security → Intelligence → Add new data source**
 2. Select **TAXII** or **Manual upload**
@@ -87,7 +87,7 @@ Built-in indicator match rules in Kibana will fire when logs contain indicators 
 ## MISP integration (optional)
 
 If you add a standalone MISP instance to the lab, connect it bidirectionally:
-- [OpenCTI](/docs/services/opencti) → MISP: via `opencti/connector-misp` (export)
+- [OpenCTI](/CTI_as_a_Code/services/opencti) → MISP: via `opencti/connector-misp` (export)
 - MISP → OpenCTI: via `opencti/connector-misp-feed` (import)
 
 A full MISP [Docker Compose](https://docs.docker.com/compose/) deployment guide: https://github.com/MISP/misp-docker
@@ -96,4 +96,4 @@ A full MISP [Docker Compose](https://docs.docker.com/compose/) deployment guide:
 
 ## Ecosystem
 
-See the full [ecosystem](/docs/ecosystem) overview, the [OpenCTI-TheHive integration](/docs/integrations/opencti-thehive) for how feeds connect to cases, or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview, the [OpenCTI-TheHive integration](/CTI_as_a_Code/integrations/opencti-thehive) for how feeds connect to cases, or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
