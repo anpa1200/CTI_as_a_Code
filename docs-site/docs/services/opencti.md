@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # OpenCTI
 
-OpenCTI is the core threat intelligence platform. It stores STIX2 objects (threat actors, attack patterns, malware, campaigns, IOCs) and provides a graph-based investigation interface.
+[OpenCTI](https://www.opencti.io/) is the core threat intelligence platform. It stores STIX2 objects (threat actors, attack patterns, malware, campaigns, IOCs) and provides a graph-based investigation interface.
 
 ## Access
 
@@ -25,7 +25,7 @@ Three containers make up the OpenCTI stack:
 
 ## Configuration
 
-All settings are passed as environment variables in `docker-compose.yml`. Key variables:
+All settings are passed as environment variables in [`docker-compose.yml`](/docs/architecture). Key variables:
 
 | Variable | Description |
 |---|---|
@@ -43,7 +43,7 @@ Start with:
 docker compose --profile connectors up -d
 ```
 
-On first run, the connector fetches the full STIX2 ATT&CK Enterprise bundle from MITRE. It runs once every 7 days (`MITRE_INTERVAL=7`).
+On [first run](/docs/setup/first-run), the connector fetches the full STIX2 ATT&CK Enterprise bundle from MITRE. It runs once every 7 days (`MITRE_INTERVAL=7`).
 
 After sync, in OpenCTI you will find:
 - **Attack Patterns** — all Enterprise techniques and sub-techniques
@@ -54,7 +54,7 @@ After sync, in OpenCTI you will find:
 
 ## Adding more connectors
 
-OpenCTI connectors run as separate containers. To add one, append a service to `docker-compose.yml`:
+OpenCTI connectors run as separate containers. To add one, append a service to [`docker-compose.yml`](https://docs.docker.com/compose/):
 
 ```yaml
 connector-misp-feed:
@@ -82,7 +82,7 @@ A full connector catalog is at: https://github.com/OpenCTI-Platform/connectors
 
 ## API access
 
-OpenCTI exposes a GraphQL API at `http://localhost:8080/graphql`. Authenticate with your admin token:
+OpenCTI exposes a GraphQL API at `http://localhost:8080/graphql`. See the [OpenCTI setup](/docs/setup/opencti-setup) page for creating API users. Authenticate with your admin token:
 
 ```bash
 curl -X POST http://localhost:8080/graphql \
@@ -90,3 +90,9 @@ curl -X POST http://localhost:8080/graphql \
   -H "Content-Type: application/json" \
   -d '{"query":"{ about { version } }"}'
 ```
+
+---
+
+## Ecosystem
+
+This service is part of the [lab stack](/docs/architecture). See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

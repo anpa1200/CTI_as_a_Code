@@ -10,6 +10,38 @@ sidebar_position: 4
 
 ---
 
+## Contents
+
+- [Why This Methodology Exists](#why-this-methodology-exists)
+- [The Four Operational Modes](#the-four-operational-modes)
+- [Setup: Get the Repository and Start the Lab](#setup-get-the-repository-and-start-the-lab)
+- [Step 1: Initial Information Gathering — Ask Before You Look](#step-1-initial-information-gathering--ask-before-you-look)
+- [Step 2: Create Your Project Folder from the Template](#step-2-create-your-project-folder-from-the-template)
+- [Step 3: Scope the Project](#step-3-scope-the-project)
+- **Reactive Mode**
+  - [Step R1: Collect and Inventory Evidence](#step-r1-collect-and-inventory-evidence)
+  - [Step R2: Build the Timeline with Evidence Labels](#step-r2-build-the-timeline-with-evidence-labels)
+  - [Step R3: Claims Ledger](#step-r3-claims-ledger)
+  - [Step R4: ATT&CK Mapping with Gap Classification](#step-r4-attck-mapping-with-gap-classification)
+  - [Step R5: Attribution Assessment](#step-r5-attribution-assessment)
+  - [Step R6: Derive Sigma Rules for Every Missed Technique](#step-r6-derive-sigma-rules-for-every-missed-technique)
+  - [Step R7: Produce Deliverables](#step-r7-produce-deliverables)
+- **Proactive Mode**
+  - [Step P1: Copy the Template](#step-p1-copy-the-template)
+  - [Step P2: Run the Intake](#step-p2-run-the-intake)
+  - [Step P3: Assess Trigger Intelligence](#step-p3-assess-trigger-intelligence)
+  - [Step P4: Crown Jewels Analysis](#step-p4-crown-jewels-analysis)
+  - [Step P5: Model Attack Scenarios](#step-p5-model-attack-scenarios)
+  - [Step P6: Build the Detection Backlog](#step-p6-build-the-detection-backlog)
+- [Full Cycle Mode: Building a CTI Program](#full-cycle-mode-building-a-cti-program)
+- [Adversary Emulation Mode: Validating Coverage](#adversary-emulation-mode-validating-coverage)
+- [Git Discipline — The Same for All Modes](#git-discipline--the-same-for-all-modes)
+- [Minimum-Viable Path: No Lab Required](#minimum-viable-path-no-lab-required)
+- [The Ecosystem](#the-ecosystem)
+- [Where to Start](#where-to-start)
+
+---
+
 ## Why This Methodology Exists
 
 Most CTI work degrades in three predictable ways:
@@ -36,6 +68,8 @@ Before picking up a tool, identify which mode you are in:
 | **Adversary Emulation** | Validating whether built detections actually work | A CTI report describing adversary TTPs | Emulation plan, PASS/PARTIAL/FAIL matrix, compliance evidence |
 
 The four modes share the same scaffold, the same analytical discipline, and the same git workflow. The difference is which steps you run and in what order.
+
+![The four operational modes — when to use each and what it produces](/img/infographic-four-modes.png)
 
 ---
 
@@ -93,6 +127,8 @@ Once running:
 | Kibana / SIEM | http://localhost:5601 | Detection rule management, alert triage, timeline visualization |
 | Elasticsearch | http://localhost:9200 | Shared data store for all services |
 
+![CTI services overview — URLs, roles, and what each service does](/img/infographic-services.png)
+
 You do not need the lab to run the methodology. The minimum-viable path at the end of this article covers what to use instead.
 
 ---
@@ -113,250 +149,7 @@ Run this as a structured conversation — a call, a meeting, or a written intake
 
 ---
 
-### Intake Template: First Critical Questions
-
-Copy this template to `00-scope/intake.md` and fill it in during or immediately after the initial call.
-
-```markdown
-# Investigation Intake — [Project Name] — [Date]
-
-Completed by: [analyst name]
-Intake call with: [name, role]
-Call time: [date] [time] [timezone]
-
----
-
-## 1. What was reported?
-
-**1.1 What did you see or receive that caused you to raise this?**
-(Exact words from the reporter — do not paraphrase yet)
-
-
-**1.2 Where did this first come to your attention?**
-[ ] Alert from SIEM / EDR / AV
-[ ] User complaint or helpdesk ticket
-[ ] External notification (CERT-IL, partner, vendor)
-[ ] Periodic log review
-[ ] Other: _______________
-
-
-**1.3 When did you first notice it?**
-Date: __________ Time: __________ Timezone: __________
-
-
-**1.4 Do you believe the activity is still ongoing?**
-[ ] Yes — still active
-[ ] No — appears to have stopped (when? ___________)
-[ ] Unknown
-
-
----
-
-## 2. What is already known?
-
-**2.1 What systems, accounts, or services appear to be involved?**
-(List hostnames, IPs, usernames exactly as the reporter knows them — we will verify later)
-
-
-**2.2 What was the observed behavior?**
-(Exact description — "database was slow", "account locked", "file appeared on server", etc.)
-
-
-**2.3 Has anyone else already investigated or looked into this?**
-[ ] Yes — who: ______________ what did they do: ______________
-[ ] No
-[ ] Unknown
-
-If yes: **what did they touch or change?** This is critical for evidence integrity.
-
-
-**2.4 What do you think happened?**
-(Their hypothesis — we are not confirming it yet, just capturing it)
-
-
----
-
-## 3. Timeline of discovery
-
-**3.1 When do you believe the activity started?**
-[ ] Known: __________
-[ ] Estimated: approximately __________
-[ ] Unknown — this needs to be determined
-
-**3.2 How long do you estimate the activity has been occurring?**
-(Hours / Days / Weeks / Unknown)
-
-**3.3 Is there a specific event that triggered the alert or complaint?**
-(e.g., "user reported they couldn't log in", "SOC saw an alert at 03:14", "customer called about unauthorized charges")
-
-
----
-
-## 4. What has already been done?
-
-> This section determines whether evidence has been preserved or potentially tainted.
-
-**4.1 Has any system been rebooted, shut down, or reimaged since the activity was discovered?**
-[ ] Yes — which systems: ______________ when: ______________
-[ ] No
-[ ] Unknown
-
-**4.2 Have any credentials, tokens, or API keys been rotated or revoked?**
-[ ] Yes — which: ______________ when: ______________
-[ ] No
-[ ] Unknown
-
-**4.3 Has any network access been blocked or firewall rules been changed?**
-[ ] Yes — what: ______________
-[ ] No
-[ ] Unknown
-
-**4.4 Has any malware been deleted or quarantined?**
-[ ] Yes — by whom: ______________ was a copy preserved: [ ] Yes [ ] No
-[ ] No
-[ ] Unknown
-
-**4.5 Has anyone notified external parties (regulators, law enforcement, CERT, customers)?**
-[ ] Yes — who was notified: ______________ when: ______________
-[ ] No — are there notification obligations that may apply? (see section 7)
-[ ] Unknown
-
-
----
-
-## 5. Systems and access
-
-**5.1 What logging is expected to exist for the affected systems?**
-(Ask what they know — we will verify against what we actually find)
-- Endpoint logs (Sysmon, Winlogbeat, EDR): [ ] Yes [ ] No [ ] Unknown
-- VPN / authentication logs: [ ] Yes [ ] No [ ] Unknown
-- Database audit logs: [ ] Yes [ ] No [ ] Unknown
-- Network flow / firewall logs: [ ] Yes [ ] No [ ] Unknown
-- Email gateway logs: [ ] Yes [ ] No [ ] Unknown
-- Cloud provider logs (Azure AD, AWS CloudTrail, GCP): [ ] Yes [ ] No [ ] Unknown
-
-**5.2 What tools and access does the analyst have?**
-- [ ] Admin access to affected hosts (remote or physical)
-- [ ] Read access to SIEM
-- [ ] Access to EDR console
-- [ ] Access to network equipment / firewall logs
-- [ ] Access to cloud console
-- [ ] Access to email gateway
-- [ ] VPN / jump host credentials
-- [ ] TheHive / OpenCTI lab access
-
-**5.3 Are there any systems the analyst should NOT touch?**
-(Legal hold, systems under active monitoring by law enforcement, production critical systems)
-
-
----
-
-## 6. Business impact
-
-**6.1 What business processes are affected or at risk?**
-
-
-**6.2 Is customer data, employee data, or regulated data potentially involved?**
-[ ] Yes — what type: ______________
-[ ] No
-[ ] Unknown
-
-**6.3 What is the financial exposure if this is confirmed?**
-(Rough estimate — for prioritization only)
-
-**6.4 Is there a hard deadline driving this investigation?**
-(Regulatory notification window, board meeting, press disclosure, customer SLA)
-[ ] Yes — deadline: ______________
-[ ] No
-
-
----
-
-## 7. Regulatory and legal constraints
-
-**7.1 Are there applicable notification requirements?**
-| Regulation | Applicable? | Deadline | Notified? |
-|---|---|---|---|
-| INCD (Israeli critical infrastructure) | [ ] Yes [ ] No [ ] TBD | 72h from discovery | [ ] Yes [ ] No |
-| Biometric Database Authority | [ ] Yes [ ] No [ ] TBD | Per Biometric Database Law | [ ] Yes [ ] No |
-| BoI-CD 362 (Israeli financial) | [ ] Yes [ ] No [ ] TBD | 24h initial, 72h full | [ ] Yes [ ] No |
-| GDPR | [ ] Yes [ ] No [ ] TBD | 72h from awareness | [ ] Yes [ ] No |
-| PCI-DSS | [ ] Yes [ ] No [ ] TBD | Immediate | [ ] Yes [ ] No |
-| Other: ______________ | | | |
-
-**7.2 Is there an active legal hold on any systems or data?**
-[ ] Yes — what systems: ______________
-[ ] No
-[ ] Unknown — escalate to legal before collecting
-
-**7.3 Has legal counsel been notified?**
-[ ] Yes [ ] No — should they be? ______________
-
-
----
-
-## 8. Stakeholders and communication
-
-**8.1 Who commissioned this investigation?**
-Name: ______________ Role: ______________ Contact: ______________
-
-**8.2 Who receives updates and deliverables?**
-| Name | Role | Update frequency | TLP limit |
-|---|---|---|---|
-| | | | |
-
-**8.3 Who should NOT be told about this investigation yet?**
-(Suspect insider, pending law enforcement action, need-to-know restriction)
-
-
-**8.4 What is the classification/TLP for this investigation?**
-[ ] TLP:RED (recipients only)
-[ ] TLP:AMBER (organization and trusted partners)
-[ ] TLP:GREEN (community)
-[ ] TLP:CLEAR (public)
-
-
----
-
-## 9. Analyst assessment after intake
-
-> Fill this in after the call — your initial read before opening any logs.
-
-**9.1 What is your initial hypothesis based on intake alone?**
-
-
-**9.2 What are the 3 most important questions this investigation must answer?**
-(These become the basis for PIRs)
-1.
-2.
-3.
-
-**9.3 What is the highest-risk gap you identified in the intake?**
-(Evidence that may have been tainted, logging that may not exist, notification deadline at risk)
-
-
-**9.4 What is your recommended immediate action before analysis begins?**
-(e.g., "Preserve HOST-01 memory image before any reboot", "Verify DB audit logging is enabled",
-"Notify legal before collecting from db-01")
-
-
-**9.5 Estimated investigation complexity:**
-[ ] Simple — single system, clear timeline, < 1 day analysis
-[ ] Moderate — 2–5 systems, some log gaps, 1–3 day analysis
-[ ] Complex — multiple systems, significant gaps, regulatory exposure, > 3 days
-```
-
----
-
-### Why each section matters
-
-**Section 4 (what has already been done)** is the most commonly skipped and the most dangerous to miss. If a system was rebooted before collection, volatile memory evidence is gone. If malware was quarantined without preserving a copy, you cannot analyze it. If credentials were rotated before you can correlate session IDs, the trail goes cold. You need to know this before you touch a single log.
-
-**Section 5.3 (systems not to touch)** prevents contaminating law enforcement evidence or triggering monitoring that alerts the adversary. If someone is under investigation for insider threat and you start querying their account in the SIEM, you may blow the operation.
-
-**Section 7 (regulatory)** sets hard deadlines that override your investigation timeline. If INCD notification is due in 72 hours from discovery, and discovery was 48 hours ago, you have 24 hours before a regulator gets a call regardless of where your analysis is. This needs to be on the table from minute one.
-
-**Section 9 (analyst assessment)** prevents you from starting analysis without a hypothesis. The intake is the moment you form your first working theory. Write it down before looking at logs — it forces you to be explicit about what you're looking for and what would contradict it.
+→ **[Reactive Investigation — Intake](/workflows/reactive-investigation)** — full intake form, why each section matters, and how to commit the intake into the project git history.
 
 ---
 
@@ -438,6 +231,8 @@ git commit -m "PROJ-001: scope signed off by CISO — PIR-001 through PIR-003, T
 **File:** `01-evidence/README.md` | **Time:** 2–8 h depending on evidence volume
 
 Before any analysis, build the complete evidence inventory. The rule: **you do not analyze what you have not inventoried.** Working from untracked evidence is how findings get missed and how the chain of custody breaks.
+
+![Log sources inventory — source, file, time range, gaps, SHA256, and usability](/img/infographic-log-sources.png)
 
 **Collection with Velociraptor (remote, no reboot required):**
 
@@ -546,6 +341,8 @@ The timeline is a chronological log of every relevant event with three things th
 | **HYPOTHESIZED** | Plausible; no supporting evidence — open question | No — document as question only |
 | **GAP** | No evidence covers this window | Yes — as a finding, not a claim |
 
+![Evidence label system — every event gets one label; what each means and where it can appear](/img/infographic-evidence-labels.png)
+
 **Why labels matter:** Without them, analysts conflate what they saw with what they inferred. The label forces explicit acknowledgment of how strong each piece of evidence is. When an executive asks "are you sure they took the data?", the answer is "CONFIRMED — two independent sources (DB audit log and netflow) both show 892 MB outbound" not "we think so."
 
 **Example timeline entries:**
@@ -611,6 +408,8 @@ The claims ledger is the single most important document in the investigation. It
 | CL-005 | No confirmed evidence of access after 2025-03-17 07:02 IST (Sysmon restart) | All log sources show no activity from 185.234.x.x after 03:21 | Medium | Adversary using different infrastructure after initial exfil — cannot rule out; recommend threat hunt | PIR-003 |
 ```
 
+![Claims register — structured claims with supporting evidence, confidence, competing hypotheses, and PIR mapping](/img/infographic-claims-register.png)
+
 The claims ledger drives everything downstream:
 - Executive brief cites CL-IDs, not raw log lines
 - SOC handoff uses claims to justify IOC confidence
@@ -649,7 +448,36 @@ The ATT&CK mapping has two purposes: documenting what happened (intelligence) an
 | Data source missing | Log source exists but not ingested into SIEM | SOC engineering | Days to weeks |
 | Coverage incomplete | Rule fires but with wrong severity, missing fields, or high latency | Detection engineer | 2–8 h per rule |
 | Architectural gap | Log source cannot be enabled or doesn't exist | IT architecture | Weeks to months |
+
+![Gap type reference — what each gap means, who fixes it, and estimated effort](/img/infographic-gap-types.png)
+
+![MITRE ATT&CK coverage gap matrix — technique, evidence, confidence, rule fired, gap type, and remediation](/img/infographic-attack-matrix.png)
 | Not applicable | Technique out of scope for this engagement | — | — |
+
+**Decider — guided ATT&CK mapping when the technique is unclear:**
+
+When you observe a behavior but are not certain which ATT&CK technique or sub-technique it maps to, [Decider](https://github.com/cisagov/Decider) (CISA) walks you to the correct answer through a structured question tree. Instead of searching the ATT&CK site manually, Decider asks what the adversary was trying to accomplish, then narrows to the correct tactic, technique, and sub-technique.
+
+```bash
+# Run Decider locally with Docker (one-time setup)
+git clone https://github.com/cisagov/Decider.git
+cd Decider
+cp .env.docker .env
+# Edit .env — set DB_ADMIN_PASS, DB_KIOSK_PASS, CART_ENC_KEY, APP_ADMIN_PASS
+cp -r default_config/. config/
+sudo docker compose up
+# Visit http://localhost:8001
+```
+
+**Workflow within Step R4:**
+
+1. **Question Tree** — navigate Matrix → Tactic → Technique → Sub-technique by answering what the adversary did. Useful when the behavior is ambiguous (e.g., distinguishing T1059.001 from T1059.003 from an encoded command line, or deciding between T1078.001 and T1078.002 for a credential re-use event).
+
+2. **Full Technique Search** — boolean search with prefix-matching and stemming across all ATT&CK descriptions. Faster than the ATT&CK site when you have a partial technique name or keyword from a log line.
+
+3. **Cart → Export** — add confirmed techniques to the cart as you work through the mapping table. Export as a Navigator layer JSON (heatmap) or a formatted table for the `attck-mapping.md` file.
+
+Decider does not replace the ATT&CK Navigator — it answers the "which technique is this?" question before you get to the Navigator layer. Use Decider to map, Navigator to visualize coverage.
 
 Export the Navigator layer and commit it:
 
@@ -679,6 +507,8 @@ Write the attribution section only after the claims ledger is complete. Attribut
 | **Medium** | TTP overlap only; no infrastructure overlap; no independent confirmation | "Tradecraft consistent with [actor] operations; insufficient evidence for attribution" |
 | **Low** | Broadly consistent TTPs; single vector; no corroboration | "Activity shares characteristics with [actor] tradecraft; attribution is inconclusive" |
 | **Insufficient** | Single IOC; no technique context; no corroboration | "Insufficient evidence to attribute to a named group or cluster" |
+
+![Confidence ladder — evidence requirements and correct language for each attribution tier](/img/infographic-confidence-ladder.png)
 
 Infrastructure pivoting for attribution — run from the C2 IP before enrichment ages:
 
@@ -895,26 +725,9 @@ proactive/
 
 ### Step P2: Run the Intake
 
-Use the same intake template as reactive, adapted for proactive context. Key questions to add:
+Before you open any advisory or run any query, capture the commissioner's requirements in a structured intake call.
 
-```markdown
-## Proactive-specific intake questions
-
-**What is the trigger for this assessment?**
-(What happened externally or internally that caused this work to be commissioned now?)
-
-**Is there a hard deadline?**
-(Product launch, compliance audit, board review, contract renewal — any of these set a fixed end date)
-
-**What detection capability currently exists?**
-(What SIEM rules are already deployed? What log sources are already ingested?)
-
-**What is the budget for detection backlog work?**
-(How many engineering sprints are available? This determines how many P1 items can realistically land)
-
-**What threat actor context is already available?**
-(Prior incident reports, CERT advisories, threat intel subscriptions)
-```
+→ **[Proactive Assessment — Intake](/workflows/proactive-assessment)** — full intake form (trigger, crown jewels, detection posture, mandate, threat context, regulatory context), why each section matters, and how to commit the intake into the project git history.
 
 ---
 
@@ -1063,6 +876,12 @@ cp -r CTI_as_a_Code/templates/full-cycle/ programs/myorg-cti-program-2025/
 cd programs/myorg-cti-program-2025/
 git init && git add . && git commit -m "PROJ-003: full-cycle scaffold initialized"
 ```
+
+Before any program design work begins, run the intake to capture the sponsor's mandate, stakeholder map, initial PIRs, and maturity target.
+
+→ **[Full-Cycle Program — Intake](/workflows/fullcycle-program)** — full intake form (program mandate, stakeholders, PIR register, collection requirements, sharing architecture, governance), why each section matters, and how to commit the intake as the program's first artifact.
+
+---
 
 **Key outputs of full-cycle mode:**
 

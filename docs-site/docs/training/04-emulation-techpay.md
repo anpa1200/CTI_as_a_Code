@@ -9,7 +9,7 @@ sidebar_position: 5
 
 ## Scenario
 
-TechPay's detection engineering team has deployed 8 rules based on the Operation Desert Cipher threat intelligence report (ClearSky; Iranian-nexus attribution). Your job: prove they actually work. Extract TTPs from the campaign report, write a safe 11-module emulation plan, execute in the lab, and produce a BoI-CD 362 Section 6 compliance report.
+TechPay's detection engineering team has deployed 8 rules based on the Operation Desert Cipher threat intelligence report (ClearSky; [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) attribution). Your job: prove they actually work. Extract TTPs from the campaign report, write a safe 11-module emulation plan, execute in the [lab platform](/docs/architecture), and produce a BoI-CD 362 Section 6 compliance report.
 
 **Your entry point:** The CTI report is in `01-cti-report/operation-desert-cipher.md`. You have a lab environment with JUMPHOST-LAB, TARGET-LAB, and a CyberShield-controlled C2 server.
 
@@ -35,7 +35,7 @@ TechPay's detection engineering team has deployed 8 rules based on the Operation
 
 | Gap | ATT&CK | Root Cause | Priority |
 |---|---|---|---|
-| No exfiltration volume rule | T1041 | No NetFlow/Zeek source in Elastic; no threshold rule | P1 |
+| No exfiltration volume rule | T1041 | No NetFlow/Zeek source in [Elastic SIEM](/docs/services/elastic-siem); no threshold rule | P1 |
 | HKCU registry not monitored | T1547.001 | Sysmon EID 13 config covers HKLM only | P1 |
 | No domain discovery rule | T1087.002 | net.exe rule missing; data source exists | P2 |
 | RDP logon_type field missing | T1021.001 | Elastic ingest pipeline field mapping bug | P2 |
@@ -46,7 +46,7 @@ TechPay's detection engineering team has deployed 8 rules based on the Operation
 2. **TTP extraction table** — 14 TTPs from report; excluded 3 with justification
 3. **11-module emulation plan** — per-module: ATT&CK, detection under test, commands, pass criteria
 4. **Execution log** — timestamped results; anomaly observations; post-exercise cleanup
-5. **Coverage matrix** — DeTT&CT score per technique; P1/P2 gap priority
+5. **Coverage matrix** — DeTT&CT score per technique; P1/P2 gap priority; [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/) layer
 6. **Gap backlog** — 7 gaps with root cause, remediation, effort estimate, compensating controls
 7. **BoI-CD 362 Section 6 compliance report** — status: COMPLIANT WITH CONDITIONS
 
@@ -64,6 +64,14 @@ TechPay's detection engineering team has deployed 8 rules based on the Operation
 - **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://anpa1200.github.io/cti-analyst-field-manual/docs/frameworks/mitre-attack-as-working-tool/)
 - **Same adversary pattern in government context:** [A08 — NDSA INCD Section 8 Emulation](./08-emulation-ndsa)
 - **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+
+---
+
+## Continue in the ecosystem
+
+- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
 
 ## Critical Execution Note
 

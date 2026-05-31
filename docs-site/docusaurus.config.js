@@ -77,6 +77,15 @@ const config = {
             position: 'left',
           },
           {
+            label: 'Intake Forms',
+            position: 'left',
+            items: [
+              { label: 'Reactive Investigation', to: '/intake-form' },
+              { label: 'Proactive Assessment', to: '/intake-proactive' },
+              { label: 'Full-Cycle Program', to: '/intake-fullcycle' },
+            ],
+          },
+          {
             label: 'Projects',
             position: 'right',
             items: [

@@ -6,8 +6,7 @@ elasticsearch.hosts: ["http://elasticsearch:9200"]
 elasticsearch.username: "kibana_system"
 # Password is injected via ELASTICSEARCH_PASSWORD env var in docker-compose
 
-# Security
-xpack.security.enabled: true
+# Saved objects encryption (32+ char key required)
 xpack.encryptedSavedObjects.encryptionKey: "${KIBANA_ENCRYPTION_KEY}"
 
 # Fleet / Elastic Agent

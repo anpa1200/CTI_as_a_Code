@@ -1,0 +1,20 @@
+# M365 Message Trace Export — m.cohen@lifetechpharma.com
+# Query: Recipient=m.cohen@lifetechpharma.com, Date range: 2024-11-13 to 2024-11-15
+# Exported: 2024-11-15 20:22 UTC by Yael Mizrahi (Security & Compliance Center)
+# SHA256 of this file: [compute on export]
+#
+Received,SenderAddress,RecipientAddress,Subject,Status,ToIP,FromIP,Size,MessageId,MessageTraceId,ScamConf,SpamConf,SCL,DKIM,SPF,DMARC,Attachments
+2024-11-13T07:04:18Z,no-reply@docusign.com,m.cohen@lifetechpharma.com,Document ready for signature: Q4 Vendor Agreement,Delivered,10.10.4.5,50.17.209.0,22441,<ds-sign-20241113@docusign.com>,mt-002-aa,0,0,-1,pass,pass,pass,1
+2024-11-13T08:31:55Z,cfo-alerts@lifetechpharma.com,m.cohen@lifetechpharma.com,[Finance] ERP monthly close reminder — Nov 2024,Delivered,10.10.4.5,10.10.4.5,11882,<fin-close-nov24@lifetechpharma.com>,mt-002-ab,0,0,-1,pass,pass,pass,0
+2024-11-13T10:14:02Z,investor-relations@tlvexchange.co.il,m.cohen@lifetechpharma.com,LifeTech Pharma — Q3 analyst call recording available,Delivered,10.10.4.5,89.138.12.0,19003,<ir-q3-rec@tlvexchange.co.il>,mt-002-ac,0,0,-1,pass,pass,pass,0
+2024-11-13T14:47:33Z,legal@lifetechpharma.com,m.cohen@lifetechpharma.com,Fw: US Partner NDA amendment — signature required,Delivered,10.10.4.5,10.10.4.5,284810,<legal-nda-20241113@lifetechpharma.com>,mt-002-ad,0,0,-1,pass,pass,pass,2
+2024-11-14T07:52:11Z,hr@lifetechpharma.com,m.cohen@lifetechpharma.com,Payroll approval required — November 2024,Delivered,10.10.4.5,10.10.4.5,18441,<payroll-nov24@lifetechpharma.com>,mt-002-ae,0,0,-1,pass,pass,pass,1
+2024-11-14T09:01:47Z,noreply@microsoft.com,m.cohen@lifetechpharma.com,Your Microsoft 365 meeting summary — Nov 13,Delivered,10.10.4.5,40.107.220.60,14882,<m365-summary-20241114@microsoft.com>,mt-002-af,0,0,-1,pass,pass,pass,0
+2024-11-14T11:33:28Z,board@lifetechpharma.com,m.cohen@lifetechpharma.com,Board meeting agenda — 2024-11-18,Delivered,10.10.4.5,10.10.4.5,32001,<board-agenda-nov24@lifetechpharma.com>,mt-002-ag,0,0,-1,pass,pass,pass,1
+2024-11-14T15:22:09Z,alerts@crowdstrike.com,m.cohen@lifetechpharma.com,[CrowdStrike] Your executive protection report,Delivered,10.10.4.5,40.107.220.60,28440,<cs-exec-oct24@crowdstrike.com>,mt-002-ah,0,0,-1,pass,pass,pass,0
+2024-11-15T06:41:03Z,noreply@microsoft.com,m.cohen@lifetechpharma.com,Upcoming meeting: Q4 Strategy Review — 09:00 IST,Delivered,10.10.4.5,40.107.220.60,12001,<m365-reminder-20241115@microsoft.com>,mt-002-ai,0,0,-1,pass,pass,pass,0
+2024-11-15T08:07:44Z,finance-alerts@lifetechpharma.com,m.cohen@lifetechpharma.com,[ERP] Currency exposure report — USD/ILS 2024-11-15,Delivered,10.10.4.5,10.10.4.5,48220,<erp-fx-20241115@lifetechpharma.com>,mt-002-aj,0,0,-1,pass,pass,pass,1
+2024-11-15T10:52:30Z,usbiopharma-agreements@globalcontracts-secure.net,m.cohen@lifetechpharma.com,Q4-2024 Licensing Agreement — Review Required Before Signing,Delivered,10.10.4.5,185.220.101.52,0,<contract-Q4-LT2024@globalcontracts-secure.net>,mt-002-ak,82,72,4,fail,fail,fail,0
+2024-11-15T14:18:11Z,legal@lifetechpharma.com,m.cohen@lifetechpharma.com,Re: FDA submission timeline — action items,Delivered,10.10.4.5,10.10.4.5,22001,<legal-fda-20241115@lifetechpharma.com>,mt-002-al,0,0,-1,pass,pass,pass,0
+2024-11-15T17:58:04Z,m.cohen@lifetechpharma.com,m.cohen@lifetechpharma.com,[DELAYED DELIVERY] Q4-2024 Licensing Agreement — Review and Sign,Delivered,10.10.4.5,185.220.101.52,1284882,<contract-Q4-LT2024-xlsm@globalcontracts-secure.net>,mt-002-am,91,88,4,fail,fail,fail,1
+2024-11-15T18:02:19Z,no-reply@zoom.us,m.cohen@lifetechpharma.com,Your meeting recording: Strategy Review 09:00 IST is ready,Delivered,10.10.4.5,192.204.4.0,11882,<zoom-rec-20241115@zoom.us>,mt-002-an,0,0,-1,pass,pass,pass,0

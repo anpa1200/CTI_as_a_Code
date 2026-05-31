@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # First-Run Checklist
 
-Run through this list after `docker compose up -d` and `./scripts/setup.sh` complete successfully.
+Run through this list after [`docker compose`](https://docs.docker.com/compose/) `up -d` and `./scripts/setup.sh` complete successfully.
 
 ## 1. Elasticsearch
 
@@ -20,13 +20,13 @@ Expected: `"status": "yellow"` (single-node, normal)
 
 - Open http://localhost:5601
 - Log in with `elastic` / `ELASTIC_PASSWORD`
-- Navigate to **Security** — the SIEM tile should appear without errors
+- Navigate to **Security** — the [Elastic SIEM](/docs/services/elastic-siem) tile should appear without errors
 
 ## 3. OpenCTI
 
 - Open http://localhost:8080
 - Log in with `OPENCTI_ADMIN_EMAIL` / `OPENCTI_ADMIN_PASSWORD`
-- Go to **Settings → Parameters** — check platform status is green
+- Go to **Settings → Parameters** — check platform status is green (see [OpenCTI setup](/docs/setup/opencti-setup))
 
 If OpenCTI shows a red status on any dependency, run:
 ```bash
@@ -85,7 +85,7 @@ docker compose restart opencti
 
 ### TheHive cannot reach Elasticsearch
 
-Verify the `ELASTIC_PASSWORD` env var is set correctly in `.env` and that the `thehive` service can reach `elasticsearch:9200`:
+Verify the `ELASTIC_PASSWORD` env var is set correctly in `.env` and that the [`thehive`](/docs/services/thehive-cortex) service can reach [`elasticsearch:9200`](/docs/services/elasticsearch):
 
 ```bash
 docker exec cti-thehive curl -su "elastic:${ELASTIC_PASSWORD}" http://elasticsearch:9200/_cluster/health
@@ -102,3 +102,9 @@ docker run --rm --network cti-lab_cti-net minio/mc:latest sh -c "
   mc mb --ignore-existing lab/thehive
 "
 ```
+
+---
+
+## Ecosystem
+
+This page is part of the [initial setup](/docs/setup/first-run) flow. See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

@@ -11,7 +11,7 @@ sidebar_position: 6
 
 The National Digital Services Authority — operating Israel's national eID platform for 9.5 million citizens — discovers that 340,218 biometric records were exfiltrated through a contractor supply chain compromise. Detection came not from an alert but from a routine database audit review, 36 hours after the attack concluded. The INCD 8-hour notification clock is running.
 
-**Your entry point:** A CyberArk PAM session recording, Winlogbeat logs with a 9.5-hour gap, VRID database audit logs, VPN logs, and a complicating factor: an INCD red team exercise ran 10 days earlier and left artifacts in the same systems.
+**Your entry point:** A CyberArk PAM session recording, Winlogbeat logs with a 9.5-hour gap, VRID database audit logs, VPN logs, and a complicating factor: an [INCD](https://anpa1200.github.io/israel-government-threat-actors-cti/) red team exercise ran 10 days earlier and left artifacts in the same systems.
 
 ## Key Facts
 
@@ -64,7 +64,7 @@ An INCD red team exercise ran 10 days before the incident under INCD-CID Section
 2. **ATT&CK mapping** — 12 techniques; detection status column; DeTT&CT score
 3. **Attribution assessment** — Admiralty-rated; competing hypotheses; what would change the assessment
 4. **INCD red team deconfliction memo** — which artifacts are adversary vs. exercise; confidence basis
-5. **4 Sigma rules** — GOV-DET-001 (contractor VPN ASN anomaly), GOV-DET-002 (lateral movement DMZ), GOV-DET-003 (BITS to non-standard ASN), GOV-DET-004 (wevtutil log clear)
+5. **4 [Sigma](https://sigmahq.io/) rules** — GOV-DET-001 (contractor VPN ASN anomaly), GOV-DET-002 (lateral movement DMZ), GOV-DET-003 (BITS to non-standard ASN), GOV-DET-004 (wevtutil log clear)
 6. **Regulatory notification package** — INCD (8h), BDA (8h), PPA; scope statement; confidence level on breach extent
 7. **Executive brief** — 1 page for Knesset committee; non-technical; gap statement
 
@@ -84,6 +84,15 @@ An INCD red team exercise ran 10 days before the incident under INCD-CID Section
 - **GovID 2.0 pre-launch threat model (next assignment):** [A06 — Proactive GovID 2.0](./06-proactive-govid2)
 - **NDSA CTI program built from this incident:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa)
 - **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+
+---
+
+## Continue in the ecosystem
+
+- [Full ecosystem](/docs/ecosystem) — tools and integrations used in this lab
+- [Step-by-step methodology](/docs/cti-as-a-code-methodology) — the analytical framework behind every case
+- [LifeTech Pharma case study](/docs/lifetech-pharma-case-study) — parallel reactive investigation in the private sector (PROJ-2024-001)
+- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
 
 ## Solution Highlights
 

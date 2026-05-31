@@ -2,13 +2,15 @@
 const sidebars = {
   labSidebar: [
     { type: 'doc', id: 'intro', label: 'Introduction' },
+    { type: 'doc', id: 'methodology', label: 'Methodology' },
     {
       type: 'category',
-      label: 'Methodology',
+      label: 'Articles',
       collapsed: false,
       items: [
-        { type: 'doc', id: 'methodology', label: 'Reference Guide' },
-        { type: 'doc', id: 'cti-as-a-code-methodology', label: 'Step-by-Step (Full)' },
+        'cti-as-a-code-methodology',
+        'reactive-walkthrough',
+        'proactive-walkthrough',
       ],
     },
     { type: 'doc', id: 'architecture', label: 'Architecture' },
@@ -48,6 +50,9 @@ const sidebars = {
       type: 'category',
       label: 'Workflows',
       items: [
+        'workflows/reactive-investigation',
+        'workflows/proactive-assessment',
+        'workflows/fullcycle-program',
         'workflows/ioc-triage',
         'workflows/threat-actor-research',
       ],

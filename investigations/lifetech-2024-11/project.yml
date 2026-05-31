@@ -1,0 +1,134 @@
+---
+project:
+  id: "PROJ-2024-001"
+  name: "LifeTech Pharma — Targeted Intrusion"
+  type: reactive
+  classification: TLP:AMBER
+  status: closed
+
+analyst:
+  name: "Yael Mizrahi"
+  role: "CTI Analyst"
+  contact: "y.mizrahi@lifetechpharma.com"
+
+timeline:
+  incident_date: "2024-10-22"
+  detection_date: "2024-11-15"
+  investigation_start: "2024-11-15"
+  report_due: "2024-11-17"
+  report_delivered: "2024-11-16"
+  dwell_time_days: 24
+
+pirs:
+  - id: PIR-001
+    question: "Was the US licensing formula package (SERVER-RD-02\\LicenseDeals\\USPartner2024\\) accessed or exfiltrated? If so, what and when?"
+    priority: high
+    status: answered
+    answer: "YES. 47 files (381 MB compressed) exfiltrated to 198.51.100.44 on 2024-11-06 00:14–00:19 UTC via xp_cmdshell → PowerShell WebClient. Confirmed by EID 4663×47, EID 5156, Palo Alto NGFW flow, and SQL audit. (CL-003)"
+  - id: PIR-002
+    question: "How did the adversary gain initial access — phishing, credential theft, or exploitation?"
+    priority: high
+    status: answered
+    answer: "AiTM phishing via mfa-lifetechpharma.com on 2024-10-22. HTML attachment opened at 09:31 IST; session token stolen; VPN login from Istanbul at 02:17 IST Oct 24 with no MFA. (CL-001)"
+  - id: PIR-003
+    question: "Is there evidence of ongoing access or persistence as of investigation date?"
+    priority: high
+    status: answered
+    answer: "YES — ongoing. CFO alert Nov 15 is second wave same actor. svchost32.exe active on WS-CFO-01. DCSync on Nov 6 means all AD credentials compromised. Full domain rotation required. (CL-004, CL-006)"
+
+scope:
+  systems:
+    - WS-CFO-01
+    - WS-IT-LEVI
+    - SERVER-RD-02
+    - SERVER-FIN-01
+    - DC01
+  threat_actor: "Iranian-nexus industrial espionage cluster (unnamed — Medium-High confidence)"
+  attck_techniques:
+    - T1566.001
+    - T1557
+    - T1133
+    - T1078.002
+    - T1059.001
+    - T1003.001
+    - T1003.006
+    - T1021.003
+    - T1197
+    - T1047
+    - T1070.001
+    - T1547.001
+    - T1039
+    - T1560
+    - T1583.001
+    - T1071.001
+    - T1041
+
+deliverables:
+  - type: executive-brief
+    status: complete
+    delivered: "2024-11-16 02:00 IST"
+  - type: soc-handoff
+    status: complete
+    delivered: "2024-11-16 01:30 IST"
+  - type: sigma-rules
+    count: 4
+    status: complete
+    rules:
+      - DET-001-anomalous-vpn-auth.yml
+      - DET-002-dcsync-non-dc.yml
+      - DET-003-svc-account-offhours.yml
+      - DET-004-wmiprvse-powershell.yml
+  - type: incd-notification
+    status: complete
+    submitted: "2024-11-16 16:00 IST"
+
+iocs:
+  ips:
+    - value: "203.0.113.87"
+      role: "Primary C2"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "198.51.100.44"
+      role: "Secondary C2 / exfiltration endpoint"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "185.220.101.47"
+      role: "Attacker VPN source (Istanbul)"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "185.220.101.52"
+      role: "CFO phishing email source"
+      confidence: high
+      tlp: TLP:AMBER
+  domains:
+    - value: "telemetry-cdn-services.biz"
+      role: "Primary C2 domain"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "sys-update-cdn.net"
+      role: "Secondary C2 domain (exfil)"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "lifetechpharma-corp.eu"
+      role: "Typosquat / phishing infrastructure"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "mfa-lifetechpharma.com"
+      role: "AiTM phishing page"
+      confidence: high
+      tlp: TLP:AMBER
+    - value: "globalcontracts-secure.net"
+      role: "CFO phishing email delivery domain"
+      confidence: high
+      tlp: TLP:AMBER
+  hashes:
+    - value: "3b4c14a87e5f9d8c2a1f4e6b9c0d2e7a1b3c5d8f2a4e6c8b0d3e5a7c1f4b8d2e"
+      file: "svchost32.exe"
+      type: SHA256
+      confidence: high
+    - value: "de96a6e69944335375dc1ac238336066889d9ffc7d73628ef4fe1b1848474f57"
+      file: "powershell_payload.ps1 (decoded)"
+      type: SHA256
+      confidence: high
+
+notes: "DCSync on Nov 6 via svc_backup — full AD credential rotation completed Nov 16. INCD notification submitted Nov 16. US partner notified Nov 17. krbtgt rotated twice per Microsoft recommendation."

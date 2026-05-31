@@ -6,19 +6,19 @@ sidebar_position: 4
 
 # Elastic SIEM
 
-The SIEM layer consists of Elasticsearch (shared with the other services), Kibana, and optionally Logstash for log ingestion.
+The [Elastic SIEM](https://www.elastic.co/security) layer consists of [Elasticsearch](/docs/services/elasticsearch) (shared with the other services), [Kibana](https://www.elastic.co/security), and optionally Logstash for log ingestion.
 
 ## Kibana
 
 URL: http://localhost:5601  
 User: `elastic` / `ELASTIC_PASSWORD`
 
-Kibana's **Security** solution (SIEM) provides:
+Kibana's **Security** solution ([SIEM](/docs/services/elastic-siem)) provides:
 - Detection rules engine (Sigma-compatible via EQL / KQL)
 - Alert triage and case management
 - Timeline investigation
 - Entity analytics (host, user risk scores)
-- Threat intelligence indicator matching
+- Threat intelligence indicator matching (see [threat feeds](/docs/integrations/threat-feeds))
 
 ### Setup: Security app
 
@@ -91,3 +91,9 @@ To avoid unbounded disk growth, create a basic ILM (Index Lifecycle Management) 
 - Delete phase: 30 days
 
 Attach to the `cti-lab-logs-*` pattern.
+
+---
+
+## Ecosystem
+
+This service is part of the [lab stack](/docs/architecture). See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

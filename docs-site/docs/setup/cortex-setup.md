@@ -4,7 +4,7 @@ title: Cortex Setup
 sidebar_position: 4
 ---
 
-# Cortex Setup and TheHive Integration
+# [Cortex](https://github.com/TheHive-Project/Cortex) Setup and TheHive Integration
 
 ## Create Cortex admin
 
@@ -44,7 +44,7 @@ For analyzers requiring API keys, click the analyzer → **Configuration** and e
 1. **Organization → Users → `<your user>` → Create API key**
 2. Copy the key immediately — it won't be shown again
 
-## Wire Cortex into TheHive
+## Wire Cortex into [TheHive](/docs/services/thehive-cortex)
 
 ### Step 1: Add the key to `.env`
 
@@ -89,3 +89,9 @@ docker compose up -d thehive
 3. Click **Actions → Analyze**
 4. Select an analyzer and click **Run**
 5. Results appear in the observable's **Analysis** tab within seconds
+
+---
+
+## Ecosystem
+
+This page is part of the [Cortex setup](/docs/setup/cortex-setup) flow. See the full [ecosystem](/docs/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).

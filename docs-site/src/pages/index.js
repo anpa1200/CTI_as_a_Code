@@ -122,6 +122,17 @@ export default function Home() {
               Set Up the Lab
             </Link>
           </div>
+          <img
+            src="/img/cti-cover.png"
+            alt="CTI as a Code — version-controlled workflow from evidence collection to Sigma rule"
+            style={{
+              marginTop: '2.5rem',
+              maxWidth: '960px',
+              width: '100%',
+              borderRadius: '14px',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
+            }}
+          />
         </div>
       </header>
 
