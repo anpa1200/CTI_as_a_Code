@@ -132,7 +132,7 @@ Required fields:
 | Time-bounded | No deadline stated | "as of Q3 2025" |
 | Business-grounded | "our network" | "payment gateway and contractor VPN" |
 
-See [Field Manual — PIR/SIR/EEI Framework](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/) for the complete PIR development methodology.
+See [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/) for the complete PIR development methodology.
 
 ---
 
@@ -164,7 +164,7 @@ Apply these labels in `claims-ledger.md` and timeline annotations:
 | **HYPOTHESIZED** | Plausible explanation with no direct supporting evidence | "Persistence mechanism likely run key; no registry log covers this window" |
 | **GAP** | No evidence covering this event window; confidence impact documented | "No Sysmon coverage 03:00–07:00 IST; T1059 activity in this window cannot be confirmed" |
 
-See [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/) for the full labeling convention.
+See [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/) for the full labeling convention.
 
 ---
 
@@ -183,7 +183,7 @@ A trigger is an intelligence input that changes the threat assessment for this s
 - **ATT&CK techniques implied**
 - **Detection action implied**
 
-See [Field Manual — Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/).
+See [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/).
 
 ---
 
@@ -212,7 +212,7 @@ Every analytical claim in `claims-ledger.md` must carry a claim ID, the assertio
 | CL-001 | Adversary authenticated via valid contractor VPN credentials at 02:14 IST on 2025-03-17 | `vpn-gateway-2025-03-17.jsonl` line 4,471 — session from 185.234.x.x, UserID: contractor-07 | High | Legitimate contractor login — ruled out: no prior session from this IP; contractor confirmed offline via HR |
 | CL-002 | Full-table SELECT on `biometric_records` at 02:47 IST exfiltrated 340,218 rows | `vrid-audit-log.jsonl` line 892 — `SELECT *` from 185.234.x.x; DB size delta 892.4 MB outbound | High | Scheduled backup — ruled out: backup schedule confirmed at 04:00; no authorized job at 02:47 |
 
-See [Field Manual — Analysis of Competing Hypotheses](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/analytic-methods/competing-hypotheses/).
+See [Field Manual — Analysis of Competing Hypotheses](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/analytic-methods/competing-hypotheses/).
 
 ---
 
@@ -250,7 +250,7 @@ Gap type taxonomy: **Rule missing** (data source in SIEM, no rule) · **Data sou
 | **Low (under 40%)** | TTPs broadly consistent; single vector; no corroboration | "Activity shares characteristics with [actor] tradecraft; attribution is inconclusive" |
 | **Insufficient** | Single indicator; no TTP context; no corroboration | "Insufficient evidence to attribute to a named group or cluster" |
 
-Do not assert a named APT group unless the evidence supports it. Prefer: *"Assessed as an Iranian-nexus activity cluster"* over *"This was APT34."* See [Field Manual — Attribution Methodology](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/).
+Do not assert a named APT group unless the evidence supports it. Prefer: *"Assessed as an Iranian-nexus activity cluster"* over *"This was APT34."* See [Field Manual — Attribution Methodology](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/).
 
 ---
 
@@ -306,7 +306,7 @@ sigma convert -t esql -p ecs_windows DET-001-office-spawn-script.yml
 
 Every Sigma rule must have `falsepositives:` populated (not `Unknown`), `tags:` with the ATT&CK ID, `level:` set, and a validation comment.
 
-See [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/).
+See [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/).
 
 ---
 
@@ -343,7 +343,7 @@ After each module:
 
 **SOC handoff format:** Operational package only — current IOC table with TTL and confidence score, rules deployed or pending (with CAB reference), hunting queries for residual activity, escalation criteria for new detections.
 
-For intelligence products differentiated by audience, see [Field Manual — Intelligence Production](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/intelligence-production/).
+For intelligence products differentiated by audience, see [Field Manual — Intelligence Production](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/intelligence-production/).
 
 ---
 
@@ -438,7 +438,7 @@ git add . && git commit -m "PROJ-NNN: scaffold initialized"
 
 **Version everything.** Every analytical decision is traceable in git history. The commit log explains why an assessment changed, not just what changed. If you refactor a claim, the previous version is recoverable.
 
-**Confidence is mandatory.** Every claim carries a confidence level (High / Medium / Low) with rationale. "Unknown" is not a confidence level. "Insufficient data to assess" is. See [Field Manual — Estimative Language](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/estimative-language/).
+**Confidence is mandatory.** Every claim carries a confidence level (High / Medium / Low) with rationale. "Unknown" is not a confidence level. "Insufficient data to assess" is. See [Field Manual — Estimative Language](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/estimative-language/).
 
 ---
 
@@ -446,10 +446,10 @@ git add . && git commit -m "PROJ-NNN: scaffold initialized"
 
 | Resource | When to use |
 |---|---|
-| [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/) | Before writing any claim in steps 4–6 |
-| [Field Manual — Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/) | Before registering any collection source in step 3 |
-| [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/) | Before writing any Sigma rule in step 7 |
-| [Field Manual — Attribution Methodology](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/) | Before writing any attribution assessment in step 6 |
-| [Field Manual — PIR/SIR/EEI](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/) | Before writing any PIR in step 3 (full cycle) |
+| [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/) | Before writing any claim in steps 4–6 |
+| [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/) | Before registering any collection source in step 3 |
+| [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/) | Before writing any Sigma rule in step 7 |
+| [Field Manual — Attribution Methodology](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/) | Before writing any attribution assessment in step 6 |
+| [Field Manual — PIR/SIR/EEI](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/) | Before writing any PIR in step 3 (full cycle) |
 | [Training Assignments](/training) | Work through a populated case to see the methodology applied end-to-end |
 | [Ecosystem](/ecosystem) | How Field Manual, Customer-Driven AI CTI, and Israel CTI connect to this project |

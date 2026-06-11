@@ -9,7 +9,7 @@ sidebar_position: 9
 
 ## Scenario
 
-INCD-CID Section 8 requires annual detection validation for critical national infrastructure. NDSA's first annual exercise validates the GovID 2.0 and VRID detection stack against [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) tradecraft drawn from the [A05](/CTI_as_a_Code/training/reactive-ndsa/) breach, CERT-IL CB-2025-041, and Operation Desert Cipher. You have pre-notification filed with INCD (code INCD-2026-SEC8-0017), MATZBEN Security Officer approval per module, and a CAB-approved change window. Execute 11 modules, track PASS/PARTIAL/FAIL, and produce a BoI-CD 362 Section 8 compliance report.
+INCD-CID Section 8 requires annual detection validation for critical national infrastructure. NDSA's first annual exercise validates the GovID 2.0 and VRID detection stack against [Iranian-nexus](https://1200km.com/israel-government-threat-actors-cti/) tradecraft drawn from the [A05](/CTI_as_a_Code/training/reactive-ndsa/) breach, CERT-IL CB-2025-041, and Operation Desert Cipher. You have pre-notification filed with INCD (code INCD-2026-SEC8-0017), MATZBEN Security Officer approval per module, and a CAB-approved change window. Execute 11 modules, track PASS/PARTIAL/FAIL, and produce a BoI-CD 362 Section 8 compliance report.
 
 **Lab environment:** JUMPHOST-CONTRACTOR-LAB · VRID-LAB-SRV · CyberShield Ltd. red team
 
@@ -74,12 +74,12 @@ INCD-CID Section 8 requires annual detection validation for critical national in
 
 ## Cross-Links
 
-- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
+- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
 - **Same TTPs in private sector emulation:** [A04 — Operation Desert Cipher TechPay](./04-emulation-techpay.md)
 - **Detections under test built in:** [A06 — Proactive GovID 2.0](./06-proactive-govid2.md)
 - **Incident that sourced the TTPs:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)
-- **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 
 ---
 
@@ -87,7 +87,7 @@ INCD-CID Section 8 requires annual detection validation for critical national in
 
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work
 
 ## Critical Execution Note
 

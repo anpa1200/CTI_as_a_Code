@@ -68,5 +68,5 @@ Once intake is complete → draft the program charter, initialize the PIR regist
 
 - [Ecosystem overview](/CTI_as_a_Code/ecosystem) — all tools and integrations in the lab
 - [CTI as a Code Methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the step-by-step process this workflow fits into
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — worked examples and published assessments
-- [CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/) — reference companion for full-cycle program design
+- [CTI Portfolio](https://1200km.com/cti.html) — worked examples and published assessments
+- [CTI Analyst Field Manual](https://1200km.com/cti-analyst-field-manual/) — reference companion for full-cycle program design

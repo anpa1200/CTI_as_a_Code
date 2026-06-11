@@ -11,7 +11,7 @@ sidebar_position: 8
 
 It is January 2026. NDSA has survived the biometric breach (A05), launched GovID 2.0 (A06), and received an INCD remediation directive: build a formal CTI program within 6 months. The CISO has ₪8.5M/year and a Knesset committee watching. Build it.
 
-**Your entry point:** 5 existing [SIEM](/CTI_as_a_Code/services/elastic-siem) rules, 15 detection backlog items, an informal CERT-IL relationship (no MOU), an empty MISP instance, and an [INCD](https://anpa1200.github.io/israel-government-threat-actors-cti/) liaison who is simultaneously your primary intelligence source and your compliance auditor.
+**Your entry point:** 5 existing [SIEM](/CTI_as_a_Code/services/elastic-siem) rules, 15 detection backlog items, an informal CERT-IL relationship (no MOU), an empty MISP instance, and an [INCD](https://1200km.com/israel-government-threat-actors-cti/) liaison who is simultaneously your primary intelligence source and your compliance auditor.
 
 ## Organizational Starting Point
 
@@ -96,12 +96,12 @@ The 6-month INCD remediation directive mandates:
 
 ## Cross-Links
 
-- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
-- **Collection planning:** [Field Manual — Collection Planning](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/collection-planning/)
+- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
+- **Collection planning:** [Field Manual — Collection Planning](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/collection-planning/)
 - **Breach that triggered this directive:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)
 - **Detection backlog from this program tested in:** [A08 — INCD Section 8 Emulation](./08-emulation-ndsa.md)
 - **Private sector parallel:** [A03 — Full Cycle TechPay](./03-full-cycle-techpay.md)
-- **INCD regulatory framework context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **INCD regulatory framework context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 
 ---
 
@@ -109,4 +109,4 @@ The 6-month INCD remediation directive mandates:
 
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work

@@ -9,7 +9,7 @@ sidebar_position: 5
 
 ## Scenario
 
-TechPay's detection engineering team has deployed 8 rules based on the Operation Desert Cipher threat intelligence report (ClearSky; [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) attribution). Your job: prove they actually work. Extract TTPs from the campaign report, write a safe 11-module emulation plan, execute in the [lab platform](/CTI_as_a_Code/architecture), and produce a BoI-CD 362 Section 6 compliance report.
+TechPay's detection engineering team has deployed 8 rules based on the Operation Desert Cipher threat intelligence report (ClearSky; [Iranian-nexus](https://1200km.com/israel-government-threat-actors-cti/) attribution). Your job: prove they actually work. Extract TTPs from the campaign report, write a safe 11-module emulation plan, execute in the [lab platform](/CTI_as_a_Code/architecture), and produce a BoI-CD 362 Section 6 compliance report.
 
 **Your entry point:** The CTI report is in `01-cti-report/operation-desert-cipher.md`. You have a lab environment with JUMPHOST-LAB, TARGET-LAB, and a CyberShield-controlled C2 server.
 
@@ -60,10 +60,10 @@ TechPay's detection engineering team has deployed 8 rules based on the Operation
 
 ## Cross-Links
 
-- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
+- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
 - **Same adversary pattern in government context:** [A08 — NDSA INCD Section 8 Emulation](./08-emulation-ndsa.md)
-- **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 
 ---
 
@@ -71,7 +71,7 @@ TechPay's detection engineering team has deployed 8 rules based on the Operation
 
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work
 
 ## Critical Execution Note
 

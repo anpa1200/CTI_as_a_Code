@@ -107,4 +107,4 @@ docker run --rm --network cti-lab_cti-net minio/mc:latest sh -c "
 
 ## Ecosystem
 
-This page is part of the [initial setup](/CTI_as_a_Code/setup/first-run) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [initial setup](/CTI_as_a_Code/setup/first-run) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://1200km.com/cti.html).

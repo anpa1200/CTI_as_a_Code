@@ -91,4 +91,4 @@ ss -tlnp | grep -E '8080|9200|9100|9002|9000|9001|5601|15672|5672|5044|9600'
 
 - **[Quick Start](/CTI_as_a_Code/quick-start)** — bring the lab up in 10 minutes
 - **[Architecture](/CTI_as_a_Code/architecture)** — understand how services are wired together
-- **[Ecosystem](/CTI_as_a_Code/ecosystem)** — see how this lab fits in the broader [CTI Portfolio](https://anpa1200.github.io/cti.html)
+- **[Ecosystem](/CTI_as_a_Code/ecosystem)** — see how this lab fits in the broader [CTI Portfolio](https://1200km.com/cti.html)

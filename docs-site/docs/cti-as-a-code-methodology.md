@@ -1054,12 +1054,12 @@ CTI as a Code is one part of a practitioner ecosystem:
 
 | Project | Role | Use when |
 |---|---|---|
-| [CTI as a Code](https://anpa1200.github.io/CTI_as_a_Code/) | Lab stack, investigation scaffolds, training assignments | Running an investigation or building detection coverage |
-| [CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/) | Analytic tradecraft standard | Need the full methodology behind evidence labels, PIR design, attribution, CTI-to-detection |
-| [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) | Israeli sector threat knowledge base | Working on any Israeli government, CII, or public sector engagement |
-| [Customer-Driven AI CTI](https://anpa1200.github.io/customer-driven-ai-cti-project/) | CTI delivery methodology | Turning CTI work into a managed customer engagement with quality gates |
+| [CTI as a Code](https://1200km.com/CTI_as_a_Code/) | Lab stack, investigation scaffolds, training assignments | Running an investigation or building detection coverage |
+| [CTI Analyst Field Manual](https://1200km.com/cti-analyst-field-manual/) | Analytic tradecraft standard | Need the full methodology behind evidence labels, PIR design, attribution, CTI-to-detection |
+| [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/) | Israeli sector threat knowledge base | Working on any Israeli government, CII, or public sector engagement |
+| [Customer-Driven AI CTI](https://1200km.com/customer-driven-ai-cti-project/) | CTI delivery methodology | Turning CTI work into a managed customer engagement with quality gates |
 
-See the [Ecosystem page](https://anpa1200.github.io/CTI_as_a_Code/ecosystem) for end-to-end cross-project workflows.
+See the [Ecosystem page](https://1200km.com/CTI_as_a_Code/ecosystem) for end-to-end cross-project workflows.
 
 ---
 

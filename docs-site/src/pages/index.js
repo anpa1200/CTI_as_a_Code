@@ -84,17 +84,17 @@ const ecosystem = [
   {
     title: 'CTI Analyst Field Manual',
     body: 'Tradecraft standard. Evidence discipline, analytic judgment, attribution, infrastructure pivoting, CTI-to-detection foundations, and templates. Use this for the reasoning methodology behind every assignment.',
-    href: 'https://anpa1200.github.io/cti-analyst-field-manual/',
+    href: 'https://1200km.com/cti-analyst-field-manual/',
   },
   {
     title: 'Customer-Driven AI CTI Project',
     body: 'Delivery methodology. AI-assisted project phases, quality gates, customer outcomes, and acceptance criteria. Use this when CTI work must become a managed customer engagement.',
-    href: 'https://anpa1200.github.io/customer-driven-ai-cti-project/',
+    href: 'https://1200km.com/customer-driven-ai-cti-project/',
   },
   {
     title: 'Israel Government Threat Actors CTI',
     body: 'Sector knowledge base. Israeli public-sector threat model, actors, TTPs, detections, and evidence registers. Directly underpins the NDSA narrative arc in A05–A08.',
-    href: 'https://anpa1200.github.io/israel-government-threat-actors-cti/',
+    href: 'https://1200km.com/israel-government-threat-actors-cti/',
   },
   {
     title: 'HexStrike AI',
@@ -156,9 +156,9 @@ export default function Home() {
             </p>
             <p>
               For the underlying analytic tradecraft, see the{' '}
-              <a href="https://anpa1200.github.io/cti-analyst-field-manual/">CTI Analyst Field Manual</a>.
+              <a href="https://1200km.com/cti-analyst-field-manual/">CTI Analyst Field Manual</a>.
               For the Israeli government threat context behind A05–A08, see{' '}
-              <a href="https://anpa1200.github.io/israel-government-threat-actors-cti/">Israel Government Threat Actors CTI</a>.
+              <a href="https://1200km.com/israel-government-threat-actors-cti/">Israel Government Threat Actors CTI</a>.
             </p>
           </div>
         </section>

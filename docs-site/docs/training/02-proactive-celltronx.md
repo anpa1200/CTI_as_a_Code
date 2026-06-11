@@ -18,7 +18,7 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 | # | Trigger | Source | INCD-CID Relevance |
 |---|---|---|---|
 | TRG-001 | Peer telecom ransomware — 400K subscribers disrupted; credential stuffing initial access via VPN similar to CelltronX | Informal CISO call | Article 21(2)(b)(e) |
-| TRG-002 | CERT-IL TLP:AMBER — [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) actor actively targeting Israeli telecoms with government contracts; SS7 + OSS/NMS TTPs | CERT-IL advisory | Article 21(2)(e) |
+| TRG-002 | CERT-IL TLP:AMBER — [Iranian-nexus](https://1200km.com/israel-government-threat-actors-cti/) actor actively targeting Israeli telecoms with government contracts; SS7 + OSS/NMS TTPs | CERT-IL advisory | Article 21(2)(e) |
 | TRG-003 | NetSys Solutions Ltd. contractor has AWS AdministratorAccess from 18 months ago — never revoked | Internal AWS IAM review | Article 21(2)(d) |
 | TRG-004 | AiTM phishing blocked — 3 attempts in 2 weeks targeting OSS Engineering and Network Operations employees | Microsoft Defender ATP | Article 21(2)(b) |
 
@@ -76,11 +76,11 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 
 ## Cross-Links
 
-- **Detection methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **Evidence discipline:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
+- **Detection methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **Evidence discipline:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
 - **Same VPN and AiTM TTPs in incident context:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech.md)
 - **TechPay CTI program (same ecosystem):** [A03 — Full Cycle CTI TechPay](./03-full-cycle-techpay.md)
-- **Israeli telecom sector threat context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **Israeli telecom sector threat context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 
 ---
 
@@ -88,4 +88,4 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work

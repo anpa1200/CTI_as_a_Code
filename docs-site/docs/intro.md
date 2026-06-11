@@ -57,10 +57,10 @@ Assignments 1–4 cover the Israeli private sector. Assignments 5–8 form a con
 
 ## Related projects
 
-This project is part of a practitioner [CTI ecosystem](https://anpa1200.github.io/cti.html):
+This project is part of a practitioner [CTI ecosystem](https://1200km.com/cti.html):
 
-- **[CTI Portfolio](https://anpa1200.github.io/cti.html)** — all projects, repositories, and published articles in one place
-- **[CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/)** — the analytic tradecraft standard underpinning every assignment
-- **[Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)** — the sector knowledge base for [A05](/CTI_as_a_Code/training/reactive-ndsa/)–[A08](/CTI_as_a_Code/training/emulation-ndsa/)
-- **[Customer-Driven AI CTI Project](https://anpa1200.github.io/customer-driven-ai-cti-project/)** — delivery methodology for turning CTI into managed customer projects
+- **[CTI Portfolio](https://1200km.com/cti.html)** — all projects, repositories, and published articles in one place
+- **[CTI Analyst Field Manual](https://1200km.com/cti-analyst-field-manual/)** — the analytic tradecraft standard underpinning every assignment
+- **[Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)** — the sector knowledge base for [A05](/CTI_as_a_Code/training/reactive-ndsa/)–[A08](/CTI_as_a_Code/training/emulation-ndsa/)
+- **[Customer-Driven AI CTI Project](https://1200km.com/customer-driven-ai-cti-project/)** — delivery methodology for turning CTI into managed customer projects
 - **[HexStrike AI](https://github.com/0x4m4/hexstrike-ai)** — adversarial validation platform for detection coverage built in [A04](/CTI_as_a_Code/training/emulation-techpay/) and [A08](/CTI_as_a_Code/training/emulation-ndsa/)

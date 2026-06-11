@@ -491,5 +491,5 @@ The DCSync gap is the most consequential: **the audit policy was correct, the da
 | Detection rules from this case | [Step R6 — Sigma Rules](/CTI_as_a_Code/reactive-walkthrough#step-r6-detection-rules--four-that-would-have-changed-the-outcome) |
 | ATT&CK Navigator layer | [Download JSON](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json) |
 | Related ecosystem tools | [Ecosystem Overview](/CTI_as_a_Code/ecosystem) |
-| CTI Analyst Field Manual | [Evidence discipline and analytic standards](https://anpa1200.github.io/cti-analyst-field-manual/) |
-| Full CTI Portfolio | [All projects, repositories, and articles](https://anpa1200.github.io/cti.html) |
+| CTI Analyst Field Manual | [Evidence discipline and analytic standards](https://1200km.com/cti-analyst-field-manual/) |
+| Full CTI Portfolio | [All projects, repositories, and articles](https://1200km.com/cti.html) |

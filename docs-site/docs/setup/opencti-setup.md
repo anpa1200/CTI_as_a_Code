@@ -75,4 +75,4 @@ Copy the stream ID — you'll use it in the [OpenCTI-TheHive integration](/CTI_a
 
 ## Ecosystem
 
-This page is part of the [OpenCTI setup](/CTI_as_a_Code/setup/opencti-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [OpenCTI setup](/CTI_as_a_Code/setup/opencti-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://1200km.com/cti.html).

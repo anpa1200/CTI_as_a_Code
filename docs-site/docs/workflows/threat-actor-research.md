@@ -152,7 +152,7 @@ After running this workflow for one actor, the lab should have:
 - [TheHive](/CTI_as_a_Code/services/thehive-cortex): research case with source attachments
 - Exported STIX2 bundle ready for sharing
 
-For a real-world worked example of this workflow applied to a named actor, see the [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/) research.
+For a real-world worked example of this workflow applied to a named actor, see the [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/) research.
 
 ---
 
@@ -160,5 +160,5 @@ For a real-world worked example of this workflow applied to a named actor, see t
 
 - [Ecosystem overview](/CTI_as_a_Code/ecosystem) — all tools and integrations in the lab
 - [CTI as a Code Methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the step-by-step process this workflow fits into
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — worked examples and published assessments
-- [CTI Analyst Field Manual](https://anpa1200.github.io/cti-analyst-field-manual/) — reference companion for threat actor research
+- [CTI Portfolio](https://1200km.com/cti.html) — worked examples and published assessments
+- [CTI Analyst Field Manual](https://1200km.com/cti-analyst-field-manual/) — reference companion for threat actor research

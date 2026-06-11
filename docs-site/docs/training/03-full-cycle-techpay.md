@@ -93,9 +93,9 @@ The Detection Engineering team's trust must be rebuilt through quality, not volu
 
 ## Cross-Links
 
-- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
-- **Source reliability:** [Field Manual — Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
-- **Detection from CTI:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
+- **Source reliability:** [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
+- **Detection from CTI:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
 - **TechPay detections under test:** [A04 — Operation Desert Cipher Emulation](./04-emulation-techpay.md)
 - **Government parallel (INCD program):** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
 
@@ -105,4 +105,4 @@ The Detection Engineering team's trust must be rebuilt through quality, not volu
 
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work

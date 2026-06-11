@@ -94,4 +94,4 @@ docker compose up -d thehive
 
 ## Ecosystem
 
-This page is part of the [Cortex setup](/CTI_as_a_Code/setup/cortex-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This page is part of the [Cortex setup](/CTI_as_a_Code/setup/cortex-setup) flow. See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://1200km.com/cti.html).

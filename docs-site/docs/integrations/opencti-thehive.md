@@ -118,4 +118,4 @@ Configuration:
 
 ## Ecosystem
 
-This integration is part of the [lab stack](/CTI_as_a_Code/architecture). See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+This integration is part of the [lab stack](/CTI_as_a_Code/architecture). See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview or visit the [CTI Portfolio](https://1200km.com/cti.html).

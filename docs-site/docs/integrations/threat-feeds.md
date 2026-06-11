@@ -96,4 +96,4 @@ A full MISP [Docker Compose](https://docs.docker.com/compose/) deployment guide:
 
 ## Ecosystem
 
-See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview, the [OpenCTI-TheHive integration](/CTI_as_a_Code/integrations/opencti-thehive) for how feeds connect to cases, or visit the [CTI Portfolio](https://anpa1200.github.io/cti.html).
+See the full [ecosystem](/CTI_as_a_Code/ecosystem) overview, the [OpenCTI-TheHive integration](/CTI_as_a_Code/integrations/opencti-thehive) for how feeds connect to cases, or visit the [CTI Portfolio](https://1200km.com/cti.html).

@@ -17,7 +17,7 @@ GovID 2.0 — Israel's next-generation biometric authentication gateway for 9.5 
 
 | # | Trigger | Source | Classification | Confidence |
 |---|---|---|---|---|
-| TRG-001 | UAE government identity platform breached — biometric engine vendor credentials used to bulk-extract 1.7M templates; assessed [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) | [INCD](https://anpa1200.github.io/israel-government-threat-actors-cti/) TLP:AMBER (via Friedman) | TLP:AMBER — NDSA leadership only | Medium-High |
+| TRG-001 | UAE government identity platform breached — biometric engine vendor credentials used to bulk-extract 1.7M templates; assessed [Iranian-nexus](https://1200km.com/israel-government-threat-actors-cti/) | [INCD](https://1200km.com/israel-government-threat-actors-cti/) TLP:AMBER (via Friedman) | TLP:AMBER — NDSA leadership only | Medium-High |
 | TRG-002 | CERT-IL Bulletin CB-2025-041 — ongoing Iranian-nexus targeting of biometric infrastructure in Middle East and European government platforms | CERT-IL TLP:AMBER | TLP:AMBER | Medium-High |
 | TRG-003 | BiometricTech IL Ltd. possibly named in classified tier of UAE advisory as affected vendor | INCD (classified; read-in pending 3 weeks) | TLP:RED via Friedman only | Low-Medium until read-in |
 | TRG-004 | 2,400 calls/day to `/verify/bulk` endpoint from IP 185.220.101.47 (Tor exit node) on staging environment | NDSA internal monitoring | Internal | High |
@@ -80,12 +80,12 @@ Citizen Browser / Mobile App
 
 ## Cross-Links
 
-- **Proactive CTI methodology:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **Source reliability:** [Field Manual — Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
+- **Proactive CTI methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **Source reliability:** [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
 - **Same breach that precedes this assignment:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)
 - **CTI program built post-launch:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
 - **Detections from this assignment validated in:** [A08 — INCD Section 8 Emulation](./08-emulation-ndsa.md)
-- **Israeli government threat context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **Israeli government threat context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 
 ---
 
@@ -93,7 +93,7 @@ Citizen Browser / Mobile App
 
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work
 
 ## Critical Pre-Launch Constraint
 

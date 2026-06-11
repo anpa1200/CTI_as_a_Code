@@ -21,7 +21,7 @@ An Israeli pharmaceutical company discovers that 2.4 GB of R&D data was exfiltra
 | Detection | None during incident — gap noticed manually |
 | Data stolen | 2.4 GB R&D data (R&D share, `USPartner2024` folder) |
 | Entry vector | AiTM phishing → session token capture → contractor VPN |
-| Assessment | [Iranian-nexus](https://anpa1200.github.io/israel-government-threat-actors-cti/) activity cluster (medium confidence) |
+| Assessment | [Iranian-nexus](https://1200km.com/israel-government-threat-actors-cti/) activity cluster (medium confidence) |
 | Coverage gap | 0 / 12 techniques detected during incident |
 
 ## Kill Chain Summary
@@ -55,9 +55,9 @@ An Israeli pharmaceutical company discovers that 2.4 GB of R&D data was exfiltra
 
 ## Cross-Links
 
-- **Analytic tradecraft:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/), [Source Reliability](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/), [Attribution Methodology](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/)
-- **Detection conversion:** [Field Manual — CTI to Detection](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **Iranian-nexus context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **Analytic tradecraft:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/), [Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/), [Attribution Methodology](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/)
+- **Detection conversion:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **Iranian-nexus context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 - **Same adversary cluster in emulation:** [A04 — Operation Desert Cipher Emulation](./04-emulation-techpay.md)
 
 ## Evidence Files
@@ -85,4 +85,4 @@ DET-003 (DCSync) requires filtering EID 4662 by both ObjectType (computer accoun
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
 - [LifeTech Pharma case study](/CTI_as_a_Code/lifetech-pharma-case-study) — full worked investigation for PROJ-2024-001
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work

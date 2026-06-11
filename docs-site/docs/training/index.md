@@ -80,4 +80,4 @@ solution.md           — full worked answer
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — all tools and integrations used across assignments
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
 - [LifeTech Pharma case study](/CTI_as_a_Code/lifetech-pharma-case-study) — worked reactive investigation (PROJ-2024-001)
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all projects and published work
+- [CTI Portfolio](https://1200km.com/cti.html) — all projects and published work

@@ -11,7 +11,7 @@ sidebar_position: 6
 
 The National Digital Services Authority — operating Israel's national eID platform for 9.5 million citizens — discovers that 340,218 biometric records were exfiltrated through a contractor supply chain compromise. Detection came not from an alert but from a routine database audit review, 36 hours after the attack concluded. The INCD 8-hour notification clock is running.
 
-**Your entry point:** A CyberArk PAM session recording, Winlogbeat logs with a 9.5-hour gap, VRID database audit logs, VPN logs, and a complicating factor: an [INCD](https://anpa1200.github.io/israel-government-threat-actors-cti/) red team exercise ran 10 days earlier and left artifacts in the same systems.
+**Your entry point:** A CyberArk PAM session recording, Winlogbeat logs with a 9.5-hour gap, VRID database audit logs, VPN logs, and a complicating factor: an [INCD](https://1200km.com/israel-government-threat-actors-cti/) red team exercise ran 10 days earlier and left artifacts in the same systems.
 
 ## Key Facts
 
@@ -78,12 +78,12 @@ An INCD red team exercise ran 10 days before the incident under INCD-CID Section
 
 ## Cross-Links
 
-- **Attribution methodology:** [Field Manual — Attribution Methodology](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/)
-- **Evidence labels:** [Field Manual — Evidence Labels](https://anpa1200.github.io/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
+- **Attribution methodology:** [Field Manual — Attribution Methodology](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/)
+- **Evidence labels:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
 - **Same adversary cluster in private sector:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech.md)
 - **GovID 2.0 pre-launch threat model (next assignment):** [A06 — Proactive GovID 2.0](./06-proactive-govid2.md)
 - **NDSA CTI program built from this incident:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
-- **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://anpa1200.github.io/israel-government-threat-actors-cti/)
+- **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 
 ---
 
@@ -92,7 +92,7 @@ An INCD red team exercise ran 10 days before the incident under INCD-CID Section
 - [Full ecosystem](/CTI_as_a_Code/ecosystem) — tools and integrations used in this lab
 - [Step-by-step methodology](/CTI_as_a_Code/cti-as-a-code-methodology) — the analytical framework behind every case
 - [LifeTech Pharma case study](/CTI_as_a_Code/lifetech-pharma-case-study) — parallel reactive investigation in the private sector (PROJ-2024-001)
-- [CTI Portfolio](https://anpa1200.github.io/cti.html) — all published projects and case work
+- [CTI Portfolio](https://1200km.com/cti.html) — all published projects and case work
 
 ## Solution Highlights
 
