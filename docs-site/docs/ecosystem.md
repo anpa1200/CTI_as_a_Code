@@ -23,6 +23,7 @@ This page connects the CTI documentation projects into one practitioner ecosyste
 | **[CTI Analyst Field Manual](https://1200km.com/cti-analyst-field-manual/)** | General CTI tradecraft and analytic operating manual | You need evidence discipline, analytic judgment, attribution methodology, infrastructure pivoting, or CTI-to-detection reasoning |
 | **[Customer-Driven AI CTI Project](https://1200km.com/customer-driven-ai-cti-project/)** | Delivery methodology and customer engagement model | CTI work must become a managed project with phases, quality gates, and customer acceptance criteria |
 | **[Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)** | Israeli sector and actor knowledge base | The question involves Israeli government, municipal, telecom, critical infrastructure, or supplier exposure |
+| **[ThreatMapper AI CTI workbench](https://1200km.com/threatmapper/)** | Browser-native ATT&CK workspace plus self-hosted AI-assisted platform | You need ATT&CK mapping, group/campaign TTP-overlap analysis, coverage-gap review, or detection-backlog export |
 | **[HexStrike AI](https://github.com/0x4m4/hexstrike-ai)** | AI-powered offensive security automation | Adversarially validating detection coverage built in A04 or A08 against real TTPs |
 
 ## Published Case Studies
