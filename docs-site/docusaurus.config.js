@@ -13,25 +13,6 @@ const config = {
   organizationName: 'anpa1200',
   projectName: 'CTI_as_a_Code',
 
-  headTags: [
-    {
-      tagName: 'script',
-      attributes: {
-        async: 'true',
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-TMTG21RVHM',
-      },
-    },
-    {
-      tagName: 'script',
-      attributes: {},
-      innerHTML: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-TMTG21RVHM');
-      `,
-    },
-  ],
   deploymentBranch: 'gh-pages',
   trailingSlash: true,
 
@@ -59,6 +40,7 @@ const config = {
           editUrl: 'https://github.com/anpa1200/CTI_as_a_Code/edit/main/docs-site/',
         },
         blog: false,
+        gtag: {trackingID: 'G-TMTG21RVHM', anonymizeIP: true},
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
