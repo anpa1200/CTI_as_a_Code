@@ -69,6 +69,13 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: 'img/ap-logo.png',
+      metadata: [
+        {
+          name: 'keywords',
+          content: 'CTI as a code, version-controlled CTI, CTI methodology, structured threat intelligence, CTI templates, evidence-traced analysis, deployable detections, CTI workflow, MITRE ATT&CK, CTI-to-detection',
+        },
+      ],
       navbar: {
         title: 'CTI as a Code',
         logo: {
