@@ -10,7 +10,7 @@ const config = {
   url: 'https://1200km.com',
   baseUrl: '/CTI_as_a_Code/',
 
-  scripts: [{src: 'https://1200km.com/assets/docusaurus-ecosystem.js?v=20260614-2', defer: true}],
+  scripts: [{src: 'https://1200km.com/assets/docusaurus-ecosystem.js?v=20260614-3', defer: true}],
   organizationName: 'anpa1200',
   projectName: 'CTI_as_a_Code',
 
