@@ -1,5 +1,6 @@
 ---
 title: A06 — Proactive CTI (Gov) — GovID 2.0
+description: "Assess threats to a national biometric gateway before launch, connect four triggers, model likely attack paths, and deliver a defensible go or no-go decision."
 sidebar_position: 7
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: A01 — Reactive IR — LifeTech Pharma
+description: "Investigate a 52-hour pharmaceutical intrusion, trace dual entry points and DCSync, assess exfiltration, and write four Sigma detections from evidence."
 sidebar_position: 2
 ---
 

@@ -1,6 +1,7 @@
 ---
 id: intro
 title: Introduction
+description: "Build repeatable threat-intelligence investigations with a Docker Compose lab, evidence-traced claims, deployable Sigma rules, and eight training scenarios."
 sidebar_position: 1
 ---
 
@@ -63,4 +64,5 @@ This project is part of a practitioner [CTI ecosystem](https://1200km.com/cti.ht
 - **[CTI Analyst Field Manual](https://1200km.com/cti-analyst-field-manual/)** — the analytic tradecraft standard underpinning every assignment
 - **[Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)** — the sector knowledge base for [A05](/CTI_as_a_Code/training/reactive-ndsa/)–[A08](/CTI_as_a_Code/training/emulation-ndsa/)
 - **[Customer-Driven AI CTI Project](https://1200km.com/customer-driven-ai-cti-project/)** — delivery methodology for turning CTI into managed customer projects
-- **[HexStrike AI](https://github.com/0x4m4/hexstrike-ai)** — adversarial validation platform for detection coverage built in [A04](/CTI_as_a_Code/training/emulation-techpay/) and [A08](/CTI_as_a_Code/training/emulation-ndsa/)
+- **[HexStrike AI (upstream project)](https://github.com/0x4m4/hexstrike-ai)** — original adversarial validation platform for detection coverage built in [A04](/CTI_as_a_Code/training/emulation-techpay/) and [A08](/CTI_as_a_Code/training/emulation-ndsa/)
+- **[Andrey Pautov's HexStrike AI fork](https://github.com/anpa1200/Hexstrike-AI)** — site owner's fork, labeled separately from the upstream project

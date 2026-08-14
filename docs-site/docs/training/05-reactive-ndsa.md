@@ -1,5 +1,6 @@
 ---
 title: A05 — Reactive IR (Gov) — NDSA Breach
+description: "Reconstruct a government contractor breach affecting biometric records, document the timeline and notifications, map TTPs, and derive five Sigma rules."
 sidebar_position: 6
 ---
 

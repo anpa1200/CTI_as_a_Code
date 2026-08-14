@@ -1,5 +1,6 @@
 ---
 title: A02 — Proactive CTI — CelltronX Telecom
+description: "Assess nation-state telecom targeting before an incident, model contractor and internet-facing paths, rank intelligence gaps, and build a detection backlog."
 sidebar_position: 3
 ---
 

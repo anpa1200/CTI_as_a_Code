@@ -1,6 +1,7 @@
 ---
 id: threat-actor-research
 title: Threat Actor Research Workflow
+description: "Build an evidence-traced actor profile from public sources, normalize aliases and infrastructure, map TTPs, record confidence, and hand off detections."
 sidebar_position: 2
 ---
 

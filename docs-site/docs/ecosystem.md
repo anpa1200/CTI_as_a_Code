@@ -1,6 +1,7 @@
 ---
 id: ecosystem
 title: Ecosystem
+description: "Connect the lab, field manual, sector research, AI-assisted delivery, AdversaryGraph, and validation tooling into practical analyst workflows."
 sidebar_position: 5
 ---
 
@@ -24,7 +25,8 @@ This page connects the CTI documentation projects into one practitioner ecosyste
 | **[Customer-Driven AI CTI Project](https://1200km.com/customer-driven-ai-cti-project/)** | Delivery methodology and customer engagement model | CTI work must become a managed project with phases, quality gates, and customer acceptance criteria |
 | **[Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)** | Israeli sector and actor knowledge base | The question involves Israeli government, municipal, telecom, critical infrastructure, or supplier exposure |
 | **[AdversaryGraph AI CTI workbench](https://1200km.com/adversarygraph/)** | Browser-native ATT&CK workspace plus self-hosted AI-assisted platform | You need ATT&CK mapping, group/campaign TTP-overlap analysis, coverage-gap review, or detection-backlog export |
-| **[HexStrike AI](https://github.com/0x4m4/hexstrike-ai)** | AI-powered offensive security automation | Adversarially validating detection coverage built in A04 or A08 against real TTPs |
+| **[HexStrike AI (upstream project)](https://github.com/0x4m4/hexstrike-ai)** | Original AI-powered offensive security automation project | Adversarially validating detection coverage built in A04 or A08 against real TTPs |
+| **[Andrey Pautov's HexStrike AI fork](https://github.com/anpa1200/Hexstrike-AI)** | Site owner's fork of the upstream project | Accessing the owner's separately labeled HexStrike AI repository |
 
 ## Published Case Studies
 
@@ -65,7 +67,7 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 3. Apply [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/) and [Source Reliability](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/source-reliability/) to each timeline event
 4. Convert findings to detection logic using [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
 5. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/docs/training) or [A08](/docs/training) emulation methodology
-6. Use [HexStrike AI](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage
+6. Use [HexStrike AI (upstream project)](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage, or use [Andrey Pautov's HexStrike AI fork](https://github.com/anpa1200/Hexstrike-AI) when the site owner's repository is required
 
 ### Threat Modeling → Detection Backlog → Customer Project
 
@@ -106,7 +108,8 @@ The government assignments (A05–A08) are grounded in the Israeli public-sector
 - [CTI Analyst Field Manual](https://github.com/anpa1200/cti-analyst-field-manual)
 - [Customer-Driven AI CTI Project](https://github.com/anpa1200/customer-driven-ai-cti-project)
 - [Israel Government Threat Actors CTI](https://github.com/anpa1200/israel-government-threat-actors-cti)
-- [HexStrike AI](https://github.com/0x4m4/hexstrike-ai)
+- [HexStrike AI (upstream project)](https://github.com/0x4m4/hexstrike-ai)
+- [Andrey Pautov's HexStrike AI fork](https://github.com/anpa1200/Hexstrike-AI)
 
 ## Boundary
 

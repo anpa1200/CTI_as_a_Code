@@ -1,6 +1,7 @@
 ---
 id: architecture
 title: Architecture
+description: "See how the lab combines OpenCTI, TheHive, Cortex, Elasticsearch, Kibana, and Logstash in one Docker Compose stack with clear shared data flows."
 sidebar_position: 2
 ---
 

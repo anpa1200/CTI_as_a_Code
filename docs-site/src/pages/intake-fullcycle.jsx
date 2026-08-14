@@ -1,6 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Layout from '@theme/Layout';
+import Head from '@docusaurus/Head';
 import styles from './intake-form.module.css';
+
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {'@type': 'ListItem', position: 1, name: '1200km', item: 'https://1200km.com/'},
+    {'@type': 'ListItem', position: 2, name: 'CTI as a Code', item: 'https://1200km.com/CTI_as_a_Code/'},
+    {'@type': 'ListItem', position: 3, name: 'Full-Cycle Program Intake', item: 'https://1200km.com/CTI_as_a_Code/intake-fullcycle/'},
+  ],
+};
 
 function Field({ label, hint, rows = 3 }) {
   return (
@@ -122,8 +133,13 @@ export default function IntakeFullCycle() {
   return (
     <Layout
       title="Full-Cycle Program Intake"
-      description="CTI Lab — Full-cycle CTI program design intake checklist"
+      description="Capture program mandate, stakeholders, intelligence requirements, collection gaps, governance, sharing, metrics, and delivery constraints before design."
     >
+      <Head>
+        <meta name="twitter:title" content="Full-Cycle Program Intake | 1200km" />
+        <meta name="twitter:description" content="Capture program mandate, stakeholders, intelligence requirements, collection gaps, governance, sharing, metrics, and delivery constraints before design." />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbStructuredData)}</script>
+      </Head>
       <div className={styles.wrapper}>
         <div className={styles.toolbar + ' no-print'}>
           <span className={styles.toolbarTitle}>Full-Cycle CTI Program Intake</span>

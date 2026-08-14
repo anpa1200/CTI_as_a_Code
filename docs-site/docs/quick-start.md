@@ -1,6 +1,7 @@
 ---
 id: quick-start
 title: Quick Start
+description: "Clone the repository, configure secrets, start the Docker Compose services, verify health, and open each analyst platform in a working local lab."
 sidebar_position: 4
 ---
 

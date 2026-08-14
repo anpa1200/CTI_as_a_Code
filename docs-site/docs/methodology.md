@@ -1,5 +1,6 @@
 ---
 title: Methodology
+description: "Use version control, templates, evidence labels, claims ledgers, ATT&CK mapping, and detection backlogs to make CTI work reproducible and auditable."
 sidebar_position: 3
 ---
 

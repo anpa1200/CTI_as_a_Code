@@ -1,6 +1,7 @@
 ---
 id: thehive-setup
 title: TheHive Setup
+description: "Create the initial case-management organization and administrator, connect the shared data store, set permissions, and verify analyst access."
 sidebar_position: 3
 ---
 

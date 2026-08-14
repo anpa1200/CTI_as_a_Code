@@ -1,6 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Layout from '@theme/Layout';
+import Head from '@docusaurus/Head';
 import styles from './intake-form.module.css';
+
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {'@type': 'ListItem', position: 1, name: '1200km', item: 'https://1200km.com/'},
+    {'@type': 'ListItem', position: 2, name: 'CTI as a Code', item: 'https://1200km.com/CTI_as_a_Code/'},
+    {'@type': 'ListItem', position: 3, name: 'Proactive Assessment Intake', item: 'https://1200km.com/CTI_as_a_Code/intake-proactive/'},
+  ],
+};
 
 function Field({ label, hint, rows = 3 }) {
   return (
@@ -122,8 +133,13 @@ export default function IntakeProactive() {
   return (
     <Layout
       title="Proactive Assessment Intake"
-      description="CTI Lab — Proactive threat assessment intake checklist"
+      description="Capture the trigger, decision, stakeholders, time horizon, scope, assumptions, evidence needs, and deliverables before a proactive threat assessment."
     >
+      <Head>
+        <meta name="twitter:title" content="Proactive Assessment Intake | 1200km" />
+        <meta name="twitter:description" content="Capture the trigger, decision, stakeholders, time horizon, scope, assumptions, evidence needs, and deliverables before a proactive threat assessment." />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbStructuredData)}</script>
+      </Head>
       <div className={styles.wrapper}>
         <div className={styles.toolbar + ' no-print'}>
           <span className={styles.toolbarTitle}>Proactive Assessment Intake</span>

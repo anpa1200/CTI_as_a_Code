@@ -1,5 +1,6 @@
 ---
 title: A04 — Adversary Emulation — TechPay
+description: "Validate eight payment-sector detections against an emulation plan, record pass, partial, and fail evidence, and turn coverage gaps into engineering actions."
 sidebar_position: 5
 ---
 

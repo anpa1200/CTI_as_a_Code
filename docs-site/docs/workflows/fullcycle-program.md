@@ -1,6 +1,7 @@
 ---
 id: fullcycle-program
 title: Full-Cycle Program — Intake
+description: "Scope a new or recovering intelligence program by clarifying mandate, stakeholders, requirements, collection gaps, governance, sharing, and success measures."
 sidebar_position: 2
 ---
 

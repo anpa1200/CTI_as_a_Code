@@ -1,6 +1,7 @@
 ---
 id: opencti-setup
 title: OpenCTI Setup
+description: "Complete first-run administration for the intelligence platform: sign in, configure organization settings, add connectors, and verify ingestion health."
 sidebar_position: 2
 ---
 

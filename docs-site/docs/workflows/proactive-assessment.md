@@ -1,6 +1,7 @@
 ---
 id: proactive-assessment
 title: Proactive Assessment — Intake
+description: "Frame an intelligence assessment before collection by defining the trigger, decision, stakeholders, time horizon, scope, assumptions, and evidence needs."
 sidebar_position: 1
 ---
 

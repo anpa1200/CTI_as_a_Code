@@ -1,6 +1,7 @@
 ---
 id: elasticsearch
 title: Elasticsearch
+description: "Configure the shared 8.x data store used by intelligence, case management, enrichment, and SIEM services, including health checks and index access."
 sidebar_position: 1
 ---
 

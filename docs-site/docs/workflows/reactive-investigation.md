@@ -1,6 +1,7 @@
 ---
 id: reactive-investigation
 title: Reactive Investigation — Intake
+description: "Define the incident decision, stakeholders, scope, known facts, evidence gaps, and reporting cadence before opening logs or launching enrichment queries."
 sidebar_position: 0
 ---
 

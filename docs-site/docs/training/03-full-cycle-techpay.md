@@ -1,5 +1,6 @@
 ---
 title: A03 — Full CTI Cycle — TechPay FinTech
+description: "Build a standing intelligence program for a payment processor: define requirements, collection, governance, sharing, metrics, and an auditable roadmap."
 sidebar_position: 4
 ---
 
