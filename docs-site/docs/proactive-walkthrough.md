@@ -1,6 +1,7 @@
 ---
 id: proactive-walkthrough
 title: "CTI as a Code in Practice: Proactive Threat Assessment — CelltronX Telecom"
+description: "Turn four threat triggers, contractor exposure, active TTPs, and a compliance gap into prioritized attack scenarios and a sprint-ready detection backlog."
 sidebar_position: 3
 ---
 

@@ -2,7 +2,7 @@
 id: lifetech-pharma-case-study
 title: "Case Study: LifeTech Pharma — Reactive Investigation"
 sidebar_position: 3
-description: "Complete published case study of the PROJ-2024-001 LifeTech Pharma investigation — dual entry points, DCSync, 381 MB formula exfiltration, and a 10-day Sysmon gap."
+description: "Reconstruct a pharmaceutical intrusion through dual entry paths, DCSync, R&D exfiltration, and a ten-day telemetry gap, then derive defensible detections."
 ---
 
 import Tabs from '@theme/Tabs';

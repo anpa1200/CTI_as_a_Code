@@ -1,9 +1,36 @@
 // @ts-check
 const { themes } = require('prism-react-renderer');
+const {execFileSync} = require('node:child_process');
+
+function gitLastModifiedDate(relativePath) {
+  try {
+    const value = execFileSync('git', ['log', '-1', '--format=%cs', '--', relativePath], {
+      cwd: __dirname,
+      encoding: 'utf8',
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const customPageSources = new Map([
+  ['https://1200km.com/CTI_as_a_Code/', 'src/pages/index.js'],
+  ['https://1200km.com/CTI_as_a_Code/intake-form/', 'src/pages/intake-form.jsx'],
+  ['https://1200km.com/CTI_as_a_Code/intake-proactive/', 'src/pages/intake-proactive.jsx'],
+  ['https://1200km.com/CTI_as_a_Code/intake-fullcycle/', 'src/pages/intake-fullcycle.jsx'],
+]);
+
+const customPageLastmods = new Map(
+  [...customPageSources].map(([url, sourcePath]) => [url, gitLastModifiedDate(sourcePath)]),
+);
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'CTI as a Code',
+  // Page titles are formatted centrally as "{Page Title} | 1200km".
+  // The product name remains explicit in the navbar and page content below.
+  title: '1200km',
+  titleDelimiter: '|',
   tagline: 'Version-controlled CTI methodology. Evidence-traced analysis. Deployable detections.',
   favicon: 'img/ap-logo.png',
 
@@ -39,8 +66,19 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           editUrl: 'https://github.com/anpa1200/CTI_as_a_Code/edit/main/docs-site/',
+          showLastUpdateTime: true,
         },
         blog: false,
+        sitemap: {
+          lastmod: 'date',
+          createSitemapItems: async ({defaultCreateSitemapItems, ...params}) => {
+            const items = await defaultCreateSitemapItems(params);
+            return items.map((item) => {
+              const lastmod = customPageLastmods.get(item.url);
+              return lastmod ? {...item, lastmod: item.lastmod || lastmod} : item;
+            });
+          },
+        },
         gtag: {trackingID: 'G-TMTG21RVHM', anonymizeIP: true},
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -52,8 +90,12 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/ap-logo.png',
+      image: 'img/cti-cover.png',
       metadata: [
+        {
+          property: 'og:site_name',
+          content: '1200km — Andrey Pautov Security Research',
+        },
         {
           name: 'keywords',
           content: 'CTI as a code, version-controlled CTI, CTI methodology, structured threat intelligence, CTI templates, evidence-traced analysis, deployable detections, CTI workflow, MITRE ATT&CK, CTI-to-detection',
@@ -111,7 +153,8 @@ const config = {
               { label: 'Customer-Driven AI CTI', href: 'https://1200km.com/customer-driven-ai-cti-project/' },
               { label: 'Israel Threat Actors CTI', href: 'https://1200km.com/israel-government-threat-actors-cti/' },
               { label: 'AI vs Defense', href: 'https://1200km.com/ai-vs-defense/' },
-              { label: 'HexStrike AI', href: 'https://github.com/0x4m4/hexstrike-ai' },
+              { label: 'HexStrike AI (upstream project)', href: 'https://github.com/0x4m4/hexstrike-ai' },
+              { label: "Andrey Pautov's HexStrike AI fork", href: 'https://github.com/anpa1200/Hexstrike-AI' },
             ],
           },
           { href: 'https://medium.com/@1200km', label: 'Medium', position: 'right' },
@@ -150,7 +193,8 @@ const config = {
               { label: 'Customer-Driven AI CTI', href: 'https://1200km.com/customer-driven-ai-cti-project/' },
               { label: 'Israel Threat Actors CTI', href: 'https://1200km.com/israel-government-threat-actors-cti/' },
               { label: 'AI vs Defense', href: 'https://1200km.com/ai-vs-defense/' },
-              { label: 'HexStrike AI', href: 'https://github.com/0x4m4/hexstrike-ai' },
+              { label: 'HexStrike AI (upstream project)', href: 'https://github.com/0x4m4/hexstrike-ai' },
+              { label: "Andrey Pautov's HexStrike AI fork", href: 'https://github.com/anpa1200/Hexstrike-AI' },
             ],
           },
           {

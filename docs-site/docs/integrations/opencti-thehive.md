@@ -1,6 +1,7 @@
 ---
 id: opencti-thehive
 title: OpenCTI → TheHive
+description: "Move confirmed indicators and campaign context into incident cases, then return enriched observables to the intelligence platform with traceable workflow steps."
 sidebar_position: 1
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: A07 — Full CTI Cycle (Gov) — NDSA
+description: "Design a twelve-month government intelligence program after a breach, covering requirements, collection gaps, sharing, governance, and compliance milestones."
 sidebar_position: 8
 ---
 

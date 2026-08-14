@@ -1,5 +1,6 @@
 ---
 title: A08 — Emulation (Gov) — NDSA INCD Section 8
+description: "Run an annual government detection-validation exercise across fifteen TTPs, score eleven modules, document evidence, and prioritize remediation work."
 sidebar_position: 9
 ---
 

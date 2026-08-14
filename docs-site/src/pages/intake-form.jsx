@@ -1,6 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Layout from '@theme/Layout';
+import Head from '@docusaurus/Head';
 import styles from './intake-form.module.css';
+
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {'@type': 'ListItem', position: 1, name: '1200km', item: 'https://1200km.com/'},
+    {'@type': 'ListItem', position: 2, name: 'CTI as a Code', item: 'https://1200km.com/CTI_as_a_Code/'},
+    {'@type': 'ListItem', position: 3, name: 'Investigation Intake Form', item: 'https://1200km.com/CTI_as_a_Code/intake-form/'},
+  ],
+};
 
 function Field({ label, hint, rows = 3 }) {
   return (
@@ -122,8 +133,13 @@ export default function IntakeForm() {
   return (
     <Layout
       title="Investigation Intake Form"
-      description="CTI Lab — Reactive investigation intake checklist"
+      description="Capture incident scope, stakeholders, known facts, evidence gaps, reporting needs, and response constraints before starting a reactive CTI investigation."
     >
+      <Head>
+        <meta name="twitter:title" content="Investigation Intake Form | 1200km" />
+        <meta name="twitter:description" content="Capture incident scope, stakeholders, known facts, evidence gaps, reporting needs, and response constraints before starting a reactive CTI investigation." />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbStructuredData)}</script>
+      </Head>
       <div className={styles.wrapper}>
         <div className={styles.toolbar + ' no-print'}>
           <span className={styles.toolbarTitle}>Investigation Intake Form</span>

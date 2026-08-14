@@ -1,6 +1,7 @@
 ---
 id: elastic-siem
 title: Elastic SIEM
+description: "Connect the shared data store, Kibana, and optional Logstash ingestion to support alert triage, timeline analysis, dashboards, and detection validation."
 sidebar_position: 4
 ---
 

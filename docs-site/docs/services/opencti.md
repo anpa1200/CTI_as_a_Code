@@ -1,6 +1,7 @@
 ---
 id: opencti
 title: OpenCTI
+description: "Configure the core STIX2 intelligence platform for actors, malware, campaigns, attack patterns, and indicators, with graph-based investigation workflows."
 sidebar_position: 2
 ---
 

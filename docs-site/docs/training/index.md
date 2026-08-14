@@ -1,5 +1,6 @@
 ---
 title: Training Overview
+description: "Practice reactive, proactive, full-cycle, and emulation work through eight structured scenarios with synthetic evidence, analyst files, and worked solutions."
 sidebar_position: 1
 ---
 

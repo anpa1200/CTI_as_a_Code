@@ -1,6 +1,7 @@
 ---
 id: cti-as-a-code-methodology
 title: Complete Methodology
+description: "Follow an evidence-traced CTI workflow from intake and source evaluation through claims, ATT&CK mapping, Sigma validation, and a detection backlog."
 sidebar_position: 4
 ---
 

@@ -1,6 +1,7 @@
 ---
 id: celltronx-proactive-case-study
 title: "CTI as a Code in Practice: Proactive Assessment — CelltronX Telecom"
+description: "Apply proactive CTI to a telecom supply-chain scenario: connect four intelligence triggers, model attack paths, prioritize gaps, and produce five Sigma rules."
 sidebar_position: 4
 ---
 

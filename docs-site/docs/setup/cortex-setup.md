@@ -1,6 +1,7 @@
 ---
 id: cortex-setup
 title: Cortex Setup
+description: "Create the enrichment-engine administrator, connect the service to TheHive, add analyzers, and verify observable analysis in the local lab stack."
 sidebar_position: 4
 ---
 

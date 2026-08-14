@@ -1,6 +1,7 @@
 ---
 id: prerequisites
 title: Prerequisites
+description: "Prepare a Linux host, Docker tooling, memory, storage, ports, environment secrets, and network settings before bringing up the full intelligence lab."
 sidebar_position: 3
 ---
 

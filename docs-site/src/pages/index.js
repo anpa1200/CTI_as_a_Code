@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import Head from '@docusaurus/Head';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 
@@ -97,11 +98,27 @@ const ecosystem = [
     href: 'https://1200km.com/israel-government-threat-actors-cti/',
   },
   {
-    title: 'HexStrike AI',
+    title: 'HexStrike AI (upstream project)',
     body: 'AI-powered offensive security platform. MCP agent orchestration, 150+ security tools, adversarial validation. Use this to validate detection coverage built in A04 and A08.',
     href: 'https://github.com/0x4m4/hexstrike-ai',
+    linkLabel: 'Open HexStrike AI upstream project',
+  },
+  {
+    title: "Andrey Pautov's HexStrike AI fork",
+    body: 'The site owner\'s fork of HexStrike AI. Use the upstream project for the original source and this repository for Andrey Pautov\'s fork.',
+    href: 'https://github.com/anpa1200/Hexstrike-AI',
+    linkLabel: "Open Andrey Pautov's HexStrike AI fork",
   },
 ];
+
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {'@type': 'ListItem', position: 1, name: '1200km', item: 'https://1200km.com/'},
+    {'@type': 'ListItem', position: 2, name: 'CTI as a Code', item: 'https://1200km.com/CTI_as_a_Code/'},
+  ],
+};
 
 export default function Home() {
   return (
@@ -109,6 +126,11 @@ export default function Home() {
       title="CTI as a Code"
       description="Version-controlled CTI methodology, evidence-traced analysis, and deployable detections. Docker Compose lab stack and 8 structured training assignments."
     >
+      <Head>
+        <meta name="twitter:title" content="CTI as a Code | 1200km" />
+        <meta name="twitter:description" content="Version-controlled CTI methodology, evidence-traced analysis, and deployable detections. Docker Compose lab stack and 8 structured training assignments." />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbStructuredData)}</script>
+      </Head>
       <header className="hero hero--lab">
         <div className="container" style={{ textAlign: 'center' }}>
           <h1 className="hero__title">CTI as a Code</h1>
@@ -236,7 +258,9 @@ export default function Home() {
                 <article className="lab-card" key={p.title}>
                   <h3>{p.title}</h3>
                   <p style={{ fontSize: '0.88rem', margin: '0 0 0.75rem' }}>{p.body}</p>
-                  <a href={p.href} target="_blank" rel="noopener noreferrer">Open project →</a>
+                  <a href={p.href} target="_blank" rel="noopener noreferrer">
+                    {p.linkLabel ?? 'Open project'} →
+                  </a>
                 </article>
               ))}
             </div>

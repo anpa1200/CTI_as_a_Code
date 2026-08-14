@@ -1,6 +1,7 @@
 ---
 id: first-run
 title: First-Run Checklist
+description: "Verify each Docker service after setup, confirm web access and health, create required accounts, test integrations, and catch configuration failures early."
 sidebar_position: 1
 ---
 

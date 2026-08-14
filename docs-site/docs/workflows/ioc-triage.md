@@ -1,6 +1,7 @@
 ---
 id: ioc-triage
 title: IOC Triage Workflow
+description: "Turn a suspicious indicator into an evidence-traced product through enrichment, correlation, confidence scoring, case handling, and detection handoff."
 sidebar_position: 1
 ---
 
