@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, createContext, useContext } from 'react';
 import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
 import styles from './intake-form.module.css';
@@ -13,12 +13,15 @@ const breadcrumbStructuredData = {
   ],
 };
 
+const QuestionLabel = createContext(null);
+
 function Field({ label, hint, rows = 3 }) {
+  const questionLabel = useContext(QuestionLabel);
   return (
     <div className={styles.field}>
       {label && <div className={styles.fieldLabel}>{label}</div>}
       {hint && <div className={styles.hint}>{hint}</div>}
-      <textarea className={styles.textarea} rows={rows} />
+      <textarea className={styles.textarea} rows={rows} aria-label={label || questionLabel || hint} />
     </div>
   );
 }
@@ -102,7 +105,7 @@ function Q({ num, text, hint, children }) {
         <strong>{num}</strong> {text}
       </div>
       {hint && <div className={styles.hint}>{hint}</div>}
-      {children}
+      <QuestionLabel.Provider value={`${num} ${text}`}>{children}</QuestionLabel.Provider>
     </div>
   );
 }
