@@ -9,12 +9,14 @@
 
 ## Evidence Index
 
+**Availability note:** The VPN log listed below is not included in this public repository (`*.log` is ignored). VPN-specific claims that depend on it are not reproducible from this clone; the other listed files are published training evidence.
+
 | File | Source | Period | Key Events |
 |---|---|---|---|
 | `01-evidence/m365/message-trace-p.levi.csv` | M365 Security & Compliance | Oct 15–24 | AiTM phishing email Oct 22 11:23 IST |
 | `01-evidence/m365/message-trace-m.cohen.csv` | M365 Security & Compliance | Nov 13–15 | CFO phishing email Nov 15 17:58 IST |
 | `01-evidence/azure-ad/signin-p.levi.json` | Azure AD Sign-in Logs | Oct 22–24 | Session token replay from Istanbul |
-| `01-evidence/vpn/anyconnect-2024-10-24.log` | Cisco ASA AnyConnect | Oct 24 | VPN session from 185.220.101.47, 1h12m |
+| `01-evidence/vpn/anyconnect-2024-10-24.log` (not published) | Cisco ASA AnyConnect | Oct 24 | Referenced VPN session; source log unavailable for verification |
 | `01-evidence/sysmon/WS-CFO-01-sysmon.jsonl` | Sysmon / Winlogbeat | Nov 15 | PowerShell, LSASS, persistence, WMI |
 | `01-evidence/crowdstrike/WS-CFO-01-alert-20241115.json` | CrowdStrike Falcon | Nov 15 | Triggering IOA, C2, file drop |
 | `01-evidence/windows-security/DC01-security.jsonl` | Windows Security (Splunk) | Oct 24–Nov 15 | svc_backup logons, DCSync EID 4662 |
