@@ -789,7 +789,7 @@ Direct links to open any file in GitHub (also downloadable via `curl -L`):
 | `m365/message-trace-p.levi.csv` | CSV | IT admin phishing delivery, Oct 15–24 | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/m365/message-trace-p.levi.csv) |
 | `m365/message-trace-m.cohen.csv` | CSV | CFO phishing delivery, Nov 13–15 | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/m365/message-trace-m.cohen.csv) |
 | `azure-ad/signin-p.levi.json` | JSON | IT admin Azure AD sign-ins — Istanbul token replay | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/azure-ad/signin-p.levi.json) |
-| `vpn/anyconnect-2024-10-24.log` | ASA syslog | VPN session from Istanbul, Oct 24 | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/vpn/anyconnect-2024-10-24.log) |
+| `vpn/anyconnect-2024-10-24.log` | ASA syslog | Referenced VPN session; source log is not in the public repository | Not published |
 | `sysmon/WS-CFO-01-sysmon.jsonl` | JSONL | CFO workstation — PowerShell, LSASS, persistence, BITS | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/sysmon/WS-CFO-01-sysmon.jsonl) |
 | `crowdstrike/WS-CFO-01-alert-20241115.json` | JSON | CrowdStrike Falcon alert — triggering detection | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/crowdstrike/WS-CFO-01-alert-20241115.json) |
 | `windows-security/DC01-security.jsonl` | JSONL | DC01 security events — DCSync EID 4662 | [GitHub](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/01-evidence/windows-security/DC01-security.jsonl) |
@@ -1071,15 +1071,17 @@ jq '.[] | {
 
 ### 5. VPN Log Analysis
 
+**Public evidence boundary:** `vpn/anyconnect-2024-10-24.log` is absent from the published repository (`*.log` is ignored). The screenshot, sample output, VPN-specific findings, and commands below are training narrative, not independently reproducible from the public clone. Do not treat the quoted VPN events as verified by a downloadable source log. The other linked evidence files remain available.
+
 
 <figure>
 <img src="/CTI_as_a_Code/img/lifetech/14-vpn-session-output.png" alt="VPN gateway log — contractor-07 session from Istanbul IP" />
 </figure>
 
 
-**In VS Code Explorer:** click `vpn/anyconnect-2024-10-24.log`
+**If you have the separate VPN fixture:** in VS Code Explorer, open `vpn/anyconnect-2024-10-24.log`.
 
-VS Code opens the plain syslog file. Use `Ctrl+F` to navigate without any commands:
+VS Code opens the plain syslog file. Use `Ctrl+F` to navigate without any commands; these steps cannot be completed from the public clone:
 
 - Search `p.levi` — highlights every line for this user
 - Search `Authentication: successful` — the auth event
@@ -1524,7 +1526,7 @@ dns-queries.csv           lines 12-23: 11 beacon queries (6 from WS-IT-LEVI, 4 f
 
 ```
 azure-ad/signin-p.levi.json          line 18: suspicious sign-in from Istanbul — token replay, no MFA
-vpn/anyconnect-2024-10-24.log        line 4:  VPN authentication as p.levi, assigned 10.10.3.22
+vpn/anyconnect-2024-10-24.log        not in the public clone; VPN event cannot be reproduced here
 palo-alto/dns-queries.csv            line 1:  attacker queried vpn.lifetechpharma.com 1 min before login
 ```
 
