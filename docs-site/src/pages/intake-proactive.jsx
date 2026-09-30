@@ -53,7 +53,7 @@ function CheckGroup({ options }) {
             <span>
               {opt.text}
               {opt.sub && (
-                <InlineField placeholder={opt.sub} width={opt.subWidth || '160px'} />
+                <InlineField label={`Specify ${opt.text.replace(/:$/, '')}`} placeholder={opt.sub} width={opt.subWidth || '160px'} />
               )}
             </span>
           </label>
@@ -78,7 +78,7 @@ function RadioGroup({ name, options }) {
             <span>
               {opt.text}
               {opt.sub && (
-                <InlineField placeholder={opt.sub} width={opt.subWidth || '160px'} />
+                <InlineField label={`Specify ${opt.text.replace(/:$/, '')}`} placeholder={opt.sub} width={opt.subWidth || '160px'} />
               )}
             </span>
           </label>
