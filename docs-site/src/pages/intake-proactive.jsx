@@ -26,10 +26,11 @@ function Field({ label, hint, rows = 3 }) {
   );
 }
 
-function InlineField({ placeholder = '_______________', width = '180px' }) {
+function InlineField({ label, placeholder = '_______________', width = '180px' }) {
   return (
     <input
       type="text"
+      aria-label={label || placeholder}
       className={styles.inlineInput}
       placeholder={placeholder}
       style={{ width }}
@@ -162,8 +163,9 @@ export default function IntakeProactive() {
             <h1 className={styles.formTitle}>Proactive Assessment Intake</h1>
             <div className={styles.headerGrid}>
               <div className={styles.headerField}>
-                <label>Project name</label>
+                <label htmlFor="intake-project-name">Project name</label>
                 <input
+                  id="intake-project-name"
                   type="text"
                   value={projectName}
                   onChange={e => setProjectName(e.target.value)}
@@ -171,8 +173,9 @@ export default function IntakeProactive() {
                 />
               </div>
               <div className={styles.headerField}>
-                <label>Analyst</label>
+                <label htmlFor="intake-analyst">Analyst</label>
                 <input
+                  id="intake-analyst"
                   type="text"
                   value={analyst}
                   onChange={e => setAnalyst(e.target.value)}
@@ -180,8 +183,9 @@ export default function IntakeProactive() {
                 />
               </div>
               <div className={styles.headerField}>
-                <label>Commissioned by</label>
+                <label htmlFor="intake-commissioned-by">Commissioned by</label>
                 <input
+                  id="intake-commissioned-by"
                   type="text"
                   value={callWith}
                   onChange={e => setCallWith(e.target.value)}
@@ -189,8 +193,9 @@ export default function IntakeProactive() {
                 />
               </div>
               <div className={styles.headerField}>
-                <label>Date / time</label>
+                <label htmlFor="intake-call-time">Date / time</label>
                 <input
+                  id="intake-call-time"
                   type="text"
                   value={callTime}
                   onChange={e => setCallTime(e.target.value)}
@@ -223,7 +228,7 @@ export default function IntakeProactive() {
             <Q num="1.3" text="When was the trigger received?">
               <div className={styles.inlineRow}>
                 <span>Date:</span>
-                <input type="date" className={styles.inlineInput} style={{ width: '150px' }} />
+                <input type="date" aria-label="Trigger received date" className={styles.inlineInput} style={{ width: '150px' }} />
                 <span>Source:</span>
                 <InlineField placeholder="CERT-IL / vendor / internal" width="180px" />
                 <span>Reliability (Admiralty A–F):</span>
@@ -304,7 +309,7 @@ export default function IntakeProactive() {
             <Q num="3.3" text="Date of last threat assessment or red team exercise?">
               <div className={styles.inlineRow}>
                 <span>Date:</span>
-                <input type="date" className={styles.inlineInput} style={{ width: '150px' }} />
+                <input type="date" aria-label="Last threat assessment or red team exercise date" className={styles.inlineInput} style={{ width: '150px' }} />
                 <span>Findings available:</span>
                 <label className={styles.checkLabel}>
                   <input type="radio" name="findings" className={styles.checkbox} />
@@ -466,7 +471,7 @@ export default function IntakeProactive() {
               {[1, 2, 3].map(n => (
                 <div key={n} className={styles.inlineRow} style={{ marginBottom: 6 }}>
                   <span style={{ width: 18, flexShrink: 0 }}>{n}.</span>
-                  <input type="text" className={styles.inlineInput} style={{ flex: 1, width: '100%' }} />
+                  <input type="text" aria-label={`Risk ${n} to investigate`} className={styles.inlineInput} style={{ flex: 1, width: '100%' }} />
                 </div>
               ))}
             </Q>
@@ -494,9 +499,9 @@ export default function IntakeProactive() {
                 {[1, 2, 3, 4].map(n => (
                   <tr key={n}>
                     <td>{n}</td>
-                    <td><input type="text" className={styles.tableInput} /></td>
-                    <td><input type="text" className={styles.tableInput} style={{ width: '120px' }} /></td>
-                    <td><input type="date" className={styles.tableInput} style={{ width: '140px' }} /></td>
+                    <td><input type="text" aria-label={`Action ${n}`} className={styles.tableInput} /></td>
+                    <td><input type="text" aria-label={`Action ${n} owner`} className={styles.tableInput} style={{ width: '120px' }} /></td>
+                    <td><input type="date" aria-label={`Action ${n} due date`} className={styles.tableInput} style={{ width: '140px' }} /></td>
                   </tr>
                 ))}
               </tbody>
