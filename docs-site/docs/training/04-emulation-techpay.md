@@ -61,8 +61,8 @@ TechPay's detection engineering team has deployed 8 rules based on the Operation
 
 ## Cross-Links
 
-- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
+- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
+- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://1200km.com/cti-analyst-field-manual/docs/frameworks/mitre-attack-as-working-tool/)
 - **Same adversary pattern in government context:** [A08 — NDSA INCD Section 8 Emulation](./08-emulation-ndsa.md)
 - **Iranian-nexus actor context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)
 

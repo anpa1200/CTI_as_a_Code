@@ -81,8 +81,8 @@ Citizen Browser / Mobile App
 
 ## Cross-Links
 
-- **Proactive CTI methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **Source reliability:** [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
+- **Proactive CTI methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
+- **Source reliability:** [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/source-reliability/)
 - **Same breach that precedes this assignment:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)
 - **CTI program built post-launch:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
 - **Detections from this assignment validated in:** [A08 — INCD Section 8 Emulation](./08-emulation-ndsa.md)

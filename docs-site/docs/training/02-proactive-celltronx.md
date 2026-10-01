@@ -77,8 +77,8 @@ CelltronX — a major Israeli telecom listed on the TA-35 index — has a new CI
 
 ## Cross-Links
 
-- **Detection methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **Evidence discipline:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
+- **Detection methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
+- **Evidence discipline:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/)
 - **Same VPN and AiTM TTPs in incident context:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech.md)
 - **TechPay CTI program (same ecosystem):** [A03 — Full Cycle CTI TechPay](./03-full-cycle-techpay.md)
 - **Israeli telecom sector threat context:** [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/)

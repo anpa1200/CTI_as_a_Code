@@ -97,8 +97,8 @@ The 6-month INCD remediation directive mandates:
 
 ## Cross-Links
 
-- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
-- **Collection planning:** [Field Manual — Collection Planning](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/collection-planning/)
+- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/pir-sir-eei/)
+- **Collection planning:** [Field Manual — Collection Planning](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/collection-planning/)
 - **Breach that triggered this directive:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)
 - **Detection backlog from this program tested in:** [A08 — INCD Section 8 Emulation](./08-emulation-ndsa.md)
 - **Private sector parallel:** [A03 — Full Cycle TechPay](./03-full-cycle-techpay.md)

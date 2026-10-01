@@ -34,13 +34,13 @@ Real investigations worked end-to-end using the CTI as a Code methodology — fr
 
 | Case Study | Scenario | Key Techniques | Article |
 |---|---|---|---|
-| **[LifeTech Pharma — Reactive IR](/docs/lifetech-pharma-case-study)** | Dual-entry pharmaceutical IP theft — AiTM + CFO phishing, DCSync, 381 MB exfiltration | T1557 · T1003.006 · T1133 · RBQL anomaly detection · Cobalt Strike beacon analysis | [Medium](https://medium.com/@1200km/cti-as-a-code-in-practice-reactive-investigation-lifetech-pharma-3e6574b7b85f) |
-| **[CelltronX Telecom — Proactive Assessment](/docs/celltronx-proactive-case-study)** | MuddyWater targeting Israeli telecom — crown jewels analysis, 5 attack scenarios, detection gap mapping, 5 Sigma rules | T1219 · T1133 · T1505.003 · T1572 · DeTT&CT scoring · SimpleHelp RMM detection | — |
+| **[LifeTech Pharma — Reactive IR](/lifetech-pharma-case-study/)** | Dual-entry pharmaceutical IP theft — AiTM + CFO phishing, DCSync, 381 MB exfiltration | T1557 · T1003.006 · T1133 · RBQL anomaly detection · Cobalt Strike beacon analysis | [Medium](https://medium.com/@1200km/cti-as-a-code-in-practice-reactive-investigation-lifetech-pharma-3e6574b7b85f) |
+| **[CelltronX Telecom — Proactive Assessment](/celltronx-proactive-case-study/)** | MuddyWater targeting Israeli telecom — crown jewels analysis, 5 attack scenarios, detection gap mapping, 5 Sigma rules | T1219 · T1133 · T1505.003 · T1572 · DeTT&CT scoring · SimpleHelp RMM detection | — |
 
 Each case study maps directly to a training assignment, a full technical walkthrough, and an ATT&CK Navigator layer:
 
-- **LifeTech Pharma:** [Case study](/docs/lifetech-pharma-case-study) · [Technical walkthrough](/docs/reactive-walkthrough) · [Assignment A01](/docs/training/01-reactive-lifetech) · [ATT&CK Navigator layer](/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json)
-- **CelltronX Telecom:** [Case study](/docs/celltronx-proactive-case-study) · [Proactive walkthrough](/docs/proactive-walkthrough) · [Assignment A02](/docs/training/02-proactive-celltronx)
+- **LifeTech Pharma:** [Case study](/lifetech-pharma-case-study/) · [Technical walkthrough](/reactive-walkthrough/) · [Assignment A01](/training/reactive-lifetech/) · [ATT&CK Navigator layer](https://github.com/anpa1200/CTI_as_a_Code/blob/main/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json)
+- **CelltronX Telecom:** [Case study](/celltronx-proactive-case-study/) · [Proactive walkthrough](/proactive-walkthrough/) · [Assignment A02](/training/proactive-celltronx/)
 
 ---
 
@@ -62,11 +62,11 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 
 ### Reactive Investigation → Sigma Rule → Lab Validation
 
-1. Read the **[LifeTech Pharma case study](/docs/lifetech-pharma-case-study)** as a worked example of the full flow
-2. Run the same investigation yourself with [Assignment A01](/docs/training/01-reactive-lifetech) or [A05](/docs/training) as the scenario
+1. Read the **[LifeTech Pharma case study](/lifetech-pharma-case-study/)** as a worked example of the full flow
+2. Run the same investigation yourself with [Assignment A01](/training/reactive-lifetech/) or [A05](/training/) as the scenario
 3. Apply [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/) and [Source Reliability](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/source-reliability/) to each timeline event
 4. Convert findings to detection logic using [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
-5. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/docs/training) or [A08](/docs/training) emulation methodology
+5. Deploy the Sigma rule to Elastic SIEM in the lab and validate with [A04](/training/) or [A08](/training/) emulation methodology
 6. Use [HexStrike AI (upstream project)](https://github.com/0x4m4/hexstrike-ai) for adversarial red-team validation of coverage, or use [Andrey Pautov's HexStrike AI fork](https://github.com/anpa1200/Hexstrike-AI) when the site owner's repository is required
 
 ### Threat Modeling → Detection Backlog → Customer Project
@@ -85,7 +85,7 @@ The **Israel CTI knowledge base** is the threat context for the NDSA narrative a
 
 ### Actor Profile → Sector Context → Detection
 
-1. Use [Field Manual — Actor Research](https://1200km.com/cti-analyst-field-manual/docs/actor-research/) to structure the actor profile
+1. Use [Field Manual — Actor Research](https://1200km.com/cti-analyst-field-manual/docs/actor-research/actor-profile-template/) to structure the actor profile
 2. Use [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/) for the Iranian-nexus cluster context relevant to A05–A08
 3. Extract detection-relevant TTPs using [A04 TTP extraction methodology](/training/emulation-techpay)
 4. Turn the profile into a customer project with [Customer-Driven AI CTI](https://1200km.com/customer-driven-ai-cti-project/)

@@ -1832,10 +1832,10 @@ The assessment closed 4 business days after the CERT-IL advisory arrived. Three 
 
 | Next step | Link |
 |---|---|
-| Run this assessment yourself | [Assignment A02 — CelltronX](/docs/training/02-proactive-celltronx) |
+| Run this assessment yourself | [Assignment A02 — CelltronX](/training/proactive-celltronx/) |
 | Full proactive methodology reference | [CTI as a Code Methodology — Proactive Mode](/docs/cti-as-a-code-methodology) |
-| Reactive counterpart — post-breach investigation | [LifeTech Pharma Case Study](/docs/lifetech-pharma-case-study) |
-| Reactive technical walkthrough | [Reactive Walkthrough](/docs/reactive-walkthrough) |
+| Reactive counterpart — post-breach investigation | [LifeTech Pharma Case Study](/lifetech-pharma-case-study/) |
+| Reactive technical walkthrough | [Reactive Walkthrough](/reactive-walkthrough/) |
 | MuddyWater and Iranian-nexus sector context | [Israel Government Threat Actors CTI](https://1200km.com/israel-government-threat-actors-cti/) |
 | CTI Analyst Field Manual — proactive tradecraft | [Field Manual](https://1200km.com/cti-analyst-field-manual/) |
 | Full CTI Portfolio | [1200km.com/cti.html](https://1200km.com/cti.html) |

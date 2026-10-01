@@ -75,8 +75,8 @@ INCD-CID Section 8 requires annual detection validation for critical national in
 
 ## Cross-Links
 
-- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
-- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/frameworks/mitre-attack-as-working-tool/)
+- **Detection engineering methodology:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
+- **ATT&CK usage:** [Field Manual — MITRE ATT&CK as Working Tool](https://1200km.com/cti-analyst-field-manual/docs/frameworks/mitre-attack-as-working-tool/)
 - **Same TTPs in private sector emulation:** [A04 — Operation Desert Cipher TechPay](./04-emulation-techpay.md)
 - **Detections under test built in:** [A06 — Proactive GovID 2.0](./06-proactive-govid2.md)
 - **Incident that sourced the TTPs:** [A05 — NDSA Reactive IR](./05-reactive-ndsa.md)

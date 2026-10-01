@@ -1,3 +1,4 @@
+const applyTechnicalSitemap = require('./technical-seo-sitemap.cjs');
 // @ts-check
 const { themes } = require('prism-react-renderer');
 const {execFileSync} = require('node:child_process');
@@ -27,6 +28,7 @@ const customPageLastmods = new Map(
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  plugins: ['./technical-seo-plugin.cjs'],
   // Page titles are formatted centrally as "{Page Title} | 1200km".
   // The product name remains explicit in the navbar and page content below.
   title: '1200km',
@@ -220,4 +222,5 @@ const config = {
     }),
 };
 
+applyTechnicalSitemap(config);
 module.exports = config;

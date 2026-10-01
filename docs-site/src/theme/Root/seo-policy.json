@@ -1,0 +1,786 @@
+{
+  "prefix": "/CTI_as_a_Code/",
+  "pages": {
+    "/CTI_as_a_Code/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 788,
+      "title": "CTI as a Code — CTI as Code | 1200km",
+      "description": "Version-controlled CTI methodology, evidence-traced analysis, and deployable detections. Docker Compose lab stack and 8 structured training assignments.",
+      "links": [
+        {
+          "href": "/CTI_as_a_Code/celltronx-proactive-case-study/",
+          "label": "Proactive CTI Assessment — CelltronX Case"
+        }
+      ]
+    },
+    "/CTI_as_a_Code/architecture/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 377,
+      "title": "Architecture — CTI as Code | 1200km",
+      "description": "See how the lab combines OpenCTI, TheHive, Cortex, Elasticsearch, Kibana, and Logstash in one Docker Compose stack with clear shared data flows."
+    },
+    "/CTI_as_a_Code/celltronx-proactive-case-study/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 8923,
+      "title": "Proactive CTI Assessment — CelltronX Case | 1200km",
+      "description": "Apply proactive CTI to a telecom supply-chain scenario: connect four triggers, model attack paths, prioritize gaps and produce five Sigma rules.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#howto",
+        "name": "Proactive CTI Assessment — CelltronX Case | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 00: Initialize the Assessment Project",
+            "text": "Step 00: Initialize the Assessment Project",
+            "url": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#step-00-initialize-the-assessment-project"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "2. Create your assessments folder",
+            "text": "2. Create your assessments folder",
+            "url": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#2-create-your-assessments-folder"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 0: Intake — Before Any Source Is Opened",
+            "text": "Step 0: Intake — Before Any Source Is Opened",
+            "url": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#step-0-intake--before-any-source-is-opened"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open VS Code and create the intelligence query file",
+            "text": "1. Open VS Code and create the intelligence query file",
+            "url": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#1-open-vs-code-and-create-the-intelligence-query-file"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "3. Check the August 1 incident against actor profile",
+            "text": "3. Check the August 1 incident against actor profile",
+            "url": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#3-check-the-august-1-incident-against-actor-profile"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "2. Run DeTT&CT against the data source inventory",
+            "text": "2. Run DeTT&CT against the data source inventory",
+            "url": "https://1200km.com/CTI_as_a_Code/celltronx-proactive-case-study/#2-run-dettct-against-the-data-source-inventory"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/cti-as-a-code-methodology": {
+      "classification": "Excluded",
+      "reason": "HTTP 301; URL retained, not a sitemap candidate",
+      "word_count": 6626,
+      "title": "Complete Methodology — CTI as Code | 1200km",
+      "description": "Follow an evidence-traced CTI workflow from intake and source evaluation through claims, ATT&CK mapping, Sigma validation, and a detection backlog."
+    },
+    "/CTI_as_a_Code/cti-as-a-code-methodology/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 6626,
+      "title": "Complete Methodology — CTI as Code | 1200km",
+      "description": "Follow an evidence-traced CTI workflow from intake and source evaluation through claims, ATT&CK mapping, Sigma validation, and a detection backlog.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/cti-as-a-code-methodology/#howto",
+        "name": "Complete Methodology — CTI as Code | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/cti-as-a-code-methodology/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 1: Initial Information Gathering — Ask Before You Look",
+            "text": "Step 1: Initial Information Gathering — Ask Before You Look",
+            "url": "https://1200km.com/CTI_as_a_Code/cti-as-a-code-methodology/#step-1-initial-information-gathering--ask-before-you-look"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 2: Create Your Project Folder from the Template",
+            "text": "Step 2: Create Your Project Folder from the Template",
+            "url": "https://1200km.com/CTI_as_a_Code/cti-as-a-code-methodology/#step-2-create-your-project-folder-from-the-template"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 3: Scope the Project",
+            "text": "Step 3: Scope the Project",
+            "url": "https://1200km.com/CTI_as_a_Code/cti-as-a-code-methodology/#step-3-scope-the-project"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/docs/celltronx-proactive-case-study/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/docs/lifetech-pharma-case-study/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/docs/proactive-walkthrough/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/docs/reactive-walkthrough/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/docs/training/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/docs/training/01-reactive-lifetech/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/docs/training/02-proactive-celltronx/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/ecosystem": {
+      "classification": "Excluded",
+      "reason": "HTTP 301; URL retained, not a sitemap candidate",
+      "word_count": 971,
+      "title": "Ecosystem — CTI as Code | 1200km",
+      "description": "Connect the lab, field manual, sector research, AI-assisted delivery, AdversaryGraph, and validation tooling into practical analyst workflows."
+    },
+    "/CTI_as_a_Code/ecosystem/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 971,
+      "title": "Ecosystem — CTI as Code | 1200km",
+      "description": "Connect the lab, field manual, sector research, AI-assisted delivery, AdversaryGraph, and validation tooling into practical analyst workflows."
+    },
+    "/CTI_as_a_Code/intake-form/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 727,
+      "title": "Investigation Intake Form | 1200km",
+      "description": "Capture incident scope, stakeholders, known facts, evidence gaps, reporting needs, and response constraints before starting a reactive CTI investigation."
+    },
+    "/CTI_as_a_Code/intake-fullcycle/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 620,
+      "title": "Full-Cycle Program Intake | 1200km",
+      "description": "Capture program mandate, stakeholders, intelligence requirements, collection gaps, governance, sharing, metrics, and delivery constraints before design."
+    },
+    "/CTI_as_a_Code/intake-proactive/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 546,
+      "title": "Proactive Assessment Intake | 1200km",
+      "description": "Capture the trigger, decision, stakeholders, time horizon, scope, assumptions, evidence needs, and deliverables before a proactive threat assessment."
+    },
+    "/CTI_as_a_Code/integrations/opencti-thehive/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 407,
+      "title": "OpenCTI → TheHive — CTI as Code | 1200km",
+      "description": "Move confirmed indicators and campaign context into incident cases, then return enriched observables to intelligence platform with traceable steps."
+    },
+    "/CTI_as_a_Code/integrations/threat-feeds/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 326,
+      "title": "Threat Feeds — CTI as Code | 1200km",
+      "description": "Populate the lab with real threat intelligence by connecting external feeds. See the ecosystem for how feeds fit into the overall lab stack."
+    },
+    "/CTI_as_a_Code/intro/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 450,
+      "title": "Introduction — CTI as Code | 1200km",
+      "description": "Build repeatable threat-intelligence investigations with a Docker Compose lab, evidence-traced claims, deployable Sigma rules and eight training scenarios."
+    },
+    "/CTI_as_a_Code/investigations/lifetech-2024-11/03-analysis/attck-mapping/attck-navigator-layer.json/": {
+      "classification": "Excluded",
+      "reason": "HTTP 404; URL retained, not a sitemap candidate",
+      "word_count": 34,
+      "title": "1200km",
+      "description": ""
+    },
+    "/CTI_as_a_Code/lifetech-pharma-case-study": {
+      "classification": "Excluded",
+      "reason": "HTTP 301; URL retained, not a sitemap candidate",
+      "word_count": 2896,
+      "title": "Case Study: LifeTech Pharma — Reactive Investigation | 1200km",
+      "description": "Reconstruct a pharmaceutical intrusion through dual entry paths, DCSync, R&D exfiltration, and a ten-day telemetry gap, then derive defensible detections."
+    },
+    "/CTI_as_a_Code/lifetech-pharma-case-study/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 2896,
+      "title": "Reactive CTI — LifeTech Pharma Case Study | 1200km",
+      "description": "Reconstruct a pharmaceutical intrusion through dual entry paths, DCSync, R&D exfiltration, and a ten-day telemetry gap, then derive defensible detections.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/lifetech-pharma-case-study/#howto",
+        "name": "Reactive CTI — LifeTech Pharma Case Study | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/lifetech-pharma-case-study/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 00 — Initialize the Project Structure",
+            "text": "Step 00 — Initialize the Project Structure",
+            "url": "https://1200km.com/CTI_as_a_Code/lifetech-pharma-case-study/#step-00--initialize-the-project-structure"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 0 — Intake Process",
+            "text": "Step 0 — Intake Process",
+            "url": "https://1200km.com/CTI_as_a_Code/lifetech-pharma-case-study/#step-0--intake-process"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/methodology/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 3188,
+      "title": "Methodology — CTI as Code | 1200km",
+      "description": "Use version control, templates, evidence labels, claims ledgers, ATT&CK mapping, and detection backlogs to make CTI work reproducible and auditable.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/methodology/#howto",
+        "name": "Methodology — CTI as Code | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/methodology/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 0 — Clone and start the lab",
+            "text": "Step 0 — Clone and start the lab",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-0--clone-and-start-the-lab"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 1 — Choose mode and copy the template",
+            "text": "Step 1 — Choose mode and copy the template",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-1--choose-mode-and-copy-the-template"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 2 — Scope the project",
+            "text": "Step 2 — Scope the project",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-2--scope-the-project"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 4 — Analyse",
+            "text": "Step 4 — Analyse",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-4--analyse"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 5 — ATT&CK mapping and source registration",
+            "text": "Step 5 — ATT&CK mapping and source registration",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-5--attck-mapping-and-source-registration"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 6 — Attribution assessment (Reactive)",
+            "text": "Step 6 — Attribution assessment (Reactive)",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-6--attribution-assessment-reactive"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 7 — Derive detections",
+            "text": "Step 7 — Derive detections",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-7--derive-detections"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 8 — Execute and score (Emulation)",
+            "text": "Step 8 — Execute and score (Emulation)",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-8--execute-and-score-emulation"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 9 — Produce deliverables",
+            "text": "Step 9 — Produce deliverables",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-9--produce-deliverables"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 10 — Document and commit",
+            "text": "Step 10 — Document and commit",
+            "url": "https://1200km.com/CTI_as_a_Code/methodology/#step-10--document-and-commit"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/prerequisites/": {
+      "classification": "Thin",
+      "reason": "Short supporting page under 300 measured main-content words; retain content and URL",
+      "word_count": 288,
+      "title": "Prerequisites — CTI as Code | 1200km",
+      "description": "Prepare a Linux host, Docker tooling, memory, storage, ports, environment secrets, and network settings before bringing up the full intelligence lab."
+    },
+    "/CTI_as_a_Code/proactive-walkthrough/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 3206,
+      "title": "Proactive Threat Assessment — Telecom Lab | 1200km",
+      "description": "Turn four threat triggers, contractor exposure, active TTPs, and a compliance gap into prioritized attack scenarios and a sprint-ready detection backlog."
+    },
+    "/CTI_as_a_Code/quick-start": {
+      "classification": "Excluded",
+      "reason": "HTTP 301; URL retained, not a sitemap candidate",
+      "word_count": 432,
+      "title": "Quick Start — CTI as Code | 1200km",
+      "description": "Clone the repository, configure secrets, start the Docker Compose services, verify health, and open each analyst platform in a working local lab."
+    },
+    "/CTI_as_a_Code/quick-start/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 432,
+      "title": "Quick Start — CTI as Code | 1200km",
+      "description": "Clone the repository, configure secrets, start the Docker Compose services, verify health, and open each analyst platform in a working local lab.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/quick-start/#howto",
+        "name": "Quick Start — CTI as Code | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/quick-start/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "2. Configure credentials",
+            "text": "2. Configure credentials",
+            "url": "https://1200km.com/CTI_as_a_Code/quick-start/#2-configure-credentials"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "4. Start core services",
+            "text": "4. Start core services",
+            "url": "https://1200km.com/CTI_as_a_Code/quick-start/#4-start-core-services"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "5. Run first-time setup",
+            "text": "5. Run first-time setup",
+            "url": "https://1200km.com/CTI_as_a_Code/quick-start/#5-run-first-time-setup"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "6. Verify all services are up",
+            "text": "6. Verify all services are up",
+            "url": "https://1200km.com/CTI_as_a_Code/quick-start/#6-verify-all-services-are-up"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/reactive-walkthrough/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 14964,
+      "title": "Reactive CTI Investigation — Pharma Lab | 1200km",
+      "description": "A walkthrough of the methodology applied to a real training scenario: pharmaceutical IP theft, dual entry points, and a DCSync that changes everything.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#howto",
+        "name": "Reactive CTI Investigation — Pharma Lab | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 00: Clone, Initialize, and Fill the Template",
+            "text": "Step 00: Clone, Initialize, and Fill the Template",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#step-00-clone-initialize-and-fill-the-template"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "2. Create your investigations folder",
+            "text": "2. Create your investigations folder",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#2-create-your-investigations-folder"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 0: Intake — What the First Call Captures",
+            "text": "Step 0: Intake — What the First Call Captures",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#step-0-intake--what-the-first-call-captures"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 1–2: Project Setup and Scope",
+            "text": "Step 1–2: Project Setup and Scope",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#step-12-project-setup-and-scope"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the scope document",
+            "text": "1. Open the scope document",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-scope-document"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the source registry",
+            "text": "1. Open the source registry",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-source-registry"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "3. Create a GAP document for every gap",
+            "text": "3. Create a GAP document for every gap",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#3-create-a-gap-document-for-every-gap"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the timeline file",
+            "text": "1. Open the timeline file",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-timeline-file"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the claims ledger",
+            "text": "1. Open the claims ledger",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-claims-ledger"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the ATT&CK mapping file",
+            "text": "1. Open the ATT&CK mapping file",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-attck-mapping-file"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the attribution file",
+            "text": "1. Open the attribution file",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-attribution-file"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Create one file per rule",
+            "text": "1. Create one file per rule",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-create-one-file-per-rule"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "1. Open the deliverable templates",
+            "text": "1. Open the deliverable templates",
+            "url": "https://1200km.com/CTI_as_a_Code/reactive-walkthrough/#1-open-the-deliverable-templates"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/services/elastic-siem/": {
+      "classification": "Thin",
+      "reason": "Short supporting page under 300 measured main-content words; retain content and URL",
+      "word_count": 273,
+      "title": "Elastic SIEM — CTI as Code | 1200km",
+      "description": "Connect the shared data store, Kibana, and optional Logstash ingestion to support alert triage, timeline analysis, dashboards, and detection validation."
+    },
+    "/CTI_as_a_Code/services/elasticsearch/": {
+      "classification": "Thin",
+      "reason": "Short supporting page under 300 measured main-content words; retain content and URL",
+      "word_count": 280,
+      "title": "Elasticsearch — CTI as Code | 1200km",
+      "description": "Configure the shared 8.x data store used by intelligence, case management, enrichment, and SIEM services, including health checks and index access."
+    },
+    "/CTI_as_a_Code/services/opencti/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 331,
+      "title": "OpenCTI — CTI as Code | 1200km",
+      "description": "Configure the core STIX2 intelligence platform for actors, malware, campaigns, attack patterns, and indicators, with graph-based investigation workflows."
+    },
+    "/CTI_as_a_Code/services/thehive-cortex/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 302,
+      "title": "TheHive + Cortex — CTI as Code | 1200km",
+      "description": "TheHive is the incident response case management system. Cortex is the companion automated enrichment engine that runs analyzers against observables."
+    },
+    "/CTI_as_a_Code/setup/cortex-setup/": {
+      "classification": "Thin",
+      "reason": "Short supporting page under 300 measured main-content words; retain content and URL",
+      "word_count": 291,
+      "title": "Cortex Setup — CTI as Code | 1200km",
+      "description": "Create the enrichment-engine administrator, connect the service to TheHive, add analyzers, and verify observable analysis in the local lab stack.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/setup/cortex-setup/#howto",
+        "name": "Cortex Setup — CTI as Code | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/setup/cortex-setup/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 1: Add the key to .env",
+            "text": "Step 1: Add the key to .env",
+            "url": "https://1200km.com/CTI_as_a_Code/setup/cortex-setup/#step-1-add-the-key-to-env"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 2: Enable the Cortex connector in TheHive config",
+            "text": "Step 2: Enable the Cortex connector in TheHive config",
+            "url": "https://1200km.com/CTI_as_a_Code/setup/cortex-setup/#step-2-enable-the-cortex-connector-in-thehive-config"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 3: Restart TheHive with the new env var",
+            "text": "Step 3: Restart TheHive with the new env var",
+            "url": "https://1200km.com/CTI_as_a_Code/setup/cortex-setup/#step-3-restart-thehive-with-the-new-env-var"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 4: Verify the connection in TheHive",
+            "text": "Step 4: Verify the connection in TheHive",
+            "url": "https://1200km.com/CTI_as_a_Code/setup/cortex-setup/#step-4-verify-the-connection-in-thehive"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/setup/first-run/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 313,
+      "title": "First-Run Checklist — CTI as Code | 1200km",
+      "description": "Verify each Docker service after setup, confirm web access and health, create required accounts, test integrations, and catch configuration failures early."
+    },
+    "/CTI_as_a_Code/setup/opencti-setup/": {
+      "classification": "Thin",
+      "reason": "Short supporting page under 300 measured main-content words; retain content and URL",
+      "word_count": 266,
+      "title": "OpenCTI Setup — CTI as Code | 1200km",
+      "description": "Complete first-run administration for the intelligence platform: sign in, configure organization settings, add connectors, and verify ingestion health."
+    },
+    "/CTI_as_a_Code/setup/thehive-setup/": {
+      "classification": "Thin",
+      "reason": "Short supporting page under 300 measured main-content words; retain content and URL",
+      "word_count": 235,
+      "title": "TheHive Setup — CTI as Code | 1200km",
+      "description": "Create the initial case-management organization and administrator, connect the shared data store, set permissions, and verify analyst access."
+    },
+    "/CTI_as_a_Code/training/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 428,
+      "title": "Training Overview — CTI as Code | 1200km",
+      "description": "Practice reactive, proactive, full-cycle and emulation work through eight structured scenarios with synthetic evidence, analyst files and worked solutions."
+    },
+    "/CTI_as_a_Code/training/emulation-ndsa/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 801,
+      "title": "A08 — Emulation (Gov) — NDSA INCD Section 8 | 1200km",
+      "description": "Run an annual government detection-validation exercise across fifteen TTPs, score eleven modules, document evidence, and prioritize remediation work."
+    },
+    "/CTI_as_a_Code/training/emulation-techpay/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 529,
+      "title": "A04 — Adversary Emulation — TechPay | 1200km",
+      "description": "Validate eight payment-sector detections against an emulation plan, record pass, partial and fail evidence and turn coverage gaps into engineering actions."
+    },
+    "/CTI_as_a_Code/training/full-cycle-ndsa/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 814,
+      "title": "A07 — Full CTI Cycle (Gov) — NDSA | 1200km",
+      "description": "Design a twelve-month government CTI program after a breach, covering requirements, collection gaps, sharing, governance and compliance milestones."
+    },
+    "/CTI_as_a_Code/training/full-cycle-techpay/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 919,
+      "title": "A03 — Full CTI Cycle — TechPay FinTech | 1200km",
+      "description": "Build a standing intelligence program for a payment processor: define requirements, collection, governance, sharing, metrics, and an auditable roadmap."
+    },
+    "/CTI_as_a_Code/training/proactive-celltronx/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 723,
+      "title": "A02 — Proactive CTI — CelltronX Telecom | 1200km",
+      "description": "Assess nation-state telecom targeting before an incident, model contractor and internet-facing paths, rank intelligence gaps and build a detection backlog."
+    },
+    "/CTI_as_a_Code/training/proactive-govid2/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 808,
+      "title": "A06 — Proactive CTI (Gov) — GovID 2.0 | 1200km",
+      "description": "Assess threats to a national biometric gateway before launch, link four triggers, model likely attack paths and deliver a defensible go or no-go decision."
+    },
+    "/CTI_as_a_Code/training/reactive-lifetech/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 573,
+      "title": "A01 — Reactive IR — LifeTech Pharma | 1200km",
+      "description": "Investigate a 52-hour pharmaceutical intrusion, trace dual entry points and DCSync, assess exfiltration, and write four Sigma detections from evidence."
+    },
+    "/CTI_as_a_Code/training/reactive-ndsa/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 852,
+      "title": "A05 — Reactive IR (Gov) — NDSA Breach | 1200km",
+      "description": "Reconstruct a government contractor breach affecting biometric records, document the timeline and notifications, map TTPs, and derive five Sigma rules."
+    },
+    "/CTI_as_a_Code/workflows/fullcycle-program/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 725,
+      "title": "Full-Cycle Program — Intake | 1200km",
+      "description": "Scope a new or recovering CTI program by clarifying mandate, stakeholders, requirements, collection gaps, governance, sharing and success measures."
+    },
+    "/CTI_as_a_Code/workflows/ioc-triage/": {
+      "classification": "Priority",
+      "reason": "Substantive practitioner content or established navigation entry point",
+      "word_count": 572,
+      "title": "IOC Triage Workflow — CTI as Code | 1200km",
+      "description": "Turn a suspicious indicator into an evidence-traced product through enrichment, correlation, confidence scoring, case handling, and detection handoff.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#howto",
+        "name": "IOC Triage Workflow — CTI as Code | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 1: Alert triage in Kibana",
+            "text": "Step 1: Alert triage in Kibana",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-1-alert-triage-in-kibana"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 2: Open a TheHive case",
+            "text": "Step 2: Open a TheHive case",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-2-open-a-thehive-case"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 3: Cortex enrichment",
+            "text": "Step 3: Cortex enrichment",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-3-cortex-enrichment"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 4: Pivot in OpenCTI",
+            "text": "Step 4: Pivot in OpenCTI",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-4-pivot-in-opencti"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 5: Infrastructure pivoting",
+            "text": "Step 5: Infrastructure pivoting",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-5-infrastructure-pivoting"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 6: Attribution (if possible)",
+            "text": "Step 6: Attribution (if possible)",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-6-attribution-if-possible"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 7: Close the case",
+            "text": "Step 7: Close the case",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/ioc-triage/#step-7-close-the-case"
+          }
+        ]
+      }
+    },
+    "/CTI_as_a_Code/workflows/proactive-assessment/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 661,
+      "title": "Proactive Assessment — Intake | 1200km",
+      "description": "Frame an intelligence assessment before collection by defining the trigger, decision, stakeholders, time horizon, scope, assumptions, and evidence needs."
+    },
+    "/CTI_as_a_Code/workflows/reactive-investigation/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 535,
+      "title": "Reactive Investigation — Intake | 1200km",
+      "description": "Define the incident decision, stakeholders, scope, known facts, evidence gaps, and reporting cadence before opening logs or launching enrichment queries."
+    },
+    "/CTI_as_a_Code/workflows/threat-actor-research/": {
+      "classification": "Supporting",
+      "reason": "Substantive supporting reference or documentation",
+      "word_count": 702,
+      "title": "Threat Actor Research Workflow | 1200km",
+      "description": "Build an evidence-traced actor profile from public sources, normalize aliases and infrastructure, map TTPs, record confidence, and hand off detections.",
+      "howTo": {
+        "@type": "HowTo",
+        "@id": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/#howto",
+        "name": "Threat Actor Research Workflow | 1200km",
+        "mainEntityOfPage": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Step 1: Collection — gather raw reporting",
+            "text": "Step 1: Collection — gather raw reporting",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/#step-1-collection--gather-raw-reporting"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 2: Structure — create the actor in OpenCTI",
+            "text": "Step 2: Structure — create the actor in OpenCTI",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/#step-2-structure--create-the-actor-in-opencti"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 3: Validation — confidence scoring",
+            "text": "Step 3: Validation — confidence scoring",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/#step-3-validation--confidence-scoring"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 4: Detection — generate hunting queries",
+            "text": "Step 4: Detection — generate hunting queries",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/#step-4-detection--generate-hunting-queries"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Step 5: Product — export the intelligence",
+            "text": "Step 5: Product — export the intelligence",
+            "url": "https://1200km.com/CTI_as_a_Code/workflows/threat-actor-research/#step-5-product--export-the-intelligence"
+          }
+        ]
+      }
+    }
+  },
+  "gitHistory": true,
+  "person": {
+    "@type": "Person",
+    "@id": "https://1200km.com/#person",
+    "name": "Andrey Pautov",
+    "url": "https://1200km.com/",
+    "sameAs": [
+      "https://github.com/anpa1200",
+      "https://medium.com/@1200km",
+      "https://www.linkedin.com/in/andrey-pautov/",
+      "https://infosecwriteups.com/@1200km"
+    ]
+  },
+  "website": {
+    "@type": "WebSite",
+    "@id": "https://1200km.com/#website",
+    "url": "https://1200km.com/",
+    "name": "1200km Security Research",
+    "publisher": {
+      "@id": "https://1200km.com/#person"
+    }
+  }
+}

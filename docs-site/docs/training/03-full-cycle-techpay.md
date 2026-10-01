@@ -94,9 +94,9 @@ The Detection Engineering team's trust must be rebuilt through quality, not volu
 
 ## Cross-Links
 
-- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/pir-sir-eei/)
-- **Source reliability:** [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/source-reliability/)
-- **Detection from CTI:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-to-detection/intelligence-to-detection/)
+- **PIR/SIR methodology:** [Field Manual — PIR/SIR/EEI Framework](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/pir-sir-eei/)
+- **Source reliability:** [Field Manual — Source Reliability](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/source-reliability/)
+- **Detection from CTI:** [Field Manual — CTI to Detection](https://1200km.com/cti-analyst-field-manual/docs/cti-to-detection/intelligence-to-detection/)
 - **TechPay detections under test:** [A04 — Operation Desert Cipher Emulation](./04-emulation-techpay.md)
 - **Government parallel (INCD program):** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
 

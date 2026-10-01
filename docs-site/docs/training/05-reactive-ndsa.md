@@ -79,8 +79,8 @@ An INCD red team exercise ran 10 days before the incident under INCD-CID Section
 
 ## Cross-Links
 
-- **Attribution methodology:** [Field Manual — Attribution Methodology](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/attribution/attribution-methodology/)
-- **Evidence labels:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/CTI_as_a_Code/cti-foundations/evidence-labels/)
+- **Attribution methodology:** [Field Manual — Attribution Methodology](https://1200km.com/cti-analyst-field-manual/docs/attribution/attribution-methodology/)
+- **Evidence labels:** [Field Manual — Evidence Labels](https://1200km.com/cti-analyst-field-manual/docs/cti-foundations/evidence-labels/)
 - **Same adversary cluster in private sector:** [A01 — LifeTech Pharma Reactive IR](./01-reactive-lifetech.md)
 - **GovID 2.0 pre-launch threat model (next assignment):** [A06 — Proactive GovID 2.0](./06-proactive-govid2.md)
 - **NDSA CTI program built from this incident:** [A07 — Full Cycle NDSA](./07-full-cycle-ndsa.md)
